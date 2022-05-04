@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -8,6 +9,9 @@ import { ConfigService } from './config/config.service';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
   const config = app.get(ConfigService);
+
+  const validationPipe = new ValidationPipe({ transform: true });
+  app.useGlobalPipes(validationPipe);
 
   const swaggerConfig = new DocumentBuilder().setTitle('Zion API').setVersion(config.version).build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);

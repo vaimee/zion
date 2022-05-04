@@ -56,6 +56,8 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-fastify": "^8.4.4",
     "@nestjs/swagger": "^5.2.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
     "fastify-swagger": "^5.1.0",
     "joi": "^17.6.0",
     "reflect-metadata": "^0.1.13",
@@ -86,6 +88,7 @@
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.10.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "wot-thing-description-types": "^1.1.0-09-February-2022"
   }
 }
