@@ -12,4 +12,24 @@ export class ConfigService {
   public get serverPort(): number {
     return this.nestConfigService.get('SERVER_PORT', 3000);
   }
+
+  public get dbHost(): string {
+    return this.nestConfigService.get('DB_HOST', 'localhost');
+  }
+
+  public get dbPort(): number {
+    return this.nestConfigService.get('DB_PORT', 5432);
+  }
+
+  public get dbUser(): string {
+    return this.nestConfigService.get('DB_USER', 'postgres');
+  }
+
+  public get dbPassword(): string {
+    return this.nestConfigService.get('DB_PASSWORD', 'postgres');
+  }
+
+  public get dbDatabase(): string {
+    return this.nestConfigService.get('DB_DATABASE', 'postgres');
+  }
 }
