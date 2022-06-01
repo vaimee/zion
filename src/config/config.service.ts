@@ -40,4 +40,12 @@ export class ConfigService {
   public get dbDatabase(): string {
     return this.nestConfigService.get('DB_DATABASE', 'postgres');
   }
+
+  public get advertisedTDPath(): string {
+    return this.nestConfigService.get('MDNS_TD_PATH', '/well-known/wot-thing-description');
+  }
+
+  public get multicastName(): string {
+    return this.nestConfigService.get('MDNS_NAME', 'zion');
+  }
 }
