@@ -1,13 +1,13 @@
 export interface Writer<T> {
   create(item: T): Promise<T>;
-  update(id: string, item: Partial<T>): Promise<void>;
-  delete(id: string): Promise<void>;
+  update(id: number, item: Partial<T>): Promise<void>;
+  delete(id: number): Promise<void>;
 }
 
 export interface Reader<T> {
   find(item: Partial<T>): Promise<T[]>;
-  findOne(id: string | Partial<T>): Promise<T>;
-  exist(id: string | Partial<T>): Promise<boolean>;
+  findOne(id: number | Partial<T>): Promise<T>;
+  exist(id: number | Partial<T>): Promise<boolean>;
 }
 
 export type Repository<T> = Writer<T> & Reader<T>;
