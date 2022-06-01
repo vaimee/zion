@@ -9,6 +9,14 @@ export class ConfigService {
     return process.env.npm_package_version || '';
   }
 
+  public get apiBase(): string {
+    return this.nestConfigService.get<string>('API_BASE', 'http://localhost:3000');
+  }
+
+  public get serverHost(): string {
+    return this.nestConfigService.get('SERVER_HOST', '0.0.0.0');
+  }
+
   public get serverPort(): number {
     return this.nestConfigService.get('SERVER_PORT', 3000);
   }
