@@ -1,5 +1,5 @@
 export interface Writer<T> {
-  create(item: T): Promise<T>;
+  create(item: Partial<T>): Promise<T>;
   update(id: number, item: Partial<T>): Promise<void>;
   delete(id: number): Promise<void>;
 }

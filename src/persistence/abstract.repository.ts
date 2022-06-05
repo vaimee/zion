@@ -6,7 +6,7 @@ import { Repository } from './repository.interface';
 export abstract class AbstractRepository<T extends Model> implements Repository<T> {
   public constructor(protected readonly knex: Knex, private readonly namespace: string) {}
 
-  public async create(item: T): Promise<T> {
+  public async create(item: Partial<T>): Promise<T> {
     const trx = await this.knex.transaction();
     try {
       const ids = await trx(this.namespace).insert(item, 'id');
