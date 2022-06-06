@@ -32,4 +32,12 @@ export class ConfigService {
   public get dbDatabase(): string {
     return this.nestConfigService.get('DB_DATABASE', 'postgres');
   }
+
+  public get jwtSecret(): string {
+    return this.nestConfigService.get('JWT_SECRET', '');
+  }
+
+  public get jwtExpiresIn(): string {
+    return this.nestConfigService.get('JWT_EXPIRES_IN', '15m');
+  }
 }
