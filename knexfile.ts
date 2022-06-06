@@ -3,8 +3,6 @@ import * as dotenv from 'dotenv';
 import type { Knex } from 'knex';
 dotenv.config();
 
-const foldersPath = `${rootPath}/src/persistence/`;
-
 const config: Knex.Config = {
   client: 'pg',
   connection: {
@@ -14,10 +12,10 @@ const config: Knex.Config = {
     database: process.env.DB_DATABASE,
   },
   migrations: {
-    directory: `${foldersPath}/migrations`,
+    directory: `${rootPath}/migrations`,
   },
   seeds: {
-    directory: `${foldersPath}/seeds`,
+    directory: `${rootPath}/seeds`,
   },
 };
 
