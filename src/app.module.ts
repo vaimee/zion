@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 
 import { ApiReferenceModule } from './api-reference/api-reference.module';
+import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { ConfigModule } from './config/config.module';
 import { PersistenceModule } from './persistence/persistence.module';
 
 @Module({
-  imports: [ConfigModule, CommonModule, PersistenceModule, ApiReferenceModule],
+  imports: [ConfigModule, CommonModule, PersistenceModule, AuthModule, ApiReferenceModule],
   controllers: [],
   providers: [],
 })

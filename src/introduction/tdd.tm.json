@@ -1,0 +1,476 @@
+{
+    "@context": [
+        "http://www.w3.org/ns/td",
+        "https://w3c.github.io/wot-discovery/context/discovery-context.jsonld"
+    ],
+    "@type": [
+        "tm:ThingModel",
+        "ThingDirectory"
+    ],
+    "title": "Thing Description Directory (TDD) Thing Model",
+    "version": {
+        "model": "1.0.0-beta.2"
+    },
+    "base": "{{DIRECTORY_BASE_URL}}",
+    "properties": {
+        "things": {
+            "description": "Retrieve all Thing Descriptions",
+            "uriVariables": {
+                "offset": {
+                    "title": "Number of TDs to skip before the page",
+                    "type": "number",
+                    "default": 0
+                },
+                "limit": {
+                    "title": "Number of TDs in a page",
+                    "type": "number"
+                },
+                "format": {
+                    "title": "Payload format",
+                    "type": "string",
+                    "enum": [
+                        "array",
+                        "collection"
+                    ],
+                    "default": "array"
+                },
+                "sort_by": {
+                    "title": "Comparator TD attribute for collection sorting",
+                    "type": "string",
+                    "default": "id"
+                },
+                "sort_order": {
+                    "title": "Sorting order",
+                    "type": "string",
+                    "enum": [
+                        "asc",
+                        "desc"
+                    ],
+                    "default": "asc"
+                }
+            },
+            "forms": [
+                {
+                    "href": "/things{?offset,limit,format,sort_by,sort_order}",
+                    "htv:methodName": "GET",
+                    "response": {
+                        "description": "Success response",
+                        "htv:statusCodeValue": 200,
+                        "contentType": "application/ld+json",
+                        "htv:headers": [
+                            {
+                                "htv:fieldName": "Link"
+                            }
+                        ]
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "Invalid query arguments",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "actions": {
+        "createThing": {
+            "description": "Create a Thing Description",
+            "uriVariables": {
+                "id": {
+                    "@type": "ThingID",
+                    "title": "Thing Description ID",
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            },
+            "input": {
+                "description": "The schema is implied by the content type",
+                "type": "object"
+            },
+            "forms": [
+                {
+                    "href": "/things/{id}",
+                    "htv:methodName": "PUT",
+                    "contentType": "application/td+json",
+                    "response": {
+                        "description": "Success response",
+                        "htv:statusCodeValue": 201
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "Invalid serialization or TD",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        }
+                    ]
+                }
+            ]
+        },
+        "createAnonymousThing": {
+            "description": "Create an anonymous Thing Description",
+            "input": {
+                "description": "The schema is implied by the content type",
+                "type": "object"
+            },
+            "forms": [
+                {
+                    "href": "/things",
+                    "htv:methodName": "POST",
+                    "contentType": "application/td+json",
+                    "response": {
+                        "description": "Success response including the system-generated URI",
+                        "htv:headers": [
+                            {
+                                "description": "System-generated URI",
+                                "htv:fieldName": "Location"
+                            }
+                        ],
+                        "htv:statusCodeValue": 201
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "Invalid serialization or TD",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        }
+                    ]
+                }
+            ]
+        },
+        "retrieveThing": {
+            "description": "Retrieve a Thing Description",
+            "uriVariables": {
+                "id": {
+                    "@type": "ThingID",
+                    "title": "Thing Description ID",
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            },
+            "output": {
+                "description": "The schema is implied by the content type",
+                "type": "object"
+            },
+            "safe": true,
+            "idempotent": true,
+            "forms": [
+                {
+                    "href": "/things/{id}",
+                    "htv:methodName": "GET",
+                    "response": {
+                        "description": "Success response",
+                        "htv:statusCodeValue": 200,
+                        "contentType": "application/td+json"
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "TD with the given id not found",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 404
+                        }
+                    ]
+                }
+            ]
+        },
+        "updateThing": {
+            "description": "Update a Thing Description",
+            "uriVariables": {
+                "id": {
+                    "@type": "ThingID",
+                    "title": "Thing Description ID",
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            },
+            "input": {
+                "description": "The schema is implied by the content type",
+                "type": "object"
+            },
+            "forms": [
+                {
+                    "href": "/things/{id}",
+                    "htv:methodName": "PUT",
+                    "contentType": "application/td+json",
+                    "response": {
+                        "description": "Success response",
+                        "htv:statusCodeValue": 204
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "Invalid serialization or TD",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        }
+                    ]
+                }
+            ]
+        },
+        "partiallyUpdateThing": {
+            "description": "Partially update a Thing Description",
+            "uriVariables": {
+                "id": {
+                    "@type": "ThingID",
+                    "title": "Thing Description ID",
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            },
+            "input": {
+                "description": "The schema is implied by the content type",
+                "type": "object"
+            },
+            "forms": [
+                {
+                    "href": "/things/{id}",
+                    "htv:methodName": "PATCH",
+                    "contentType": "application/merge-patch+json",
+                    "response": {
+                        "description": "Success response",
+                        "htv:statusCodeValue": 204
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "Invalid serialization or TD",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        },
+                        {
+                            "description": "TD with the given id not found",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 404
+                        }
+                    ]
+                }
+            ]
+        },
+        "deleteThing": {
+            "description": "Delete a Thing Description",
+            "uriVariables": {
+                "id": {
+                    "@type": "ThingID",
+                    "title": "Thing Description ID",
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            },
+            "forms": [
+                {
+                    "href": "/things/{id}",
+                    "htv:methodName": "DELETE",
+                    "response": {
+                        "description": "Success response",
+                        "htv:statusCodeValue": 204
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "TD with the given id not found",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 404
+                        }
+                    ]
+                }
+            ]
+        },
+        "searchJSONPath": {
+            "description": "JSONPath syntactic search",
+            "uriVariables": {
+                "query": {
+                    "title": "A valid JSONPath expression",
+                    "type": "string"
+                }
+            },
+            "output": {
+                "description": "The schema depends on the given query",
+                "type": "object"
+            },
+            "safe": true,
+            "idempotent": true,
+            "forms": [
+                {
+                    "href": "/search/jsonpath?query={query}",
+                    "htv:methodName": "GET",
+                    "response": {
+                        "description": "Success response",
+                        "contentType": "application/json",
+                        "htv:statusCodeValue": 200
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "JSONPath expression not provided or contains syntax errors",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        }
+                    ]
+                }
+            ]
+        },
+        "searchXPath": {
+            "description": "XPath syntactic search",
+            "uriVariables": {
+                "query": {
+                    "title": "A valid XPath expression",
+                    "type": "string"
+                }
+            },
+            "output": {
+                "description": "The schema depends on the given query",
+                "type": "object"
+            },
+            "safe": true,
+            "idempotent": true,
+            "forms": [
+                {
+                    "href": "/search/xpath?query={query}",
+                    "htv:methodName": "GET",
+                    "response": {
+                        "description": "Success response",
+                        "contentType": "application/json",
+                        "htv:statusCodeValue": 200
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "XPath expression not provided or contains syntax errors",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        }
+                    ]
+                }
+            ]
+        },
+        "searchSPARQL": {
+            "description": "SPARQL semantic search",
+            "uriVariables": {
+                "query": {
+                    "title": "A valid SPARQL 1.1. query",
+                    "type": "string"
+                }
+            },
+            "output": {
+                "description": "The schema depends on the given query",
+                "type": "object"
+            },
+            "safe": true,
+            "idempotent": true,
+            "forms": [
+                {
+                    "href": "/search/sparql?query={query}",
+                    "htv:methodName": "GET",
+                    "response": {
+                        "description": "Success response",
+                        "contentType": "application/json",
+                        "htv:statusCodeValue": 200
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "SPARQL query not provided or contains syntax errors",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        }
+                    ]
+                },
+                {
+                    "href": "/search/sparql",
+                    "htv:methodName": "POST",
+                    "response": {
+                        "description": "Success response",
+                        "contentType": "application/json",
+                        "htv:statusCodeValue": 200
+                    },
+                    "additionalResponses": [
+                        {
+                            "description": "SPARQL query not provided or contains syntax errors",
+                            "contentType": "application/problem+json",
+                            "htv:statusCodeValue": 400
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "events": {
+        "thingCreated": {
+            "description": "Registration of Thing Descriptions inside the directory",
+            "uriVariables": {
+                "diff": {
+                    "description": "Receive the full created TD as event data",
+                    "type": "boolean"
+                }
+            },
+            "data": {
+                "title": "Partial/Full TD",
+                "type": "object"
+            },
+            "forms": [
+                {
+                    "op": "subscribeevent",
+                    "href": "/events/thing_created{?diff}",
+                    "subprotocol": "sse",
+                    "htv:headers": [
+                        {
+                            "description": "ID of the last event for reconnection",
+                            "htv:fieldName": "Last-Event-ID"
+                        }
+                    ],
+                    "response": {
+                        "contentType": "text/event-stream"
+                    }
+                }
+            ]
+        },
+        "thingUpdated": {
+            "description": "Updates to Thing Descriptions within the directory",
+            "uriVariables": {
+                "diff": {
+                    "description": "Include TD changes inside event data",
+                    "type": "boolean"
+                }
+            },
+            "data": {
+                "title": "Partial TD",
+                "type": "object",
+                "contentMediaType": "application/merge-patch+json"
+            },
+            "forms": [
+                {
+                    "op": "subscribeevent",
+                    "href": "/events/thing_updated{?diff}",
+                    "subprotocol": "sse",
+                    "htv:headers": [
+                        {
+                            "description": "ID of the last event for reconnection",
+                            "htv:fieldName": "Last-Event-ID"
+                        }
+                    ],
+                    "response": {
+                        "contentType": "text/event-stream"
+                    }
+                }
+            ]
+        },
+        "thingDeleted": {
+            "description": "Deletion of Thing Descriptions from the directory",
+            "data": {
+                "title": "Partial TD",
+                "type": "object"
+            },
+            "forms": [
+                {
+                    "op": "subscribeevent",
+                    "href": "/events/thing_deleted",
+                    "subprotocol": "sse",
+                    "htv:headers": [
+                        {
+                            "description": "ID of the last event for reconnection",
+                            "htv:fieldName": "Last-Event-ID"
+                        }
+                    ],
+                    "response": {
+                        "contentType": "text/event-stream"
+                    }
+                }
+            ]
+        }
+    }
+}

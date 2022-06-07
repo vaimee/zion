@@ -6,11 +6,11 @@ import { Repository } from './repository.interface';
 export abstract class AbstractRepository<T extends Model> implements Repository<T> {
   public constructor(protected readonly knex: Knex, private readonly namespace: string) {}
 
-  public async create(item: T): Promise<T> {
+  public async create(item: Partial<T>): Promise<T> {
     const trx = await this.knex.transaction();
     try {
       const ids = await trx(this.namespace).insert(item, 'id');
-      const res = await trx(this.namespace).select('*').where({ id: ids[0] }).first();
+      const res = await trx(this.namespace).select('*').where(ids[0]).first();
       await trx.commit();
       return res;
     } catch (error) {
