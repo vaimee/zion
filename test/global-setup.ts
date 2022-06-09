@@ -1,15 +1,16 @@
+import './env';
+
 import { execSync } from 'child_process';
 
 import { path as rootPath } from 'app-root-path';
 import * as detectPort from 'detect-port';
 import dockerCompose from 'docker-compose';
 
-const dbPort = 54310;
-const envs = `DB_HOST=localhost DB_PORT=${dbPort} DB_USER=postgres DB_PASSWORD=postgres DB_DATABASE=postgres`;
-
 export default async function () {
   console.time('global-setup');
   console.log('\n');
+
+  const dbPort = Number(process.env.DB_PORT);
 
   // Speed up during development, if already live then do nothing
   const reachablePort = await detectPort(dbPort);
@@ -28,7 +29,7 @@ export default async function () {
     cwd: `${rootPath}/test`,
   });
 
-  execSync(`${envs} npm run db:migrate:latest`);
+  execSync('npm run db:migrate:latest');
 
   console.timeEnd('global-setup');
 }

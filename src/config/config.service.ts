@@ -40,7 +40,7 @@ export class ConfigService {
   public get dbDatabase(): string {
     return this.nestConfigService.get('DB_DATABASE', 'postgres');
   }
-  
+
   public get jwtSecret(): string {
     return this.nestConfigService.get('JWT_SECRET', '');
   }
@@ -48,7 +48,7 @@ export class ConfigService {
   public get jwtExpiresIn(): string {
     return this.nestConfigService.get('JWT_EXPIRES_IN', '15m');
   }
-  
+
   public get advertisedTDPath(): string {
     return this.nestConfigService.get('MDNS_TD_PATH', '/well-known/wot-thing-description');
   }
