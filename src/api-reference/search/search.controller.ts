@@ -1,12 +1,11 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { SearchAPI } from './search.interface';
 import { SearchService } from './search.service';
 
 @ApiTags('Search')
 @Controller('search')
-export class SearchController implements SearchAPI {
+export class SearchController {
   public constructor(private readonly searchService: SearchService) {}
 
   @Get('jsonpath')

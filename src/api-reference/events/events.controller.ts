@@ -1,14 +1,14 @@
 import { Controller, Param, Query, Sse } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
-import { ThingDescription } from 'wot-thing-description-types';
 
-import { EventType, EventsAPI } from './events.interface';
+import { ThingDescription } from './../../common/models/thing-description.model';
+import { EventType } from './enums/event-type';
 import { EventsService } from './events.service';
 
 @ApiTags('Events')
 @Controller('events')
-export class EventsController implements EventsAPI {
+export class EventsController {
   public constructor(private readonly eventsService: EventsService) {}
 
   @Sse()

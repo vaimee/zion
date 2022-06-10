@@ -1,3 +1,1 @@
-export abstract class Model {
-  public id!: number;
-}
+export abstract class Model {}

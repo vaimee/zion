@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { ThingDescription } from 'wot-thing-description-types';
 
-import { ListQuery, ThingsAPI } from './things.interface';
+import { ThingDescription } from './../../common/models/thing-description.model';
+import { ThingDescriptionRepository } from './../../persistence/thing-description.repository';
+import { ThingDescriptionDto } from './dto/thing-description.dto';
+import { ThingDescriptionsQueryDto } from './dto/thing-descriptions-query.dto';
 
 @Injectable()
-export class ThingsService implements ThingsAPI {
-  public create(td: ThingDescription): Promise<void> {
+export class ThingsService {
+  public constructor(private readonly thingDescriptionRepository: ThingDescriptionRepository) {}
+
+  public async create(dto: ThingDescriptionDto): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
@@ -13,11 +17,11 @@ export class ThingsService implements ThingsAPI {
     throw new Error('Method not implemented.');
   }
 
-  public upsert(id: string, td: ThingDescription): Promise<void> {
+  public upsert(id: string, dto: ThingDescriptionDto): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  public update(id: string, td: Partial<ThingDescription>): Promise<void> {
+  public update(id: string, dto: ThingDescriptionDto): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
@@ -25,7 +29,7 @@ export class ThingsService implements ThingsAPI {
     throw new Error('Method not implemented.');
   }
 
-  public list(query: ListQuery): Promise<ThingDescription[]> {
+  public list(query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
     throw new Error('Method not implemented.');
   }
 }

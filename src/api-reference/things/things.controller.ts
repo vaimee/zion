@@ -1,18 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Res, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { ThingDescription } from 'wot-thing-description-types';
 
-import { ListQuery, ThingsAPI } from './things.interface';
+import { AuthGuard } from './../../auth/auth.guard';
+import { ThingDescription } from './../../common/models/thing-description.model';
+import { ThingDescriptionDto } from './dto/thing-description.dto';
+import { ThingDescriptionsQueryDto } from './dto/thing-descriptions-query.dto';
 import { ThingsService } from './things.service';
 
 @ApiTags('Things')
 @Controller('things')
-export class ThingsController implements ThingsAPI {
+export class ThingsController {
   public constructor(private readonly thingsService: ThingsService) {}
 
   @Post()
-  public create(@Body() td: ThingDescription): Promise<void> {
-    return this.thingsService.create(td);
+  @UseGuards(AuthGuard)
+  public create(@Body() dto: ThingDescriptionDto): Promise<void> {
+    return this.thingsService.create(dto);
   }
 
   @Get(':id')
@@ -21,13 +24,13 @@ export class ThingsController implements ThingsAPI {
   }
 
   @Put(':id')
-  public upsert(@Param('id') id: string, @Body() td: ThingDescription): Promise<void> {
-    return this.thingsService.upsert(id, td);
+  public upsert(@Param('id') id: string, @Body() dto: ThingDescriptionDto): Promise<void> {
+    return this.thingsService.upsert(id, dto);
   }
 
   @Patch(':id')
-  public update(@Param('id') id: string, @Body() td: Partial<ThingDescription>): Promise<void> {
-    return this.thingsService.update(id, td);
+  public update(@Param('id') id: string, @Body() dto: ThingDescriptionDto): Promise<void> {
+    return this.thingsService.update(id, dto);
   }
 
   @Delete(':id')
@@ -36,7 +39,7 @@ export class ThingsController implements ThingsAPI {
   }
 
   @Get()
-  public list(@Query() query: ListQuery): Promise<ThingDescription[]> {
+  public list(@Query() query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
     return this.thingsService.list(query);
   }
 }
