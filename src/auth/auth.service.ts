@@ -28,7 +28,7 @@ export class AuthService {
       throw new UnauthorizedException(loginFailed);
     }
 
-    const accessToken = this.jwtService.sign({ userId: user.id });
+    const accessToken = this.jwtService.sign({ sub: user.id });
     return { accessToken };
   }
 
@@ -42,7 +42,7 @@ export class AuthService {
     }
 
     const user = await this.userRepository.create({ email, password: hashedPassword });
-    const accessToken = this.jwtService.sign({ userId: user.id });
+    const accessToken = this.jwtService.sign({ sub: user.id });
     return { accessToken };
   }
 }
