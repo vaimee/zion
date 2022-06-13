@@ -3,6 +3,7 @@ import { KnexModule } from 'nestjs-knex';
 
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
+import { ThingDescriptionRepository } from './thing-description.repository';
 import { UserRepository } from './user.repository';
 
 @Module({
@@ -24,7 +25,7 @@ import { UserRepository } from './user.repository';
       inject: [ConfigService],
     }),
   ],
-  providers: [UserRepository],
-  exports: [UserRepository],
+  providers: [UserRepository, ThingDescriptionRepository],
+  exports: [UserRepository, ThingDescriptionRepository],
 })
 export class PersistenceModule {}
