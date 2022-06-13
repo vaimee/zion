@@ -71,36 +71,38 @@ describe('/auth', () => {
     });
   });
 
-  describe('POST /register', () => {
-    it('should fail registering a new user due to duplicate email', async () => {
-      const user1 = {
-        email: 'test@test.com',
-        password: 'test123',
-      };
-      const user2 = {
-        email: 'test@test.com',
-        password: 'test123',
-      };
+  describe('/register', () => {
+    describe('POST', () => {
+      it('should fail registering a new user due to duplicate email', async () => {
+        const user1 = {
+          email: 'test@test.com',
+          password: 'test123',
+        };
+        const user2 = {
+          email: 'test@test.com',
+          password: 'test123',
+        };
 
-      const responseUser1 = await axios.post('/auth/register', user1);
-      const responseUser2 = await axios.post('/auth/register', user2);
+        const responseUser1 = await axios.post('/auth/register', user1);
+        const responseUser2 = await axios.post('/auth/register', user2);
 
-      expect(responseUser1.status).toBe(201);
-      expect(responseUser1.data.accessToken).toBeDefined();
-      expect(responseUser2.status).toBe(409);
-      expect(responseUser2.data).toStrictEqual(emailExists);
-    });
+        expect(responseUser1.status).toBe(201);
+        expect(responseUser1.data.accessToken).toBeDefined();
+        expect(responseUser2.status).toBe(409);
+        expect(responseUser2.data).toStrictEqual(emailExists);
+      });
 
-    it('should register a new user', async () => {
-      const user = {
-        email: 'test@test.com',
-        password: 'test123',
-      };
+      it('should register a new user', async () => {
+        const user = {
+          email: 'test@test.com',
+          password: 'test123',
+        };
 
-      const { status, data } = await axios.post('/auth/register', user);
+        const { status, data } = await axios.post('/auth/register', user);
 
-      expect(status).toBe(201);
-      expect(data.accessToken).toBeDefined();
+        expect(status).toBe(201);
+        expect(data.accessToken).toBeDefined();
+      });
     });
   });
 });
