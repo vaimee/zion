@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Res, Use
 import { ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from './../../auth/auth.guard';
-import { ThingDescription } from './../../common/models/thing-description.model';
+import { ThingDescription } from './../../common/models/thing-description';
 import { ThingDescriptionDto } from './dto/thing-description.dto';
 import { ThingDescriptionsQueryDto } from './dto/thing-descriptions-query.dto';
 import { ThingsService } from './things.service';

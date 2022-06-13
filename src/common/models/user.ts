@@ -3,8 +3,6 @@ import { Exclude } from 'class-transformer';
 import { Model } from './model';
 
 export class User extends Model {
-  public id!: number;
-
   public email!: string;
 
   @Exclude()

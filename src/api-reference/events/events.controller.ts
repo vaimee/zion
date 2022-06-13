@@ -2,7 +2,7 @@ import { Controller, Param, Query, Sse } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 
-import { ThingDescription } from './../../common/models/thing-description.model';
+import { ThingDescription } from '../../common/models/thing-description';
 import { EventType } from './enums/event-type';
 import { EventsService } from './events.service';
 

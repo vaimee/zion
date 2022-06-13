@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
-import { ThingDescription } from './../../common/models/thing-description.model';
+import { ThingDescription } from './../../common/models/thing-description';
 import { EventType } from './enums/event-type';
 
 @Injectable()
