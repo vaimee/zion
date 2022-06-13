@@ -63,6 +63,7 @@
     "@nestjs/platform-fastify": "^8.4.4",
     "@nestjs/swagger": "^5.2.1",
     "@node-wot/td-tools": "^0.8.0",
+    "ajv": "^8.11.0",
     "app-root-path": "^3.0.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",

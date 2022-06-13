@@ -1,8 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Res, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { FastifyReply as Response } from 'fastify';
 
 import { AuthGuard } from './../../auth/auth.guard';
+import { CurrentUser } from './../../common/decorators/current-user';
 import { ThingDescription } from './../../common/models/thing-description';
+import { User } from './../../common/models/user';
 import { ThingDescriptionDto } from './dto/thing-description.dto';
 import { ThingDescriptionsQueryDto } from './dto/thing-descriptions-query.dto';
 import { ThingsService } from './things.service';
@@ -14,8 +17,12 @@ export class ThingsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  public create(@Body() dto: ThingDescriptionDto): Promise<void> {
-    return this.thingsService.create(dto);
+  public create(
+    @CurrentUser() user: User,
+    @Body() dto: ThingDescriptionDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void> {
+    return this.thingsService.create(user, dto, res);
   }
 
   @Get(':id')
