@@ -24,6 +24,9 @@ export class ThingDescriptionBuilderService {
 
     const td = (await builder.getPartialTDs(model, options))[0];
     this.built = td as ThingDescription;
+    // TODO: chose the right security schema using configs
+    this.built.securityDefinitions = { nosec: { scheme: 'nosec' } };
+    this.built.security = 'nosec';
     return this.built;
   }
 }
