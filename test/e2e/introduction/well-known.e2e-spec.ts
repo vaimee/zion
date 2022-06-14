@@ -1,52 +1,60 @@
-import { INestApplication } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import * as request from 'supertest';
+import { AxiosInstance } from 'axios';
 
+import { validateThingDescription } from '../../../src/common/utils/thing-description-validator';
 import { IntroductionModule } from '../../../src/introduction/introduction.module';
+import { getE2ETestResources } from '../../utils/resources';
 
-describe('Well-known endpoint', () => {
-  let app: INestApplication;
+describe('/well-known', () => {
+  let axios: AxiosInstance;
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [IntroductionModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
+  beforeAll(async () => {
+    const res = await getE2ETestResources([IntroductionModule]);
+    axios = res.axios;
   });
 
-  it('should answer to well-known', () => {
-    return request(app.getHttpServer()).get('/well-known/wot-thing-description').expect(200);
-  });
+  describe('/wot-thing-description', () => {
+    describe('GET', () => {
+      it('should answer to well-known', async () => {
+        const { status } = await axios.get('/well-known/wot-thing-description');
+        expect(status).toBe(200);
+      });
 
-  it('should answer with a valid Thing Description', () => {
-    // TODO: validate Thing Description using node-wot
-    return request(app.getHttpServer()).get('/well-known/wot-thing-description').expect(200);
-  });
+      it('should answer with a valid Thing Description', async () => {
+        const { status, data } = await axios.get('/well-known/wot-thing-description');
+        const result = validateThingDescription(data);
 
-  /**
-   * @see https://w3c.github.io/wot-discovery/#introduction-well-known
-   * @see https://w3c.github.io/wot-discovery/#exploration-self
-   */
-  it('should answer to GET according to specification', () => {
-    // TODO: validate Thing Description using node-wot
-    return request(app.getHttpServer())
-      .get('/well-known/wot-thing-description')
-      .expect(200)
-      .expect('Content-type', 'application/td+json');
-  });
+        expect(status).toBe(200);
+        // TODO: probably it is better to use a custom matcher so that we can return errors
+        expect(result.valid).toBe(true);
+      });
 
-  /**
-   * @see https://w3c.github.io/wot-discovery/#introduction-well-known
-   * @see https://w3c.github.io/wot-discovery/#exploration-self
-   */
-  it('should answer to HEAD according to specification', () => {
-    // TODO: validate Thing Description using node-wot
-    return request(app.getHttpServer())
-      .head('/well-known/wot-thing-description')
-      .expect(200)
-      .expect('Content-type', 'application/td+json')
-      .expect((response) => expect(response.headers['content-length']).toBeDefined());
+      /**
+       * @see https://w3c.github.io/wot-discovery/#introduction-well-known
+       * @see https://w3c.github.io/wot-discovery/#exploration-self
+       */
+      it('should follow the specification', async () => {
+        const { status, headers, data } = await axios.get('/well-known/wot-thing-description');
+        const result = validateThingDescription(data);
+
+        expect(status).toBe(200);
+        // TODO: probably it is better to use a custom matcher so that we can return errors
+        expect(result.valid).toBe(true);
+        expect(headers['content-type']).toContain('application/td+json');
+      });
+    });
+
+    describe('HEAD', () => {
+      /**
+       * @see https://w3c.github.io/wot-discovery/#introduction-well-known
+       * @see https://w3c.github.io/wot-discovery/#exploration-self
+       */
+      it('should answer to HEAD according to specification', async () => {
+        const { status, headers } = await axios.head('/well-known/wot-thing-description');
+
+        expect(status).toBe(200);
+        expect(headers['content-type']).toContain('application/td+json');
+        expect(headers['content-length']).toBeDefined();
+      });
+    });
   });
 });
