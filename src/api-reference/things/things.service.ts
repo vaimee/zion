@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { FastifyReply as Response } from 'fastify';
 
 import { ThingDescription } from './../../common/models/thing-description';
@@ -31,8 +31,12 @@ export class ThingsService {
     res.header('Location', locationURL);
   }
 
-  public retrieve(id: string): Promise<ThingDescription> {
-    throw new Error('Method not implemented.');
+  public async retrieve(id: string): Promise<ThingDescription> {
+    const internalThingDescription = await this.thingDescriptionRepository.findOne({ urn: id });
+    if (!internalThingDescription) {
+      throw new NotFoundException();
+    }
+    return internalThingDescription.json;
   }
 
   public upsert(id: string, dto: ThingDescriptionDto): Promise<void> {
