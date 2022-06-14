@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
 import { emailExists, loginFailed } from './../../src/common/errors';
-import { emptyDatabase } from './../utils/database';
+import { getUniqueEmail } from '../utils/data';
 import { getE2ETestResources } from '../utils/resources';
 
 describe('/auth', () => {
@@ -15,10 +15,6 @@ describe('/auth', () => {
     axios = res.axios;
   });
 
-  beforeEach(async () => {
-    await emptyDatabase();
-  });
-
   afterAll(async () => {
     await app.close();
   });
@@ -26,7 +22,7 @@ describe('/auth', () => {
   describe('POST', () => {
     it('should fail to authenticate a user that does not exist', async () => {
       const credentials = {
-        email: 'test@test.com',
+        email: getUniqueEmail(),
         password: 'test123',
       };
 
@@ -37,14 +33,15 @@ describe('/auth', () => {
     });
 
     it('should fail to authenticate a user with the wrong password', async () => {
+      const email = getUniqueEmail();
       const user = {
-        email: 'test@test.com',
+        email,
         password: 'test123',
       };
       await axios.post('/auth/register', user);
 
       const credentials = {
-        email: 'test@test.com',
+        email,
         password: 'test456',
       };
       const { status, data } = await axios.post('/auth', credentials);
@@ -54,14 +51,15 @@ describe('/auth', () => {
     });
 
     it('should authenticate a user', async () => {
+      const email = getUniqueEmail();
       const user = {
-        email: 'test@test.com',
+        email,
         password: 'test123',
       };
       await axios.post('/auth/register', user);
 
       const credentials = {
-        email: 'test@test.com',
+        email,
         password: 'test123',
       };
       const { status, data } = await axios.post('/auth', credentials);
@@ -74,12 +72,13 @@ describe('/auth', () => {
   describe('/register', () => {
     describe('POST', () => {
       it('should fail registering a new user due to duplicate email', async () => {
+        const email = getUniqueEmail();
         const user1 = {
-          email: 'test@test.com',
+          email,
           password: 'test123',
         };
         const user2 = {
-          email: 'test@test.com',
+          email,
           password: 'test123',
         };
 
@@ -94,7 +93,7 @@ describe('/auth', () => {
 
       it('should register a new user', async () => {
         const user = {
-          email: 'test@test.com',
+          email: getUniqueEmail(),
           password: 'test123',
         };
 
