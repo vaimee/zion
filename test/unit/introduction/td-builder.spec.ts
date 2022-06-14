@@ -1,5 +1,6 @@
 import { Test } from '@nestjs/testing';
 
+import { validateThingDescription } from '../../../src/common/utils/thing-description-validator';
 import { ConfigModule } from '../../../src/config/config.module';
 import { ThingDescriptionBuilderService } from '../../../src/introduction/td-builder.service';
 
@@ -21,10 +22,13 @@ describe('ThingDescriptionBuilder', () => {
 
   it('should build a valid TD', async () => {
     expect(builder).toBeDefined();
+
     const td = await builder.build();
+    const result = validateThingDescription(td);
+
     expect(td).toBeDefined();
     expect(td.title).toBeDefined();
-    // TODO: use node-wot to validate the TD; currently node-wot does not have a validator
+    expect(result.valid).toBe(true);
   });
 
   it('should build a TD with the right base address', async () => {
