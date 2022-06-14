@@ -5,6 +5,10 @@ import { IntroductionModule } from '../../../src/introduction/introduction.modul
 import { getE2ETestResources } from '../../utils/resources';
 
 describe('/well-known', () => {
+  /**
+   * @see https://w3c.github.io/wot-discovery/#introduction-well-known
+   */
+  const SPECIFICATION_PATH = 'wot-thing-description';
   let axios: AxiosInstance;
 
   beforeAll(async () => {
@@ -12,15 +16,15 @@ describe('/well-known', () => {
     axios = res.axios;
   });
 
-  describe('/wot-thing-description', () => {
+  describe(`/${SPECIFICATION_PATH}`, () => {
     describe('GET', () => {
       it('should answer to well-known', async () => {
-        const { status } = await axios.get('/well-known/wot-thing-description');
+        const { status } = await axios.get(`/well-known/${SPECIFICATION_PATH}`);
         expect(status).toBe(200);
       });
 
       it('should answer with a valid Thing Description', async () => {
-        const { status, data } = await axios.get('/well-known/wot-thing-description');
+        const { status, data } = await axios.get(`/well-known/${SPECIFICATION_PATH}`);
         const result = validateThingDescription(data);
 
         expect(status).toBe(200);
@@ -33,7 +37,7 @@ describe('/well-known', () => {
        * @see https://w3c.github.io/wot-discovery/#exploration-self
        */
       it('should follow the specification', async () => {
-        const { status, headers, data } = await axios.get('/well-known/wot-thing-description');
+        const { status, headers, data } = await axios.get(`/well-known/${SPECIFICATION_PATH}`);
         const result = validateThingDescription(data);
 
         expect(status).toBe(200);
@@ -49,7 +53,7 @@ describe('/well-known', () => {
        * @see https://w3c.github.io/wot-discovery/#exploration-self
        */
       it('should answer to HEAD according to specification', async () => {
-        const { status, headers } = await axios.head('/well-known/wot-thing-description');
+        const { status, headers } = await axios.head(`/well-known/${SPECIFICATION_PATH}`);
 
         expect(status).toBe(200);
         expect(headers['content-type']).toContain('application/td+json');
