@@ -86,7 +86,8 @@ export class ThingsService {
     res.statusCode = 204;
   }
 
-  public list(query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
-    throw new Error('Method not implemented.');
+  public async list(query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
+    const thingDescriptions = await this.thingDescriptionRepository.find({});
+    return thingDescriptions.map((td) => td.json);
   }
 }

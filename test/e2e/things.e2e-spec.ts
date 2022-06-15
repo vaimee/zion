@@ -58,6 +58,21 @@ describe('/things', () => {
     });
   });
 
+  describe('GET', () => {
+    it('should retrieve all the Thing Descriptions (no pagination)', async () => {
+      await axios.post('/things', validThingDescription, {
+        headers: { Authorization: `Bearer ${defaultAccessToken}` },
+      });
+
+      const { status, data, headers } = await axios.get('/things');
+
+      // TODO: Find a better way to test this
+      expect(status).toBe(200);
+      expect(data.length).toBeGreaterThanOrEqual(1);
+      expect(headers['content-type']).toContain('application/json; charset=utf-8');
+    });
+  });
+
   describe(':id', () => {
     describe('GET', () => {
       it('should fail to retrieve the Thing Description when it does not exist', async () => {
