@@ -39,8 +39,20 @@ export class ThingsService {
     return internalThingDescription.json;
   }
 
-  public upsert(id: string, dto: ThingDescriptionDto): Promise<void> {
-    throw new Error('Method not implemented.');
+  public async upsert(user: User, id: string, dto: ThingDescriptionDto, res: Response): Promise<void> {
+    const { valid, errors } = validateThingDescription(dto);
+    if (!valid) {
+      throw new BadRequestException({ validationErrors: errors });
+    }
+
+    const internalThingDescription = await this.thingDescriptionRepository.findOne({ urn: id });
+    if (internalThingDescription) {
+      await this.thingDescriptionRepository.update(internalThingDescription.id, { json: dto });
+      res.statusCode = 204;
+    } else {
+      await this.thingDescriptionRepository.create({ urn: id, json: dto, owner_id: user.id });
+      res.statusCode = 201;
+    }
   }
 
   public update(id: string, dto: ThingDescriptionDto): Promise<void> {

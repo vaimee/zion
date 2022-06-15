@@ -31,8 +31,14 @@ export class ThingsController {
   }
 
   @Put(':id')
-  public upsert(@Param('id') id: string, @Body() dto: ThingDescriptionDto): Promise<void> {
-    return this.thingsService.upsert(id, dto);
+  @UseGuards(AuthGuard)
+  public upsert(
+    @CurrentUser() user: User,
+    @Param('id') id: string,
+    @Body() dto: ThingDescriptionDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void> {
+    return this.thingsService.upsert(user, id, dto, res);
   }
 
   @Patch(':id')
