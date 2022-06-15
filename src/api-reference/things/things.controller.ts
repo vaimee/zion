@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { FastifyReply as Response } from 'fastify';
+import { FastifyRequest as Request, FastifyReply as Response } from 'fastify';
 
 import { AuthGuard } from './../../auth/auth.guard';
 import { CurrentUser } from './../../common/decorators/current-user';
@@ -42,8 +42,13 @@ export class ThingsController {
   }
 
   @Patch(':id')
-  public update(@Param('id') id: string, @Body() dto: ThingDescriptionDto): Promise<void> {
-    return this.thingsService.update(id, dto);
+  public update(
+    @Param('id') id: string,
+    @Body() dto: ThingDescriptionDto,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void> {
+    return this.thingsService.update(id, dto, req, res);
   }
 
   @Delete(':id')

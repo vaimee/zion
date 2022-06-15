@@ -1,7 +1,8 @@
 import { randomUUID } from 'crypto';
 
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { FastifyReply as Response } from 'fastify';
+import { FastifyRequest as Request, FastifyReply as Response } from 'fastify';
+import { apply as mergePatch } from 'json-merge-patch';
 
 import { ThingDescription } from './../../common/models/thing-description';
 import { User } from './../../common/models/user';
@@ -55,8 +56,25 @@ export class ThingsService {
     }
   }
 
-  public update(id: string, dto: ThingDescriptionDto): Promise<void> {
-    throw new Error('Method not implemented.');
+  public async update(id: string, dto: ThingDescriptionDto, req: Request, res: Response): Promise<void> {
+    const isCorrectContentType = req.headers['content-type'] === 'application/merge-patch+json';
+    if (!isCorrectContentType) {
+      throw new BadRequestException();
+    }
+
+    const internalThingDescription = await this.thingDescriptionRepository.findOne({ urn: id });
+    if (!internalThingDescription) {
+      throw new NotFoundException();
+    }
+
+    const patchedThingDescription = mergePatch(internalThingDescription.json, dto);
+    const { valid, errors } = validateThingDescription(patchedThingDescription);
+    if (!valid) {
+      throw new BadRequestException({ validationErrors: errors });
+    }
+
+    await this.thingDescriptionRepository.update(internalThingDescription.id, { json: patchedThingDescription });
+    res.statusCode = 204;
   }
 
   public delete(id: string): Promise<void> {
