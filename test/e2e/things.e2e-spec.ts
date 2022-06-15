@@ -117,5 +117,60 @@ describe('/things', () => {
         expect(data).toStrictEqual(validThingDescription);
       });
     });
+
+    describe('PATCH', () => {
+      it('should fail to update the Thing Description when missing Content-Type header', async () => {
+        const { status } = await axios.patch('/things/no-matter', validThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        expect(status).toBe(400);
+      });
+
+      it('should fail to update the Thing Description when wrong Content-Type header', async () => {
+        const { status } = await axios.patch('/things/no-matter', validThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/json' },
+        });
+        expect(status).toBe(400);
+      });
+
+      it('should fail to update the Thing Description when it does not exist', async () => {
+        const { status } = await axios.patch('/things/not-exist', validThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
+        });
+        expect(status).toBe(404);
+      });
+
+      it('should fail to update the Thing Description when the patched Thing Description is invalid', async () => {
+        const { headers } = await axios.post('/things', validThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        const modifiedParts = { title: null };
+
+        const { status, data } = await axios.patch(headers.location, modifiedParts, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
+        });
+
+        expect(status).toBe(400);
+        expect(data.validationErrors).toStrictEqual([
+          { field: '', description: "must have required property 'title'" },
+        ]);
+      });
+
+      it('should update the Thing Description', async () => {
+        const { headers } = await axios.post('/things', validThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        const modifiedParts = { title: 'New Title' };
+
+        const { status } = await axios.patch(headers.location, modifiedParts, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
+        });
+
+        const { data } = await axios.get(headers.location);
+
+        expect(status).toBe(204);
+        expect(data).toStrictEqual({ ...validThingDescription, ...modifiedParts });
+      });
+    });
   });
 });
