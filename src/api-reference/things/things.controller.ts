@@ -52,8 +52,8 @@ export class ThingsController {
   }
 
   @Delete(':id')
-  public delete(@Param('id') id: string): Promise<void> {
-    return this.thingsService.delete(id);
+  public delete(@Param('id') id: string, @Res({ passthrough: true }) res: Response): Promise<void> {
+    return this.thingsService.delete(id, res);
   }
 
   @Get()

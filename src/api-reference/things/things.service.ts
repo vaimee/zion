@@ -77,8 +77,13 @@ export class ThingsService {
     res.statusCode = 204;
   }
 
-  public delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  public async delete(id: string, res: Response): Promise<void> {
+    const internalThingDescription = await this.thingDescriptionRepository.findOne({ urn: id });
+    if (!internalThingDescription) {
+      throw new NotFoundException();
+    }
+    await this.thingDescriptionRepository.delete(internalThingDescription.id);
+    res.statusCode = 204;
   }
 
   public list(query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
