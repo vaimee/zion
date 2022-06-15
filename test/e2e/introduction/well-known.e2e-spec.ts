@@ -1,7 +1,6 @@
 import { AxiosInstance } from 'axios';
 
 import { validateThingDescription } from '../../../src/common/utils/thing-description-validator';
-import { IntroductionModule } from '../../../src/introduction/introduction.module';
 import { getE2ETestResources } from '../../utils/resources';
 
 describe('/well-known', () => {
@@ -12,7 +11,7 @@ describe('/well-known', () => {
   let axios: AxiosInstance;
 
   beforeAll(async () => {
-    const res = await getE2ETestResources([IntroductionModule]);
+    const res = await getE2ETestResources();
     axios = res.axios;
   });
 

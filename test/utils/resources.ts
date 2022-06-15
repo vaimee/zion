@@ -1,16 +1,9 @@
-import { DynamicModule, ForwardReference, Type } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
 import ax from 'axios';
 
-import { AppModule } from '../../src/app.module';
+import getApp from './../../src/app-factory';
 
-export async function getE2ETestResources(
-  modules: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference<any>> = [],
-) {
-  const moduleFixture = await Test.createTestingModule({
-    imports: [AppModule, ...modules],
-  }).compile();
-  const app = moduleFixture.createNestApplication();
+export async function getE2ETestResources() {
+  const app = await getApp();
 
   await app.init();
   await app.listen(0);
