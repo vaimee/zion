@@ -172,5 +172,29 @@ describe('/things', () => {
         expect(data).toStrictEqual({ ...validThingDescription, ...modifiedParts });
       });
     });
+
+    describe('DELETE', () => {
+      it('should fail to delete the Thing Description when it does not exist', async () => {
+        const { status } = await axios.delete('/things/not-exist', {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        expect(status).toBe(404);
+      });
+
+      it('should delete the Thing Description', async () => {
+        const { headers } = await axios.post('/things', validThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+
+        const { status } = await axios.delete(headers.location, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+
+        const getResponse = await axios.get(headers.location);
+
+        expect(status).toBe(204);
+        expect(getResponse.status).toBe(404);
+      });
+    });
   });
 });
