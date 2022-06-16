@@ -10,4 +10,11 @@ export class WellKnownService {
   public async getThingDescription(): Promise<ThingDescription> {
     return this.builder.build();
   }
+
+  public async size(): Promise<number> {
+    // TODO: cache the result ?
+    const td = await this.builder.build();
+    const payload = JSON.stringify(td);
+    return Buffer.byteLength(payload, 'utf8');
+  }
 }
