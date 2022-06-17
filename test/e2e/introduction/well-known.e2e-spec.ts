@@ -1,3 +1,4 @@
+import { INestApplication } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
 import { validateThingDescription } from '../../../src/common/utils/thing-description-validator';
@@ -9,10 +10,16 @@ describe('/well-known', () => {
    */
   const SPECIFICATION_PATH = 'wot-thing-description';
   let axios: AxiosInstance;
+  let app: INestApplication;
 
   beforeAll(async () => {
     const res = await getE2ETestResources();
+    app = res.app;
     axios = res.axios;
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 
   describe(`/${SPECIFICATION_PATH}`, () => {

@@ -34,3 +34,7 @@ export async function createUser(): Promise<User> {
   const [user] = await knex<User>('user').insert({ email, password }).returning('*');
   return user;
 }
+
+export async function closeDbConnection() {
+  return knex.destroy();
+}

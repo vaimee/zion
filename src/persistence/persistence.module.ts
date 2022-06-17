@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { KnexModule } from 'nestjs-knex';
+import { Module, OnApplicationShutdown } from '@nestjs/common';
+import { InjectKnex, Knex, KnexModule } from 'nestjs-knex';
 
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
@@ -28,4 +28,10 @@ import { UserRepository } from './user.repository';
   providers: [UserRepository, ThingDescriptionRepository],
   exports: [UserRepository, ThingDescriptionRepository],
 })
-export class PersistenceModule {}
+export class PersistenceModule implements OnApplicationShutdown {
+  public constructor(@InjectKnex() private readonly knex: Knex) {}
+
+  public onApplicationShutdown(signal?: string | undefined) {
+    this.knex.destroy();
+  }
+}
