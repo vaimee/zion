@@ -18,7 +18,7 @@ export class AuthService {
 
   public async login(credentials: CredentialsDto): Promise<AuthResponse> {
     const { email, password } = credentials;
-    const user = await this.userRepository.findOne({ email });
+    const user = await this.userRepository.findFirst({ where: { email } });
     if (!user) {
       throw new UnauthorizedException(loginFailed);
     }
@@ -36,7 +36,7 @@ export class AuthService {
     const { email, password } = registration;
     const hashedPassword = await this.passwordService.hashPassword(password);
 
-    const userExist = await this.userRepository.exist({ email });
+    const userExist = await this.userRepository.exist({ where: { email } });
     if (userExist) {
       throw new ConflictException(emailExists);
     }

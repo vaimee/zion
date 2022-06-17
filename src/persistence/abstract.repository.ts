@@ -1,7 +1,15 @@
 import { Knex } from 'nestjs-knex';
 
 import { Model } from '../common/models/model';
-import { Repository } from './repository.interface';
+import {
+  DeleteArgs,
+  ExistArgs,
+  FindArgs,
+  FindFirstArgs,
+  FindOneArgs,
+  Repository,
+  UpdateArgs,
+} from './repository.interface';
 
 export abstract class AbstractRepository<T extends Model> implements Repository<T> {
   public constructor(protected readonly knex: Knex, private readonly namespace: string) {}
@@ -10,7 +18,7 @@ export abstract class AbstractRepository<T extends Model> implements Repository<
     const trx = await this.knex.transaction();
     try {
       const ids = await trx(this.namespace).insert(item, 'id');
-      const res = await trx(this.namespace).select('*').where(ids[0]).first();
+      const res = await trx(this.namespace).first('*').where(ids[0]);
       await trx.commit();
       return res;
     } catch (error) {
@@ -19,26 +27,32 @@ export abstract class AbstractRepository<T extends Model> implements Repository<
     }
   }
 
-  public async update(id: number, item: Partial<T>): Promise<void> {
-    return this.knex(this.namespace).where({ id }).update(item);
+  public async update(args: UpdateArgs<T>): Promise<void> {
+    return this.knex(this.namespace).where(args.where).update(args.data);
   }
 
-  public async delete(id: number): Promise<void> {
-    return this.knex(this.namespace).where({ id }).del();
+  public async delete(args: DeleteArgs<T>): Promise<void> {
+    return this.knex(this.namespace).where(args.where).del();
   }
 
-  public async find(item: Partial<T>): Promise<T[]> {
-    return this.knex(this.namespace).select('*').where(item);
+  public async find(args?: FindArgs<T>): Promise<T[]> {
+    const query = this.knex(this.namespace).select('*');
+    if (args?.where) {
+      query.where(args.where);
+    }
+    return query;
   }
 
-  public async findOne(id: number | Partial<T>): Promise<T> {
-    const filter = typeof id === 'number' ? { id } : id;
-    return this.knex(this.namespace).select('*').where(filter).first();
+  public async findOne(args: FindOneArgs<T>): Promise<T> {
+    return this.knex(this.namespace).first('*').where(args.where);
   }
 
-  public async exist(id: number | Partial<T>): Promise<boolean> {
-    const filter = typeof id === 'number' ? { id } : id;
-    const res = await this.knex(this.namespace).count('id as count').where(filter);
+  public async findFirst(args: FindFirstArgs<T>): Promise<T> {
+    return this.knex(this.namespace).first('*').where(args.where);
+  }
+
+  public async exist(args: ExistArgs<T>): Promise<boolean> {
+    const res = await this.knex(this.namespace).count('id as count').where(args.where);
     return res[0]['count'] > 0;
   }
 }

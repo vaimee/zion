@@ -33,7 +33,7 @@ export class ThingsService {
   }
 
   public async retrieve(id: string): Promise<ThingDescription> {
-    const internalThingDescription = await this.thingDescriptionRepository.findOne({ urn: id });
+    const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (!internalThingDescription) {
       throw new NotFoundException();
     }
@@ -46,9 +46,9 @@ export class ThingsService {
       throw new BadRequestException({ validationErrors: errors });
     }
 
-    const internalThingDescription = await this.thingDescriptionRepository.findOne({ urn: id });
+    const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (internalThingDescription) {
-      await this.thingDescriptionRepository.update(internalThingDescription.id, { json: dto });
+      await this.thingDescriptionRepository.update({ where: { id: internalThingDescription.id }, data: { json: dto } });
       res.statusCode = 204;
     } else {
       await this.thingDescriptionRepository.create({ urn: id, json: dto, owner_id: user.id });
@@ -62,7 +62,7 @@ export class ThingsService {
       throw new BadRequestException();
     }
 
-    const internalThingDescription = await this.thingDescriptionRepository.findOne({ urn: id });
+    const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (!internalThingDescription) {
       throw new NotFoundException();
     }
@@ -73,16 +73,19 @@ export class ThingsService {
       throw new BadRequestException({ validationErrors: errors });
     }
 
-    await this.thingDescriptionRepository.update(internalThingDescription.id, { json: patchedThingDescription });
+    await this.thingDescriptionRepository.update({
+      where: { id: internalThingDescription.id },
+      data: { json: patchedThingDescription },
+    });
     res.statusCode = 204;
   }
 
   public async delete(id: string, res: Response): Promise<void> {
-    const internalThingDescription = await this.thingDescriptionRepository.findOne({ urn: id });
+    const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (!internalThingDescription) {
       throw new NotFoundException();
     }
-    await this.thingDescriptionRepository.delete(internalThingDescription.id);
+    await this.thingDescriptionRepository.delete({ where: { id: internalThingDescription.id } });
     res.statusCode = 204;
   }
 
