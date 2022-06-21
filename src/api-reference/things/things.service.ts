@@ -23,8 +23,7 @@ export class ThingsService {
     const thingDescriptionId = randomUUID();
     await this.thingDescriptionRepository.create({ urn: thingDescriptionId, json: dto, owner_id: user.id });
 
-    dto.id = thingDescriptionId;
-    this.events.emitCreated(dto);
+    this.events.emitCreated({ id: thingDescriptionId, ...dto });
 
     return thingDescriptionId;
   }
