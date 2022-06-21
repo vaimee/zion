@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common';
+
 import { TDLifeCycleEvent } from './../common/models/events';
 import { ConfigService } from '../config/config.service';
 import {
@@ -15,6 +17,7 @@ let ids = 0;
  * In memory implementation of an Event Repository.
  * TODO: we should store events in a database like Redis.
  */
+@Injectable()
 export class TDLifeCycleEventRepository implements Repository<TDLifeCycleEvent> {
   private events: TDLifeCycleEvent[];
   private maxEvents: number;
@@ -22,7 +25,7 @@ export class TDLifeCycleEventRepository implements Repository<TDLifeCycleEvent> 
   //TODO: check injection of ConfigService
   public constructor(config: ConfigService) {
     this.events = [];
-    this.maxEvents = config?.maxEvents || 100;
+    this.maxEvents = config.maxEvents;
   }
 
   public async create(item: Omit<TDLifeCycleEvent, 'id'>): Promise<TDLifeCycleEvent> {
