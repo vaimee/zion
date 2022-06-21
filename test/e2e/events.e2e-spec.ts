@@ -42,7 +42,7 @@ describe('/events', () => {
   });
 
   it('should support SSE with query params', async () => {
-    const { status, headers, data } = await axios.get('/events?type=thing_created', {
+    const { status, headers, data } = await axios.get('/events?diff=true', {
       responseType: 'stream',
     });
     // ignore events
