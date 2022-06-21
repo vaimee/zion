@@ -7,17 +7,25 @@ import { ThingDescription } from './../../common/models/thing-description';
 import { User } from './../../common/models/user';
 import { validateThingDescription } from './../../common/utils/thing-description-validator';
 import { ThingDescriptionRepository } from './../../persistence/thing-description.repository';
+import { EventsService } from '../events/events.service';
 import { ThingDescriptionDto } from './dto/thing-description.dto';
 import { ThingDescriptionsQueryDto } from './dto/thing-descriptions-query.dto';
 
 @Injectable()
 export class ThingsService {
-  public constructor(private readonly thingDescriptionRepository: ThingDescriptionRepository) {}
+  public constructor(
+    private readonly thingDescriptionRepository: ThingDescriptionRepository,
+    private readonly events: EventsService,
+  ) {}
 
   public async create(user: User, dto: ThingDescriptionDto): Promise<string> {
     this.requireValidThingDescription(dto);
     const thingDescriptionId = randomUUID();
     await this.thingDescriptionRepository.create({ urn: thingDescriptionId, json: dto, owner_id: user.id });
+
+    dto.id = thingDescriptionId;
+    this.events.emitCreated(dto);
+
     return thingDescriptionId;
   }
 
@@ -34,9 +42,11 @@ export class ThingsService {
     const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (internalThingDescription) {
       await this.thingDescriptionRepository.update({ where: { id: internalThingDescription.id }, data: { json: dto } });
+      this.events.emitUpdated(dto);
       return true;
     } else {
       await this.thingDescriptionRepository.create({ urn: id, json: dto, owner_id: user.id });
+      this.events.emitCreated(dto);
       return false;
     }
   }
@@ -54,6 +64,9 @@ export class ThingsService {
       where: { id: internalThingDescription.id },
       data: { json: patchedThingDescription },
     });
+
+    dto.id = internalThingDescription.urn;
+    this.events.emitUpdated(dto);
   }
 
   public async delete(id: string): Promise<void> {
@@ -62,6 +75,8 @@ export class ThingsService {
       throw new NotFoundException();
     }
     await this.thingDescriptionRepository.delete({ where: { id: internalThingDescription.id } });
+
+    this.events.emitDeleted(internalThingDescription.urn);
   }
 
   public async list(query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
