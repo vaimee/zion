@@ -1,9 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+
+import { ThingDescriptionRepository } from './../../persistence/thing-description.repository';
 
 @Injectable()
 export class SearchService {
-  public searchJSONPath(query: string): Promise<any> {
-    throw new Error('Method not implemented.');
+  public constructor(private readonly thingDescriptionRepository: ThingDescriptionRepository) {}
+
+  public async searchJSONPath(query: string): Promise<any> {
+    try {
+      return await this.thingDescriptionRepository.findJSONPath(query);
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   public searchXPath(query: string): Promise<any> {
