@@ -1,4 +1,4 @@
-import { Controller, MessageEvent, Param, Query, Sse } from '@nestjs/common';
+import { Controller, Headers, MessageEvent, Param, Query, Sse } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 
@@ -11,12 +11,19 @@ export class EventsController {
   public constructor(private readonly eventsService: EventsService) {}
 
   @Sse()
-  public subscribeToAll(@Query() diff: boolean): Observable<MessageEvent> {
-    return this.eventsService.subscribeToAll(diff);
+  public async subscribeToAll(
+    @Query() diff: boolean,
+    @Headers('last-event-id') lastEvent?: string,
+  ): Promise<Observable<MessageEvent>> {
+    return this.eventsService.subscribeToAll(diff, lastEvent);
   }
 
   @Sse(':type')
-  public subscribeTo(@Param('type') type: EventType, @Query() diff: boolean): Observable<MessageEvent> {
-    return this.eventsService.subscribeTo(type, diff);
+  public async subscribeTo(
+    @Param('type') type: EventType,
+    @Query() diff: boolean,
+    @Headers('last-event-id') lastEvent?: string,
+  ): Promise<Observable<MessageEvent>> {
+    return this.eventsService.subscribeTo(type, diff, lastEvent);
   }
 }

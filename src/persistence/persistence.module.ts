@@ -3,11 +3,13 @@ import { InjectKnex, Knex, KnexModule } from 'nestjs-knex';
 
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
+import { TDLifeCycleEventRepository } from './events.repository';
 import { ThingDescriptionRepository } from './thing-description.repository';
 import { UserRepository } from './user.repository';
 
 @Module({
   imports: [
+    ConfigModule,
     KnexModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
@@ -25,8 +27,8 @@ import { UserRepository } from './user.repository';
       inject: [ConfigService],
     }),
   ],
-  providers: [UserRepository, ThingDescriptionRepository],
-  exports: [UserRepository, ThingDescriptionRepository],
+  providers: [UserRepository, ThingDescriptionRepository, TDLifeCycleEventRepository],
+  exports: [UserRepository, ThingDescriptionRepository, TDLifeCycleEventRepository],
 })
 export class PersistenceModule implements OnApplicationShutdown {
   public constructor(@InjectKnex() private readonly knex: Knex) {}

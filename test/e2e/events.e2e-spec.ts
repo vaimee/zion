@@ -378,6 +378,48 @@ describe('/events', () => {
       expect(collected[0].data).toBeDefined();
       expect(collected[0].id).toBeDefined();
     });
+
+    it('should support last-event-id', async () => {
+      const { status, headers, data } = await axios.get('/events/thing_created', { responseType: 'stream' });
+
+      expect(status).toBe(200);
+      expect(headers['content-type']).toContain('text/event-stream');
+
+      const collectPromise = collectMessages(data, 3);
+
+      for (let i = 0; i < 3; i++) {
+        const createRequest = await axios.post('/things', validThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        expect(createRequest.status).toBe(201);
+        const modifiedParts = { title: 'New Title' };
+
+        await axios.patch(createRequest.headers['location'], modifiedParts, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
+        });
+      }
+
+      const messages = await collectPromise;
+      data.destroy();
+
+      expect(messages.length).toBeGreaterThan(0);
+      expect(messages[0].id).toBeDefined();
+
+      // reconnect with last-event-id
+      const reconnectResponse = await axios.get('/events/thing_created', {
+        responseType: 'stream',
+        headers: { 'Last-Event-ID': `${messages[0].id}` },
+      });
+
+      expect(reconnectResponse.status).toBe(200);
+      expect(reconnectResponse.headers['content-type']).toContain('text/event-stream');
+
+      const nextMessages = await collectMessages(reconnectResponse.data, 2);
+      reconnectResponse.data.destroy();
+
+      expect(nextMessages.length).toBeGreaterThan(0);
+      expect(nextMessages).toEqual(messages.slice(1));
+    });
   });
 });
 

@@ -29,6 +29,10 @@ export class ConfigService {
     return this.nestConfigService.get('DB_PORT', 5432);
   }
 
+  public get maxEvents(): number {
+    return this.nestConfigService.get('MAX_EVENTS', 100);
+  }
+
   public get dbUser(): string {
     return this.nestConfigService.get('DB_USER', 'postgres');
   }
