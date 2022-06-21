@@ -285,6 +285,16 @@ describe('/events', () => {
   });
 
   describe(':type', () => {
+    it('should return not found for wrong event type', async () => {
+      const { status, data } = await axios.get('/events/not_valid', {
+        responseType: 'stream',
+      });
+      // ignore events
+      data.destroy();
+
+      expect(status).toBe(404);
+    });
+
     it('should fire only thing_created', async () => {
       const { status, headers, data } = await axios.get('/events/thing_created', { responseType: 'stream' });
       expect(status).toBe(200);
