@@ -5,7 +5,7 @@ import { User } from './../../src/common/models/user';
 import { getAccessToken } from './../utils/auth';
 import { getShortUnique } from './../utils/data';
 import { closeDbConnection, createUser } from './../utils/database';
-import * as validThingDescription from './../utils/tds/valid.td.json';
+import * as validAnonymousThingDescription from './../utils/tds/validAnonymous.td.json';
 import { getE2ETestResources } from '../utils/resources';
 
 describe('/search', () => {
@@ -36,7 +36,7 @@ describe('/search', () => {
 
     it('should perform the jsonpath search correctly', async () => {
       const uniqueProperty = getShortUnique();
-      const thingDescription = { ...validThingDescription, uniqueProperty };
+      const thingDescription = { ...validAnonymousThingDescription, uniqueProperty };
       await axios.post('/things', thingDescription, {
         headers: { Authorization: `Bearer ${defaultAccessToken}` },
       });

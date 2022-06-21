@@ -4,7 +4,7 @@ import { INestApplication, MessageEvent } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
 import { User } from './../../src/common/models/user';
-import * as validThingDescription from './../utils/tds/valid.td.json';
+import * as validAnonymousThingDescription from './../utils/tds/validAnonymous.td.json';
 import { getAccessToken } from '../utils/auth';
 import { closeDbConnection, createUser } from '../utils/database';
 import { getE2ETestResources } from '../utils/resources';
@@ -60,7 +60,7 @@ describe('/events', () => {
 
     const collectPromise = collectMessages(data, 1);
 
-    const createRequest = await axios.post('/things', validThingDescription, {
+    const createRequest = await axios.post('/things', validAnonymousThingDescription, {
       headers: { Authorization: `Bearer ${defaultAccessToken}` },
     });
 
@@ -82,7 +82,7 @@ describe('/events', () => {
     const collectPromise = collectMessages(data, 3);
 
     for (let i = 0; i < 3; i++) {
-      const createRequest = await axios.post('/things', validThingDescription, {
+      const createRequest = await axios.post('/things', validAnonymousThingDescription, {
         headers: { Authorization: `Bearer ${defaultAccessToken}` },
       });
       expect(createRequest.status).toBe(201);
@@ -118,7 +118,7 @@ describe('/events', () => {
 
     const collectPromise = collectMessages(data, 1);
 
-    const createRequest = await axios.post('/things', validThingDescription, {
+    const createRequest = await axios.post('/things', validAnonymousThingDescription, {
       headers: { Authorization: `Bearer ${defaultAccessToken}` },
     });
 
@@ -147,7 +147,7 @@ describe('/events', () => {
 
     const collectPromise = collectMessages(data, 1);
 
-    const createRequest = await axios.post('/things', validThingDescription, {
+    const createRequest = await axios.post('/things', validAnonymousThingDescription, {
       headers: { Authorization: `Bearer ${defaultAccessToken}` },
     });
 
@@ -163,12 +163,14 @@ describe('/events', () => {
 
     const payload = messages[0].data.join('');
     const thing = JSON.parse(payload);
+    const location = createRequest.headers['location'];
+    const id = location.split('/').pop();
 
-    expect(thing).toEqual(validThingDescription);
+    expect(thing).toEqual({ id, ...validAnonymousThingDescription });
   });
 
   it('should fire thing_updated', async () => {
-    const createRequest = await axios.post('/things', validThingDescription, {
+    const createRequest = await axios.post('/things', validAnonymousThingDescription, {
       headers: { Authorization: `Bearer ${defaultAccessToken}` },
     });
 
@@ -207,7 +209,7 @@ describe('/events', () => {
   });
 
   it('should fire thing_updated with diff parameter', async () => {
-    const createRequest = await axios.post('/things?diff=true', validThingDescription, {
+    const createRequest = await axios.post('/things?diff=true', validAnonymousThingDescription, {
       headers: { Authorization: `Bearer ${defaultAccessToken}` },
     });
 
@@ -247,7 +249,7 @@ describe('/events', () => {
   });
 
   it('should fire thing_deleted', async () => {
-    const createRequest = await axios.post('/things', validThingDescription, {
+    const createRequest = await axios.post('/things', validAnonymousThingDescription, {
       headers: { Authorization: `Bearer ${defaultAccessToken}` },
     });
 
@@ -290,7 +292,7 @@ describe('/events', () => {
 
       const collectPromise = collectMessages(data);
 
-      const create = await axios.post('/things', validThingDescription, {
+      const create = await axios.post('/things', validAnonymousThingDescription, {
         headers: { Authorization: `Bearer ${defaultAccessToken}` },
       });
 
@@ -320,7 +322,7 @@ describe('/events', () => {
 
       const collectPromise = collectMessages(data);
 
-      const create = await axios.post('/things', validThingDescription, {
+      const create = await axios.post('/things', validAnonymousThingDescription, {
         headers: { Authorization: `Bearer ${defaultAccessToken}` },
       });
 
@@ -350,7 +352,7 @@ describe('/events', () => {
 
       const collectPromise = collectMessages(data);
 
-      const create = await axios.post('/things', validThingDescription, {
+      const create = await axios.post('/things', validAnonymousThingDescription, {
         headers: { Authorization: `Bearer ${defaultAccessToken}` },
       });
 
@@ -388,7 +390,7 @@ describe('/events', () => {
       const collectPromise = collectMessages(data, 3);
 
       for (let i = 0; i < 3; i++) {
-        const createRequest = await axios.post('/things', validThingDescription, {
+        const createRequest = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
         expect(createRequest.status).toBe(201);

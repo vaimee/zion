@@ -7,6 +7,7 @@ import { getShortUnique } from './../utils/data';
 import { closeDbConnection, createUser } from './../utils/database';
 import * as invalidThingDescription from './../utils/tds/invalid.td.json';
 import * as validThingDescription from './../utils/tds/valid.td.json';
+import * as validAnonymousThingDescription from './../utils/tds/validAnonymous.td.json';
 import { getE2ETestResources } from '../utils/resources';
 
 describe('/things', () => {
@@ -33,7 +34,7 @@ describe('/things', () => {
 
   describe('POST', () => {
     it('should fail to register the Thing Description when the user is not authenticated', async () => {
-      const { status } = await axios.post('/things', validThingDescription);
+      const { status } = await axios.post('/things', validAnonymousThingDescription);
       expect(status).toBe(401);
     });
 
@@ -49,7 +50,7 @@ describe('/things', () => {
     });
 
     it('should register the Thing Description', async () => {
-      const { status, headers } = await axios.post('/things', validThingDescription, {
+      const { status, headers } = await axios.post('/things', validAnonymousThingDescription, {
         headers: { Authorization: `Bearer ${defaultAccessToken}` },
       });
 
@@ -57,13 +58,13 @@ describe('/things', () => {
 
       expect(status).toBe(201);
       expect(headers.location).toBeDefined();
-      expect(data).toStrictEqual(validThingDescription);
+      expect(data).toStrictEqual(validAnonymousThingDescription);
     });
   });
 
   describe('GET', () => {
     it('should retrieve all the Thing Descriptions (no pagination)', async () => {
-      await axios.post('/things', validThingDescription, {
+      await axios.post('/things', validAnonymousThingDescription, {
         headers: { Authorization: `Bearer ${defaultAccessToken}` },
       });
 
@@ -84,14 +85,14 @@ describe('/things', () => {
       });
 
       it('should retrieve the Thing Description', async () => {
-        const { headers } = await axios.post('/things', validThingDescription, {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
 
         const { status, data } = await axios.get(headers.location);
 
         expect(status).toBe(200);
-        expect(data).toStrictEqual(validThingDescription);
+        expect(data).toStrictEqual(validAnonymousThingDescription);
       });
     });
 
@@ -108,10 +109,10 @@ describe('/things', () => {
       });
 
       it('should update the Thing Description', async () => {
-        const { headers } = await axios.post('/things', validThingDescription, {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
-        const updatedThingDescription = { ...validThingDescription, newField: 'test' };
+        const updatedThingDescription = { ...validAnonymousThingDescription, newField: 'test' };
 
         const { status } = await axios.put(headers.location, updatedThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
@@ -159,7 +160,7 @@ describe('/things', () => {
       });
 
       it('should fail to update the Thing Description when the patched Thing Description is invalid', async () => {
-        const { headers } = await axios.post('/things', validThingDescription, {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
         const modifiedParts = { title: null };
@@ -175,7 +176,7 @@ describe('/things', () => {
       });
 
       it('should update the Thing Description', async () => {
-        const { headers } = await axios.post('/things', validThingDescription, {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
         const modifiedParts = { title: 'New Title' };
@@ -187,7 +188,7 @@ describe('/things', () => {
         const { data } = await axios.get(headers.location);
 
         expect(status).toBe(204);
-        expect(data).toStrictEqual({ ...validThingDescription, ...modifiedParts });
+        expect(data).toStrictEqual({ ...validAnonymousThingDescription, ...modifiedParts });
       });
     });
 
@@ -200,7 +201,7 @@ describe('/things', () => {
       });
 
       it('should delete the Thing Description', async () => {
-        const { headers } = await axios.post('/things', validThingDescription, {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
 
