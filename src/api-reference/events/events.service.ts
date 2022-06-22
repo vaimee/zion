@@ -1,4 +1,4 @@
-import { Injectable, MessageEvent } from '@nestjs/common';
+import { Injectable, MessageEvent, NotFoundException } from '@nestjs/common';
 import { Observable, Subject, concat, filter, map } from 'rxjs';
 
 import { EventType, TDLifeCycleEvent } from '../../common/models/events';
@@ -30,6 +30,10 @@ export class EventsService {
   }
 
   public async subscribeTo(type: EventType, diff: boolean, lastEvent?: string): Promise<Observable<MessageEvent>> {
+    if (![EventType.THING_DELETED, EventType.THING_UPDATED, EventType.THING_CREATED].includes(type)) {
+      throw new NotFoundException(`Cannot subscribe to event type ${type}, because is not found`);
+    }
+
     if (lastEvent) {
       const obs = await this.createObservableForPastEvents(diff, parseInt(lastEvent), type);
       return concat(
