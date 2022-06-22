@@ -1,7 +1,7 @@
 import dockerCompose from 'docker-compose';
 import isCI from 'is-ci';
 
-import { closeDbConnection, emptyDatabase } from './utils/database';
+import { closeDatabase, emptyDatabase } from './utils/database';
 
 export default async function () {
   if (isCI) {
@@ -11,5 +11,5 @@ export default async function () {
       await emptyDatabase();
     }
   }
-  await closeDbConnection();
+  await closeDatabase();
 }

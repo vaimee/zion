@@ -6,7 +6,7 @@ import { AxiosInstance } from 'axios';
 import { User } from './../../src/common/models/user';
 import * as validAnonymousThingDescription from './../utils/tds/validAnonymous.td.json';
 import { getAccessToken } from '../utils/auth';
-import { closeDbConnection, createUser } from '../utils/database';
+import { closeDatabase, createUser } from '../utils/database';
 import { getE2ETestResources } from '../utils/resources';
 
 type MessageEventAsArray = MessageEvent & { data: string[] };
@@ -26,7 +26,7 @@ describe('/events', () => {
   });
 
   afterAll(async () => {
-    await closeDbConnection();
+    await closeDatabase();
     await app.close();
   });
 

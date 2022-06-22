@@ -4,7 +4,7 @@ import { AxiosInstance } from 'axios';
 import { User } from './../../src/common/models/user';
 import { getAccessToken } from './../utils/auth';
 import { getShortUnique } from './../utils/data';
-import { closeDbConnection, createUser } from './../utils/database';
+import { closeDatabase, createUser } from './../utils/database';
 import * as invalidThingDescription from './../utils/tds/invalid.td.json';
 import * as validThingDescription from './../utils/tds/valid.td.json';
 import * as validAnonymousThingDescription from './../utils/tds/validAnonymous.td.json';
@@ -26,9 +26,7 @@ describe('/things', () => {
   });
 
   afterAll(async () => {
-    // TODO: we are already closing the db connection in the teardown
-    // why this is still needed?
-    await closeDbConnection();
+    await closeDatabase();
     await app.close();
   });
 

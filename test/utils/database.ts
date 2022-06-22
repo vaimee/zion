@@ -28,13 +28,13 @@ export async function emptyDatabase(): Promise<void> {
   await knex('user').del();
 }
 
+export async function closeDatabase(): Promise<void> {
+  return knex.destroy();
+}
+
 export async function createUser(): Promise<User> {
   const email = getUniqueEmail();
   const password = hashSync('test123', 10);
   const [user] = await knex<User>('user').insert({ email, password }).returning('*');
   return user;
-}
-
-export async function closeDbConnection() {
-  return knex.destroy();
 }
