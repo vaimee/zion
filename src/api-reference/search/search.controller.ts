@@ -9,17 +9,17 @@ export class SearchController {
   public constructor(private readonly searchService: SearchService) {}
 
   @Get('jsonpath')
-  public searchJSONPath(@Query() query: string): Promise<any> {
+  public searchJSONPath(@Query('query') query: string): Promise<any> {
     return this.searchService.searchJSONPath(query);
   }
 
   @Get('xpath')
-  public searchXPath(@Query() query: string): Promise<any> {
+  public searchXPath(@Query('query') query: string): Promise<any> {
     return this.searchService.searchXPath(query);
   }
 
   @Get('sparql')
-  public searchSPARQL(@Query() query: string): Promise<any> {
+  public searchSPARQL(@Query('query') query: string): Promise<any> {
     return this.searchSPARQL(query);
   }
 }
