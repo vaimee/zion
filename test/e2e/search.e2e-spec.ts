@@ -30,8 +30,13 @@ describe('/search', () => {
 
   describe('/jsonpath', () => {
     it('should fail the jsonpath search when the query is invalid', async () => {
-      const { status } = await axios.get('/search/jsonpath', { params: { query: 'not-jsonpath' } });
+      const { status, data } = await axios.get('/search/jsonpath', { params: { query: 'not-jsonpath' } });
       expect(status).toBe(400);
+      expect(data).toMatchObject({
+        type: '/errors/types/bad-request',
+        title: 'Bad Request',
+        status: 400,
+      });
     });
 
     it('should perform the jsonpath search correctly', async () => {

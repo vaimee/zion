@@ -1,7 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
-import { emailExists, loginFailed } from './../../src/common/errors';
 import { getUniqueEmail } from '../utils/data';
 import { getE2ETestResources } from '../utils/resources';
 
@@ -29,7 +28,11 @@ describe('/auth', () => {
       const { status, data } = await axios.post('/auth', credentials);
 
       expect(status).toBe(401);
-      expect(data).toStrictEqual(loginFailed);
+      expect(data).toMatchObject({
+        type: '/errors/types/invalid-credentials',
+        title: 'Invalid Credentials',
+        status: 401,
+      });
     });
 
     it('should fail to authenticate a user with the wrong password', async () => {
@@ -47,7 +50,11 @@ describe('/auth', () => {
       const { status, data } = await axios.post('/auth', credentials);
 
       expect(status).toBe(401);
-      expect(data).toStrictEqual(loginFailed);
+      expect(data).toMatchObject({
+        type: '/errors/types/invalid-credentials',
+        title: 'Invalid Credentials',
+        status: 401,
+      });
     });
 
     it('should authenticate a user', async () => {
@@ -88,7 +95,11 @@ describe('/auth', () => {
         expect(responseUser1.status).toBe(201);
         expect(responseUser1.data.accessToken).toBeDefined();
         expect(responseUser2.status).toBe(409);
-        expect(responseUser2.data).toStrictEqual(emailExists);
+        expect(responseUser2.data).toMatchObject({
+          type: '/errors/types/duplicate-email',
+          title: 'Duplicate Email',
+          status: 409,
+        });
       });
 
       it('should register a new user', async () => {

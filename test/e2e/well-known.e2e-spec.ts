@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
-import { validateThingDescription } from '../../../src/common/utils/thing-description-validator';
-import { getE2ETestResources } from '../../utils/resources';
+import { validateThingDescription } from '../../src/common/utils/thing-description-validator';
+import { getE2ETestResources } from './../utils/resources';
 
 describe('/well-known', () => {
   /**

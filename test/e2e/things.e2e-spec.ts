@@ -32,8 +32,13 @@ describe('/things', () => {
 
   describe('POST', () => {
     it('should fail to register the Thing Description when the user is not authenticated', async () => {
-      const { status } = await axios.post('/things', validAnonymousThingDescription);
+      const { status, data } = await axios.post('/things', validAnonymousThingDescription);
       expect(status).toBe(401);
+      expect(data).toMatchObject({
+        type: '/errors/types/invalid-token',
+        title: 'Invalid Token',
+        status: 401,
+      });
     });
 
     it('should fail to register the Thing Description when it is invalid', async () => {
@@ -42,9 +47,17 @@ describe('/things', () => {
       });
 
       expect(status).toBe(400);
-      expect(data.validationErrors).toStrictEqual([
-        { field: '/properties/status', description: "must have required property 'forms'" },
-      ]);
+      expect(data).toMatchObject({
+        type: '/errors/types/invalid-thing-description',
+        title: 'Invalid Thing Description',
+        status: 400,
+        validationErrors: [
+          {
+            field: '/properties/status',
+            description: "must have required property 'forms'",
+          },
+        ],
+      });
     });
 
     it('should register the Thing Description', async () => {
@@ -78,8 +91,13 @@ describe('/things', () => {
   describe(':id', () => {
     describe('GET', () => {
       it('should fail to retrieve the Thing Description when it does not exist', async () => {
-        const { status } = await axios.get(`/things/not-exist`);
+        const { status, data } = await axios.get(`/things/not-exist`);
         expect(status).toBe(404);
+        expect(data).toMatchObject({
+          type: '/errors/types/not-found',
+          title: 'Not Found',
+          status: 404,
+        });
       });
 
       it('should retrieve the Thing Description', async () => {
@@ -101,9 +119,17 @@ describe('/things', () => {
         });
 
         expect(status).toBe(400);
-        expect(data.validationErrors).toStrictEqual([
-          { field: '/properties/status', description: "must have required property 'forms'" },
-        ]);
+        expect(data).toMatchObject({
+          type: '/errors/types/invalid-thing-description',
+          title: 'Invalid Thing Description',
+          status: 400,
+          validationErrors: [
+            {
+              field: '/properties/status',
+              description: "must have required property 'forms'",
+            },
+          ],
+        });
       });
 
       it('should update the Thing Description', async () => {
@@ -137,24 +163,39 @@ describe('/things', () => {
 
     describe('PATCH', () => {
       it('should fail to update the Thing Description when missing Content-Type header', async () => {
-        const { status } = await axios.patch('/things/no-matter', validThingDescription, {
+        const { status, data } = await axios.patch('/things/no-matter', validThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
         expect(status).toBe(400);
+        expect(data).toMatchObject({
+          type: '/errors/types/bad-request',
+          title: 'Bad Request',
+          status: 400,
+        });
       });
 
       it('should fail to update the Thing Description when wrong Content-Type header', async () => {
-        const { status } = await axios.patch('/things/no-matter', validThingDescription, {
+        const { status, data } = await axios.patch('/things/no-matter', validThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/json' },
         });
         expect(status).toBe(400);
+        expect(data).toMatchObject({
+          type: '/errors/types/bad-request',
+          title: 'Bad Request',
+          status: 400,
+        });
       });
 
       it('should fail to update the Thing Description when it does not exist', async () => {
-        const { status } = await axios.patch('/things/not-exist', validThingDescription, {
+        const { status, data } = await axios.patch('/things/not-exist', validThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
         });
         expect(status).toBe(404);
+        expect(data).toMatchObject({
+          type: '/errors/types/not-found',
+          title: 'Not Found',
+          status: 404,
+        });
       });
 
       it('should fail to update the Thing Description when the patched Thing Description is invalid', async () => {
@@ -168,9 +209,17 @@ describe('/things', () => {
         });
 
         expect(status).toBe(400);
-        expect(data.validationErrors).toStrictEqual([
-          { field: '', description: "must have required property 'title'" },
-        ]);
+        expect(data).toMatchObject({
+          type: '/errors/types/invalid-thing-description',
+          title: 'Invalid Thing Description',
+          status: 400,
+          validationErrors: [
+            {
+              field: '',
+              description: "must have required property 'title'",
+            },
+          ],
+        });
       });
 
       it('should update the Thing Description', async () => {
@@ -192,10 +241,15 @@ describe('/things', () => {
 
     describe('DELETE', () => {
       it('should fail to delete the Thing Description when it does not exist', async () => {
-        const { status } = await axios.delete('/things/not-exist', {
+        const { status, data } = await axios.delete('/things/not-exist', {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
         expect(status).toBe(404);
+        expect(data).toMatchObject({
+          type: '/errors/types/not-found',
+          title: 'Not Found',
+          status: 404,
+        });
       });
 
       it('should delete the Thing Description', async () => {
