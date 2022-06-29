@@ -1,6 +1,7 @@
-import { Injectable, MessageEvent, NotFoundException } from '@nestjs/common';
+import { Injectable, MessageEvent } from '@nestjs/common';
 import { Observable, Subject, concat, filter, map } from 'rxjs';
 
+import { NotFoundException } from './../../common/exceptions';
 import { EventType, TDLifeCycleEvent } from '../../common/models/events';
 import { ThingDescription } from '../../common/models/thing-description';
 import { TDLifeCycleEventRepository } from '../../persistence/events.repository';

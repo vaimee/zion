@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -19,6 +18,7 @@ import { FastifyRequest as Request, FastifyReply as Response } from 'fastify';
 
 import { AuthGuard } from './../../auth/auth.guard';
 import { CurrentUser } from './../../common/decorators/current-user';
+import { BadRequestException } from './../../common/exceptions';
 import { ThingDescription } from './../../common/models/thing-description';
 import { User } from './../../common/models/user';
 import { ConfigService } from './../../config/config.service';

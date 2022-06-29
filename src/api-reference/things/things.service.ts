@@ -1,8 +1,9 @@
 import { randomUUID } from 'crypto';
 
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { apply as mergePatch } from 'json-merge-patch';
 
+import { InvalidThingDescriptionException, NotFoundException } from './../../common/exceptions';
 import { ThingDescription } from './../../common/models/thing-description';
 import { User } from './../../common/models/user';
 import { validateThingDescription } from './../../common/utils/thing-description-validator';
@@ -85,8 +86,8 @@ export class ThingsService {
 
   private requireValidThingDescription(data: unknown): void {
     const { valid, errors } = validateThingDescription(data);
-    if (!valid) {
-      throw new BadRequestException({ validationErrors: errors });
+    if (!valid && errors) {
+      throw new InvalidThingDescriptionException(errors);
     }
   }
 }

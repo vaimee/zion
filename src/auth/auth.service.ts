@@ -1,7 +1,7 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { emailExists, loginFailed } from './../common/errors';
+import { DuplicateEmailException, InvalidCredentialsException } from './../common/exceptions';
 import { UserRepository } from './../persistence/user.repository';
 import { CredentialsDto } from './dto/credentials.dto';
 import { RegistrationDto } from './dto/registration.dto';
@@ -20,12 +20,12 @@ export class AuthService {
     const { email, password } = credentials;
     const user = await this.userRepository.findFirst({ where: { email } });
     if (!user) {
-      throw new UnauthorizedException(loginFailed);
+      throw new InvalidCredentialsException();
     }
 
     const isPasswordValid = await this.passwordService.validatePassword(password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException(loginFailed);
+      throw new InvalidCredentialsException();
     }
 
     const accessToken = this.jwtService.sign({ sub: user.id });
@@ -38,7 +38,7 @@ export class AuthService {
 
     const userExist = await this.userRepository.exist({ where: { email } });
     if (userExist) {
-      throw new ConflictException(emailExists);
+      throw new DuplicateEmailException();
     }
 
     const user = await this.userRepository.create({ email, password: hashedPassword });

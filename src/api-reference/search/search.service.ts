@@ -1,5 +1,6 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
+import { BadRequestException } from './../../common/exceptions';
 import { ThingDescriptionRepository } from './../../persistence/thing-description.repository';
 
 @Injectable()
