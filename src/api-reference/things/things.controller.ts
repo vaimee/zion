@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -57,11 +58,11 @@ export class ThingsController {
     @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
     const updated = await this.thingsService.upsert(user, id, dto);
-    res.statusCode = updated ? 204 : 201;
+    res.statusCode = updated ? HttpStatus.NO_CONTENT : HttpStatus.CREATED;
   }
 
   @Patch(':id')
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public update(@Param('id') id: string, @Body() dto: ThingDescriptionDto, @Req() req: Request): Promise<void> {
     const isCorrectContentType = req.headers['content-type'] === 'application/merge-patch+json';
     if (!isCorrectContentType) {
@@ -71,7 +72,7 @@ export class ThingsController {
   }
 
   @Delete(':id')
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public delete(@Param('id') id: string): Promise<void> {
     return this.thingsService.delete(id);
   }
