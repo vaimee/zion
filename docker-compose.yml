@@ -1,0 +1,27 @@
+version: '3.6'
+services:
+  database:
+    image: postgres:14.3-alpine
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    container_name: 'zion-postgres-testing'
+    ports:
+      - '54310:5432'
+  zion:
+    build: .
+    entrypoint: ['sh', '-c','npm run db:migrate:latest && node dist/src/main.js']
+    ports: 
+      - ${SERVER_PORT}:${SERVER_PORT}
+    container_name: zion
+    environment:
+      - NODE_ENV
+      - SERVER_PORT
+      - DB_HOST=database
+      - DB_PORT
+      - DB_USER
+      - DB_PASSWORD
+      - DB_DATABASE
+      - JWT_SECRET
+      - JWT_EXPIRES_IN
