@@ -21,7 +21,7 @@ export class ThingsService {
 
   public async create(user: User, dto: ThingDescriptionDto): Promise<string> {
     this.requireValidThingDescription(dto);
-    const thingDescriptionId = randomUUID();
+    const thingDescriptionId = `urn:uuid:${randomUUID()}`;
     await this.thingDescriptionRepository.create({ urn: thingDescriptionId, json: dto, owner_id: user.id });
 
     this.events.emitCreated({ id: thingDescriptionId, ...dto });
