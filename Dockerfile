@@ -15,5 +15,8 @@ WORKDIR /home/node/app
 COPY --from=build /home/node/app/package*.json ./
 COPY --from=build /home/node/app/node_modules ./node_modules/
 COPY --from=build /home/node/app/dist/ ./dist/
+COPY --from=build /home/node/app/knexfile.ts ./
+COPY --from=build /home/node/app/migrations ./migrations
 
-ENTRYPOINT [ "node", "dist/src/main.js" ]
+EXPOSE 3000
+ENTRYPOINT ["node", "dist/src/main.js" ]
