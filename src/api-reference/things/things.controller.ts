@@ -26,6 +26,7 @@ import { ConfigService } from './../../config/config.service';
 import { ThingDescriptionDto } from './dto/thing-description.dto';
 import { ThingDescriptionsQueryDto } from './dto/thing-descriptions-query.dto';
 import { ThingsService } from './things.service';
+import { ApiCreate, ApiDelete, ApiList, ApiRetrieve, ApiUpdate, ApiUpsert } from './things.swagger';
 
 @ApiTags('Things')
 @Controller('things')
@@ -34,6 +35,7 @@ export class ThingsController {
 
   @Post()
   @UseGuards(AuthGuard)
+  @ApiCreate()
   public async create(
     @CurrentUser() user: User,
     @Body() dto: ThingDescriptionDto,
@@ -45,12 +47,14 @@ export class ThingsController {
   }
 
   @Get(':id')
+  @ApiRetrieve()
   public retrieve(@Param('id') id: string): Promise<ThingDescription> {
     return this.thingsService.retrieve(id);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard)
+  @ApiUpsert()
   public async upsert(
     @CurrentUser() user: User,
     @Param('id') id: string,
@@ -63,6 +67,7 @@ export class ThingsController {
 
   @Patch(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiUpdate()
   public update(@Param('id') id: string, @Body() dto: ThingDescriptionDto, @Req() req: Request): Promise<void> {
     const isCorrectContentType = req.headers['content-type'] === 'application/merge-patch+json';
     if (!isCorrectContentType) {
@@ -73,11 +78,13 @@ export class ThingsController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiDelete()
   public delete(@Param('id') id: string): Promise<void> {
     return this.thingsService.delete(id);
   }
 
   @Get()
+  @ApiList()
   public list(@Query() query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
     return this.thingsService.list(query);
   }
