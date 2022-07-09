@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
 
-import { InternalThingDescription } from './../common/models/thing-description';
+import { InternalThingDescription } from './../common/models';
 import { AbstractRepository } from './abstract.repository';
 
 @Injectable()

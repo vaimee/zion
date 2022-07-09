@@ -3,7 +3,7 @@ import { Readable } from 'stream';
 import { INestApplication, MessageEvent } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
-import { User } from './../../src/common/models/user';
+import { User } from './../../src/common/models';
 import * as validAnonymousThingDescription from './../utils/tds/validAnonymous.td.json';
 import { getAccessToken } from '../utils/auth';
 import { closeDatabase, createUser } from '../utils/database';

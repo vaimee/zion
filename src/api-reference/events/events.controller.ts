@@ -2,7 +2,7 @@ import { Controller, Headers, MessageEvent, Param, Query, Sse } from '@nestjs/co
 import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 
-import { EventType } from '../../common/models/events';
+import { EventType } from '../../common/models/td-lifecycle-event';
 import { EventsService } from './events.service';
 import { ApiSubscribeTo, ApiSubscribeToAll } from './events.swagger';
 

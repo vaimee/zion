@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
-import { User } from './../../src/common/models/user';
+import { User } from './../../src/common/models';
 import { getAccessToken } from './../utils/auth';
 import { getShortUnique } from './../utils/data';
 import { closeDatabase, createUser } from './../utils/database';

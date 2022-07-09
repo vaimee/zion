@@ -1,5 +1,5 @@
 import { ApiEndpoint } from './../../common/decorators';
-import { EventType } from './../../common/models/events';
+import { EventType } from './../../common/models/td-lifecycle-event';
 
 export function ApiSubscribeToAll() {
   return ApiEndpoint({

@@ -4,8 +4,8 @@ import { Injectable } from '@nestjs/common';
 import { apply as mergePatch } from 'json-merge-patch';
 
 import { InvalidThingDescriptionException, NotFoundException } from './../../common/exceptions';
-import { ThingDescription } from './../../common/models/thing-description';
-import { User } from './../../common/models/user';
+import { ThingDescription } from './../../common/interfaces/thing-description';
+import { User } from './../../common/models';
 import { validateThingDescription } from './../../common/utils/thing-description-validator';
 import { ThingDescriptionRepository } from './../../persistence/thing-description.repository';
 import { EventsService } from '../events/events.service';

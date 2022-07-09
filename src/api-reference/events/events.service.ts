@@ -2,12 +2,12 @@ import { Injectable, MessageEvent } from '@nestjs/common';
 import { Observable, Subject, concat, filter, map } from 'rxjs';
 
 import { NotFoundException } from './../../common/exceptions';
-import { EventType, TDLifeCycleEvent } from '../../common/models/events';
-import { ThingDescription } from '../../common/models/thing-description';
-import { TDLifeCycleEventRepository } from '../../persistence/events.repository';
+import { ThingDescription } from '../../common/interfaces/thing-description';
+import { EventType, TDLifecycleEvent } from '../../common/models/td-lifecycle-event';
+import { TDLifecycleEventRepository } from '../../persistence/td-lifecycle-event.repository';
 
 function mapEventsWithDiff(diff: boolean) {
-  return map((event: TDLifeCycleEvent): MessageEvent => {
+  return map((event: TDLifecycleEvent): MessageEvent => {
     if (!diff) {
       return { id: `${event.id}`, type: event.type, data: { id: event.td.id } };
     }
@@ -17,11 +17,12 @@ function mapEventsWithDiff(diff: boolean) {
 
 @Injectable()
 export class EventsService {
-  private thingLifeCycle: Subject<TDLifeCycleEvent>;
+  private thingLifeCycle: Subject<TDLifecycleEvent>;
 
-  public constructor(private readonly eventsRepository: TDLifeCycleEventRepository) {
-    this.thingLifeCycle = new Subject<TDLifeCycleEvent>();
+  public constructor(private readonly eventRepository: TDLifecycleEventRepository) {
+    this.thingLifeCycle = new Subject<TDLifecycleEvent>();
   }
+
   public async subscribeToAll(diff: boolean, lastEvent?: string): Promise<Observable<MessageEvent>> {
     if (lastEvent) {
       const obs = await this.createObservableForPastEvents(diff, parseInt(lastEvent));
@@ -46,15 +47,17 @@ export class EventsService {
   }
 
   public async emitCreated(td: ThingDescription) {
-    const event = await this.eventsRepository.create({ type: EventType.THING_CREATED, td });
+    const event = await this.eventRepository.create({ type: EventType.THING_CREATED, td });
     this.thingLifeCycle.next(event);
   }
+
   public async emitUpdated(td: Partial<ThingDescription>) {
-    const event = await this.eventsRepository.create({ type: EventType.THING_UPDATED, td });
+    const event = await this.eventRepository.create({ type: EventType.THING_UPDATED, td });
     this.thingLifeCycle.next(event);
   }
+
   public async emitDeleted(id: ThingDescription['id']) {
-    const event = await this.eventsRepository.create({ type: EventType.THING_DELETED, td: { id } });
+    const event = await this.eventRepository.create({ type: EventType.THING_DELETED, td: { id } });
     this.thingLifeCycle.next(event);
   }
 
@@ -63,8 +66,8 @@ export class EventsService {
     id: number,
     type?: EventType,
   ): Promise<Observable<MessageEvent>> {
-    const missedEvents = await this.eventsRepository.findAfter(id);
-    const obs = new Observable<TDLifeCycleEvent>((subscriber) => {
+    const missedEvents = await this.eventRepository.findAfter(id);
+    const obs = new Observable<TDLifecycleEvent>((subscriber) => {
       missedEvents.forEach((event) => subscriber.next(event));
     });
 
