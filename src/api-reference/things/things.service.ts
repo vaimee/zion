@@ -6,6 +6,7 @@ import { apply as mergePatch } from 'json-merge-patch';
 import { InvalidThingDescriptionException, NotFoundException } from './../../common/exceptions';
 import { ThingDescription } from './../../common/interfaces/thing-description';
 import { User } from './../../common/models';
+import { deanonymizeThingDescription, deanonymizeThingDescriptions } from './../../common/utils';
 import { validateThingDescription } from './../../common/utils/thing-description-validator';
 import { ThingDescriptionRepository } from './../../persistence/thing-description.repository';
 import { EventsService } from '../events/events.service';
@@ -34,7 +35,7 @@ export class ThingsService {
     if (!internalThingDescription) {
       throw new NotFoundException();
     }
-    return internalThingDescription.json;
+    return deanonymizeThingDescription(internalThingDescription);
   }
 
   public async upsert(user: User, id: string, dto: ThingDescriptionDto): Promise<boolean> {
@@ -80,8 +81,8 @@ export class ThingsService {
   }
 
   public async list(query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
-    const thingDescriptions = await this.thingDescriptionRepository.find();
-    return thingDescriptions.map((td) => td.json);
+    const internalThingDescriptions = await this.thingDescriptionRepository.find();
+    return deanonymizeThingDescriptions(internalThingDescriptions);
   }
 
   private requireValidThingDescription(data: unknown): void {
