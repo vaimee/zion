@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 
 import { User } from './../../src/common/models';
 import { getAccessToken } from './../utils/auth';
-import { getShortUnique } from './../utils/data';
+import { getShortUnique, getThingDescriptionIdFromHeaderLocation } from './../utils/data';
 import { closeDatabase, createUser } from './../utils/database';
 import * as invalidThingDescription from './../utils/tds/invalid.td.json';
 import * as validThingDescription from './../utils/tds/valid.td.json';
@@ -69,7 +69,10 @@ describe('/things', () => {
 
       expect(status).toBe(201);
       expect(headers.location).toBeDefined();
-      expect(data).toStrictEqual(validAnonymousThingDescription);
+      expect(data).toStrictEqual({
+        id: getThingDescriptionIdFromHeaderLocation(headers.location),
+        ...validAnonymousThingDescription,
+      });
     });
   });
 
@@ -108,7 +111,10 @@ describe('/things', () => {
         const { status, data } = await axios.get(headers.location);
 
         expect(status).toBe(200);
-        expect(data).toStrictEqual(validAnonymousThingDescription);
+        expect(data).toStrictEqual({
+          id: getThingDescriptionIdFromHeaderLocation(headers.location),
+          ...validAnonymousThingDescription,
+        });
       });
     });
 
@@ -144,7 +150,10 @@ describe('/things', () => {
 
         const { data } = await axios.get(headers.location);
         expect(status).toBe(204);
-        expect(data).toStrictEqual(updatedThingDescription);
+        expect(data).toStrictEqual({
+          id: getThingDescriptionIdFromHeaderLocation(headers.location),
+          ...updatedThingDescription,
+        });
       });
 
       it('should create the Thing Description', async () => {
@@ -235,7 +244,11 @@ describe('/things', () => {
         const { data } = await axios.get(headers.location);
 
         expect(status).toBe(204);
-        expect(data).toStrictEqual({ ...validAnonymousThingDescription, ...modifiedParts });
+        expect(data).toStrictEqual({
+          id: getThingDescriptionIdFromHeaderLocation(headers.location),
+          ...validAnonymousThingDescription,
+          ...modifiedParts,
+        });
       });
     });
 

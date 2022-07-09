@@ -12,3 +12,7 @@ export function getShortUnique(): string {
 export function getUniqueEmail(): string {
   return `email-${getShortUnique()}@test.com`;
 }
+
+export function getThingDescriptionIdFromHeaderLocation(location: string): string {
+  return location.split('/').pop() || '';
+}
