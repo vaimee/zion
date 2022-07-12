@@ -16,7 +16,6 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp('modified');
       table.timestamp('expires');
       table.integer('ttl');
-      table.timestamp('retrieved');
       table.integer('owner_id').references('id').inTable('user').notNullable();
     });
 }

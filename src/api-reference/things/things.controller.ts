@@ -20,7 +20,7 @@ import { FastifyRequest as Request, FastifyReply as Response } from 'fastify';
 import { AuthGuard } from './../../auth/auth.guard';
 import { CurrentUser } from './../../common/decorators/current-user';
 import { BadRequestException } from './../../common/exceptions';
-import { ThingDescription } from './../../common/interfaces/thing-description';
+import { EnrichedThingDescription, ThingDescription } from './../../common/interfaces/thing-description';
 import { User } from './../../common/models';
 import { ConfigService } from './../../config/config.service';
 import { ThingDescriptionDto } from './dto/thing-description.dto';
@@ -48,8 +48,11 @@ export class ThingsController {
 
   @Get(':id')
   @ApiRetrieve()
-  public retrieve(@Param('id') id: string): Promise<ThingDescription> {
-    return this.thingsService.retrieve(id);
+  public retrieve(
+    @Param('id') id: string,
+    @Query('enriched') enriched: boolean,
+  ): Promise<ThingDescription | EnrichedThingDescription> {
+    return this.thingsService.retrieve(id, enriched);
   }
 
   @Put(':id')
@@ -85,7 +88,10 @@ export class ThingsController {
 
   @Get()
   @ApiList()
-  public list(@Query() query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
-    return this.thingsService.list(query);
+  public list(
+    @Query() query: ThingDescriptionsQueryDto,
+    @Query('enriched') enriched: boolean,
+  ): Promise<ThingDescription[] | EnrichedThingDescription[]> {
+    return this.thingsService.list(query, enriched);
   }
 }

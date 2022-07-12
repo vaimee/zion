@@ -6,7 +6,12 @@ import { apply as mergePatch } from 'json-merge-patch';
 import { InvalidThingDescriptionException, NotFoundException } from './../../common/exceptions';
 import { ThingDescription } from './../../common/interfaces/thing-description';
 import { User } from './../../common/models';
-import { deanonymizeThingDescription, deanonymizeThingDescriptions } from './../../common/utils';
+import {
+  deanonymizeThingDescription,
+  deanonymizeThingDescriptions,
+  enrichThingDescription,
+  enrichThingDescriptions,
+} from './../../common/utils';
 import { validateThingDescription } from './../../common/utils/thing-description-validator';
 import { ThingDescriptionRepository } from './../../persistence/thing-description.repository';
 import { EventsService } from '../events/events.service';
@@ -17,37 +22,57 @@ import { ThingDescriptionsQueryDto } from './dto/thing-descriptions-query.dto';
 export class ThingsService {
   public constructor(
     private readonly thingDescriptionRepository: ThingDescriptionRepository,
-    private readonly events: EventsService,
+    private readonly eventsService: EventsService,
   ) {}
 
   public async create(user: User, dto: ThingDescriptionDto): Promise<string> {
     this.requireValidThingDescription(dto);
-    const thingDescriptionId = `urn:uuid:${randomUUID()}`;
-    await this.thingDescriptionRepository.create({ urn: thingDescriptionId, json: dto, owner_id: user.id });
-
-    this.events.emitCreated({ id: thingDescriptionId, ...dto });
-
-    return thingDescriptionId;
+    const urn = `urn:uuid:${randomUUID()}`;
+    const now = new Date().toISOString();
+    await this.thingDescriptionRepository.create({
+      urn,
+      json: dto,
+      created: now,
+      modified: now,
+      owner_id: user.id,
+    });
+    this.eventsService.emitCreated({ id: urn, ...dto });
+    return urn;
   }
 
-  public async retrieve(id: string): Promise<ThingDescription> {
+  public async retrieve(id: string, enriched: boolean): Promise<ThingDescription> {
     const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (!internalThingDescription) {
       throw new NotFoundException();
     }
-    return deanonymizeThingDescription(internalThingDescription);
+
+    const thingDescription = enriched
+      ? enrichThingDescription(internalThingDescription)
+      : deanonymizeThingDescription(internalThingDescription);
+
+    return thingDescription;
   }
 
   public async upsert(user: User, id: string, dto: ThingDescriptionDto): Promise<boolean> {
     this.requireValidThingDescription(dto);
+    const now = new Date().toISOString();
     const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (internalThingDescription) {
-      await this.thingDescriptionRepository.update({ where: { id: internalThingDescription.id }, data: { json: dto } });
-      this.events.emitUpdated(dto);
+      await this.thingDescriptionRepository.update({
+        where: { id: internalThingDescription.id },
+        data: { json: dto, modified: now },
+      });
+      this.eventsService.emitUpdated(dto);
       return true;
     } else {
-      await this.thingDescriptionRepository.create({ urn: id, json: dto, owner_id: user.id });
-      this.events.emitCreated(dto);
+      await this.thingDescriptionRepository.create({
+        urn: id,
+        json: dto,
+        created: now,
+        modified: now,
+        owner_id: user.id,
+      });
+      this.eventsService.emitCreated(dto);
       return false;
     }
   }
@@ -60,14 +85,14 @@ export class ThingsService {
 
     const patchedThingDescription = mergePatch(internalThingDescription.json, dto);
     this.requireValidThingDescription(patchedThingDescription);
+    const now = new Date().toISOString();
 
     await this.thingDescriptionRepository.update({
       where: { id: internalThingDescription.id },
-      data: { json: patchedThingDescription },
+      data: { json: patchedThingDescription, modified: now },
     });
 
-    dto.id = internalThingDescription.urn;
-    this.events.emitUpdated(dto);
+    this.eventsService.emitUpdated({ id: internalThingDescription.urn, ...dto });
   }
 
   public async delete(id: string): Promise<void> {
@@ -75,14 +100,17 @@ export class ThingsService {
     if (!internalThingDescription) {
       throw new NotFoundException();
     }
-    await this.thingDescriptionRepository.delete({ where: { id: internalThingDescription.id } });
 
-    this.events.emitDeleted(internalThingDescription.urn);
+    await this.thingDescriptionRepository.delete({ where: { id: internalThingDescription.id } });
+    this.eventsService.emitDeleted(internalThingDescription.urn);
   }
 
-  public async list(query: ThingDescriptionsQueryDto): Promise<ThingDescription[]> {
+  public async list(query: ThingDescriptionsQueryDto, enriched: boolean): Promise<ThingDescription[]> {
     const internalThingDescriptions = await this.thingDescriptionRepository.find();
-    return deanonymizeThingDescriptions(internalThingDescriptions);
+    const thingDescriptions = enriched
+      ? enrichThingDescriptions(internalThingDescriptions)
+      : deanonymizeThingDescriptions(internalThingDescriptions);
+    return thingDescriptions;
   }
 
   private requireValidThingDescription(data: unknown): void {

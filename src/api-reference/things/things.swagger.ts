@@ -38,6 +38,13 @@ export function ApiRetrieve() {
         description: 'Thing Description ID',
       },
     ],
+    queries: [
+      {
+        name: 'enriched',
+        type: 'boolean',
+        description: 'Include registration information attributes to the retrieved TD',
+      },
+    ],
     responses: [
       {
         status: 200,
@@ -152,6 +159,13 @@ export function ApiList() {
     operation: {
       summary: 'Retrieve all Thing Descriptions',
     },
+    queries: [
+      {
+        name: 'enriched',
+        type: 'boolean',
+        description: 'Include registration information attributes to the retrieved TDs',
+      },
+    ],
     responses: [
       {
         status: 200,
