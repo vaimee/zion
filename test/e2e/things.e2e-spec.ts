@@ -84,10 +84,26 @@ describe('/things', () => {
 
       const { status, data, headers } = await axios.get('/things');
 
-      // TODO: Find a better way to test this
       expect(status).toBe(200);
-      expect(data.length).toBeGreaterThanOrEqual(1);
       expect(headers['content-type']).toContain('application/json; charset=utf-8');
+      expect(data.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('should retrieve all the Enriched Thing Descriptions (no pagination)', async () => {
+      await axios.post('/things', validAnonymousThingDescription, {
+        headers: { Authorization: `Bearer ${defaultAccessToken}` },
+      });
+
+      const { status, data, headers } = await axios.get('/things', { params: { enriched: true } });
+      const now = new Date();
+
+      expect(status).toBe(200);
+      expect(headers['content-type']).toContain('application/json; charset=utf-8');
+      expect(data.length).toBeGreaterThanOrEqual(1);
+      expect(data[0].registration).toBeDefined();
+      expect(new Date(data[0].registration.created).getTime()).toBeLessThan(now.getTime());
+      expect(new Date(data[0].registration.modified).getTime()).toBeLessThan(now.getTime());
+      expect(new Date(data[0].registration.retrieved).getTime()).toBeLessThanOrEqual(now.getTime());
     });
   });
 
@@ -115,6 +131,29 @@ describe('/things', () => {
           id: getThingDescriptionIdFromHeaderLocation(headers.location),
           ...validAnonymousThingDescription,
         });
+      });
+
+      it('should retrieve the Enriched Thing Description', async () => {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+
+        const { status, data } = await axios.get(headers.location, { params: { enriched: true } });
+        const now = new Date();
+
+        expect(status).toBe(200);
+        expect(data).toMatchObject({
+          id: getThingDescriptionIdFromHeaderLocation(headers.location),
+          ...validAnonymousThingDescription,
+          '@context': [
+            'https://www.w3.org/2022/wot/td/v1.1',
+            'https://w3c.github.io/wot-discovery/context/discovery-context.jsonld',
+          ],
+        });
+        expect(data.registration).toBeDefined();
+        expect(new Date(data.registration.created).getTime()).toBeLessThan(now.getTime());
+        expect(new Date(data.registration.modified).getTime()).toBeLessThan(now.getTime());
+        expect(new Date(data.registration.retrieved).getTime()).toBeLessThanOrEqual(now.getTime());
       });
     });
 
