@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { transform } from '@vaimee/jsonpath-to-sqljsonpath';
 import { InjectKnex, Knex } from 'nestjs-knex';
 
 import { InternalThingDescription } from './../common/models';
@@ -11,7 +12,13 @@ export class ThingDescriptionRepository extends AbstractRepository<InternalThing
   }
 
   public async findJSONPath(query: string): Promise<unknown> {
-    const res = await this.knex(this.namespace).select(this.knex.raw('jsonb_path_query(json, ?) as _', query));
-    return res.map((item: any) => item['_']);
+    const sqljsonpathQueries = transform(query);
+    const queryBuilder = this.knex.unionAll(
+      sqljsonpathQueries.map((q) =>
+        this.knex(this.namespace).select(this.knex.raw('jsonb_path_query(json, ?) as _', q)),
+      ),
+    );
+    const results = await queryBuilder;
+    return results.map((item: any) => item['_']);
   }
 }

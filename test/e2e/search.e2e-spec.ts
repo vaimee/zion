@@ -47,7 +47,7 @@ describe('/search', () => {
       });
 
       const { status, data } = await axios.get('/search/jsonpath', {
-        params: { query: `$[*] ? (@.uniqueProperty == "${uniqueProperty}")` },
+        params: { query: `$[?(@.uniqueProperty == '${uniqueProperty}')]` },
       });
 
       expect(status).toBe(200);
