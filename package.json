@@ -63,7 +63,7 @@
     "@nestjs/platform-fastify": "^8.4.4",
     "@nestjs/swagger": "^5.2.1",
     "@node-wot/td-tools": "^0.8.0",
-    "@vaimee/jsonpath-to-sqljsonpath": "^1.0.0",
+    "@vaimee/jsonpath-to-sqljsonpath": "^1.0.1",
     "ajv": "^8.11.0",
     "ajv-formats-draft2019": "^1.6.1",
     "app-root-path": "^3.0.0",
