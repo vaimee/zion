@@ -34,6 +34,8 @@
 ## Getting started
 ## Roadmap
 ## Contributing
+Tank you for considering to contribute to Zion. Please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
 ## Contact
 ## Acknowledgments
 ![DESMO-LD](https://github.com/vaimee/desmo/blob/c763cec12f6c9060a9f1a3335ff4cff60ece3df2/imgs/desmo-logo.png)
