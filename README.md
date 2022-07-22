@@ -1,12 +1,42 @@
-![DESMO-LD](https://github.com/vaimee/desmo/blob/c763cec12f6c9060a9f1a3335ff4cff60ece3df2/imgs/desmo-logo.png)
-# DESMO-LD Thing Description Directory 
+<img src="./doc/logo.png" width="50%"/>
+
+![](https://shields.io/github/workflow/status/vaimee/zion/Main.svg?style=flat-square&logo=github&label=CI) 
+![](https://img.shields.io/github/issues/vaimee/zion.svg?style=flat-square) 
+![](https://img.shields.io/github/license/vaimee/zion.svg?style=flat-square)
+![](https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&color=blue)
+![](https://img.shields.io/badge/eslint-3A33D1?style=flat-square&logo=eslint&logoColor=white)
+![](https://img.shields.io/badge/prettier-1A2C34?style=flat-square&logo=prettier&logoColor=F7BA3E)
+# Zion - A scalable Thing Description Directory
 **Overview** 
 
-In the context of the W3C Web of Things, Thing Description Directories (TDDs) are services that store a set of Thing Descriptions. A TDD offers a set of APIs with CRUD operation on the collection of TDs that it stores. In DESMO-LD TDDs play a crucial role as they are the main search engine for IoT devices outside the chain. Open search engine and repository for Thing Descriptions. Device owners or third parties may deploy their own TDDs with their own access policies and join the distributed network of Desmo-LD. The DESMO-LD HUB is a registry of TDDs that can be queried using the Desmo-LD iExecDOracle (./demo-contracts/README.md).  
+> In the context of the [W3C Web of Things](https://www.w3.org/WoT/), Thing Description Directories (TDDs) are services that store a set of Thing Descriptions. A TDD offers a set of APIs with CRUD operations on the collection of TDs that it stores. Zion implements the [standard](https://w3c.github.io/wot-discovery/) TDD APIs with a set of extentions to cover the use cases of [VAIMEE](https://vaimee.com/). 
 
-The requirements for joining the network are:
-- Having a W3C compliant API
-- Registering in the Desmo-LD HUB
-- Optionally, support Desmo-LD advanced discovery APIs for geolocation based queries.
+<!-- TABLE OF CONTENTS -->
 
-Note that the DESMO-LD TDD will not use the DESMO-LD HUB directly, but its role in the system is bound to DESMO-LD with the registration phase that can be handled automatically or by human interaction.
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#features">Features</a>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+## Features
+## Getting started
+## Roadmap
+## Contributing
+## Contact
+## Acknowledgments
+![DESMO-LD](https://github.com/vaimee/desmo/blob/c763cec12f6c9060a9f1a3335ff4cff60ece3df2/imgs/desmo-logo.png)
+
+Zion is founded by the [DESMO-LD project](https://ontochain.ngi.eu/content/desmo-ld) inside the [ONTOCHAIN](https://ontochain.ngi.eu/) european organization part of the [Next Generation Internet](https://www.ngi.eu/) fund.
+
