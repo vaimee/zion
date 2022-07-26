@@ -17,6 +17,7 @@ COPY --from=build /home/node/app/node_modules ./node_modules/
 COPY --from=build /home/node/app/dist/ ./dist/
 COPY --from=build /home/node/app/knexfile.ts ./
 COPY --from=build /home/node/app/migrations ./migrations
+COPY --from=build /home/node/app/static ./static
 
 EXPOSE 3000
 ENTRYPOINT ["node", "dist/src/main.js" ]

@@ -1,0 +1,14 @@
+<svg width="13.549mm" height="13.549mm" version="1.1" viewBox="0 0 13.549 13.549" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="filter2207" x="-.432" y="-.432" width="1.864" height="1.864" style="color-interpolation-filters:sRGB">
+   <feGaussianBlur stdDeviation="3.5234026"/>
+  </filter>
+ </defs>
+ <g transform="translate(-97.624 -104.56)">
+  <rect x="98.687" y="105.63" width="11.422" height="11.422" style="fill:#5df"/>
+  <rect transform="rotate(45)" x="147.76" y=".1175" width="9.5805" height="9.5805" style="fill:#023d67"/>
+  <rect x="102.34" y="109.29" width="4.1068" height="4.1068" style="fill:#fff"/>
+  <rect transform="matrix(.2098 0 0 .2098 100.86 98.013)" x="7.0644" y="53.73" width="19.574" height="19.574" style="fill:#fff;filter:url(#filter2207)"/>
+  <rect transform="matrix(.2098 0 0 .2098 100.86 98.013)" x="7.0644" y="53.73" width="19.574" height="19.574" style="fill:#fff;filter:url(#filter2207)"/>
+ </g>
+</svg>

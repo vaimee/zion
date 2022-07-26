@@ -12,6 +12,22 @@ async function bootstrap() {
   SwaggerModule.setup('explorer', app, document);
 
   await app.listen(config.serverPort, '0.0.0.0');
+  printWelcomeMessage(config);
+}
+
+function printWelcomeMessage(config: ConfigService) {
+  console.log(
+    `
+      **         ___________ ____  _   _ 
+  ┌─**──**─┐    |___  /_   _/ __ \\| \\ | |    
+  **┌────┐**       / /  | || |  | |  \\| |
+ ** │    │ **     / /   | || |  | | . \` |
+  **└────┘**     / /__ _| || |__| | |\\  |
+  └─**──**─┘    /_____|_____\\____/|_| \\_|
+      **
+  `,
+  );
+  console.log(`Thing Description Directory is active on ${config.apiBase}`);
 }
 
 bootstrap();

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Zion</title>
+  <meta name="description" content="A Thing Description Directory for large-scale IoT projects.">
+  <meta name="author" content="Cristiano Aguzzi">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/spine-player.css">
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" sizes="any">
+  <script src="js/spine-player.js"></script>
+  <style>
+    .icon {
+      width: 2.5em;
+      overflow: hidden;
+    }
+    @media (min-width: 550px) {
+    .offset-by-four-half.column,
+    .offset-by-four-half.columns         { margin-left: 40%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="eight offset-by-two columns " id="logo" style="margin-top: 15%;"></div>
+    </div>
+    <div class="row">
+      <div class="two offset-by-five columns ">
+        <h6>Version 1.0.0 alpha</h6>
+      </div>
+    </div>
+    <div class="row">
+      <div class="eight offset-by-two columns ">
+        <p style="text-align: center;">
+          Your Thing Description Directory is <b>up</b> and <b>running</b>. Look for the Thing Description? You can click below!
+          You can also use the swagger to explore the API or visit the Github repository for more information.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      
+      <div class="one offset-by-four-half column"><a href="./well-known/wot-thing-description"><img class="icon" src="./images/td.png"></img></a></div>
+      <div class="one column"><a href="https://github.com/vaimee/zion"><img class="icon" src="./images/github.png"></img></a></div>
+      <div class="one column"><a href="./explorer"><img class="icon" src="./images/swagger.png"></img></a></div>
+    </div>
+  </div>
+<script defer>
+
+
+  new spine.SpinePlayer("logo", {
+    // Relative URLs
+    jsonUrl: "./assets/skeleton.json",
+    atlasUrl: "./assets/skeleton.atlas",
+    showControls: false,
+    alpha: true, // Enable player translucency
+    backgroundColor: "#00000000", // Background is fully transparent
+     success: function (player) {
+      player.animationState.setAnimation(0, "init");
+      player.animationState.addAnimation(0, "idle", true, 0);
+      player.play();
+    },
+    viewport: {
+      x: -90,
+      y: -90,
+      width: 558,
+      height: 180,
+      padLeft: "5%",
+      padRight: "5%",
+      padTop: "5%",
+      padBottom: "5%"
+    }
+  });
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
