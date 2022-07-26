@@ -39,7 +39,7 @@ Zion employes the best open source technologies to provide a scalable TDD servic
   - CRUD operations on the collection of TDs
   - JSONPath queries compliant with IETF JSONPath standard [draft 5](https://datatracker.ietf.org/doc/html/draft-ietf-jsonpath-base#section-3.5.8)
   - Pagination support
-  - Basic support for authentication and authorization
+- Basic support for authentication and authorization
 ## Getting started
 ## Roadmap
 
