@@ -42,6 +42,21 @@ Zion employes the best open source technologies to provide a scalable TDD servic
   - Basic support for authentication and authorization
 ## Getting started
 ## Roadmap
+
+- [ ] Standard API
+  * [ ] XPath queries
+  * [ ] SPARQL queries supported with an external SPARQL endpoint
+  * [ ] CoRE introduction method
+- [ ] Experimental API
+  * [ ] GEO spatial queries
+  * [ ] User private TD collection CRUD 
+- [ ] Caching layer
+- [ ] Cluster mode support
+- [ ] Advance authentication
+  * [ ] OpenID Connect
+  * [ ] OAuth2 Bearer Token
+
+Other minor features are listed in the Issue tracker with the label `feature`.
 ## Contributing
 Tank you for considering to contribute to Zion. Please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
