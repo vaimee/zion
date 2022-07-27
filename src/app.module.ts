@@ -19,6 +19,7 @@ import { PersistenceModule } from './persistence/persistence.module';
     ApiReferenceModule,
     ServeStaticModule.forRoot({
       rootPath: join(rootPath, 'static'),
+      renderPath: '/(^$|css|images|js|assets)',
       serveStaticOptions: {
         extensions: ['html', 'svg', 'png', 'json', 'js', 'css'],
       },
