@@ -85,7 +85,7 @@ describe('/things', () => {
       const { status, data, headers } = await axios.get('/things');
 
       expect(status).toBe(200);
-      expect(headers['content-type']).toContain('application/json; charset=utf-8');
+      expect(headers['content-type']).toContain('application/ld+json; charset=utf-8');
       expect(data.length).toBeGreaterThanOrEqual(1);
     });
 
@@ -98,7 +98,7 @@ describe('/things', () => {
       const now = new Date();
 
       expect(status).toBe(200);
-      expect(headers['content-type']).toContain('application/json; charset=utf-8');
+      expect(headers['content-type']).toContain('application/ld+json; charset=utf-8');
       expect(data.length).toBeGreaterThanOrEqual(1);
       expect(data[0].registration).toBeDefined();
       expect(new Date(data[0].registration.created).getTime()).toBeLessThan(now.getTime());
@@ -124,10 +124,11 @@ describe('/things', () => {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
 
-        const { status, data } = await axios.get(headers.location);
+        const retrieveResponse = await axios.get(headers.location);
 
-        expect(status).toBe(200);
-        expect(data).toStrictEqual({
+        expect(retrieveResponse.status).toBe(200);
+        expect(retrieveResponse.headers['content-type']).toContain('application/td+json; charset=utf-8');
+        expect(retrieveResponse.data).toStrictEqual({
           id: getThingDescriptionIdFromHeaderLocation(headers.location),
           ...validAnonymousThingDescription,
         });

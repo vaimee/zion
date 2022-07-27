@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   HttpCode,
   HttpStatus,
   Param,
@@ -47,6 +48,7 @@ export class ThingsController {
   }
 
   @Get(':id')
+  @Header('Content-type', 'application/td+json')
   @ApiRetrieve()
   public retrieve(
     @Param('id') id: string,
@@ -87,6 +89,7 @@ export class ThingsController {
   }
 
   @Get()
+  @Header('Content-type', 'application/ld+json')
   @ApiList()
   public list(
     @Query() query: ThingDescriptionsQueryDto,
