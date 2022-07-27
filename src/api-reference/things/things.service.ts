@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 
 import { Injectable } from '@nestjs/common';
-import { apply as mergePatch } from 'json-merge-patch';
+import { generate as generatePatch, apply as mergePatch } from 'json-merge-patch';
 
 import { InvalidThingDescriptionException, NotFoundException } from './../../common/exceptions';
 import { ThingDescription } from './../../common/interfaces/thing-description';
@@ -62,7 +62,8 @@ export class ThingsService {
         where: { id: internalThingDescription.id },
         data: { json: dto, modified: now },
       });
-      this.eventsService.emitUpdated(dto);
+      const patch = generatePatch(internalThingDescription.json, dto) ?? {};
+      this.eventsService.emitUpdated({ id, ...patch });
       return true;
     } else {
       await this.thingDescriptionRepository.create({
