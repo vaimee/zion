@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Head,
   Header,
   HttpCode,
   HttpStatus,
@@ -57,6 +58,15 @@ export class ThingsController {
     return this.thingsService.retrieve(id, enriched);
   }
 
+  @Head(':id')
+  @Header('Content-type', 'application/td+json')
+  public retrieveHead(
+    @Param('id') id: string,
+    @Query('enriched') enriched: boolean,
+  ): ReturnType<ThingsController['retrieve']> {
+    return this.retrieve(id, enriched);
+  }
+
   @Put(':id')
   @UseGuards(AuthGuard)
   @ApiUpsert()
@@ -96,5 +106,14 @@ export class ThingsController {
     @Query('enriched') enriched: boolean,
   ): Promise<ThingDescription[] | EnrichedThingDescription[]> {
     return this.thingsService.list(query, enriched);
+  }
+
+  @Head()
+  @Header('Content-type', 'application/ld+json')
+  public listHead(
+    @Query() query: ThingDescriptionsQueryDto,
+    @Query('enriched') enriched: boolean,
+  ): ReturnType<ThingsController['list']> {
+    return this.list(query, enriched);
   }
 }
