@@ -24,6 +24,6 @@ export class SearchController {
   @Get('sparql')
   @ApiSearchSPARQL()
   public searchSPARQL(@Query('query') query: string): Promise<any> {
-    return this.searchSPARQL(query);
+    return this.searchService.searchSPARQL(query);
   }
 }
