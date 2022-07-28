@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { BadRequestException } from './../../common/exceptions';
+import { BadRequestException, NotFoundException } from './../../common/exceptions';
 import { ThingDescriptionRepository } from './../../persistence/thing-description.repository';
 
 @Injectable()
@@ -16,10 +16,10 @@ export class SearchService {
   }
 
   public searchXPath(query: string): Promise<any> {
-    throw new Error('Method not implemented.');
+    throw new NotFoundException('Search by XPath is not implemented yet');
   }
 
   public searchSPARQL(query: string): Promise<any> {
-    throw new Error('Method not implemented.');
+    throw new NotFoundException('Search by SPARQL is not implemented yet');
   }
 }

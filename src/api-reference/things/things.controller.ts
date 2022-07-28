@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  Head,
+  Header,
   HttpCode,
   HttpStatus,
   Param,
@@ -48,12 +50,22 @@ export class ThingsController {
   }
 
   @Get(':id')
+  @Header('Content-type', 'application/td+json')
   @ApiRetrieve()
   public retrieve(
     @Param('id') id: string,
     @Query('enriched') enriched: boolean,
   ): Promise<ThingDescription | EnrichedThingDescription> {
     return this.thingsService.retrieve(id, enriched);
+  }
+
+  @Head(':id')
+  @Header('Content-type', 'application/td+json')
+  public retrieveHead(
+    @Param('id') id: string,
+    @Query('enriched') enriched: boolean,
+  ): ReturnType<ThingsController['retrieve']> {
+    return this.retrieve(id, enriched);
   }
 
   @Put(':id')
@@ -93,11 +105,21 @@ export class ThingsController {
   }
 
   @Get()
+  @Header('Content-type', 'application/ld+json')
   @ApiList()
   public list(
     @Query() query: ThingDescriptionsQueryDto,
     @Query('enriched') enriched: boolean,
   ): Promise<ThingDescription[] | EnrichedThingDescription[]> {
     return this.thingsService.list(query, enriched);
+  }
+
+  @Head()
+  @Header('Content-type', 'application/ld+json')
+  public listHead(
+    @Query() query: ThingDescriptionsQueryDto,
+    @Query('enriched') enriched: boolean,
+  ): ReturnType<ThingsController['list']> {
+    return this.list(query, enriched);
   }
 }

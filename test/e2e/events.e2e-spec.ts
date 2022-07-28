@@ -248,6 +248,46 @@ describe('/events', () => {
     expect(thing).toEqual(patch);
   });
 
+  it('should fire thing_updated with diff parameter on PUT requests', async () => {
+    const createRequest = await axios.post('/things?diff=true', validAnonymousThingDescription, {
+      headers: { Authorization: `Bearer ${defaultAccessToken}` },
+    });
+
+    expect(createRequest.status).toBe(201);
+
+    const location = createRequest.headers['location'];
+    const id = location.split('/').pop();
+
+    const { status, headers, data } = await axios.get('/events', { responseType: 'stream' });
+
+    expect(status).toBe(200);
+    expect(headers['content-type']).toContain('text/event-stream');
+
+    const collectPromise = collectMessages(data, 1);
+
+    const modifiedThingDescription = { ...validAnonymousThingDescription, title: 'New Title' };
+
+    await axios.put(location, modifiedThingDescription, {
+      headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
+    });
+
+    expect(createRequest.status).toBe(201);
+
+    const messages = await collectPromise;
+    data.destroy();
+
+    expect(messages.length).toBeGreaterThan(0);
+    expect(messages[0].type).toBe('thing_updated');
+    expect(messages[0].data).toBeDefined();
+    expect(messages[0].id).toBeDefined();
+
+    const payload = messages[0].data.join('');
+    const thing = JSON.parse(payload);
+
+    const patch = { id, title: 'New Title' };
+    expect(thing).toEqual(patch);
+  });
+
   it('should fire thing_deleted', async () => {
     const createRequest = await axios.post('/things', validAnonymousThingDescription, {
       headers: { Authorization: `Bearer ${defaultAccessToken}` },

@@ -31,7 +31,8 @@
 </details>
 
 ## Features
-Zion employes the best open source technologies to provide a scalable TDD service. Currently, Zion supports the following features:
+Zion employes the best open source technologies to provide a scalable TDD service. Zion wants to be [fast](https://github.com/vaimee/tdd-workload-generator), ease to use
+and flexible. Currently, Zion supports the following features:
 - [Introduction methods](https://w3c.github.io/wot-discovery/#introduction-mech) :
   - DNS-SD
   - Well-known URL
