@@ -8,7 +8,7 @@ describe('/well-known', () => {
   /**
    * @see https://w3c.github.io/wot-discovery/#introduction-well-known
    */
-  const SPECIFICATION_PATH = 'wot-thing-description';
+  const SPECIFICATION_PATH = 'wot';
   let axios: AxiosInstance;
   let app: INestApplication;
 

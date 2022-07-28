@@ -12,13 +12,13 @@ import { WellKnownService } from './well-known.service';
 export class WellKnownController {
   public constructor(private readonly service: WellKnownService) {}
 
-  @Get('wot-thing-description')
+  @Get('wot')
   @Header('Content-type', 'application/td+json')
   public thingDescription() {
     return this.service.getThingDescription();
   }
 
-  @Head('wot-thing-description')
+  @Head('wot')
   @Header('Content-type', 'application/td+json')
   public async ping(@Response() response: FastifyReply) {
     const size = await this.service.size();
