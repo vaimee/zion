@@ -7,10 +7,8 @@
         "tm:ThingModel",
         "ThingDirectory"
     ],
-    "title": "Thing Description Directory (TDD) Thing Model",
-    "version": {
-        "model": "1.0.0-beta.2"
-    },
+    "title": "Zion",
+    "description": "A scalable Thing Description Directory",
     "base": "{{DIRECTORY_BASE_URL}}",
     "properties": {
         "things": {
