@@ -14,7 +14,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FastifyRequest as Request, FastifyReply as Response } from 'fastify';
 
 import { AuthGuard } from './../../auth/auth.guard';
@@ -35,6 +35,7 @@ export class ThingsController {
 
   @Post()
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiCreate()
   public async create(
     @CurrentUser() user: User,
@@ -57,6 +58,7 @@ export class ThingsController {
 
   @Put(':id')
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @ApiUpsert()
   public async upsert(
     @CurrentUser() user: User,
@@ -69,7 +71,9 @@ export class ThingsController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiBearerAuth()
   @ApiUpdate()
   public update(@Param('id') id: string, @Body() dto: ThingDescriptionDto, @Req() req: Request): Promise<void> {
     const isCorrectContentType = req.headers['content-type'] === 'application/merge-patch+json';
@@ -80,7 +84,9 @@ export class ThingsController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiBearerAuth()
   @ApiDelete()
   public delete(@Param('id') id: string): Promise<void> {
     return this.thingsService.delete(id);

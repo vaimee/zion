@@ -1,0 +1,23 @@
+{
+  "title": "EventPayload",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Event ID",
+      "type": "integer"
+    },
+    "event": {
+      "description": "Event type",
+      "type": "string"
+    },
+    "data": {
+      "description": "Partial TD or the whole Thing Description",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "event",
+    "data"
+  ]
+}

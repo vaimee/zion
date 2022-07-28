@@ -4,24 +4,40 @@ export function ApiSearchJSONPath() {
   return ApiEndpoint({
     operation: {
       summary: 'JSONPath syntactic search',
+      description: `The query language described <a href="https://datatracker.ietf.org/doc/html/draft-ietf-jsonpath-base" target="_blank">here</a> can be used to filter results and select parts of Thing Descriptions.`,
     },
     queries: [
       {
         name: 'query',
         type: 'string',
         description: 'A valid JSONPath expression',
+        example: `$[?(@.title=='MyLampThing')].properties`,
       },
     ],
     responses: [
       {
         status: 200,
-        type: 'application/json',
-        description: 'Success response',
+        description: 'OK',
+        content: {
+          'application/json': {
+            examples: {
+              'JSONPath result': {
+                $ref: '#/components/examples/JSONPath',
+              },
+            },
+          },
+        },
       },
       {
         status: 400,
-        type: 'application/problem+json',
-        description: 'JSONPath expression not provided or contains syntax errors',
+        description: 'Bad Request',
+        content: {
+          'application/problem+json': {
+            schema: {
+              $ref: '#/components/schemas/ProblemDetails',
+            },
+          },
+        },
       },
     ],
   });
@@ -32,25 +48,6 @@ export function ApiSearchXPath() {
     operation: {
       summary: 'XPath syntactic search',
     },
-    queries: [
-      {
-        name: 'query',
-        type: 'string',
-        description: 'A valid XPath expression',
-      },
-    ],
-    responses: [
-      {
-        status: 200,
-        type: 'application/json',
-        description: 'Success response',
-      },
-      {
-        status: 400,
-        type: 'application/problem+json',
-        description: 'XPath expression not provided or contains syntax errors',
-      },
-    ],
   });
 }
 
@@ -59,24 +56,5 @@ export function ApiSearchSPARQL() {
     operation: {
       summary: 'SPARQL semantic search',
     },
-    queries: [
-      {
-        name: 'query',
-        type: 'string',
-        description: 'A valid SPARQL 1.1. query',
-      },
-    ],
-    responses: [
-      {
-        status: 200,
-        type: 'application/json',
-        description: 'Success response',
-      },
-      {
-        status: 400,
-        type: 'application/problem+json',
-        description: 'SPARQL query not provided or contains syntax errors',
-      },
-    ],
   });
 }

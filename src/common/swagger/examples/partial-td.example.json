@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "status": {
+      "description": "Shows the current status of the lamp",
+      "type": "boolean",
+      "forms": [
+        {
+          "href": "https://mylamp.example.com/status"
+        }
+      ]
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { Controller, Get, Head, Header, Response } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { FastifyReply } from 'fastify';
 
 import { WellKnownService } from './well-known.service';
@@ -8,6 +9,7 @@ import { WellKnownService } from './well-known.service';
  *
  * @see https://w3c.github.io/wot-discovery/#introduction-well-known
  */
+@ApiTags('Introduction')
 @Controller('well-known')
 export class WellKnownController {
   public constructor(private readonly service: WellKnownService) {}

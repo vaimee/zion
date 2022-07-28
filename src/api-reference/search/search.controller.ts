@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 
 import { SearchService } from './search.service';
 import { ApiSearchJSONPath, ApiSearchSPARQL, ApiSearchXPath } from './search.swagger';
@@ -15,12 +15,14 @@ export class SearchController {
     return this.searchService.searchJSONPath(query);
   }
 
+  @ApiExcludeEndpoint()
   @Get('xpath')
   @ApiSearchXPath()
   public searchXPath(@Query('query') query: string): Promise<any> {
     return this.searchService.searchXPath(query);
   }
 
+  @ApiExcludeEndpoint()
   @Get('sparql')
   @ApiSearchSPARQL()
   public searchSPARQL(@Query('query') query: string): Promise<any> {

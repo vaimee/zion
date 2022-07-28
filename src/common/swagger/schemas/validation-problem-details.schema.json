@@ -1,0 +1,31 @@
+{
+  "title": "ValidationProblemDetails",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/ProblemDetails"
+    }
+  ],
+  "properties": {
+    "validationErrors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field"
+        ]
+      }
+    }
+  },
+  "required": [
+    "validationErrors"
+  ]
+}

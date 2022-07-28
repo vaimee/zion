@@ -1,0 +1,32 @@
+[
+  {
+    "status": {
+      "type": "string",
+      "forms": [
+        {
+          "href": "https://mylamp1.example.com/status"
+        }
+      ]
+    }
+  },
+  {
+    "status": {
+      "type": "string",
+      "forms": [
+        {
+          "href": "https://mylamp2.example.com/status"
+        }
+      ]
+    }
+  },
+  {
+    "status": {
+      "type": "string",
+      "forms": [
+        {
+          "href": "https://mylamp3.example.com/status"
+        }
+      ]
+    }
+  }
+]

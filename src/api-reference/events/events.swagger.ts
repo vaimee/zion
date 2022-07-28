@@ -5,6 +5,7 @@ export function ApiSubscribeToAll() {
   return ApiEndpoint({
     operation: {
       summary: 'Subscribe to all events',
+      description: `This API uses the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events" target="_blank">Server-sent events (SSE)</a> protocol.`,
     },
     headers: [
       {
@@ -17,14 +18,24 @@ export function ApiSubscribeToAll() {
       {
         name: 'diff',
         type: 'boolean',
-        description: 'Include changed TD attributes inside events payload',
+        description: 'Include changed Thing Description attributes inside events payload',
+        required: false,
       },
     ],
     responses: [
       {
         status: 200,
-        type: 'text/event-stream',
-        description: 'Events stream',
+        description: 'OK',
+        content: {
+          'text/event-stream': {
+            schema: {
+              type: 'array',
+              items: {
+                $ref: '#/components/schemas/EventPayload',
+              },
+            },
+          },
+        },
       },
     ],
   });
@@ -34,6 +45,7 @@ export function ApiSubscribeTo() {
   return ApiEndpoint({
     operation: {
       summary: 'Subscribe to specific events',
+      description: `This API uses the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events" target="_blank">Server-sent events (SSE)</a> protocol.`,
     },
     headers: [
       {
@@ -53,14 +65,24 @@ export function ApiSubscribeTo() {
       {
         name: 'diff',
         type: 'boolean',
-        description: 'Include changed TD attributes inside events payload',
+        description: 'Include changed Thing Description attributes inside events payload',
+        required: false,
       },
     ],
     responses: [
       {
         status: 200,
-        type: 'text/event-stream',
-        description: 'Events stream',
+        description: 'OK',
+        content: {
+          'text/event-stream': {
+            schema: {
+              type: 'array',
+              items: {
+                $ref: '#/components/schemas/EventPayload',
+              },
+            },
+          },
+        },
       },
     ],
   });
