@@ -1,5 +1,5 @@
 import { Controller, Get, Head, Header, Response } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { FastifyReply } from 'fastify';
 
 import { WellKnownService } from './well-known.service';
@@ -22,6 +22,7 @@ export class WellKnownController {
 
   @Head('wot')
   @Header('Content-type', 'application/td+json')
+  @ApiExcludeEndpoint()
   public async ping(@Response() response: FastifyReply) {
     const size = await this.service.size();
     response.header('Content-length', `${size}`);

@@ -16,7 +16,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { FastifyRequest as Request, FastifyReply as Response } from 'fastify';
 
 import { AuthGuard } from './../../auth/auth.guard';
@@ -61,6 +61,7 @@ export class ThingsController {
 
   @Head(':id')
   @Header('Content-type', 'application/td+json')
+  @ApiExcludeEndpoint()
   public retrieveHead(
     @Param('id') id: string,
     @Query('enriched') enriched: boolean,
@@ -116,6 +117,7 @@ export class ThingsController {
 
   @Head()
   @Header('Content-type', 'application/ld+json')
+  @ApiExcludeEndpoint()
   public listHead(
     @Query() query: ThingDescriptionsQueryDto,
     @Query('enriched') enriched: boolean,
