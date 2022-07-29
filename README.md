@@ -42,6 +42,71 @@ and flexible. Currently, Zion supports the following features:
   - Pagination support
 - Basic support for authentication and authorization
 ## Getting started
+
+Thank you for considering using Zion in your Web of Things project! 🥳. Zion is still in his early stages and is still in the process of being tested and developed.
+However, if you already want to deploy on your own you have three options:
+
+### Clone and docker compose
+You can clone the repository and start zion using the following command:
+```bash
+docker compose up
+```
+If you want to manually set up your database, you can edit the example [.env](.env) file:
+```bash
+NODE_ENV=development
+SERVER_PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=postgres
+JWT_SECRET=abc123
+JWT_EXPIRES_IN=15m
+```
+### Clone and npm 
+If you want to start Zion in a development mode, you can clone the repository and run the following command:
+```bash
+npm ci
+npm start
+```
+**Note**: you have to manually set up your database and configure Zion using the [.env](.env) file.
+
+
+### Docker compose
+You can start zion right away using this simple docker compose file together with your local [.env](./evn) file :
+```docker-compose.yml
+version: '3.6'
+services:
+  database:
+    image: postgres:14.3-alpine
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    container_name: 'zion-postgres-testing'
+    ports:
+      - '54310:5432'
+  zion:
+    image: vaimee/zion:latest
+    depends_on:
+      - database
+    entrypoint: ['sh', '-c','npm run db:migrate:latest && node dist/src/main.js']
+    ports: 
+      - ${SERVER_PORT}:${SERVER_PORT}
+    container_name: zion
+    environment:
+      - NODE_ENV
+      - SERVER_PORT
+      - DB_HOST=database
+      - DB_PORT
+      - DB_USER
+      - DB_PASSWORD
+      - DB_DATABASE
+      - JWT_SECRET
+      - JWT_EXPIRES_IN
+```
+
+
 ## Roadmap
 
 - [ ] Standard API
