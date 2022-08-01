@@ -10,7 +10,7 @@ import { WellKnownService } from './well-known.service';
  * @see https://w3c.github.io/wot-discovery/#introduction-well-known
  */
 @ApiTags('Introduction')
-@Controller('well-known')
+@Controller('.well-known')
 export class WellKnownController {
   public constructor(private readonly service: WellKnownService) {}
 
