@@ -21,6 +21,7 @@ import { UserRepository } from './user.repository';
             user: config.dbUser,
             password: config.dbPassword,
             database: config.dbDatabase,
+            pool: { min: 0, max: 10 },
           },
         },
       }),
