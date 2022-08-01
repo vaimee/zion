@@ -11,6 +11,8 @@ services:
       - '54310:5432'
   zion:
     build: .
+    depends_on:
+      - database
     entrypoint: ['sh', '-c','npm run db:migrate:latest && node dist/src/main.js']
     ports: 
       - ${SERVER_PORT}:${SERVER_PORT}
