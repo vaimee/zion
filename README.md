@@ -124,7 +124,7 @@ services:
 
 Other minor features are listed in the Issue tracker with the label `feature`.
 ## Contributing
-Tank you for considering to contribute to Zion. Please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+Thank you for considering to contribute to Zion. Please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## Contact
 Lorenzo Gigli - [@hyperloris](https://twitter.com/hyperloris) - [lorenzo.gigli@vaimee.com](mailto://lorenzo.gigli@vaimee.com)
