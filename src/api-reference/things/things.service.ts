@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { generate as generatePatch, apply as mergePatch } from 'json-merge-patch';
 
 import { InvalidThingDescriptionException, NotFoundException } from './../../common/exceptions';
+import { NonAnonymousThingDescription } from './../../common/exceptions/non-anonymous-thing-description.exception';
 import { ThingDescription } from './../../common/interfaces/thing-description';
 import { User } from './../../common/models';
 import {
@@ -27,6 +28,7 @@ export class ThingsService {
 
   public async create(user: User, dto: ThingDescriptionDto): Promise<string> {
     this.requireValidThingDescription(dto);
+    if (dto.id) throw new NonAnonymousThingDescription();
     const urn = `urn:uuid:${randomUUID()}`;
     const now = new Date().toISOString();
     await this.thingDescriptionRepository.create({
