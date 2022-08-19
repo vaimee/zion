@@ -6,7 +6,7 @@ VAIMEE believes in the community of talented open source developers. Any contrib
 We use github to host code, track issues, feature requests, and accept pull requests. When we reach the `1.0.0` all code changes must happen using [Github Flow](https://guides.github.com/introduction/flow/index.html), so **all** code changes happen through pull requests. 
 We actively welcome your pull requests:
 
-1. Fork the repo and create your branch from `master`.
+1. Fork the repo and create your branch from `main`.
 2. If you've added code, add tests to validate it.
 3. If you've changed APIs, update the documentation.
 4. Ensure the test suite passes.
