@@ -47,7 +47,7 @@ Fixes #3
 
 ## Code guidelines and patterns
 
-Through Zion's development, we took some design decision that encourage future developers to follow to maintain a consistent code style. If you want to change this list or provide feedback, feel free to open an issue and talk about it! 
+Throughout Zion's development, we made some design decisions that we are documenting here. We encourage future developers to follow these rules to maintain a consistent code style. If you want to change this list or provide feedback, feel free to open an issue and talk about it! 
 
 ### File names
 File names follow the NestJS convention: `${name}.${scope}.${extension}`.
