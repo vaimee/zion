@@ -41,6 +41,20 @@ describe('/things', () => {
       });
     });
 
+    it('should fail to register the Thing Description when it is not anonymous', async () => {
+      const { status, data } = await axios.post('/things', validThingDescription, {
+        headers: { Authorization: `Bearer ${defaultAccessToken}` },
+      });
+
+      expect(status).toBe(400);
+      expect(data).toMatchObject({
+        type: '/errors/types/non-anonymous-thing-description',
+        title: 'Invalid Identified Thing Description',
+        status: 400,
+        detail: 'POST /things endpoint does not accept Thing Description with id, only anonymous Thing Description.',
+      });
+    });
+
     it('should fail to register the Thing Description when it is invalid', async () => {
       const { status, data } = await axios.post('/things', invalidThingDescription, {
         headers: { Authorization: `Bearer ${defaultAccessToken}` },
