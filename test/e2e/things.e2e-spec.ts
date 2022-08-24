@@ -192,6 +192,22 @@ describe('/things', () => {
         });
       });
 
+      it('should fail to create the Thing Description if the URL id does not match the body id', async () => {
+        const id = getShortUnique();
+
+        const { status, data } = await axios.put(`/things/${id}`, validThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+
+        expect(status).toBe(400);
+        expect(data).toMatchObject({
+          type: '/errors/types/mismatch-id-expection',
+          title: 'Mismatch ID',
+          status: 400,
+          detail: 'The id specified in the URL does not match the id in the Thing Description body',
+        });
+      });
+
       it('should update the Thing Description', async () => {
         const { headers } = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
@@ -211,7 +227,7 @@ describe('/things', () => {
       });
 
       it('should create the Thing Description', async () => {
-        const id = getShortUnique();
+        const id = validThingDescription.id;
 
         const { status } = await axios.put(`/things/${id}`, validThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
