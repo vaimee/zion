@@ -3,8 +3,12 @@ import { randomUUID } from 'crypto';
 import { Injectable } from '@nestjs/common';
 import { generate as generatePatch, apply as mergePatch } from 'json-merge-patch';
 
-import { InvalidThingDescriptionException, NotFoundException } from './../../common/exceptions';
-import { NonAnonymousThingDescription } from './../../common/exceptions/non-anonymous-thing-description.exception';
+import {
+  InvalidThingDescriptionException,
+  MismatchIdException,
+  NonAnonymousThingDescription,
+  NotFoundException,
+} from './../../common/exceptions';
 import { ThingDescription } from './../../common/interfaces/thing-description';
 import { User } from './../../common/models';
 import {
@@ -68,6 +72,7 @@ export class ThingsService {
       this.eventsService.emitUpdated({ id, ...patch });
       return true;
     } else {
+      if (!dto.id || id !== dto.id) throw new MismatchIdException();
       await this.thingDescriptionRepository.create({
         urn: id,
         json: dto,
