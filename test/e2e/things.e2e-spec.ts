@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
+import { ThingDescription } from './../../src/common/interfaces/thing-description';
 import { User } from './../../src/common/models';
 import { getAccessToken } from './../utils/auth';
 import { getShortUnique, getThingDescriptionIdFromHeaderLocation } from './../utils/data';
@@ -210,6 +211,24 @@ describe('/things', () => {
         });
       });
 
+      it('should update the Thing Description id and update the URL urn', async () => {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        const id = `urn:dev:ops:${getShortUnique()}`;
+        const updatedThingDescription = { ...validAnonymousThingDescription, id: id };
+
+        await axios.put(headers.location, updatedThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+
+        const { status } = await axios.get(headers.location);
+        expect(status).toBe(404);
+
+        const { data } = await axios.get(`/things/${id}`);
+        expect(data).toMatchObject(updatedThingDescription);
+      });
+
       it('should create the Thing Description', async () => {
         const id = getShortUnique();
 
@@ -302,6 +321,26 @@ describe('/things', () => {
           id: getThingDescriptionIdFromHeaderLocation(headers.location),
           ...validAnonymousThingDescription,
           ...modifiedParts,
+        });
+      });
+
+      it('should update the Thing Description id and update the URL urn', async () => {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        const modifiedId = { id: `urn:dev:ops:${getShortUnique()}` };
+
+        await axios.patch(headers.location, modifiedId, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
+        });
+
+        const { status } = await axios.get(headers.location);
+        expect(status).toBe(404);
+
+        const { data } = await axios.get(`/things/${modifiedId.id}`);
+        expect(data).toStrictEqual({
+          ...validAnonymousThingDescription,
+          ...modifiedId,
         });
       });
     });
