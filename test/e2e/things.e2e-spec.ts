@@ -271,16 +271,18 @@ describe('/things', () => {
       });
 
       it('should create the Thing Description', async () => {
-        const id = validThingDescription.id;
-
-        const { status } = await axios.put(`/things/${id}`, validThingDescription, {
+        const id = `${validThingDescription.id}:${getShortUnique()}`;
+        const validThingDescriptionObject = validThingDescription;
+        validThingDescriptionObject.id = id;
+        console.log(validThingDescriptionObject.id);
+        const { status } = await axios.put(`/things/${id}`, validThingDescriptionObject, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
 
         const { data } = await axios.get(`/things/${id}`);
 
         expect(status).toBe(201);
-        expect(data).toStrictEqual(validThingDescription);
+        expect(data).toStrictEqual(validThingDescriptionObject);
       });
     });
 
