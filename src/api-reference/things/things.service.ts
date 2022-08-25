@@ -1,7 +1,6 @@
 import { randomUUID } from 'crypto';
 
 import { Injectable } from '@nestjs/common';
-import { boolean } from 'joi';
 import { generate as generatePatch, apply as mergePatch } from 'json-merge-patch';
 
 import {
@@ -12,7 +11,6 @@ import {
 } from './../../common/exceptions';
 import { ThingDescription } from './../../common/interfaces/thing-description';
 import { User } from './../../common/models';
-import { InternalThingDescription } from './../../common/models/internal-thing-description';
 import {
   deanonymizeThingDescription,
   deanonymizeThingDescriptions,
