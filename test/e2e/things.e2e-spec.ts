@@ -1,7 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { AxiosInstance } from 'axios';
 
-import { ThingDescription } from './../../src/common/interfaces/thing-description';
 import { User } from './../../src/common/models';
 import { getAccessToken } from './../utils/auth';
 import { getShortUnique, getThingDescriptionIdFromHeaderLocation } from './../utils/data';
