@@ -72,7 +72,7 @@ export class ThingsService {
       this.eventsService.emitUpdated({ id, ...patch });
       return true;
     } else {
-      if (!dto.id || id !== dto.id) throw new MismatchIdException();
+      if ( id !== dto.id) throw new MismatchIdException();
       await this.thingDescriptionRepository.create({
         urn: id,
         json: dto,
