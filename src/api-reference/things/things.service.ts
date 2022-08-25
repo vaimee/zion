@@ -1,12 +1,18 @@
 import { randomUUID } from 'crypto';
 
 import { Injectable } from '@nestjs/common';
+import { boolean } from 'joi';
 import { generate as generatePatch, apply as mergePatch } from 'json-merge-patch';
 
-import { InvalidThingDescriptionException, NotFoundException } from './../../common/exceptions';
-import { NonAnonymousThingDescription } from './../../common/exceptions/non-anonymous-thing-description.exception';
+import {
+  DuplicateIdException,
+  InvalidThingDescriptionException,
+  NonAnonymousThingDescription,
+  NotFoundException,
+} from './../../common/exceptions';
 import { ThingDescription } from './../../common/interfaces/thing-description';
 import { User } from './../../common/models';
+import { InternalThingDescription } from './../../common/models/internal-thing-description';
 import {
   deanonymizeThingDescription,
   deanonymizeThingDescriptions,
@@ -60,9 +66,10 @@ export class ThingsService {
     const now = new Date().toISOString();
     const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (internalThingDescription) {
+      await this.checkDuplicateThingDescriptionId(internalThingDescription.urn, dto.id);
       await this.thingDescriptionRepository.update({
         where: { id: internalThingDescription.id },
-        data: { json: dto, modified: now },
+        data: { json: dto, urn: dto.id, modified: now },
       });
       const patch = generatePatch(internalThingDescription.json, dto) ?? {};
       this.eventsService.emitUpdated({ id, ...patch });
@@ -88,11 +95,12 @@ export class ThingsService {
 
     const patchedThingDescription = mergePatch(internalThingDescription.json, dto);
     this.requireValidThingDescription(patchedThingDescription);
+    await this.checkDuplicateThingDescriptionId(internalThingDescription.urn, patchedThingDescription.id);
     const now = new Date().toISOString();
 
     await this.thingDescriptionRepository.update({
       where: { id: internalThingDescription.id },
-      data: { json: patchedThingDescription, modified: now },
+      data: { json: patchedThingDescription, urn: patchedThingDescription.id, modified: now },
     });
 
     this.eventsService.emitUpdated({ id: internalThingDescription.urn, ...dto });
@@ -121,5 +129,11 @@ export class ThingsService {
     if (!valid && errors) {
       throw new InvalidThingDescriptionException(errors);
     }
+  }
+
+  private async checkDuplicateThingDescriptionId(urn: string, id: string | undefined): Promise<void> {
+    if (!id || id === urn) return;
+    const idExist = await this.thingDescriptionRepository.exist({ where: { urn: id } });
+    if (idExist) throw new DuplicateIdException(id as string);
   }
 }
