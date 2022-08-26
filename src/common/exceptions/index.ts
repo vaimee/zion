@@ -9,3 +9,4 @@ export * from './invalid-thing-description.exception';
 export * from './invalid-token.exception';
 export * from './non-anonymous-thing-description.exception';
 export * from './duplicate-id.exception';
+export * from './mismatch-id.exception';

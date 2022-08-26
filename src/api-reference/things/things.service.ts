@@ -6,6 +6,7 @@ import { generate as generatePatch, apply as mergePatch } from 'json-merge-patch
 import {
   DuplicateIdException,
   InvalidThingDescriptionException,
+  MismatchIdException,
   NonAnonymousThingDescription,
   NotFoundException,
 } from './../../common/exceptions';
@@ -73,6 +74,7 @@ export class ThingsService {
       this.eventsService.emitUpdated({ id, ...patch });
       return true;
     } else {
+      if ( id !== dto.id) throw new MismatchIdException();
       await this.thingDescriptionRepository.create({
         urn: id,
         json: dto,
