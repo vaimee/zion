@@ -55,6 +55,9 @@ File names follow the NestJS convention: `${name}.${scope}.${extension}`.
 - `scope` is the *kebab-case* name of the scope. Example `controller`. 
 - `extension` The extension of the file. Example `ts`.
 
+### Function naming
+Functions that validate input MUST be prefixed with `assert`. For instance, `assertUniqueThingDescriptionId` is a function that validates if the `id` of a thing description is unique. 
+
 ### Controller and Services Single Responsibility
 Controllers MUST only contain logic that is related to the HTTP request. They can manipulate the request or response, but they MUST NOT contain any application logic. For example, a controller MUST NOT validate the payload of a request or perform database requests directly. On the other hand, services MUST NOT process requests or responses. Moreover, direct database queries MUST NOT be performed in a service.
 
