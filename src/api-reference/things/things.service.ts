@@ -32,7 +32,7 @@ export class ThingsService {
   ) {}
 
   public async create(user: User, dto: ThingDescriptionDto): Promise<string> {
-    this.requireValidThingDescription(dto);
+    this.assertValidThingDescription(dto);
     if (dto.id) throw new NonAnonymousThingDescription();
     const urn = `urn:uuid:${randomUUID()}`;
     const now = new Date().toISOString();
@@ -61,7 +61,7 @@ export class ThingsService {
   }
 
   public async upsert(user: User, id: string, dto: ThingDescriptionDto): Promise<boolean> {
-    this.requireValidThingDescription(dto);
+    this.assertValidThingDescription(dto);
     const now = new Date().toISOString();
     const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (internalThingDescription) {
@@ -94,7 +94,7 @@ export class ThingsService {
     }
 
     const patchedThingDescription = mergePatch(internalThingDescription.json, dto);
-    this.requireValidThingDescription(patchedThingDescription);
+    this.assertValidThingDescription(patchedThingDescription);
     await this.assertUniqueThingDescriptionId(internalThingDescription.urn, patchedThingDescription.id);
     const now = new Date().toISOString();
 
@@ -124,7 +124,7 @@ export class ThingsService {
     return thingDescriptions;
   }
 
-  private requireValidThingDescription(data: unknown): void {
+  private assertValidThingDescription(data: unknown): void {
     const { valid, errors } = validateThingDescription(data);
     if (!valid && errors) {
       throw new InvalidThingDescriptionException(errors);
