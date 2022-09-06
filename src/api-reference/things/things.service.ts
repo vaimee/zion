@@ -74,7 +74,7 @@ export class ThingsService {
       this.eventsService.emitUpdated({ id, ...patch });
       return true;
     } else {
-      if ( id !== dto.id) throw new MismatchIdException();
+      if (id !== dto.id) throw new MismatchIdException();
       await this.thingDescriptionRepository.create({
         urn: id,
         json: dto,
@@ -131,9 +131,9 @@ export class ThingsService {
     }
   }
 
-  private async checkDuplicateThingDescriptionId(urn: string, id: string | undefined): Promise<void> {
-    if (!id || id === urn) return;
-    const idExist = await this.thingDescriptionRepository.exist({ where: { urn: id } });
-    if (idExist) throw new DuplicateIdException(id as string);
+  private async checkDuplicateThingDescriptionId(currentId: string, newId: string | undefined): Promise<void> {
+    if (!newId || newId === currentId) return;
+    const idExist = await this.thingDescriptionRepository.exist({ where: { urn: newId } });
+    if (idExist) throw new DuplicateIdException(newId as string);
   }
 }
