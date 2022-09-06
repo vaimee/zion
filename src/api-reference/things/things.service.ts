@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { generate as generatePatch, apply as mergePatch } from 'json-merge-patch';
 
 import {
+  DuplicateIdException,
   InvalidThingDescriptionException,
   MismatchIdException,
   NonAnonymousThingDescription,
@@ -64,15 +65,16 @@ export class ThingsService {
     const now = new Date().toISOString();
     const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (internalThingDescription) {
+      await this.assertUniqueThingDescriptionId(internalThingDescription.urn, dto.id);
       await this.thingDescriptionRepository.update({
         where: { id: internalThingDescription.id },
-        data: { json: dto, modified: now },
+        data: { json: dto, urn: dto.id, modified: now },
       });
       const patch = generatePatch(internalThingDescription.json, dto) ?? {};
       this.eventsService.emitUpdated({ id, ...patch });
       return true;
     } else {
-      if ( id !== dto.id) throw new MismatchIdException();
+      if (id !== dto.id) throw new MismatchIdException();
       await this.thingDescriptionRepository.create({
         urn: id,
         json: dto,
@@ -93,11 +95,12 @@ export class ThingsService {
 
     const patchedThingDescription = mergePatch(internalThingDescription.json, dto);
     this.requireValidThingDescription(patchedThingDescription);
+    await this.assertUniqueThingDescriptionId(internalThingDescription.urn, patchedThingDescription.id);
     const now = new Date().toISOString();
 
     await this.thingDescriptionRepository.update({
       where: { id: internalThingDescription.id },
-      data: { json: patchedThingDescription, modified: now },
+      data: { json: patchedThingDescription, urn: patchedThingDescription.id, modified: now },
     });
 
     this.eventsService.emitUpdated({ id: internalThingDescription.urn, ...dto });
@@ -126,5 +129,11 @@ export class ThingsService {
     if (!valid && errors) {
       throw new InvalidThingDescriptionException(errors);
     }
+  }
+
+  private async assertUniqueThingDescriptionId(currentId: string, newId: string | undefined): Promise<void> {
+    if (!newId || newId === currentId) return;
+    const idExist = await this.thingDescriptionRepository.exist({ where: { urn: newId } });
+    if (idExist) throw new DuplicateIdException(newId as string);
   }
 }

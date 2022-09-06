@@ -252,6 +252,31 @@ describe('/things', () => {
         });
       });
 
+      it('should fail to update the Thing Description id if the id is already exist', async () => {
+        const thingDescriptions = [];
+        const id = `${validThingDescription.id}:${getShortUnique()}`;
+        for (let i = 0; i < 2; i++) {
+          const validThingDescriptionObject = validThingDescription;
+          validThingDescriptionObject.id = `${id}:${i}`;
+          thingDescriptions.push(validThingDescriptionObject);
+          const response = await axios.put(`/things/${validThingDescriptionObject.id}`, validThingDescriptionObject, {
+            headers: { Authorization: `Bearer ${defaultAccessToken}` },
+          });
+          expect(response.status).toBe(201);
+        }
+        const { status, data } = await axios.put(`/things/${id}:0`, thingDescriptions[1], {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+
+        expect(status).toBe(409);
+        expect(data).toMatchObject({
+          type: '/errors/types/duplicate-id',
+          title: 'Duplicate Id',
+          status: 409,
+          detail: `The id ${validThingDescription.id} is already in use by another Thing Description`,
+        });
+      });
+
       it('should update the Thing Description', async () => {
         const { headers } = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
@@ -270,11 +295,28 @@ describe('/things', () => {
         });
       });
 
+      it('should update the Thing Description id and update the URL urn', async () => {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        const id = `urn:dev:ops:${getShortUnique()}`;
+        const updatedThingDescription = { ...validAnonymousThingDescription, id: id };
+
+        await axios.put(headers.location, updatedThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+
+        const { status } = await axios.get(headers.location);
+        expect(status).toBe(404);
+
+        const { data } = await axios.get(`/things/${id}`);
+        expect(data).toMatchObject(updatedThingDescription);
+      });
+
       it('should create the Thing Description', async () => {
         const id = `${validThingDescription.id}:${getShortUnique()}`;
         const validThingDescriptionObject = validThingDescription;
         validThingDescriptionObject.id = id;
-        console.log(validThingDescriptionObject.id);
         const { status } = await axios.put(`/things/${id}`, validThingDescriptionObject, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
         });
@@ -323,6 +365,31 @@ describe('/things', () => {
         });
       });
 
+      it('should fail to update the Thing Description id if the id is already exist', async () => {
+        const thingDescriptions = [];
+        const id = `${validThingDescription.id}:${getShortUnique()}`;
+        for (let i = 0; i < 2; i++) {
+          const validThingDescriptionObject = validThingDescription;
+          validThingDescriptionObject.id = `${id}:${i}`;
+          thingDescriptions.push(validThingDescriptionObject);
+          const response = await axios.put(`/things/${validThingDescriptionObject.id}`, validThingDescriptionObject, {
+            headers: { Authorization: `Bearer ${defaultAccessToken}` },
+          });
+          expect(response.status).toBe(201);
+        }
+        const { status, data } = await axios.patch(`/things/${id}:0`, thingDescriptions[1], {
+          headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
+        });
+
+        expect(status).toBe(409);
+        expect(data).toMatchObject({
+          type: '/errors/types/duplicate-id',
+          title: 'Duplicate Id',
+          status: 409,
+          detail: `The id ${validThingDescription.id} is already in use by another Thing Description`,
+        });
+      });
+
       it('should fail to update the Thing Description when the patched Thing Description is invalid', async () => {
         const { headers } = await axios.post('/things', validAnonymousThingDescription, {
           headers: { Authorization: `Bearer ${defaultAccessToken}` },
@@ -364,6 +431,26 @@ describe('/things', () => {
           id: getThingDescriptionIdFromHeaderLocation(headers.location),
           ...validAnonymousThingDescription,
           ...modifiedParts,
+        });
+      });
+
+      it('should update the Thing Description id and update the URL urn', async () => {
+        const { headers } = await axios.post('/things', validAnonymousThingDescription, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}` },
+        });
+        const modifiedId = { id: `urn:dev:ops:${getShortUnique()}` };
+
+        await axios.patch(headers.location, modifiedId, {
+          headers: { Authorization: `Bearer ${defaultAccessToken}`, 'Content-Type': 'application/merge-patch+json' },
+        });
+
+        const { status } = await axios.get(headers.location);
+        expect(status).toBe(404);
+
+        const { data } = await axios.get(`/things/${modifiedId.id}`);
+        expect(data).toStrictEqual({
+          ...validAnonymousThingDescription,
+          ...modifiedId,
         });
       });
     });
