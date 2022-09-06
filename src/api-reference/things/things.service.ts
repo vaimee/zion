@@ -65,7 +65,7 @@ export class ThingsService {
     const now = new Date().toISOString();
     const internalThingDescription = await this.thingDescriptionRepository.findFirst({ where: { urn: id } });
     if (internalThingDescription) {
-      await this.checkDuplicateThingDescriptionId(internalThingDescription.urn, dto.id);
+      await this.assertUniqueThingDescriptionId(internalThingDescription.urn, dto.id);
       await this.thingDescriptionRepository.update({
         where: { id: internalThingDescription.id },
         data: { json: dto, urn: dto.id, modified: now },
@@ -95,7 +95,7 @@ export class ThingsService {
 
     const patchedThingDescription = mergePatch(internalThingDescription.json, dto);
     this.requireValidThingDescription(patchedThingDescription);
-    await this.checkDuplicateThingDescriptionId(internalThingDescription.urn, patchedThingDescription.id);
+    await this.assertUniqueThingDescriptionId(internalThingDescription.urn, patchedThingDescription.id);
     const now = new Date().toISOString();
 
     await this.thingDescriptionRepository.update({
@@ -131,7 +131,7 @@ export class ThingsService {
     }
   }
 
-  private async checkDuplicateThingDescriptionId(currentId: string, newId: string | undefined): Promise<void> {
+  private async assertUniqueThingDescriptionId(currentId: string, newId: string | undefined): Promise<void> {
     if (!newId || newId === currentId) return;
     const idExist = await this.thingDescriptionRepository.exist({ where: { urn: newId } });
     if (idExist) throw new DuplicateIdException(newId as string);
