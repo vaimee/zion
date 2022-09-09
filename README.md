@@ -1,11 +1,12 @@
 <img src="./doc/logo.png" width="50%"/>
 
-![](https://shields.io/github/workflow/status/vaimee/zion/Main.svg?style=flat-square&logo=github&label=CI) 
-![](https://img.shields.io/github/issues/vaimee/zion.svg?style=flat-square) 
-![](https://img.shields.io/github/license/vaimee/zion.svg?style=flat-square)
-![](https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&color=blue)
-![](https://img.shields.io/badge/eslint-3A33D1?style=flat-square&logo=eslint&logoColor=white)
-![](https://img.shields.io/badge/prettier-1A2C34?style=flat-square&logo=prettier&logoColor=F7BA3E)
+<a href="https://github.com/vaimee/zion/actions" target="_blank"><img src="https://shields.io/github/workflow/status/vaimee/zion/Main.svg?style=flat-square&logo=github&label=CI" alt="CI status" /></a>
+<a href="https://github.com/vaimee/zion/issues" target="_blank"><img src="https://img.shields.io/github/issues/vaimee/zion.svg?style=flat-square" alt="Issues" /></a>
+<a href="https://github.com/vaimee/zion/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/vaimee/zion.svg?style=flat-square" alt="License" /></a>
+<a href="https://discord.gg/6UTJ6HgZ" target="_blank"><img src="https://img.shields.io/badge/Discord-7289DA?style=flat-square&logo=discord&logoColor=white&label=zion" alt="Discord chat" /></a>
+<a href="https://www.linkedin.com/company/vaimee/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&color=blue" alt="LinkedIn" /></a>
+<a href="https://github.com/vaimee/zion/blob/main/.eslintrc.js" target="_blank"><img src="https://img.shields.io/badge/eslint-3A33D1?style=flat-square&logo=eslint&logoColor=white" alt="eslint support" /></a>
+<a href="https://github.com/vaimee/zion/blob/main/.prettierrc.json" target="_blank"><img src="https://img.shields.io/badge/prettier-1A2C34?style=flat-square&logo=prettier&logoColor=F7BA3E" alt="prettier" /></a>
 # Zion - A scalable Thing Description Directory
 **Overview** 
 
