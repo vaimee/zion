@@ -1,3 +1,4 @@
+import { REQUEST } from '@nestjs/core';
 import axios, { AxiosResponse } from 'axios';
 
 import { getUniqueEmail } from '../utils/data';
@@ -5,7 +6,7 @@ import { asyncAppendFile } from '../utils/file-manager';
 import { randomInt } from '../utils/random';
 import * as validAnonymousThingDescription from '../utils/tds/validAnonymous.td.json';
 import { RequestMode } from './request-mode';
-import { requestFunction } from './types/request-function.type';
+import { RequestFunction } from './types/request-function.type';
 
 export class PoollingRequest {
   private defaultAccessToken: string | undefined;
@@ -55,7 +56,8 @@ export class PoollingRequest {
   }
 
   private async createThing(): Promise<string> {
-    const { status, headers } = await this.request[RequestMode.POST]();
+    // How can I make a function signture that accepts both a function with 1 arg and with 0?
+    const { status, headers } = await this.request[RequestMode.POST](``);
     if (status !== 201) throw new Error('could not create Thing');
     console.log(`created thing sucesfully at ${headers.location}`);
     return headers.location;
@@ -92,7 +94,7 @@ export class PoollingRequest {
     asyncAppendFile('error.log', dataLog);
   }
 
-  private request: { [key: string]: requestFunction } = {
+  private request: { [key: string]: RequestFunction } = {
     GET: async (url: string): Promise<AxiosResponse> => await axios.get(url),
     POST: async (): Promise<AxiosResponse> =>
       await axios.post(`${this.url}/things`, validAnonymousThingDescription, {
