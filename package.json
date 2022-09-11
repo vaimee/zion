@@ -23,7 +23,8 @@
     "db:migrate:make": "knex migrate:make",
     "db:migrate:latest": "knex migrate:latest",
     "db:seed:make": "knex seed:make",
-    "db:seed:run": "knex seed:run"
+    "db:seed:run": "knex seed:run",
+    "test:transient": "tsc --project tsconfig.json && node dist/test/transient/test-pooling.js"
   },
   "lint-staged": {
     "*.ts": [
