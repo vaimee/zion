@@ -1,0 +1,291 @@
+Starting attempt #1 of 10
+Initializing...
+creating unique user email-1480926751@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJpYXQiOjE2NjI4MjU1NzYsImV4cCI6MTY2MjgyNjQ3Nn0.T3BkBvgxUqy7AVeJNYWqioYkTJTg46mGIC9YMS8oPJU
+created thing sucesfully at http://localhost:3000/things/urn:uuid:8e30a3b4-6ae7-4cdb-b3d1-23a3de82c985
+waiting for 20m
+1 minutes passed - 5%
+2 minutes passed - 10%
+3 minutes passed - 15%
+4 minutes passed - 20%
+5 minutes passed - 25%
+6 minutes passed - 30%
+7 minutes passed - 35%
+8 minutes passed - 40%
+9 minutes passed - 45%
+10 minutes passed - 50%
+11 minutes passed - 55.00000000000001%
+12 minutes passed - 60%
+13 minutes passed - 65%
+14 minutes passed - 70%
+15 minutes passed - 75%
+16 minutes passed - 80%
+17 minutes passed - 85%
+18 minutes passed - 90%
+19 minutes passed - 95%
+20 minutes passed - 100%
+[9/10/2022, 6:19:37 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #2 of 10
+Initializing...
+creating unique user email-14809249432@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJpYXQiOjE2NjI4MjY3NzcsImV4cCI6MTY2MjgyNzY3N30.VQAhZEU6daACGjqiYHC9nKLY7ZLDj188DVj_NNOxVAs
+created thing sucesfully at http://localhost:3000/things/urn:uuid:f61cb781-a393-4466-976c-9d9229de73d0
+waiting for 29m
+1 minutes passed - 3.4482758620689653%
+2 minutes passed - 6.896551724137931%
+3 minutes passed - 10.344827586206897%
+4 minutes passed - 13.793103448275861%
+5 minutes passed - 17.24137931034483%
+6 minutes passed - 20.689655172413794%
+7 minutes passed - 24.137931034482758%
+8 minutes passed - 27.586206896551722%
+9 minutes passed - 31.03448275862069%
+10 minutes passed - 34.48275862068966%
+11 minutes passed - 37.93103448275862%
+12 minutes passed - 41.37931034482759%
+13 minutes passed - 44.827586206896555%
+14 minutes passed - 48.275862068965516%
+15 minutes passed - 51.724137931034484%
+16 minutes passed - 55.172413793103445%
+17 minutes passed - 58.620689655172406%
+18 minutes passed - 62.06896551724138%
+19 minutes passed - 65.51724137931035%
+20 minutes passed - 68.96551724137932%
+21 minutes passed - 72.41379310344827%
+22 minutes passed - 75.86206896551724%
+23 minutes passed - 79.3103448275862%
+24 minutes passed - 82.75862068965517%
+25 minutes passed - 86.20689655172413%
+26 minutes passed - 89.65517241379311%
+27 minutes passed - 93.10344827586206%
+28 minutes passed - 96.55172413793103%
+29 minutes passed - 100%
+[9/10/2022, 6:48:39 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #3 of 10
+Initializing...
+creating unique user email-14809284332@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEzLCJpYXQiOjE2NjI4Mjg1MTksImV4cCI6MTY2MjgyOTQxOX0.nOxrsoM_0z-kdQpTk2hDQ14Q2p6FMQS8ZF4jH43uIDE
+created thing sucesfully at http://localhost:3000/things/urn:uuid:bed4f530-687b-43ba-b203-acbbcc0f27ca
+waiting for 16m
+1 minutes passed - 6.25%
+2 minutes passed - 12.5%
+3 minutes passed - 18.75%
+4 minutes passed - 25%
+5 minutes passed - 31.25%
+6 minutes passed - 37.5%
+7 minutes passed - 43.75%
+8 minutes passed - 50%
+9 minutes passed - 56.25%
+10 minutes passed - 62.5%
+11 minutes passed - 68.75%
+12 minutes passed - 75%
+13 minutes passed - 81.25%
+14 minutes passed - 87.5%
+15 minutes passed - 93.75%
+16 minutes passed - 100%
+[9/10/2022, 7:04:40 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #4 of 10
+Initializing...
+creating unique user email-14809287447@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE0LCJpYXQiOjE2NjI4Mjk0ODAsImV4cCI6MTY2MjgzMDM4MH0.VG9Y1Kv5iFIpq6UpwYufDtL3t09KY9HBPFCpouhPcPM
+created thing sucesfully at http://localhost:3000/things/urn:uuid:7468d3bf-aa22-4c87-9c83-24826f2afbcb
+waiting for 16m
+1 minutes passed - 6.25%
+2 minutes passed - 12.5%
+3 minutes passed - 18.75%
+4 minutes passed - 25%
+5 minutes passed - 31.25%
+6 minutes passed - 37.5%
+7 minutes passed - 43.75%
+8 minutes passed - 50%
+9 minutes passed - 56.25%
+10 minutes passed - 62.5%
+11 minutes passed - 68.75%
+12 minutes passed - 75%
+13 minutes passed - 81.25%
+14 minutes passed - 87.5%
+15 minutes passed - 93.75%
+16 minutes passed - 100%
+[9/10/2022, 7:20:41 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #5 of 10
+Initializing...
+creating unique user email-14809274543@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1LCJpYXQiOjE2NjI4MzA0NDEsImV4cCI6MTY2MjgzMTM0MX0.hrGL9ljPY27KSzm7odZyiG8l9kpRvIGolfx4KJn-Du4
+created thing sucesfully at http://localhost:3000/things/urn:uuid:324e2ef9-cd0a-463a-955a-231ad5c015af
+waiting for 24m
+1 minutes passed - 4.166666666666666%
+2 minutes passed - 8.333333333333332%
+3 minutes passed - 12.5%
+4 minutes passed - 16.666666666666664%
+5 minutes passed - 20.833333333333336%
+6 minutes passed - 25%
+7 minutes passed - 29.166666666666668%
+8 minutes passed - 33.33333333333333%
+9 minutes passed - 37.5%
+10 minutes passed - 41.66666666666667%
+11 minutes passed - 45.83333333333333%
+12 minutes passed - 50%
+13 minutes passed - 54.166666666666664%
+14 minutes passed - 58.333333333333336%
+15 minutes passed - 62.5%
+16 minutes passed - 66.66666666666666%
+17 minutes passed - 70.83333333333334%
+18 minutes passed - 75%
+19 minutes passed - 79.16666666666666%
+20 minutes passed - 83.33333333333334%
+21 minutes passed - 87.5%
+22 minutes passed - 91.66666666666666%
+23 minutes passed - 95.83333333333334%
+24 minutes passed - 100%
+[9/10/2022, 7:44:43 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #6 of 10
+Initializing...
+creating unique user email-14809276167@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2LCJpYXQiOjE2NjI4MzE4ODMsImV4cCI6MTY2MjgzMjc4M30.2U4yl2XOVG_4rWLqZCEoR-SRxzC50fJyuV8hKCKOQt4
+created thing sucesfully at http://localhost:3000/things/urn:uuid:830d7fcb-7bc8-47ac-b671-8109e3d86bc7
+waiting for 28m
+1 minutes passed - 3.571428571428571%
+2 minutes passed - 7.142857142857142%
+3 minutes passed - 10.714285714285714%
+4 minutes passed - 14.285714285714285%
+5 minutes passed - 17.857142857142858%
+6 minutes passed - 21.428571428571427%
+7 minutes passed - 25%
+8 minutes passed - 28.57142857142857%
+9 minutes passed - 32.142857142857146%
+10 minutes passed - 35.714285714285715%
+11 minutes passed - 39.285714285714285%
+12 minutes passed - 42.857142857142854%
+13 minutes passed - 46.42857142857143%
+14 minutes passed - 50%
+15 minutes passed - 53.57142857142857%
+16 minutes passed - 57.14285714285714%
+17 minutes passed - 60.71428571428571%
+18 minutes passed - 64.28571428571429%
+19 minutes passed - 67.85714285714286%
+20 minutes passed - 71.42857142857143%
+21 minutes passed - 75%
+22 minutes passed - 78.57142857142857%
+23 minutes passed - 82.14285714285714%
+24 minutes passed - 85.71428571428571%
+25 minutes passed - 89.28571428571429%
+26 minutes passed - 92.85714285714286%
+27 minutes passed - 96.42857142857143%
+28 minutes passed - 100%
+[9/10/2022, 8:12:44 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #7 of 10
+Initializing...
+creating unique user email-14809240647@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJpYXQiOjE2NjI4MzM1NjQsImV4cCI6MTY2MjgzNDQ2NH0.NESFpZvxdzJFlYflTSET-9h5bGYEhsfpGmvplCL1Rmw
+created thing sucesfully at http://localhost:3000/things/urn:uuid:9bb2679e-ebfe-4454-a5e6-885b0884ccbf
+waiting for 24m
+1 minutes passed - 4.166666666666666%
+2 minutes passed - 8.333333333333332%
+3 minutes passed - 12.5%
+4 minutes passed - 16.666666666666664%
+5 minutes passed - 20.833333333333336%
+6 minutes passed - 25%
+7 minutes passed - 29.166666666666668%
+8 minutes passed - 33.33333333333333%
+9 minutes passed - 37.5%
+10 minutes passed - 41.66666666666667%
+11 minutes passed - 45.83333333333333%
+12 minutes passed - 50%
+13 minutes passed - 54.166666666666664%
+14 minutes passed - 58.333333333333336%
+15 minutes passed - 62.5%
+16 minutes passed - 66.66666666666666%
+17 minutes passed - 70.83333333333334%
+18 minutes passed - 75%
+19 minutes passed - 79.16666666666666%
+20 minutes passed - 83.33333333333334%
+21 minutes passed - 87.5%
+22 minutes passed - 91.66666666666666%
+23 minutes passed - 95.83333333333334%
+24 minutes passed - 100%
+[9/10/2022, 8:36:46 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #8 of 10
+Initializing...
+creating unique user email-14809252138@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE4LCJpYXQiOjE2NjI4MzUwMDYsImV4cCI6MTY2MjgzNTkwNn0.PhdEJoiMcj_2lZ-BMfSr44SsJRaixAbCe8zqAohvVmw
+created thing sucesfully at http://localhost:3000/things/urn:uuid:0569ffcb-9d8a-47ba-af87-3c5f728005ab
+waiting for 17m
+1 minutes passed - 5.88235294117647%
+2 minutes passed - 11.76470588235294%
+3 minutes passed - 17.647058823529413%
+4 minutes passed - 23.52941176470588%
+5 minutes passed - 29.411764705882355%
+6 minutes passed - 35.294117647058826%
+7 minutes passed - 41.17647058823529%
+8 minutes passed - 47.05882352941176%
+9 minutes passed - 52.94117647058824%
+10 minutes passed - 58.82352941176471%
+11 minutes passed - 64.70588235294117%
+12 minutes passed - 70.58823529411765%
+13 minutes passed - 76.47058823529412%
+14 minutes passed - 82.35294117647058%
+15 minutes passed - 88.23529411764706%
+16 minutes passed - 94.11764705882352%
+17 minutes passed - 100%
+[9/10/2022, 8:53:47 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #9 of 10
+Initializing...
+creating unique user email-14809215296@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE5LCJpYXQiOjE2NjI4MzYwMjcsImV4cCI6MTY2MjgzNjkyN30.c5-hfoKwO8ispS8xfZeukh9LAIDHi4P3Qm3Ej46T5aY
+created thing sucesfully at http://localhost:3000/things/urn:uuid:371e7774-864a-4a81-8ec9-153e8140ad07
+waiting for 28m
+1 minutes passed - 3.571428571428571%
+2 minutes passed - 7.142857142857142%
+3 minutes passed - 10.714285714285714%
+4 minutes passed - 14.285714285714285%
+5 minutes passed - 17.857142857142858%
+6 minutes passed - 21.428571428571427%
+7 minutes passed - 25%
+8 minutes passed - 28.57142857142857%
+9 minutes passed - 32.142857142857146%
+10 minutes passed - 35.714285714285715%
+11 minutes passed - 39.285714285714285%
+12 minutes passed - 42.857142857142854%
+13 minutes passed - 46.42857142857143%
+14 minutes passed - 50%
+15 minutes passed - 53.57142857142857%
+16 minutes passed - 57.14285714285714%
+17 minutes passed - 60.71428571428571%
+18 minutes passed - 64.28571428571429%
+19 minutes passed - 67.85714285714286%
+20 minutes passed - 71.42857142857143%
+21 minutes passed - 75%
+22 minutes passed - 78.57142857142857%
+23 minutes passed - 82.14285714285714%
+24 minutes passed - 85.71428571428571%
+25 minutes passed - 89.28571428571429%
+26 minutes passed - 92.85714285714286%
+27 minutes passed - 96.42857142857143%
+28 minutes passed - 100%
+[9/10/2022, 9:21:49 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #10 of 10
+Initializing...
+creating unique user email-14809234118@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIwLCJpYXQiOjE2NjI4Mzc3MDksImV4cCI6MTY2MjgzODYwOX0.PIT5BfBqCxRy2H1OvQsYHnNPi8MU4zz1Mpa8JdNgHxQ
+created thing sucesfully at http://localhost:3000/things/urn:uuid:fe5100c0-140c-45a9-9839-586449eb0178
+waiting for 18m
+1 minutes passed - 5.555555555555555%
+2 minutes passed - 11.11111111111111%
+3 minutes passed - 16.666666666666664%
+4 minutes passed - 22.22222222222222%
+5 minutes passed - 27.77777777777778%
+6 minutes passed - 33.33333333333333%
+7 minutes passed - 38.88888888888889%
+8 minutes passed - 44.44444444444444%
+9 minutes passed - 50%
+10 minutes passed - 55.55555555555556%
+11 minutes passed - 61.111111111111114%
+12 minutes passed - 66.66666666666666%
+13 minutes passed - 72.22222222222221%
+14 minutes passed - 77.77777777777779%
+15 minutes passed - 83.33333333333334%
+16 minutes passed - 88.88888888888889%
+17 minutes passed - 94.44444444444444%
+18 minutes passed - 100%
+[9/10/2022, 9:39:50 PM] Sucessfully retrieved TD - status 200 - issues 0
+undefined

@@ -1,0 +1,279 @@
+
+> zion@1.0.0-alpha.0 test:transient
+> tsc --project tsconfig.json && node dist/test/transient/test-pooling.js
+
+Starting attempt #1 of 10
+Initializing...
+creating unique user email-9560691467@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjk2LCJpYXQiOjE2NjI5MjAyMjYsImV4cCI6MTY2MjkyNzQyNn0.Cioojg3H7nrJPiLWitZmyYEzIJnsD2OmARFddwQ2cE8
+created thing sucesfully at http://localhost:3000/things/urn:uuid:2a5cdac2-f187-49b4-95fa-d183f374eb0b
+waiting for 18m
+1 minutes passed - 5.555555555555555%
+2 minutes passed - 11.11111111111111%
+3 minutes passed - 16.666666666666664%
+4 minutes passed - 22.22222222222222%
+5 minutes passed - 27.77777777777778%
+6 minutes passed - 33.33333333333333%
+7 minutes passed - 38.88888888888889%
+8 minutes passed - 44.44444444444444%
+9 minutes passed - 50%
+10 minutes passed - 55.55555555555556%
+11 minutes passed - 61.111111111111114%
+12 minutes passed - 66.66666666666666%
+13 minutes passed - 72.22222222222221%
+14 minutes passed - 77.77777777777779%
+15 minutes passed - 83.33333333333334%
+16 minutes passed - 88.88888888888889%
+17 minutes passed - 94.44444444444444%
+18 minutes passed - 100%
+Performing a RANDOM request at http://localhost:3000/things/urn:uuid:2a5cdac2-f187-49b4-95fa-d183f374eb0b...
+RANDOM choise is GET
+[9/11/2022, 8:35:07 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #2 of 10
+Initializing...
+creating unique user email-9560629388@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjk3LCJpYXQiOjE2NjI5MjEzMDcsImV4cCI6MTY2MjkyODUwN30.zXPCAHriinaAKSNJDaYy3rsKAcOuTeBShX8ZwtFZW0A
+created thing sucesfully at http://localhost:3000/things/urn:uuid:4f53c0c0-12bd-4db8-a93c-9d072a7047f6
+waiting for 20m
+1 minutes passed - 5%
+2 minutes passed - 10%
+3 minutes passed - 15%
+4 minutes passed - 20%
+5 minutes passed - 25%
+6 minutes passed - 30%
+7 minutes passed - 35%
+8 minutes passed - 40%
+9 minutes passed - 45%
+10 minutes passed - 50%
+11 minutes passed - 55.00000000000001%
+12 minutes passed - 60%
+13 minutes passed - 65%
+14 minutes passed - 70%
+15 minutes passed - 75%
+16 minutes passed - 80%
+17 minutes passed - 85%
+18 minutes passed - 90%
+19 minutes passed - 95%
+20 minutes passed - 100%
+Performing a RANDOM request at http://localhost:3000/things/urn:uuid:4f53c0c0-12bd-4db8-a93c-9d072a7047f6...
+RANDOM choise is PUT
+[9/11/2022, 8:55:08 PM] Sucessfully retrieved TD - status 204 - issues 0
+Starting attempt #3 of 10
+Initializing...
+creating unique user email-9560696447@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjk4LCJpYXQiOjE2NjI5MjI1MDgsImV4cCI6MTY2MjkyOTcwOH0.BlcQG23-nrm8idDhL3yeqNc2JrUMBYZVK4y8Ax0q3_c
+created thing sucesfully at http://localhost:3000/things/urn:uuid:b6883266-005a-4eea-ac1b-5f57d64219c2
+waiting for 30m
+1 minutes passed - 3.3333333333333335%
+2 minutes passed - 6.666666666666667%
+3 minutes passed - 10%
+4 minutes passed - 13.333333333333334%
+5 minutes passed - 16.666666666666664%
+6 minutes passed - 20%
+7 minutes passed - 23.333333333333332%
+8 minutes passed - 26.666666666666668%
+9 minutes passed - 30%
+10 minutes passed - 33.33333333333333%
+11 minutes passed - 36.666666666666664%
+12 minutes passed - 40%
+13 minutes passed - 43.333333333333336%
+14 minutes passed - 46.666666666666664%
+15 minutes passed - 50%
+16 minutes passed - 53.333333333333336%
+17 minutes passed - 56.666666666666664%
+18 minutes passed - 60%
+19 minutes passed - 63.33333333333333%
+20 minutes passed - 66.66666666666666%
+21 minutes passed - 70%
+22 minutes passed - 73.33333333333333%
+23 minutes passed - 76.66666666666667%
+24 minutes passed - 80%
+25 minutes passed - 83.33333333333334%
+26 minutes passed - 86.66666666666667%
+27 minutes passed - 90%
+28 minutes passed - 93.33333333333333%
+29 minutes passed - 96.66666666666667%
+30 minutes passed - 100%
+Performing a RANDOM request at http://localhost:3000/things/urn:uuid:b6883266-005a-4eea-ac1b-5f57d64219c2...
+RANDOM choise is RANDOM
+RANDOM choise is GET
+[9/11/2022, 9:25:09 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #4 of 10
+Initializing...
+creating unique user email-9560668909@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjk5LCJpYXQiOjE2NjI5MjQzMDksImV4cCI6MTY2MjkzMTUwOX0.Utj4c37dCz8ssjfB_5tyOhhU6yL_eRxYgPN_doopVqo
+created thing sucesfully at http://localhost:3000/things/urn:uuid:e54170e2-047c-4a7d-a327-87d3640e0436
+waiting for 24m
+1 minutes passed - 4.166666666666666%
+2 minutes passed - 8.333333333333332%
+3 minutes passed - 12.5%
+4 minutes passed - 16.666666666666664%
+5 minutes passed - 20.833333333333336%
+6 minutes passed - 25%
+7 minutes passed - 29.166666666666668%
+8 minutes passed - 33.33333333333333%
+9 minutes passed - 37.5%
+10 minutes passed - 41.66666666666667%
+11 minutes passed - 45.83333333333333%
+12 minutes passed - 50%
+13 minutes passed - 54.166666666666664%
+14 minutes passed - 58.333333333333336%
+15 minutes passed - 62.5%
+16 minutes passed - 66.66666666666666%
+17 minutes passed - 70.83333333333334%
+18 minutes passed - 75%
+19 minutes passed - 79.16666666666666%
+20 minutes passed - 83.33333333333334%
+21 minutes passed - 87.5%
+22 minutes passed - 91.66666666666666%
+23 minutes passed - 95.83333333333334%
+24 minutes passed - 100%
+Performing a RANDOM request at http://localhost:3000/things/urn:uuid:e54170e2-047c-4a7d-a327-87d3640e0436...
+RANDOM choise is POST
+[9/11/2022, 9:49:11 PM] Sucessfully retrieved TD - status 201 - issues 0
+Starting attempt #5 of 10
+Initializing...
+creating unique user email-9560649120@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwMCwiaWF0IjoxNjYyOTI1NzUxLCJleHAiOjE2NjI5MzI5NTF9.GZt5s7FJVrShSVhGr8d81_jif-S8QlIfMoubJkOX4Uc
+created thing sucesfully at http://localhost:3000/things/urn:uuid:eba2c4d1-c5ff-4fc0-b18f-110384a224b4
+waiting for 28m
+1 minutes passed - 3.571428571428571%
+2 minutes passed - 7.142857142857142%
+3 minutes passed - 10.714285714285714%
+4 minutes passed - 14.285714285714285%
+5 minutes passed - 17.857142857142858%
+6 minutes passed - 21.428571428571427%
+7 minutes passed - 25%
+8 minutes passed - 28.57142857142857%
+9 minutes passed - 32.142857142857146%
+10 minutes passed - 35.714285714285715%
+11 minutes passed - 39.285714285714285%
+12 minutes passed - 42.857142857142854%
+13 minutes passed - 46.42857142857143%
+14 minutes passed - 50%
+15 minutes passed - 53.57142857142857%
+16 minutes passed - 57.14285714285714%
+17 minutes passed - 60.71428571428571%
+18 minutes passed - 64.28571428571429%
+19 minutes passed - 67.85714285714286%
+20 minutes passed - 71.42857142857143%
+21 minutes passed - 75%
+22 minutes passed - 78.57142857142857%
+23 minutes passed - 82.14285714285714%
+24 minutes passed - 85.71428571428571%
+25 minutes passed - 89.28571428571429%
+26 minutes passed - 92.85714285714286%
+27 minutes passed - 96.42857142857143%
+28 minutes passed - 100%
+Performing a RANDOM request at http://localhost:3000/things/urn:uuid:eba2c4d1-c5ff-4fc0-b18f-110384a224b4...
+RANDOM choise is GET
+[9/11/2022, 10:17:12 PM] Sucessfully retrieved TD - status 200 - issues 0
+Starting attempt #6 of 10
+Initializing...
+creating unique user email-9560669422@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwMSwiaWF0IjoxNjYyOTI3NDMyLCJleHAiOjE2NjI5MzQ2MzJ9.X_JwdSsnoAC3hJFDe_5KAi6FXvHAuovBOKmPZdUqLgc
+created thing sucesfully at http://localhost:3000/things/urn:uuid:f39c9505-496b-40f8-bd36-fc22613226a8
+waiting for 16m
+1 minutes passed - 6.25%
+2 minutes passed - 12.5%
+3 minutes passed - 18.75%
+4 minutes passed - 25%
+5 minutes passed - 31.25%
+6 minutes passed - 37.5%
+7 minutes passed - 43.75%
+8 minutes passed - 50%
+9 minutes passed - 56.25%
+10 minutes passed - 62.5%
+11 minutes passed - 68.75%
+12 minutes passed - 75%
+13 minutes passed - 81.25%
+14 minutes passed - 87.5%
+15 minutes passed - 93.75%
+16 minutes passed - 100%
+Performing a RANDOM request at http://localhost:3000/things/urn:uuid:f39c9505-496b-40f8-bd36-fc22613226a8...
+RANDOM choise is POST
+[9/11/2022, 10:33:13 PM] Sucessfully retrieved TD - status 201 - issues 0
+Starting attempt #7 of 10
+Initializing...
+creating unique user email-9560676397@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwMiwiaWF0IjoxNjYyOTI4MzkzLCJleHAiOjE2NjI5MzU1OTN9.naI4GrgDKqB9EAG_gBC6IpvuyGhQpfB4g9MajUDU1kA
+created thing sucesfully at http://localhost:3000/things/urn:uuid:04da432b-0f50-4307-ae8d-8c6f7200e85b
+waiting for 24m
+1 minutes passed - 4.166666666666666%
+2 minutes passed - 8.333333333333332%
+3 minutes passed - 12.5%
+4 minutes passed - 16.666666666666664%
+5 minutes passed - 20.833333333333336%
+6 minutes passed - 25%
+7 minutes passed - 29.166666666666668%
+8 minutes passed - 33.33333333333333%
+9 minutes passed - 37.5%
+10 minutes passed - 41.66666666666667%
+11 minutes passed - 45.83333333333333%
+12 minutes passed - 50%
+13 minutes passed - 54.166666666666664%
+14 minutes passed - 58.333333333333336%
+15 minutes passed - 62.5%
+16 minutes passed - 66.66666666666666%
+17 minutes passed - 70.83333333333334%
+18 minutes passed - 75%
+19 minutes passed - 79.16666666666666%
+20 minutes passed - 83.33333333333334%
+21 minutes passed - 87.5%
+22 minutes passed - 91.66666666666666%
+23 minutes passed - 95.83333333333334%
+24 minutes passed - 100%
+Performing a RANDOM request at http://localhost:3000/things/urn:uuid:04da432b-0f50-4307-ae8d-8c6f7200e85b...
+RANDOM choise is POST
+[9/11/2022, 10:57:14 PM] Sucessfully retrieved TD - status 201 - issues 0
+Starting attempt #8 of 10
+Initializing...
+creating unique user email-9560630512@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwMywiaWF0IjoxNjYyOTI5ODM0LCJleHAiOjE2NjI5MzcwMzR9.uBee8AQDzoyLgC7IsUzX5Hi4fpNjcmpL_Rv2akrPxsk
+created thing sucesfully at http://localhost:3000/things/urn:uuid:2b05b283-228b-4073-a53f-94ab2c848ff3
+waiting for 29m
+1 minutes passed - 3.4482758620689653%
+2 minutes passed - 6.896551724137931%
+3 minutes passed - 10.344827586206897%
+4 minutes passed - 13.793103448275861%
+5 minutes passed - 17.24137931034483%
+6 minutes passed - 20.689655172413794%
+7 minutes passed - 24.137931034482758%
+8 minutes passed - 27.586206896551722%
+9 minutes passed - 31.03448275862069%
+10 minutes passed - 34.48275862068966%
+11 minutes passed - 37.93103448275862%
+12 minutes passed - 41.37931034482759%
+13 minutes passed - 44.827586206896555%
+14 minutes passed - 48.275862068965516%
+15 minutes passed - 51.724137931034484%
+16 minutes passed - 55.172413793103445%
+17 minutes passed - 58.620689655172406%
+18 minutes passed - 62.06896551724138%
+19 minutes passed - 65.51724137931035%
+20 minutes passed - 68.96551724137932%
+21 minutes passed - 72.41379310344827%
+22 minutes passed - 75.86206896551724%
+23 minutes passed - 79.3103448275862%
+24 minutes passed - 82.75862068965517%
+25 minutes passed - 86.20689655172413%
+26 minutes passed - 89.65517241379311%
+27 minutes passed - 93.10344827586206%
+28 minutes passed - 96.55172413793103%
+29 minutes passed - 100%
+Performing a RANDOM request at http://localhost:3000/things/urn:uuid:2b05b283-228b-4073-a53f-94ab2c848ff3...
+RANDOM choise is PUT
+[9/11/2022, 11:26:15 PM] Sucessfully retrieved TD - status 204 - issues 0
+Starting attempt #9 of 10
+Initializing...
+creating unique user email-9560619910@test.com
+user created sucessfully! Access Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwNCwiaWF0IjoxNjYyOTMxNTc2LCJleHAiOjE2NjI5Mzg3NzZ9.bkEQYTwZTpj-bBaj4BzltBs8S_1SGiRoBv447HZY2RI
+created thing sucesfully at http://localhost:3000/things/urn:uuid:291f8773-bf14-4737-b12c-c5c39eb44e75
+waiting for 16m
+1 minutes passed - 6.25%
+2 minutes passed - 12.5%
+3 minutes passed - 18.75%
+4 minutes passed - 25%
+5 minutes passed - 31.25%
+6 minutes passed - 37.5%
+7 minutes passed - 43.75%
