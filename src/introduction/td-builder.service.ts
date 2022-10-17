@@ -18,7 +18,7 @@ export class ThingDescriptionBuilderService {
     const builder = new ThingModelHelpers();
     const options: CompositionOptions = {
       map: {
-        DIRECTORY_BASE_URL: this.config.apiBase,
+        DIRECTORY_BASE_URL: this.config.app.apiBase,
       },
     };
 

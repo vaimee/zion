@@ -16,11 +16,11 @@ import { UserRepository } from './user.repository';
         config: {
           client: 'pg',
           connection: {
-            host: config.dbHost,
-            port: config.dbPort,
-            user: config.dbUser,
-            password: config.dbPassword,
-            database: config.dbDatabase,
+            host: config.database.host,
+            port: config.database.port,
+            user: config.database.user,
+            password: config.database.password,
+            database: config.database.type,
             pool: { min: 0, max: 10 },
           },
         },

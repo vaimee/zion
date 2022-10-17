@@ -1,75 +1,59 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
 
-import { Default } from './default.class';
+import { Default } from './default.namespace';
+import { AppConfig, DatabaseConfig, IntroductionConfig, ThingDescriptionEventsConfig } from './interfaces';
+import { AuthConfig } from './interfaces/authConfig';
 
 @Injectable()
 export class ConfigService {
   public constructor(private readonly nestConfigService: NestConfigService) {}
 
-  public get version(): string {
-    return process.env.npm_package_version || '';
+  public get database(): DatabaseConfig {
+    const databaseConfig: DatabaseConfig = {
+      host: this.nestConfigService.get('DB_HOST', Default.DB.HOST),
+      port: this.nestConfigService.get('DB_PORT', Default.DB.PORT),
+      type: this.nestConfigService.get('DB_TYPE', Default.DB.TYPE),
+      user: this.nestConfigService.get('DB_USER', Default.DB.USER),
+      password: this.nestConfigService.get('DB_PASSWORD', Default.DB.PASSWORD),
+    };
+    return databaseConfig;
   }
 
-  //* why there is apiBase if there are serverHost and serverPort?
-  public get apiBase(): string {
-    return this.nestConfigService.get<string>('API_BASE', Default.API_BASE);
+  public get app(): AppConfig {
+    const appConfig: AppConfig = {
+      host: this.nestConfigService.get('APP_HOST', Default.App.HOST),
+      port: this.nestConfigService.get('APP_PORT', Default.App.PORT),
+      apiBase: this.nestConfigService.get('API_BASE', Default.App.API_BASE),
+      version: process.env.npm_package_version || '',
+    };
+    return appConfig;
   }
 
-  public get serverHost(): string {
-    return this.nestConfigService.get('SERVER_HOST', Default.SERVER_HOST);
+  public get auth(): AuthConfig {
+    const authConfig: AuthConfig = {
+      jwt: {
+        secret: this.nestConfigService.get('JWT_SECRET', Default.Jwt.SECRET),
+        expiresIn: this.nestConfigService.get('JWT_EXPIRES_IN', Default.Jwt.EXPIRES_IN),
+      },
+    };
+    return authConfig;
   }
 
-  public get serverPort(): number {
-    return this.nestConfigService.get('SERVER_PORT', Default.SERVER_PORT);
+  public get introduction(): IntroductionConfig {
+    const introductionConfig: IntroductionConfig = {
+      mdns: {
+        name: this.nestConfigService.get('MDNS_TO_PATH', Default.MDNS.TO_PATH),
+        toPath: this.nestConfigService.get('MDNS_NAME', Default.MDNS.NAME),
+      },
+    };
+    return introductionConfig;
   }
 
-  //******************DB CONFS******************//
-  public get dbHost(): string {
-    return this.nestConfigService.get('DB_HOST', Default.DB_HOST);
-  }
-
-  public get dbPort(): number {
-    return this.nestConfigService.get('DB_PORT', Default.DB_PORT);
-  }
-
-  //* this is a bad name
-  public get dbDatabase(): string {
-    return this.nestConfigService.get('DB_DATABASE', Default.DB_NAME);
-  }
-
-  public get dbUser(): string {
-    return this.nestConfigService.get('DB_USER', Default.DB_USER);
-  }
-
-  public get dbPassword(): string {
-    return this.nestConfigService.get('DB_PASSWORD', Default.DB_PASSWORD);
-  }
-  //************************* **************************//
-
-  public get maxEvents(): number {
-    return this.nestConfigService.get('MAX_EVENTS', Default.MAX_EVENTS);
-  }
-
-  //******************JWT CONFS******************//
-
-  public get jwtSecret(): string {
-    const jwtSecret = this.nestConfigService.get('JWT_SECRET', Default.MAX_EVENTS);
-
-    console.log(`JWT SECRET: ${jwtSecret}`);
-    return jwtSecret;
-  }
-
-  public get jwtExpiresIn(): string {
-    return this.nestConfigService.get('JWT_EXPIRES_IN', Default.JWT_EXPIRES_IN);
-  }
-  //**************************** ***********************//
-
-  public get advertisedTDPath(): string {
-    return this.nestConfigService.get('MDNS_TD_PATH', Default.MDNS_TO_PATH);
-  }
-
-  public get multicastName(): string {
-    return this.nestConfigService.get('MDNS_NAME', Default.MDNS_NAME);
+  public get thingDescriptionEvents(): ThingDescriptionEventsConfig {
+    const thingDescriptionEventsConfig: ThingDescriptionEventsConfig = {
+      maxEvents: this.nestConfigService.get('MAX_EVENTS', Default.TDLifecycleEvent.MAX_EVENTS),
+    };
+    return thingDescriptionEventsConfig;
   }
 }
