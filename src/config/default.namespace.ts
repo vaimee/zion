@@ -1,3 +1,9 @@
+//* Discussion: the linter suggest to use MODULES. I believe that namespace are more suitable for this case:
+//* 1. The name NAMESPACE better describes the content of the data struture and its use;
+//* 2. I do not want to mix the concept of NestJS namespaces and plain ts namespaces;
+//* 2. A named JavaScript objects in the global namespace is what we need.
+//* Note: I rolled back to use namespaces to maintain consistency with the linter
+
 export namespace Default {
   export namespace App {
     export const API_BASE = 'http://localhost:3000';
