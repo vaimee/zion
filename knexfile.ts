@@ -1,7 +1,14 @@
 import { path as rootPath } from 'app-root-path';
 import * as dotenv from 'dotenv';
 import type { Knex } from 'knex';
-dotenv.config();
+
+const baseEnvPath = `${process.cwd()}/src/config/env/`;
+const envPath =
+  process.env.NODE_ENV === undefined ? `${baseEnvPath}/.env` : `${baseEnvPath}/${process.env.NODE_ENV}.env`;
+dotenv.config({
+  path: envPath,
+  debug: true,
+});
 
 const config: Knex.Config = {
   client: 'pg',
