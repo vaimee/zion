@@ -21,8 +21,6 @@ export class ConfigService {
   }
 
   public get app(): AppConfig {
-    Default.app.apiBase = 'asdasd';
-
     const appConfig: AppConfig = {
       host: this.nestConfigService.get('APP_HOST', Default.app.host),
       port: this.nestConfigService.get('APP_PORT', Default.app.port),
