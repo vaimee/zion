@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
 
-import { Default } from './default.namespace';
+import Default from './default';
 import { AppConfig, DatabaseConfig, IntroductionConfig, ThingDescriptionEventsConfig } from './interfaces';
 import { AuthConfig } from './interfaces/authConfig';
 
@@ -11,20 +11,22 @@ export class ConfigService {
 
   public get database(): DatabaseConfig {
     const databaseConfig: DatabaseConfig = {
-      host: this.nestConfigService.get('DB_HOST', Default.DB.HOST),
-      port: this.nestConfigService.get('DB_PORT', Default.DB.PORT),
-      type: this.nestConfigService.get('DB_TYPE', Default.DB.TYPE),
-      user: this.nestConfigService.get('DB_USER', Default.DB.USER),
-      password: this.nestConfigService.get('DB_PASSWORD', Default.DB.PASSWORD),
+      host: this.nestConfigService.get('DB_HOST', Default.db.host),
+      port: this.nestConfigService.get('DB_PORT', Default.db.port),
+      type: this.nestConfigService.get('DB_TYPE', Default.db.type),
+      user: this.nestConfigService.get('DB_USER', Default.db.user),
+      password: this.nestConfigService.get('DB_PASSWORD', Default.db.password),
     };
     return databaseConfig;
   }
 
   public get app(): AppConfig {
+    Default.app.apiBase = 'asdasd';
+
     const appConfig: AppConfig = {
-      host: this.nestConfigService.get('APP_HOST', Default.App.HOST),
-      port: this.nestConfigService.get('APP_PORT', Default.App.PORT),
-      apiBase: this.nestConfigService.get('API_BASE', Default.App.API_BASE),
+      host: this.nestConfigService.get('APP_HOST', Default.app.host),
+      port: this.nestConfigService.get('APP_PORT', Default.app.port),
+      apiBase: this.nestConfigService.get('API_BASE', Default.app.apiBase),
       version: process.env.npm_package_version || '',
     };
     return appConfig;
@@ -33,8 +35,8 @@ export class ConfigService {
   public get auth(): AuthConfig {
     const authConfig: AuthConfig = {
       jwt: {
-        secret: this.nestConfigService.get('JWT_SECRET', Default.Jwt.SECRET),
-        expiresIn: this.nestConfigService.get('JWT_EXPIRES_IN', Default.Jwt.EXPIRES_IN),
+        secret: this.nestConfigService.get('JWT_SECRET', Default.auth.jwt.secret),
+        expiresIn: this.nestConfigService.get('JWT_EXPIRES_IN', Default.auth.jwt.expiresIn),
       },
     };
     return authConfig;
@@ -43,8 +45,8 @@ export class ConfigService {
   public get introduction(): IntroductionConfig {
     const introductionConfig: IntroductionConfig = {
       mdns: {
-        name: this.nestConfigService.get('MDNS_TO_PATH', Default.MDNS.TO_PATH),
-        toPath: this.nestConfigService.get('MDNS_NAME', Default.MDNS.NAME),
+        name: this.nestConfigService.get('MDNS_TO_PATH', Default.introduction.mdns.toPath),
+        toPath: this.nestConfigService.get('MDNS_NAME', Default.introduction.mdns.name),
       },
     };
     return introductionConfig;
@@ -52,7 +54,7 @@ export class ConfigService {
 
   public get thingDescriptionEvents(): ThingDescriptionEventsConfig {
     const thingDescriptionEventsConfig: ThingDescriptionEventsConfig = {
-      maxEvents: this.nestConfigService.get('MAX_EVENTS', Default.TDLifecycleEvent.MAX_EVENTS),
+      maxEvents: this.nestConfigService.get('MAX_EVENTS', Default.thingDescriptionEvents.maxEvents),
     };
     return thingDescriptionEventsConfig;
   }
