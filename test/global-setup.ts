@@ -1,5 +1,3 @@
-//import './env';
-
 import { execSync } from 'child_process';
 
 import { path as rootPath } from 'app-root-path';
