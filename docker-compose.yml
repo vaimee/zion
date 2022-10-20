@@ -6,7 +6,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_TYPE}
-    container_name: 'zion-postgres-testing'
+    container_name: 'zion-postgres-dev'
     ports:
       - '${DB_PORT}:5432'
   zion:
