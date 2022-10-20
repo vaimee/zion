@@ -37,3 +37,4 @@ lerna-debug.log*
 # specific environmental configurations
 **/*.env
 !src/config/env/.env
+!src/config/env/test.env
