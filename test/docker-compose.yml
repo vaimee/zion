@@ -9,5 +9,5 @@ services:
       - POSTGRES_DB=${DB_TYPE}
     container_name: 'zion-postgres-testing'
     ports:
-      - '54310:5432'
+      - '${DB_PORT}:5432'
     tmpfs: /var/lib/postgresql/data
