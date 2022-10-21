@@ -113,7 +113,7 @@ services:
 - [ ] Standard API
   * [ ] XPath queries
   * [ ] SPARQL queries supported with an external SPARQL endpoint
-  * [ ] CoRE introduction method
+  * [x] CoRE introduction method
 - [ ] Experimental API
   * [ ] GEO spatial queries
   * [ ] User private TD collection CRUD 
