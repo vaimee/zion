@@ -5,9 +5,13 @@ import { FastifyReply } from 'fastify';
 import { WellKnownService } from './well-known.service';
 
 /**
- * This controller is used to expose the Thing Description document.
+ * This controller is used to handle well-known URIs.
+ *
+ * It exposes the Thing Description document via `/.well-known/wot` and
+ * implements the CoRE Link Format introduction method via `/.well-known/core`.
  *
  * @see https://w3c.github.io/wot-discovery/#introduction-well-known
+ * @see https://w3c.github.io/wot-discovery/#introduction-core-rd-sec
  */
 @ApiTags('Introduction')
 @Controller('.well-known')
