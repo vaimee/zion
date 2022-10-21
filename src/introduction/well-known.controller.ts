@@ -28,4 +28,10 @@ export class WellKnownController {
     response.header('Content-length', `${size}`);
     await response.send();
   }
+
+  @Get('core')
+  @Header('Content-type', 'application/link-format')
+  public wellKnownCore() {
+    return '</wot>rt="wot.directory";ct=432';
+  }
 }
