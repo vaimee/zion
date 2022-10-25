@@ -9,6 +9,10 @@ describe('/well-known', () => {
    * @see https://w3c.github.io/wot-discovery/#introduction-well-known
    */
   const SPECIFICATION_PATH = 'wot';
+  /**
+   * @see https://www.rfc-editor.org/rfc/rfc6690.html#section-7.1
+   */
+  const WELL_KNOWN_CORE_PATH = 'core';
   let axios: AxiosInstance;
   let app: INestApplication;
 
@@ -64,6 +68,26 @@ describe('/well-known', () => {
         expect(status).toBe(200);
         expect(headers['content-type']).toContain('application/td+json');
         expect(headers['content-length']).toBeDefined();
+      });
+    });
+  });
+
+  describe(`/${WELL_KNOWN_CORE_PATH}`, () => {
+    describe('GET', () => {
+      it('should answer to well-known', async () => {
+        const { status } = await axios.get(`/.well-known/${WELL_KNOWN_CORE_PATH}`);
+        expect(status).toBe(200);
+      });
+
+      /**
+       * @see https://w3c.github.io/wot-discovery/#introduction-core-rd-sec
+       */
+      it('should follow the specification', async () => {
+        const { status, headers, data } = await axios.get(`/.well-known/${WELL_KNOWN_CORE_PATH}`);
+
+        expect(status).toBe(200);
+        expect(data).toBe('</wot>rt="wot.directory";ct=432');
+        expect(headers['content-type']).toContain('application/link-format');
       });
     });
   });
