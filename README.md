@@ -37,6 +37,7 @@ and flexible. Currently, Zion supports the following features:
 - [Introduction methods](https://w3c.github.io/wot-discovery/#introduction-mech) :
   - DNS-SD
   - Well-known URL
+  - CoRE Link Format and `/.well-known/core`
 - Standard API:
   - CRUD operations on the collection of TDs
   - JSONPath queries compliant with IETF JSONPath standard [draft 5](https://datatracker.ietf.org/doc/html/draft-ietf-jsonpath-base#section-3.5.8)
