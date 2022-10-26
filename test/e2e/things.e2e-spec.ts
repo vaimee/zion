@@ -32,13 +32,15 @@ describe('/things', () => {
 
   describe('POST', () => {
     it('should fail to register the Thing Description when the user is not authenticated', async () => {
-      const { status, data } = await axios.post('/things', validAnonymousThingDescription);
+      const { status, data, headers } = await axios.post('/things', validAnonymousThingDescription);
       expect(status).toBe(401);
       expect(data).toMatchObject({
         type: '/errors/types/invalid-token',
         title: 'Invalid Token',
         status: 401,
       });
+
+      expect(headers).toHaveProperty('www-authenticate', 'Bearer realm=things');
     });
 
     it('should fail to register the Thing Description when it is not anonymous', async () => {
