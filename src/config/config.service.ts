@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
 
 import Default from './default';
-import { AppConfig, DatabaseConfig, IntroductionConfig, ThingDescriptionEventsConfig } from './interfaces';
-import { AuthConfig } from './interfaces/authConfig';
+import { AppConfig, AuthConfig, DatabaseConfig, IntroductionConfig, ThingDescriptionEventsConfig } from './interfaces';
 
 @Injectable()
 export class ConfigService {
