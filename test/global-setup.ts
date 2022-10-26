@@ -10,7 +10,7 @@ export default async function () {
   console.log('\n');
 
   dotenv.config({
-    path: `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
+    path: `${process.cwd()}/${process.env.NODE_ENV}.env`,
     debug: true,
   });
 

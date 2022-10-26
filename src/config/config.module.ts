@@ -8,7 +8,7 @@ import { validationSchema } from './env.validation';
 @Module({
   imports: [
     NestConfigModule.forRoot({
-      envFilePath: getEnvFilePath(`${process.cwd()}/src/config/env/`),
+      envFilePath: getEnvFilePath(process.cwd()),
       validationSchema,
     }),
   ],
