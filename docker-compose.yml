@@ -5,10 +5,10 @@ services:
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
-    container_name: 'zion-postgres-testing'
+      - POSTGRES_DB=${DB_TYPE}
+    container_name: 'zion-postgres-dev'
     ports:
-      - '54310:5432'
+      - '${DB_PORT}:5432'
   zion:
     build: .
     depends_on:
@@ -24,6 +24,6 @@ services:
       - DB_PORT
       - DB_USER
       - DB_PASSWORD
-      - DB_DATABASE
+      - DB_TYPE
       - JWT_SECRET
       - JWT_EXPIRES_IN

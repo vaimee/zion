@@ -1,7 +1,14 @@
 import { path as rootPath } from 'app-root-path';
 import * as dotenv from 'dotenv';
 import type { Knex } from 'knex';
-dotenv.config();
+
+const baseEnvPath = `${process.cwd()}`;
+const envPath =
+  process.env.NODE_ENV === undefined ? `${baseEnvPath}/.env` : `${baseEnvPath}/${process.env.NODE_ENV}.env`;
+dotenv.config({
+  path: envPath,
+  debug: true,
+});
 
 const config: Knex.Config = {
   client: 'pg',
@@ -10,7 +17,7 @@ const config: Knex.Config = {
     port: Number(process.env.DB_PORT),
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
+    database: process.env.DB_TYPE,
   },
   migrations: {
     directory: `${rootPath}/migrations`,

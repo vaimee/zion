@@ -26,7 +26,7 @@ export class TDLifecycleEventRepository implements Repository<TDLifecycleEvent> 
   //TODO: check injection of ConfigService
   public constructor(config: ConfigService) {
     this.events = [];
-    this.maxEvents = config.maxEvents;
+    this.maxEvents = config.thingDescriptionEvents.maxEvents;
   }
 
   public async create(item: Omit<TDLifecycleEvent, 'id'>): Promise<TDLifecycleEvent> {

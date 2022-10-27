@@ -1,63 +1,58 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
 
+import Default from './default';
+import { AppConfig, AuthConfig, DatabaseConfig, IntroductionConfig, ThingDescriptionEventsConfig } from './interfaces';
+
 @Injectable()
 export class ConfigService {
   public constructor(private readonly nestConfigService: NestConfigService) {}
 
-  public get version(): string {
-    return process.env.npm_package_version || '';
+  public get database(): DatabaseConfig {
+    const databaseConfig: DatabaseConfig = {
+      host: this.nestConfigService.get('DB_HOST', Default.db.host),
+      port: this.nestConfigService.get('DB_PORT', Default.db.port),
+      type: this.nestConfigService.get('DB_TYPE', Default.db.type),
+      user: this.nestConfigService.get('DB_USER', Default.db.user),
+      password: this.nestConfigService.get('DB_PASSWORD', Default.db.password),
+    };
+    return databaseConfig;
   }
 
-  public get apiBase(): string {
-    return this.nestConfigService.get<string>('API_BASE', 'http://localhost:3000');
+  public get app(): AppConfig {
+    const appConfig: AppConfig = {
+      host: this.nestConfigService.get('APP_HOST', Default.app.host),
+      port: this.nestConfigService.get('APP_PORT', Default.app.port),
+      apiBase: this.nestConfigService.get('API_BASE', Default.app.apiBase),
+      version: process.env.npm_package_version || '',
+    };
+    return appConfig;
   }
 
-  public get serverHost(): string {
-    return this.nestConfigService.get('SERVER_HOST', '0.0.0.0');
+  public get auth(): AuthConfig {
+    const authConfig: AuthConfig = {
+      jwt: {
+        secret: this.nestConfigService.get('JWT_SECRET', Default.auth.jwt.secret),
+        expiresIn: this.nestConfigService.get('JWT_EXPIRES_IN', Default.auth.jwt.expiresIn),
+      },
+    };
+    return authConfig;
   }
 
-  public get serverPort(): number {
-    return this.nestConfigService.get('SERVER_PORT', 3000);
+  public get introduction(): IntroductionConfig {
+    const introductionConfig: IntroductionConfig = {
+      mdns: {
+        name: this.nestConfigService.get('MDNS_TO_PATH', Default.introduction.mdns.toPath),
+        toPath: this.nestConfigService.get('MDNS_NAME', Default.introduction.mdns.name),
+      },
+    };
+    return introductionConfig;
   }
 
-  public get dbHost(): string {
-    return this.nestConfigService.get('DB_HOST', 'localhost');
-  }
-
-  public get dbPort(): number {
-    return this.nestConfigService.get('DB_PORT', 5432);
-  }
-
-  public get maxEvents(): number {
-    return this.nestConfigService.get('MAX_EVENTS', 100);
-  }
-
-  public get dbUser(): string {
-    return this.nestConfigService.get('DB_USER', 'postgres');
-  }
-
-  public get dbPassword(): string {
-    return this.nestConfigService.get('DB_PASSWORD', 'postgres');
-  }
-
-  public get dbDatabase(): string {
-    return this.nestConfigService.get('DB_DATABASE', 'postgres');
-  }
-
-  public get jwtSecret(): string {
-    return this.nestConfigService.get('JWT_SECRET', '');
-  }
-
-  public get jwtExpiresIn(): string {
-    return this.nestConfigService.get('JWT_EXPIRES_IN', '15m');
-  }
-
-  public get advertisedTDPath(): string {
-    return this.nestConfigService.get('MDNS_TD_PATH', '/well-known/wot-thing-description');
-  }
-
-  public get multicastName(): string {
-    return this.nestConfigService.get('MDNS_NAME', 'zion');
+  public get thingDescriptionEvents(): ThingDescriptionEventsConfig {
+    const thingDescriptionEventsConfig: ThingDescriptionEventsConfig = {
+      maxEvents: this.nestConfigService.get('MAX_EVENTS', Default.thingDescriptionEvents.maxEvents),
+    };
+    return thingDescriptionEventsConfig;
   }
 }

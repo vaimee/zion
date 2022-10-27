@@ -26,22 +26,22 @@ export class MulticastDnsService {
             {
               name: '_directory._sub._wot',
               type: 'PTR',
-              data: `${this.config.multicastName}._wot`,
+              data: `${this.config.introduction.mdns.name}._wot`,
             },
           ],
           additionals: [
             {
-              name: `${this.config.multicastName}._wot`,
+              name: `${this.config.introduction.mdns.name}._wot`,
               type: 'SRV',
               data: {
-                port: this.config.serverPort,
-                target: this.config.serverHost,
+                port: this.config.app.port,
+                target: this.config.app.host,
               },
             },
             {
-              name: `${this.config.multicastName}._wot`,
+              name: `${this.config.introduction.mdns.name}._wot`,
               type: 'TXT',
-              data: [`td=${this.config.advertisedTDPath}`, 'type=Directory', 'tls=1'],
+              data: [`td=${this.config.introduction.mdns.toPath}`, 'type=Directory', 'tls=1'],
             },
           ],
         });

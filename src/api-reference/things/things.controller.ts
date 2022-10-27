@@ -45,7 +45,7 @@ export class ThingsController {
     @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
     const thingDescriptionId = await this.thingsService.create(user, dto);
-    const locationURL = `${this.config.apiBase}/things/${thingDescriptionId}`;
+    const locationURL = `${this.config.app.apiBase}/things/${thingDescriptionId}`;
     res.header('Location', locationURL);
   }
 

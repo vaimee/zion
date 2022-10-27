@@ -11,7 +11,7 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Zion API')
     .setDescription('A scalable Thing Description Directory')
-    .setVersion(config.version)
+    .setVersion(config.app.version)
     .setContact('VAIMEE', 'https://vaimee.com', 'info@vaimee.com')
     .setLicense('Apache-2.0', 'https://www.apache.org/licenses/LICENSE-2.0')
     .addBearerAuth()
@@ -21,7 +21,7 @@ async function bootstrap() {
   loadSwaggerSchemas(document);
   SwaggerModule.setup('explorer', app, document);
 
-  await app.listen(config.serverPort, '0.0.0.0');
+  await app.listen(config.app.port, '0.0.0.0'); //config.app.host ???
   printWelcomeMessage(config);
 }
 
@@ -37,7 +37,7 @@ function printWelcomeMessage(config: ConfigService) {
       **
   `,
   );
-  console.log(`Thing Description Directory is active on ${config.apiBase}`);
+  console.log(`Thing Description Directory is active on ${config.app.apiBase}`);
 }
 
 bootstrap();
