@@ -21,7 +21,7 @@ import { UserRepository } from './user.repository';
             user: config.database.user,
             password: config.database.password,
             database: config.database.type,
-            pool: { min: 0, max: 10 },
+            pool: { min: 0, max: 10, idleTimeoutMillis: 300000 },
           },
         },
       }),
