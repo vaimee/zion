@@ -3,7 +3,6 @@
   "version": "1.0.0-alpha.1",
   "description": "",
   "author": "",
-  "private": true,
   "license": "Apache-2.0",
   "main": "./dist/src/main.js",
   "types": "./dist/src/main.d.ts",
