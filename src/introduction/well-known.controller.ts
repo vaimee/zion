@@ -36,6 +36,6 @@ export class WellKnownController {
   @Get('core')
   @Header('Content-type', 'application/link-format')
   public wellKnownCore() {
-    return '</wot>rt="wot.directory";ct=432';
+    return '</.well-known/wot>;rt="wot.directory";ct=432';
   }
 }

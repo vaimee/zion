@@ -86,7 +86,7 @@ describe('/well-known', () => {
         const { status, headers, data } = await axios.get(`/.well-known/${WELL_KNOWN_CORE_PATH}`);
 
         expect(status).toBe(200);
-        expect(data).toBe('</wot>rt="wot.directory";ct=432');
+        expect(data).toBe('</.well-known/wot>;rt="wot.directory";ct=432');
         expect(headers['content-type']).toContain('application/link-format');
       });
     });
