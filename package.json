@@ -80,7 +80,7 @@
     "app-root-path": "^3.0.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "dotenv": "^16.0.0",
     "fastify-swagger": "^5.1.0",
     "joi": "^17.6.0",
