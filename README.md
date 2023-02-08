@@ -1,4 +1,8 @@
-<img src="./doc/logo.png" width="50%"/>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./doc/logo-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="./doc/logo.png">
+  <img width="50%" alt="Shows a abstract star with on the right Zion name" src="./doc/logo.png">
+</picture>
 
 <a href="https://github.com/vaimee/zion/actions" target="_blank"><img src="https://shields.io/github/workflow/status/vaimee/zion/Main.svg?style=flat-square&logo=github&label=CI" alt="CI status" /></a>
 <a href="https://github.com/vaimee/zion/issues" target="_blank"><img src="https://img.shields.io/github/issues/vaimee/zion.svg?style=flat-square" alt="Issues" /></a>
