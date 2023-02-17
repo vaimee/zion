@@ -18,12 +18,6 @@ import { WellKnownService } from './well-known.service';
 export class WellKnownController {
   public constructor(private readonly service: WellKnownService) {}
 
-  @Get('wot')
-  @Header('Content-type', 'application/td+json')
-  public thingDescription() {
-    return this.service.getThingDescription();
-  }
-
   @Head('wot')
   @Header('Content-type', 'application/td+json')
   @ApiExcludeEndpoint()
@@ -31,6 +25,12 @@ export class WellKnownController {
     const size = await this.service.size();
     response.header('Content-length', `${size}`);
     await response.send();
+  }
+
+  @Get('wot')
+  @Header('Content-type', 'application/td+json')
+  public thingDescription() {
+    return this.service.getThingDescription();
   }
 
   @Get('core')
