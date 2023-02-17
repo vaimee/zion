@@ -103,7 +103,8 @@ services:
     environment:
       - NODE_ENV
       - SERVER_PORT
-      - DB_HOST=database
+      # Using task name as explained in https://github.com/vaimee/zion/issues/11#issuecomment-1434457337
+      - DB_HOST=tasks.database
       - DB_PORT
       - DB_USER
       - DB_PASSWORD
