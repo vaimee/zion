@@ -136,9 +136,9 @@ Thank you for considering to contribute to Zion. Please follow the guidelines in
 ## Contact
 Lorenzo Gigli - [@hyperloris](https://twitter.com/hyperloris) - [lorenzo.gigli@vaimee.com](mailto://lorenzo.gigli@vaimee.com)
 
-[Cristiano Aguzzi](team.vaimee.com/cristiano) - [@relucri](https://twitter.com/relucri) - [cristiano.aguzzi@vaimee.com](mailto://cristiano.aguzzi@vaimee.com)
+[Cristiano Aguzzi](https://team.vaimee.com/cristiano) - [@relucri](https://twitter.com/relucri) - [cristiano.aguzzi@vaimee.com](mailto://cristiano.aguzzi@vaimee.com)
 
-[VAIMEE](vaimee.com) - [@MaVaimee](https://twitter.com/MaVaimee) - [info@vaimee.com](mailto://info@vaimee.com)
+[VAIMEE](https://vaimee.com) - [@MaVaimee](https://twitter.com/MaVaimee) - [info@vaimee.com](mailto://info@vaimee.com)
 ## Acknowledgments
 ![DESMO-LD](https://github.com/vaimee/desmo/blob/c763cec12f6c9060a9f1a3335ff4cff60ece3df2/imgs/desmo-logo.png)
 
