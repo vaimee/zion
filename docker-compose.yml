@@ -3,9 +3,9 @@ services:
   database:
     image: postgres:14.3-alpine
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_TYPE}
+      - POSTGRES_USER=${ZION_DB_USER}
+      - POSTGRES_PASSWORD=${ZION_DB_PASSWORD}
+      - POSTGRES_DB=${ZION_DB_TYPE}
     container_name: 'zion-postgres-dev'
     ports:
       - '${DB_PORT}:5432'
@@ -15,15 +15,15 @@ services:
       - database
     entrypoint: ['sh', '-c','npm run db:migrate:latest && node dist/src/main.js']
     ports: 
-      - ${SERVER_PORT}:${SERVER_PORT}
+      - ${ZION_SERVER_PORT}:${ZION_SERVER_PORT}
     container_name: zion
     environment:
-      - NODE_ENV
-      - SERVER_PORT
-      - DB_HOST=database
-      - DB_PORT
-      - DB_USER
-      - DB_PASSWORD
-      - DB_TYPE
-      - JWT_SECRET
-      - JWT_EXPIRES_IN
+      - ZION_NODE_ENV
+      - ZION_SERVER_PORT
+      - ZION_DB_HOST=database
+      - ZION_DB_PORT
+      - ZION_DB_USER
+      - ZION_DB_PASSWORD
+      - ZION_DB_TYPE
+      - ZION_JWT_SECRET
+      - ZION_JWT_EXPIRES_IN

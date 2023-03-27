@@ -59,15 +59,15 @@ docker compose up
 ```
 If you want to manually set up your database, you can edit the example [.env](.env) file:
 ```bash
-NODE_ENV=development
-SERVER_PORT=3000
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_DATABASE=postgres
-JWT_SECRET=abc123
-JWT_EXPIRES_IN=15m
+ZION_NODE_ENV=development
+ZION_SERVER_PORT=3000
+ZION_DB_HOST=localhost
+ZION_DB_PORT=5432
+ZION_DB_USER=postgres
+ZION_DB_PASSWORD=postgres
+ZION_DB_DATABASE=postgres
+ZION_JWT_SECRET=abc123
+ZION_JWT_EXPIRES_IN=15m
 ```
 ### Clone and npm 
 If you want to start Zion in a development mode, you can clone the repository and run the following command:
@@ -86,9 +86,9 @@ services:
   database:
     image: postgres:14.3-alpine
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${ZION_DB_USER}
+      - POSTGRES_PASSWORD=${ZION_DB_PASSWORD}
+      - POSTGRES_DB=${ZION_DB_DATABASE}
     container_name: 'zion-postgres-testing'
     ports:
       - '54310:5432'
@@ -98,19 +98,19 @@ services:
       - database
     entrypoint: ['sh', '-c','npm run db:migrate:latest && node dist/src/main.js']
     ports: 
-      - ${SERVER_PORT}:${SERVER_PORT}
+      - ${ZION_SERVER_PORT}:${ZION_SERVER_PORT}
     container_name: zion
     environment:
-      - NODE_ENV
-      - SERVER_PORT
+      - ZION_NODE_ENV
+      - ZION_SERVER_PORT
       # Using task name as explained in https://github.com/vaimee/zion/issues/11#issuecomment-1434457337
-      - DB_HOST=tasks.database
-      - DB_PORT
-      - DB_USER
-      - DB_PASSWORD
-      - DB_DATABASE
-      - JWT_SECRET
-      - JWT_EXPIRES_IN
+      - ZION_DB_HOST=tasks.database
+      - ZION_DB_PORT
+      - ZION_DB_USER
+      - ZION_DB_PASSWORD
+      - ZION_DB_DATABASE
+      - ZION_JWT_SECRET
+      - ZION_JWT_EXPIRES_IN
 ```
 
 

@@ -11,7 +11,8 @@ export function getExpiredAccessToken(user: User): string {
 }
 
 function signAccessToken(user: User, expirationInUnixTime: number): string {
-  const secret = process.env.JWT_SECRET || '';
+  // TODO: there should not be direct access to process.env (use settings service instead)
+  const secret = process.env.ZION_JWT_SECRET || '';
   const token = sign(
     {
       sub: user.id,

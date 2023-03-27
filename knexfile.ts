@@ -13,11 +13,11 @@ dotenv.config({
 const config: Knex.Config = {
   client: 'pg',
   connection: {
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_TYPE,
+    host: process.env.ZION_DB_HOST,
+    port: Number(process.env.ZION_DB_PORT),
+    user: process.env.ZION_DB_USER,
+    password: process.env.ZION_DB_PASSWORD,
+    database: process.env.ZION_DB_TYPE,
   },
   migrations: {
     directory: `${rootPath}/migrations`,
