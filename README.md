@@ -4,7 +4,7 @@
   <img width="50%" alt="Shows a abstract star with on the right Zion name" src="./doc/logo.png">
 </picture>
 
-<a href="https://github.com/vaimee/zion/actions" target="_blank"><img src="https://shields.io/github/workflow/status/vaimee/zion/Main.svg?style=flat-square&logo=github&label=CI" alt="CI status" /></a>
+<a href="https://github.com/vaimee/zion/actions" target="_blank"><img src="https://img.shields.io/github/actions/workflow/status/vaimee/zion/main.yml?branch=main&style=flat-square&logo=github&label=CI" alt="CI status" /></a>
 <a href="https://github.com/vaimee/zion/issues" target="_blank"><img src="https://img.shields.io/github/issues/vaimee/zion.svg?style=flat-square" alt="Issues" /></a>
 <a href="https://github.com/vaimee/zion/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/vaimee/zion.svg?style=flat-square" alt="License" /></a>
 <a href="https://discord.gg/6UTJ6HgZ" target="_blank"><img src="https://img.shields.io/badge/Discord-7289DA?style=flat-square&logo=discord&logoColor=white&label=zion" alt="Discord chat" /></a>
