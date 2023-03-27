@@ -14,7 +14,7 @@ export default async function () {
     debug: true,
   });
 
-  const dbPort = Number(process.env.DB_PORT);
+  const dbPort = Number(process.env.ZION_DB_PORT);
 
   // Speed up during development, if already live then do nothing
   const reachablePort = await detectPort(dbPort);

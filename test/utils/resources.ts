@@ -11,7 +11,7 @@ export async function getE2ETestResources() {
   await app.listen(0);
   const url = await app.getUrl();
 
-  process.env.API_BASE = url;
+  process.env.ZION_API_BASE = url;
 
   const axios = ax.create({
     baseURL: url,
