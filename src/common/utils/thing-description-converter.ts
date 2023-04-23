@@ -1,4 +1,9 @@
-import { ThingContext, ThingContextW3CUri } from 'wot-thing-description-types';
+import {
+  ThingContext,
+  ThingContextTdUriTemp,
+  ThingContextTdUriV1,
+  ThingContextTdUriV11,
+} from 'wot-thing-description-types';
 
 import { ENRICHED_TD_CONTEXT } from '../constants';
 import { EnrichedThingDescription, ThingDescription } from '../interfaces/thing-description';
@@ -44,6 +49,8 @@ export function enrichThingDescription(internalThingDescription: InternalThingDe
     },
   };
 }
+
+type ThingContextW3CUri = ThingContextTdUriV1 | ThingContextTdUriTemp | ThingContextTdUriV11;
 
 type ThingContextArray = Exclude<ThingContext, [] | ThingContextW3CUri>;
 function enrichThingDescriptionContext(context: ThingContext): ThingContext {

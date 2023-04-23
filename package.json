@@ -74,7 +74,7 @@
     "@nestjs/platform-fastify": "^9.3.9",
     "@nestjs/serve-static": "^3.0.1",
     "@nestjs/swagger": "^6.2.1",
-    "@node-wot/td-tools": "^0.8.0",
+    "@node-wot/td-tools": "^0.8.6",
     "@vaimee/jsonpath-to-sqljsonpath": "^1.0.2",
     "ajv": "^8.11.0",
     "ajv-formats-draft2019": "^1.6.1",
@@ -137,6 +137,6 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5",
-    "wot-thing-description-types": "^1.1.0-09-February-2022"
+    "wot-thing-description-types": "^1.1.0-13-October-2022"
   }
 }
