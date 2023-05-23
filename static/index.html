@@ -32,30 +32,32 @@
     document.getElementById("version").innerHTML = json.info.version;
   </script>
   <script defer>
-
-
-    new spine.SpinePlayer("logo", {
-      // Relative URLs
-      jsonUrl: "./assets/skeleton.json",
-      atlasUrl: "./assets/skeleton.atlas",
-      showControls: false,
-      alpha: true, // Enable player translucency
-      backgroundColor: "#00000000", // Background is fully transparent
-      success: function (player) {
-        player.animationState.setAnimation(0, "init");
-        player.animationState.addAnimation(0, "idle", true, 0);
-        player.play();
-      },
-      viewport: {
-        x: -90,
-        y: -90,
-        width: 558,
-        height: 180,
-        padLeft: "5%",
-        padRight: "5%",
-        padTop: "5%",
-        padBottom: "5%"
-      }
+    document.addEventListener('DOMContentLoaded', function (event) {
+      new spine.SpinePlayer("logo", {
+        // Relative URLs
+        jsonUrl: "./assets/skeleton.json",
+        atlasUrl: "./assets/skeleton.atlas",
+        showControls: false,
+        alpha: true, // Enable player translucency
+        backgroundColor: "#00000000", // Background is fully transparent
+        showLoading : false,
+        success: function (player) {
+          player.setAnimation("init", false);
+          player.animationState.setAnimation(0, "init");
+          player.animationState.addAnimation(0, "idle", true, 0);
+          player.play();
+        },
+        viewport: {
+          x: -90,
+          y: -90,
+          width: 558,
+          height: 180,
+          padLeft: "5%",
+          padRight: "5%",
+          padTop: "5%",
+          padBottom: "5%"
+        }
+      });
     });
   </script>
 </head>
@@ -65,7 +67,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="eight offset-by-two columns " id="logo" style="margin-top: 15%;"></div>
+      <div class="eight offset-by-two columns " id="logo" style="margin-top: 15%; aspect-ratio: 16 / 9;"></div>
     </div>
     <div class="row">
       <div class="four offset-by-four columns " style="text-align: center;">

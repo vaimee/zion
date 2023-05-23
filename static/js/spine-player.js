@@ -1,102 +1,13507 @@
+"use strict";
 var spine = (() => {
-  var Ui = Object.defineProperty, Xs = t => Ui(t, "__esModule", { value: !0 }), Bs = (t, e) => { Xs(t); for (var i in e) Ui(t, i, { get: e[i], enumerable: !0 }) }, zi = {}; Bs(zi, { AlphaTimeline: () => ti, Animation: () => ye, AnimationState: () => Se, AnimationStateAdapter: () => Os, AnimationStateData: () => $i, AssetManager: () => Yi, AssetManagerBase: () => rs, AtlasAttachmentLoader: () => pi, Attachment: () => ze, AttachmentTimeline: () => Kt, BinaryInput: () => cs, BlendMode: () => yt, Bone: () => wi, BoneData: () => xi, BoundingBoxAttachment: () => ke, CURRENT: () => Qi, CameraController: () => fr, ClippingAttachment: () => ge, Color: () => O, Color2Attribute: () => bs, ColorAttribute: () => Le, ConstraintData: () => Me, CurveTimeline: () => Rt, CurveTimeline1: () => Ft, CurveTimeline2: () => Ae, DebugUtils: () => Vs, DeformTimeline: () => si, Downloader: () => as, DrawOrderTimeline: () => Qt, Event: () => bi, EventData: () => vi, EventQueue: () => Ji, EventTimeline: () => me, EventType: () => Ct, FIRST: () => hi, FakeTexture: () => Ns, GLTexture: () => pe, HOLD_FIRST: () => Te, HOLD_MIX: () => Ki, HOLD_SUBSEQUENT: () => di, IkConstraint: () => ns, IkConstraintData: () => yi, IkConstraintTimeline: () => ri, Input: () => xe, IntSet: () => Ps, Interpolation: () => Wi, JitterEffect: () => dr, LoadingScreen: () => Cs, M00: () => N, M01: () => j, M02: () => H, M03: () => U, M10: () => G, M11: () => z, M12: () => Z, M13: () => W, M20: () => J, M21: () => K, M22: () => _, M23: () => q, M30: () => $, M31: () => tt, M32: () => et, M33: () => Q, ManagedWebGLRenderingContext: () => wt, MathUtils: () => F, Matrix4: () => _t, Mesh: () => Ri, MeshAttachment: () => jt, MixBlend: () => ft, MixDirection: () => Vt, OrthoCamera: () => xs, PathAttachment: () => te, PathConstraint: () => ae, PathConstraintData: () => Ai, PathConstraintMixTimeline: () => oi, PathConstraintPositionTimeline: () => ni, PathConstraintSpacingTimeline: () => li, PointAttachment: () => gi, PolygonBatcher: () => Li, Pool: () => ue, Position2Attribute: () => Fe, Position3Attribute: () => mr, PositionMode: () => Dt, Pow: () => _i, PowOut: () => qi, RGB2Timeline: () => ii, RGBA2Timeline: () => ei, RGBATimeline: () => Qe, RGBTimeline: () => $e, RegionAttachment: () => at, ResizeMode: () => ie, RotateMode: () => ee, RotateTimeline: () => fe, SETUP: () => ci, SUBSEQUENT: () => Ce, ScaleTimeline: () => je, ScaleXTimeline: () => He, ScaleYTimeline: () => Ge, SceneRenderer: () => Pi, Shader: () => bt, ShapeRenderer: () => Xi, ShapeType: () => At, ShearTimeline: () => Ze, ShearXTimeline: () => Je, ShearYTimeline: () => Ke, Skeleton: () => hs, SkeletonBinary: () => ds, SkeletonBounds: () => us, SkeletonClipping: () => Ie, SkeletonData: () => Si, SkeletonDebugRenderer: () => Be, SkeletonJson: () => fs, SkeletonRenderer: () => Bi, Skin: () => Ee, SkinEntry: () => Ci, Slot: () => ls, SlotData: () => Ti, SpacingMode: () => gt, SpineCanvas: () => br, SpinePlayer: () => vr, SpinePlayerEditor: () => Es, StringSet: () => Ue, SwirlEffect: () => gs, TexCoordAttribute: () => Fi, Texture: () => fi, TextureAtlas: () => es, TextureAtlasPage: () => is, TextureAtlasRegion: () => mi, TextureFilter: () => pt, TextureRegion: () => ts, TextureWrap: () => $t, TimeKeeper: () => ve, Timeline: () => mt, Touch: () => ws, TrackEntry: () => Zi, TransformConstraint: () => os, TransformConstraintData: () => ki, TransformConstraintTimeline: () => ai, TransformMode: () => Tt, TranslateTimeline: () => We, TranslateXTimeline: () => _e, TranslateYTimeline: () => qe, Triangulator: () => kt, Utils: () => V, Vector2: () => Yt, Vector3: () => Mt, VertexAttachment: () => Pt, VertexAttribute: () => le, VertexAttributeType: () => Ht, WebGLBlendModeConverter: () => Re, WindowedMean: () => Ds }); var Ps = class { constructor() { this.array = new Array } add(t) { let e = this.contains(t); return this.array[t | 0] = t | 0, !e } contains(t) { return this.array[t | 0] != null } remove(t) { this.array[t | 0] = void 0 } clear() { this.array.length = 0 } }, Ue = class { constructor() { this.entries = {}, this.size = 0 } add(t) { let e = this.entries[t]; return this.entries[t] = !0, e ? !1 : (this.size++, !0) } addAll(t) { let e = this.size; for (var i = 0, s = t.length; i < s; i++)this.add(t[i]); return e != this.size } contains(t) { return this.entries[t] } clear() { this.entries = {}, this.size = 0 } }, Jt = class { constructor(t = 0, e = 0, i = 0, s = 0) { this.r = t, this.g = e, this.b = i, this.a = s } set(t, e, i, s) { return this.r = t, this.g = e, this.b = i, this.a = s, this.clamp() } setFromColor(t) { return this.r = t.r, this.g = t.g, this.b = t.b, this.a = t.a, this } setFromString(t) { return t = t.charAt(0) == "#" ? t.substr(1) : t, this.r = parseInt(t.substr(0, 2), 16) / 255, this.g = parseInt(t.substr(2, 2), 16) / 255, this.b = parseInt(t.substr(4, 2), 16) / 255, this.a = t.length != 8 ? 1 : parseInt(t.substr(6, 2), 16) / 255, this } add(t, e, i, s) { return this.r += t, this.g += e, this.b += i, this.a += s, this.clamp() } clamp() { return this.r < 0 ? this.r = 0 : this.r > 1 && (this.r = 1), this.g < 0 ? this.g = 0 : this.g > 1 && (this.g = 1), this.b < 0 ? this.b = 0 : this.b > 1 && (this.b = 1), this.a < 0 ? this.a = 0 : this.a > 1 && (this.a = 1), this } static rgba8888ToColor(t, e) { t.r = ((e & 4278190080) >>> 24) / 255, t.g = ((e & 16711680) >>> 16) / 255, t.b = ((e & 65280) >>> 8) / 255, t.a = (e & 255) / 255 } static rgb888ToColor(t, e) { t.r = ((e & 16711680) >>> 16) / 255, t.g = ((e & 65280) >>> 8) / 255, t.b = (e & 255) / 255 } static fromString(t) { return new Jt().setFromString(t) } }, O = Jt; O.WHITE = new Jt(1, 1, 1, 1), O.RED = new Jt(1, 0, 0, 1), O.GREEN = new Jt(0, 1, 0, 1), O.BLUE = new Jt(0, 0, 1, 1), O.MAGENTA = new Jt(1, 0, 1, 1); var Nt = class { static clamp(t, e, i) { return t < e ? e : t > i ? i : t } static cosDeg(t) { return Math.cos(t * Nt.degRad) } static sinDeg(t) { return Math.sin(t * Nt.degRad) } static signum(t) { return t > 0 ? 1 : t < 0 ? -1 : 0 } static toInt(t) { return t > 0 ? Math.floor(t) : Math.ceil(t) } static cbrt(t) { let e = Math.pow(Math.abs(t), 1 / 3); return t < 0 ? -e : e } static randomTriangular(t, e) { return Nt.randomTriangularWith(t, e, (t + e) * .5) } static randomTriangularWith(t, e, i) { let s = Math.random(), a = e - t; return s <= (i - t) / a ? t + Math.sqrt(s * a * (i - t)) : e - Math.sqrt((1 - s) * a * (e - i)) } static isPowerOfTwo(t) { return t && (t & t - 1) == 0 } }, F = Nt; F.PI = 3.1415927, F.PI2 = Nt.PI * 2, F.radiansToDegrees = 180 / Nt.PI, F.radDeg = Nt.radiansToDegrees, F.degreesToRadians = Nt.PI / 180, F.degRad = Nt.degreesToRadians; var Wi = class { apply(t, e, i) { return t + (e - t) * this.applyInternal(i) } }, _i = class extends Wi { constructor(t) { super(); this.power = 2, this.power = t } applyInternal(t) { return t <= .5 ? Math.pow(t * 2, this.power) / 2 : Math.pow((t - 1) * 2, this.power) / (this.power % 2 == 0 ? -2 : 2) + 1 } }, qi = class extends _i { constructor(t) { super(t) } applyInternal(t) { return Math.pow(t - 1, this.power) * (this.power % 2 == 0 ? -1 : 1) + 1 } }, re = class { static arrayCopy(t, e, i, s, a) { for (let d = e, n = s; d < e + a; d++, n++)i[n] = t[d] } static arrayFill(t, e, i, s) { for (let a = e; a < i; a++)t[a] = s } static setArraySize(t, e, i = 0) { let s = t.length; if (s == e) return t; if (t.length = e, s < e) for (let a = s; a < e; a++)t[a] = i; return t } static ensureArrayCapacity(t, e, i = 0) { return t.length >= e ? t : re.setArraySize(t, e, i) } static newArray(t, e) { let i = new Array(t); for (let s = 0; s < t; s++)i[s] = e; return i } static newFloatArray(t) { if (re.SUPPORTS_TYPED_ARRAYS) return new Float32Array(t); { let e = new Array(t); for (let i = 0; i < e.length; i++)e[i] = 0; return e } } static newShortArray(t) { if (re.SUPPORTS_TYPED_ARRAYS) return new Int16Array(t); { let e = new Array(t); for (let i = 0; i < e.length; i++)e[i] = 0; return e } } static toFloatArray(t) { return re.SUPPORTS_TYPED_ARRAYS ? new Float32Array(t) : t } static toSinglePrecision(t) { return re.SUPPORTS_TYPED_ARRAYS ? Math.fround(t) : t } static webkit602BugfixHelper(t, e) { } static contains(t, e, i = !0) { for (var s = 0; s < t.length; s++)if (t[s] == e) return !0; return !1 } static enumValue(t, e) { return t[e[0].toUpperCase() + e.slice(1)] } }, V = re; V.SUPPORTS_TYPED_ARRAYS = typeof Float32Array != "undefined"; var Vs = class { static logBones(t) { for (let e = 0; e < t.bones.length; e++) { let i = t.bones[e]; console.log(i.data.name + ", " + i.a + ", " + i.b + ", " + i.c + ", " + i.d + ", " + i.worldX + ", " + i.worldY) } } }, ue = class { constructor(t) { this.items = new Array, this.instantiator = t } obtain() { return this.items.length > 0 ? this.items.pop() : this.instantiator() } free(t) { t.reset && t.reset(), this.items.push(t) } freeAll(t) { for (let e = 0; e < t.length; e++)this.free(t[e]) } clear() { this.items.length = 0 } }, Yt = class { constructor(t = 0, e = 0) { this.x = t, this.y = e } set(t, e) { return this.x = t, this.y = e, this } length() { let t = this.x, e = this.y; return Math.sqrt(t * t + e * e) } normalize() { let t = this.length(); return t != 0 && (this.x /= t, this.y /= t), this } }, ve = class { constructor() { this.maxDelta = .064, this.framesPerSecond = 0, this.delta = 0, this.totalTime = 0, this.lastTime = Date.now() / 1e3, this.frameCount = 0, this.frameTime = 0 } update() { let t = Date.now() / 1e3; this.delta = t - this.lastTime, this.frameTime += this.delta, this.totalTime += this.delta, this.delta > this.maxDelta && (this.delta = this.maxDelta), this.lastTime = t, this.frameCount++, this.frameTime > 1 && (this.framesPerSecond = this.frameCount / this.frameTime, this.frameTime = 0, this.frameCount = 0) } }, Ds = class { constructor(t = 32) { this.addedValues = 0, this.lastValue = 0, this.mean = 0, this.dirty = !0, this.values = new Array(t) } hasEnoughData() { return this.addedValues >= this.values.length } addValue(t) { this.addedValues < this.values.length && this.addedValues++, this.values[this.lastValue++] = t, this.lastValue > this.values.length - 1 && (this.lastValue = 0), this.dirty = !0 } getMean() { if (this.hasEnoughData()) { if (this.dirty) { let t = 0; for (let e = 0; e < this.values.length; e++)t += this.values[e]; this.mean = t / this.values.length, this.dirty = !1 } return this.mean } return 0 } }, ze = class { constructor(t) { if (!t) throw new Error("name cannot be null."); this.name = t } }, ji = class extends ze { constructor(t) { super(t); this.id = ji.nextID++, this.bones = null, this.vertices = null, this.worldVerticesLength = 0, this.deformAttachment = this } computeWorldVertices(t, e, i, s, a, d) { i = a + (i >> 1) * d; let n = t.bone.skeleton, r = t.deform, h = this.vertices, o = this.bones; if (!o) { r.length > 0 && (h = r); let m = t.bone, f = m.worldX, g = m.worldY, x = m.a, v = m.b, p = m.c, b = m.d; for (let w = e, y = a; y < i; w += 2, y += d) { let T = h[w], A = h[w + 1]; s[y] = T * x + A * v + f, s[y + 1] = T * p + A * b + g } return } let l = 0, c = 0; for (let m = 0; m < e; m += 2) { let f = o[l]; l += f + 1, c += f } let u = n.bones; if (r.length == 0) for (let m = a, f = c * 3; m < i; m += d) { let g = 0, x = 0, v = o[l++]; for (v += l; l < v; l++, f += 3) { let p = u[o[l]], b = h[f], w = h[f + 1], y = h[f + 2]; g += (b * p.a + w * p.b + p.worldX) * y, x += (b * p.c + w * p.d + p.worldY) * y } s[m] = g, s[m + 1] = x } else { let m = r; for (let f = a, g = c * 3, x = c << 1; f < i; f += d) { let v = 0, p = 0, b = o[l++]; for (b += l; l < b; l++, g += 3, x += 2) { let w = u[o[l]], y = h[g] + m[x], T = h[g + 1] + m[x + 1], A = h[g + 2]; v += (y * w.a + T * w.b + w.worldX) * A, p += (y * w.c + T * w.d + w.worldY) * A } s[f] = v, s[f + 1] = p } } } copyTo(t) { this.bones ? (t.bones = new Array(this.bones.length), V.arrayCopy(this.bones, 0, t.bones, 0, this.bones.length)) : t.bones = null, this.vertices ? (t.vertices = V.newFloatArray(this.vertices.length), V.arrayCopy(this.vertices, 0, t.vertices, 0, this.vertices.length)) : t.vertices = null, t.worldVerticesLength = this.worldVerticesLength, t.deformAttachment = this.deformAttachment } }, Pt = ji; Pt.nextID = 0; var ye = class { constructor(t, e, i) { if (this.timelines = null, this.timelineIds = null, !t) throw new Error("name cannot be null."); this.name = t, this.setTimelines(e), this.duration = i } setTimelines(t) { if (!t) throw new Error("timelines cannot be null."); this.timelines = t, this.timelineIds = new Ue; for (var e = 0; e < t.length; e++)this.timelineIds.addAll(t[e].getPropertyIds()) } hasTimeline(t) { for (let e = 0; e < t.length; e++)if (this.timelineIds.contains(t[e])) return !0; return !1 } apply(t, e, i, s, a, d, n, r) { if (!t) throw new Error("skeleton cannot be null."); s && this.duration != 0 && (i %= this.duration, e > 0 && (e %= this.duration)); let h = this.timelines; for (let o = 0, l = h.length; o < l; o++)h[o].apply(t, e, i, a, d, n, r) } }, ft; (function (t) { t[t.setup = 0] = "setup", t[t.first = 1] = "first", t[t.replace = 2] = "replace", t[t.add = 3] = "add" })(ft || (ft = {})); var Vt; (function (t) { t[t.mixIn = 0] = "mixIn", t[t.mixOut = 1] = "mixOut" })(Vt || (Vt = {})); var ot = { rotate: 0, x: 1, y: 2, scaleX: 3, scaleY: 4, shearX: 5, shearY: 6, rgb: 7, alpha: 8, rgb2: 9, attachment: 10, deform: 11, event: 12, drawOrder: 13, ikConstraint: 14, transformConstraint: 15, pathConstraintPosition: 16, pathConstraintSpacing: 17, pathConstraintMix: 18 }, mt = class { constructor(t, e) { this.propertyIds = null, this.frames = null, this.propertyIds = e, this.frames = V.newFloatArray(t * this.getFrameEntries()) } getPropertyIds() { return this.propertyIds } getFrameEntries() { return 1 } getFrameCount() { return this.frames.length / this.getFrameEntries() } getDuration() { return this.frames[this.frames.length - this.getFrameEntries()] } static search1(t, e) { let i = t.length; for (let s = 1; s < i; s++)if (t[s] > e) return s - 1; return i - 1 } static search(t, e, i) { let s = t.length; for (let a = i; a < s; a += i)if (t[a] > e) return a - i; return s - i } }, Rt = class extends mt { constructor(t, e, i) { super(t, i); this.curves = null, this.curves = V.newFloatArray(t + e * 18), this.curves[t - 1] = 1 } setLinear(t) { this.curves[t] = 0 } setStepped(t) { this.curves[t] = 1 } shrink(t) { let e = this.getFrameCount() + t * 18; if (this.curves.length > e) { let i = V.newFloatArray(e); V.arrayCopy(this.curves, 0, i, 0, e), this.curves = i } } setBezier(t, e, i, s, a, d, n, r, h, o, l) { let c = this.curves, u = this.getFrameCount() + t * 18; i == 0 && (c[e] = 2 + u); let m = (s - d * 2 + r) * .03, f = (a - n * 2 + h) * .03, g = ((d - r) * 3 - s + o) * .006, x = ((n - h) * 3 - a + l) * .006, v = m * 2 + g, p = f * 2 + x, b = (d - s) * .3 + m + g * .16666667, w = (n - a) * .3 + f + x * .16666667, y = s + b, T = a + w; for (let A = u + 18; u < A; u += 2)c[u] = y, c[u + 1] = T, b += v, w += p, v += g, p += x, y += b, T += w } getBezierValue(t, e, i, s) { let a = this.curves; if (a[s] > t) { let h = this.frames[e], o = this.frames[e + i]; return o + (t - h) / (a[s] - h) * (a[s + 1] - o) } let d = s + 18; for (s += 2; s < d; s += 2)if (a[s] >= t) { let h = a[s - 2], o = a[s - 1]; return o + (t - h) / (a[s] - h) * (a[s + 1] - o) } e += this.getFrameEntries(); let n = a[d - 2], r = a[d - 1]; return r + (t - n) / (this.frames[e] - n) * (this.frames[e + i] - r) } }, Ft = class extends Rt { constructor(t, e, i) { super(t, e, [i]) } getFrameEntries() { return 2 } setFrame(t, e, i) { t <<= 1, this.frames[t] = e, this.frames[t + 1] = i } getCurveValue(t) { let e = this.frames, i = e.length - 2; for (let a = 2; a <= i; a += 2)if (e[a] > t) { i = a - 2; break } let s = this.curves[i >> 1]; switch (s) { case 0: let a = e[i], d = e[i + 1]; return d + (t - a) / (e[i + 2] - a) * (e[i + 2 + 1] - d); case 1: return e[i + 1] }return this.getBezierValue(t, i, 1, s - 2) } }, Ae = class extends Rt { constructor(t, e, i, s) { super(t, e, [i, s]) } getFrameEntries() { return 3 } setFrame(t, e, i, s) { t *= 3, this.frames[t] = e, this.frames[t + 1] = i, this.frames[t + 2] = s } }, fe = class extends Ft { constructor(t, e, i) { super(t, e, ot.rotate + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.rotation = r.data.rotation; return; case 1: r.rotation += (r.data.rotation - r.rotation) * a }return } let o = this.getCurveValue(i); switch (d) { case 0: r.rotation = r.data.rotation + o * a; break; case 1: case 2: o += r.data.rotation - r.rotation; case 3: r.rotation += o * a } } }, We = class extends Ae { constructor(t, e, i) { super(t, e, ot.x + "|" + i, ot.y + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.x = r.data.x, r.y = r.data.y; return; case 1: r.x += (r.data.x - r.x) * a, r.y += (r.data.y - r.y) * a }return } let o = 0, l = 0, c = mt.search(h, i, 3), u = this.curves[c / 3]; switch (u) { case 0: let m = h[c]; o = h[c + 1], l = h[c + 2]; let f = (i - m) / (h[c + 3] - m); o += (h[c + 3 + 1] - o) * f, l += (h[c + 3 + 2] - l) * f; break; case 1: o = h[c + 1], l = h[c + 2]; break; default: o = this.getBezierValue(i, c, 1, u - 2), l = this.getBezierValue(i, c, 2, u + 18 - 2) }switch (d) { case 0: r.x = r.data.x + o * a, r.y = r.data.y + l * a; break; case 1: case 2: r.x += (r.data.x + o - r.x) * a, r.y += (r.data.y + l - r.y) * a; break; case 3: r.x += o * a, r.y += l * a } } }, _e = class extends Ft { constructor(t, e, i) { super(t, e, ot.x + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.x = r.data.x; return; case 1: r.x += (r.data.x - r.x) * a }return } let o = this.getCurveValue(i); switch (d) { case 0: r.x = r.data.x + o * a; break; case 1: case 2: r.x += (r.data.x + o - r.x) * a; break; case 3: r.x += o * a } } }, qe = class extends Ft { constructor(t, e, i) { super(t, e, ot.y + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.y = r.data.y; return; case 1: r.y += (r.data.y - r.y) * a }return } let o = this.getCurveValue(i); switch (d) { case 0: r.y = r.data.y + o * a; break; case 1: case 2: r.y += (r.data.y + o - r.y) * a; break; case 3: r.y += o * a } } }, je = class extends Ae { constructor(t, e, i) { super(t, e, ot.scaleX + "|" + i, ot.scaleY + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.scaleX = r.data.scaleX, r.scaleY = r.data.scaleY; return; case 1: r.scaleX += (r.data.scaleX - r.scaleX) * a, r.scaleY += (r.data.scaleY - r.scaleY) * a }return } let o, l, c = mt.search(h, i, 3), u = this.curves[c / 3]; switch (u) { case 0: let m = h[c]; o = h[c + 1], l = h[c + 2]; let f = (i - m) / (h[c + 3] - m); o += (h[c + 3 + 1] - o) * f, l += (h[c + 3 + 2] - l) * f; break; case 1: o = h[c + 1], l = h[c + 2]; break; default: o = this.getBezierValue(i, c, 1, u - 2), l = this.getBezierValue(i, c, 2, u + 18 - 2) }if (o *= r.data.scaleX, l *= r.data.scaleY, a == 1) d == 3 ? (r.scaleX += o - r.data.scaleX, r.scaleY += l - r.data.scaleY) : (r.scaleX = o, r.scaleY = l); else { let m = 0, f = 0; if (n == 1) switch (d) { case 0: m = r.data.scaleX, f = r.data.scaleY, r.scaleX = m + (Math.abs(o) * F.signum(m) - m) * a, r.scaleY = f + (Math.abs(l) * F.signum(f) - f) * a; break; case 1: case 2: m = r.scaleX, f = r.scaleY, r.scaleX = m + (Math.abs(o) * F.signum(m) - m) * a, r.scaleY = f + (Math.abs(l) * F.signum(f) - f) * a; break; case 3: r.scaleX += (o - r.data.scaleX) * a, r.scaleY += (l - r.data.scaleY) * a } else switch (d) { case 0: m = Math.abs(r.data.scaleX) * F.signum(o), f = Math.abs(r.data.scaleY) * F.signum(l), r.scaleX = m + (o - m) * a, r.scaleY = f + (l - f) * a; break; case 1: case 2: m = Math.abs(r.scaleX) * F.signum(o), f = Math.abs(r.scaleY) * F.signum(l), r.scaleX = m + (o - m) * a, r.scaleY = f + (l - f) * a; break; case 3: r.scaleX += (o - r.data.scaleX) * a, r.scaleY += (l - r.data.scaleY) * a } } } }, He = class extends Ft { constructor(t, e, i) { super(t, e, ot.scaleX + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.scaleX = r.data.scaleX; return; case 1: r.scaleX += (r.data.scaleX - r.scaleX) * a }return } let o = this.getCurveValue(i) * r.data.scaleX; if (a == 1) d == 3 ? r.scaleX += o - r.data.scaleX : r.scaleX = o; else { let l = 0; if (n == 1) switch (d) { case 0: l = r.data.scaleX, r.scaleX = l + (Math.abs(o) * F.signum(l) - l) * a; break; case 1: case 2: l = r.scaleX, r.scaleX = l + (Math.abs(o) * F.signum(l) - l) * a; break; case 3: r.scaleX += (o - r.data.scaleX) * a } else switch (d) { case 0: l = Math.abs(r.data.scaleX) * F.signum(o), r.scaleX = l + (o - l) * a; break; case 1: case 2: l = Math.abs(r.scaleX) * F.signum(o), r.scaleX = l + (o - l) * a; break; case 3: r.scaleX += (o - r.data.scaleX) * a } } } }, Ge = class extends Ft { constructor(t, e, i) { super(t, e, ot.scaleY + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.scaleY = r.data.scaleY; return; case 1: r.scaleY += (r.data.scaleY - r.scaleY) * a }return } let o = this.getCurveValue(i) * r.data.scaleY; if (a == 1) d == 3 ? r.scaleY += o - r.data.scaleY : r.scaleY = o; else { let l = 0; if (n == 1) switch (d) { case 0: l = r.data.scaleY, r.scaleY = l + (Math.abs(o) * F.signum(l) - l) * a; break; case 1: case 2: l = r.scaleY, r.scaleY = l + (Math.abs(o) * F.signum(l) - l) * a; break; case 3: r.scaleY += (o - r.data.scaleY) * a } else switch (d) { case 0: l = Math.abs(r.data.scaleY) * F.signum(o), r.scaleY = l + (o - l) * a; break; case 1: case 2: l = Math.abs(r.scaleY) * F.signum(o), r.scaleY = l + (o - l) * a; break; case 3: r.scaleY += (o - r.data.scaleY) * a } } } }, Ze = class extends Ae { constructor(t, e, i) { super(t, e, ot.shearX + "|" + i, ot.shearY + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.shearX = r.data.shearX, r.shearY = r.data.shearY; return; case 1: r.shearX += (r.data.shearX - r.shearX) * a, r.shearY += (r.data.shearY - r.shearY) * a }return } let o = 0, l = 0, c = mt.search(h, i, 3), u = this.curves[c / 3]; switch (u) { case 0: let m = h[c]; o = h[c + 1], l = h[c + 2]; let f = (i - m) / (h[c + 3] - m); o += (h[c + 3 + 1] - o) * f, l += (h[c + 3 + 2] - l) * f; break; case 1: o = h[c + 1], l = h[c + 2]; break; default: o = this.getBezierValue(i, c, 1, u - 2), l = this.getBezierValue(i, c, 2, u + 18 - 2) }switch (d) { case 0: r.shearX = r.data.shearX + o * a, r.shearY = r.data.shearY + l * a; break; case 1: case 2: r.shearX += (r.data.shearX + o - r.shearX) * a, r.shearY += (r.data.shearY + l - r.shearY) * a; break; case 3: r.shearX += o * a, r.shearY += l * a } } }, Je = class extends Ft { constructor(t, e, i) { super(t, e, ot.shearX + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.shearX = r.data.shearX; return; case 1: r.shearX += (r.data.shearX - r.shearX) * a }return } let o = this.getCurveValue(i); switch (d) { case 0: r.shearX = r.data.shearX + o * a; break; case 1: case 2: r.shearX += (r.data.shearX + o - r.shearX) * a; break; case 3: r.shearX += o * a } } }, Ke = class extends Ft { constructor(t, e, i) { super(t, e, ot.shearY + "|" + i); this.boneIndex = 0, this.boneIndex = i } apply(t, e, i, s, a, d, n) { let r = t.bones[this.boneIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.shearY = r.data.shearY; return; case 1: r.shearY += (r.data.shearY - r.shearY) * a }return } let o = this.getCurveValue(i); switch (d) { case 0: r.shearY = r.data.shearY + o * a; break; case 1: case 2: r.shearY += (r.data.shearY + o - r.shearY) * a; break; case 3: r.shearY += o * a } } }, Qe = class extends Rt { constructor(t, e, i) { super(t, e, [ot.rgb + "|" + i, ot.alpha + "|" + i]); this.slotIndex = 0, this.slotIndex = i } getFrameEntries() { return 5 } setFrame(t, e, i, s, a, d) { t *= 5, this.frames[t] = e, this.frames[t + 1] = i, this.frames[t + 2] = s, this.frames[t + 3] = a, this.frames[t + 4] = d } apply(t, e, i, s, a, d, n) { let r = t.slots[this.slotIndex]; if (!r.bone.active) return; let h = this.frames, o = r.color; if (i < h[0]) { let x = r.data.color; switch (d) { case 0: o.setFromColor(x); return; case 1: o.add((x.r - o.r) * a, (x.g - o.g) * a, (x.b - o.b) * a, (x.a - o.a) * a) }return } let l = 0, c = 0, u = 0, m = 0, f = mt.search(h, i, 5), g = this.curves[f / 5]; switch (g) { case 0: let x = h[f]; l = h[f + 1], c = h[f + 2], u = h[f + 3], m = h[f + 4]; let v = (i - x) / (h[f + 5] - x); l += (h[f + 5 + 1] - l) * v, c += (h[f + 5 + 2] - c) * v, u += (h[f + 5 + 3] - u) * v, m += (h[f + 5 + 4] - m) * v; break; case 1: l = h[f + 1], c = h[f + 2], u = h[f + 3], m = h[f + 4]; break; default: l = this.getBezierValue(i, f, 1, g - 2), c = this.getBezierValue(i, f, 2, g + 18 - 2), u = this.getBezierValue(i, f, 3, g + 18 * 2 - 2), m = this.getBezierValue(i, f, 4, g + 18 * 3 - 2) }a == 1 ? o.set(l, c, u, m) : (d == 0 && o.setFromColor(r.data.color), o.add((l - o.r) * a, (c - o.g) * a, (u - o.b) * a, (m - o.a) * a)) } }, $e = class extends Rt { constructor(t, e, i) { super(t, e, [ot.rgb + "|" + i]); this.slotIndex = 0, this.slotIndex = i } getFrameEntries() { return 4 } setFrame(t, e, i, s, a) { t <<= 2, this.frames[t] = e, this.frames[t + 1] = i, this.frames[t + 2] = s, this.frames[t + 3] = a } apply(t, e, i, s, a, d, n) { let r = t.slots[this.slotIndex]; if (!r.bone.active) return; let h = this.frames, o = r.color; if (i < h[0]) { let g = r.data.color; switch (d) { case 0: o.r = g.r, o.g = g.g, o.b = g.b; return; case 1: o.r += (g.r - o.r) * a, o.g += (g.g - o.g) * a, o.b += (g.b - o.b) * a }return } let l = 0, c = 0, u = 0, m = mt.search(h, i, 4), f = this.curves[m >> 2]; switch (f) { case 0: let g = h[m]; l = h[m + 1], c = h[m + 2], u = h[m + 3]; let x = (i - g) / (h[m + 4] - g); l += (h[m + 4 + 1] - l) * x, c += (h[m + 4 + 2] - c) * x, u += (h[m + 4 + 3] - u) * x; break; case 1: l = h[m + 1], c = h[m + 2], u = h[m + 3]; break; default: l = this.getBezierValue(i, m, 1, f - 2), c = this.getBezierValue(i, m, 2, f + 18 - 2), u = this.getBezierValue(i, m, 3, f + 18 * 2 - 2) }if (a == 1) o.r = l, o.g = c, o.b = u; else { if (d == 0) { let g = r.data.color; o.r = g.r, o.g = g.g, o.b = g.b } o.r += (l - o.r) * a, o.g += (c - o.g) * a, o.b += (u - o.b) * a } } }, ti = class extends Ft { constructor(t, e, i) { super(t, e, ot.alpha + "|" + i); this.slotIndex = 0, this.slotIndex = i } apply(t, e, i, s, a, d, n) { let r = t.slots[this.slotIndex]; if (!r.bone.active) return; let h = r.color; if (i < this.frames[0]) { let l = r.data.color; switch (d) { case 0: h.a = l.a; return; case 1: h.a += (l.a - h.a) * a }return } let o = this.getCurveValue(i); a == 1 ? h.a = o : (d == 0 && (h.a = r.data.color.a), h.a += (o - h.a) * a) } }, ei = class extends Rt { constructor(t, e, i) { super(t, e, [ot.rgb + "|" + i, ot.alpha + "|" + i, ot.rgb2 + "|" + i]); this.slotIndex = 0, this.slotIndex = i } getFrameEntries() { return 8 } setFrame(t, e, i, s, a, d, n, r, h) { t <<= 3, this.frames[t] = e, this.frames[t + 1] = i, this.frames[t + 2] = s, this.frames[t + 3] = a, this.frames[t + 4] = d, this.frames[t + 5] = n, this.frames[t + 6] = r, this.frames[t + 7] = h } apply(t, e, i, s, a, d, n) { let r = t.slots[this.slotIndex]; if (!r.bone.active) return; let h = this.frames, o = r.color, l = r.darkColor; if (i < h[0]) { let w = r.data.color, y = r.data.darkColor; switch (d) { case 0: o.setFromColor(w), l.r = y.r, l.g = y.g, l.b = y.b; return; case 1: o.add((w.r - o.r) * a, (w.g - o.g) * a, (w.b - o.b) * a, (w.a - o.a) * a), l.r += (y.r - l.r) * a, l.g += (y.g - l.g) * a, l.b += (y.b - l.b) * a }return } let c = 0, u = 0, m = 0, f = 0, g = 0, x = 0, v = 0, p = mt.search(h, i, 8), b = this.curves[p >> 3]; switch (b) { case 0: let w = h[p]; c = h[p + 1], u = h[p + 2], m = h[p + 3], f = h[p + 4], g = h[p + 5], x = h[p + 6], v = h[p + 7]; let y = (i - w) / (h[p + 8] - w); c += (h[p + 8 + 1] - c) * y, u += (h[p + 8 + 2] - u) * y, m += (h[p + 8 + 3] - m) * y, f += (h[p + 8 + 4] - f) * y, g += (h[p + 8 + 5] - g) * y, x += (h[p + 8 + 6] - x) * y, v += (h[p + 8 + 7] - v) * y; break; case 1: c = h[p + 1], u = h[p + 2], m = h[p + 3], f = h[p + 4], g = h[p + 5], x = h[p + 6], v = h[p + 7]; break; default: c = this.getBezierValue(i, p, 1, b - 2), u = this.getBezierValue(i, p, 2, b + 18 - 2), m = this.getBezierValue(i, p, 3, b + 18 * 2 - 2), f = this.getBezierValue(i, p, 4, b + 18 * 3 - 2), g = this.getBezierValue(i, p, 5, b + 18 * 4 - 2), x = this.getBezierValue(i, p, 6, b + 18 * 5 - 2), v = this.getBezierValue(i, p, 7, b + 18 * 6 - 2) }if (a == 1) o.set(c, u, m, f), l.r = g, l.g = x, l.b = v; else { if (d == 0) { o.setFromColor(r.data.color); let w = r.data.darkColor; l.r = w.r, l.g = w.g, l.b = w.b } o.add((c - o.r) * a, (u - o.g) * a, (m - o.b) * a, (f - o.a) * a), l.r += (g - l.r) * a, l.g += (x - l.g) * a, l.b += (v - l.b) * a } } }, ii = class extends Rt { constructor(t, e, i) { super(t, e, [ot.rgb + "|" + i, ot.rgb2 + "|" + i]); this.slotIndex = 0, this.slotIndex = i } getFrameEntries() { return 7 } setFrame(t, e, i, s, a, d, n, r) { t *= 7, this.frames[t] = e, this.frames[t + 1] = i, this.frames[t + 2] = s, this.frames[t + 3] = a, this.frames[t + 4] = d, this.frames[t + 5] = n, this.frames[t + 6] = r } apply(t, e, i, s, a, d, n) { let r = t.slots[this.slotIndex]; if (!r.bone.active) return; let h = this.frames, o = r.color, l = r.darkColor; if (i < h[0]) { let w = r.data.color, y = r.data.darkColor; switch (d) { case 0: o.r = w.r, o.g = w.g, o.b = w.b, l.r = y.r, l.g = y.g, l.b = y.b; return; case 1: o.r += (w.r - o.r) * a, o.g += (w.g - o.g) * a, o.b += (w.b - o.b) * a, l.r += (y.r - l.r) * a, l.g += (y.g - l.g) * a, l.b += (y.b - l.b) * a }return } let c = 0, u = 0, m = 0, f = 0, g = 0, x = 0, v = 0, p = mt.search(h, i, 7), b = this.curves[p / 7]; switch (b) { case 0: let w = h[p]; c = h[p + 1], u = h[p + 2], m = h[p + 3], g = h[p + 4], x = h[p + 5], v = h[p + 6]; let y = (i - w) / (h[p + 7] - w); c += (h[p + 7 + 1] - c) * y, u += (h[p + 7 + 2] - u) * y, m += (h[p + 7 + 3] - m) * y, g += (h[p + 7 + 4] - g) * y, x += (h[p + 7 + 5] - x) * y, v += (h[p + 7 + 6] - v) * y; break; case 1: c = h[p + 1], u = h[p + 2], m = h[p + 3], g = h[p + 4], x = h[p + 5], v = h[p + 6]; break; default: c = this.getBezierValue(i, p, 1, b - 2), u = this.getBezierValue(i, p, 2, b + 18 - 2), m = this.getBezierValue(i, p, 3, b + 18 * 2 - 2), g = this.getBezierValue(i, p, 4, b + 18 * 3 - 2), x = this.getBezierValue(i, p, 5, b + 18 * 4 - 2), v = this.getBezierValue(i, p, 6, b + 18 * 5 - 2) }if (a == 1) o.r = c, o.g = u, o.b = m, l.r = g, l.g = x, l.b = v; else { if (d == 0) { let w = r.data.color, y = r.data.darkColor; o.r = w.r, o.g = w.g, o.b = w.b, l.r = y.r, l.g = y.g, l.b = y.b } o.r += (c - o.r) * a, o.g += (u - o.g) * a, o.b += (m - o.b) * a, l.r += (g - l.r) * a, l.g += (x - l.g) * a, l.b += (v - l.b) * a } } }, Kt = class extends mt { constructor(t, e) { super(t, [ot.attachment + "|" + e]); this.slotIndex = 0, this.slotIndex = e, this.attachmentNames = new Array(t) } getFrameCount() { return this.frames.length } setFrame(t, e, i) { this.frames[t] = e, this.attachmentNames[t] = i } apply(t, e, i, s, a, d, n) { let r = t.slots[this.slotIndex]; if (!!r.bone.active) { if (n == 1) { d == 0 && this.setAttachment(t, r, r.data.attachmentName); return } if (i < this.frames[0]) { (d == 0 || d == 1) && this.setAttachment(t, r, r.data.attachmentName); return } this.setAttachment(t, r, this.attachmentNames[mt.search1(this.frames, i)]) } } setAttachment(t, e, i) { e.setAttachment(i ? t.getAttachment(this.slotIndex, i) : null) } }, si = class extends Rt { constructor(t, e, i, s) { super(t, e, [ot.deform + "|" + i + "|" + s.id]); this.slotIndex = 0, this.attachment = null, this.vertices = null, this.slotIndex = i, this.attachment = s, this.vertices = new Array(t) } getFrameCount() { return this.frames.length } setFrame(t, e, i) { this.frames[t] = e, this.vertices[t] = i } setBezier(t, e, i, s, a, d, n, r, h, o, l) { let c = this.curves, u = this.getFrameCount() + t * 18; i == 0 && (c[e] = 2 + u); let m = (s - d * 2 + r) * .03, f = h * .03 - n * .06, g = ((d - r) * 3 - s + o) * .006, x = (n - h + .33333333) * .018, v = m * 2 + g, p = f * 2 + x, b = (d - s) * .3 + m + g * .16666667, w = n * .3 + f + x * .16666667, y = s + b, T = w; for (let A = u + 18; u < A; u += 2)c[u] = y, c[u + 1] = T, b += v, w += p, v += g, p += x, y += b, T += w } getCurvePercent(t, e) { let i = this.curves, s = i[e]; switch (s) { case 0: let r = this.frames[e]; return (t - r) / (this.frames[e + this.getFrameEntries()] - r); case 1: return 0 }if (s -= 2, i[s] > t) { let r = this.frames[e]; return i[s + 1] * (t - r) / (i[s] - r) } let a = s + 18; for (s += 2; s < a; s += 2)if (i[s] >= t) { let r = i[s - 2], h = i[s - 1]; return h + (t - r) / (i[s] - r) * (i[s + 1] - h) } let d = i[a - 2], n = i[a - 1]; return n + (1 - n) * (t - d) / (this.frames[e + this.getFrameEntries()] - d) } apply(t, e, i, s, a, d, n) { let r = t.slots[this.slotIndex]; if (!r.bone.active) return; let h = r.getAttachment(); if (!(h instanceof Pt) || h.deformAttachment != this.attachment) return; let o = r.deform; o.length == 0 && (d = 0); let l = this.vertices, c = l[0].length, u = this.frames; if (i < u[0]) { let p = h; switch (d) { case 0: o.length = 0; return; case 1: if (a == 1) { o.length = 0; return } if (o.length = c, p.bones) { a = 1 - a; for (var m = 0; m < c; m++)o[m] *= a } else { let b = p.vertices; for (var m = 0; m < c; m++)o[m] += (b[m] - o[m]) * a } }return } if (o.length = c, i >= u[u.length - 1]) { let p = l[u.length - 1]; if (a == 1) if (d == 3) { let b = h; if (b.bones) for (let w = 0; w < c; w++)o[w] += p[w]; else { let w = b.vertices; for (let y = 0; y < c; y++)o[y] += p[y] - w[y] } } else V.arrayCopy(p, 0, o, 0, c); else switch (d) { case 0: { let w = h; if (w.bones) for (let y = 0; y < c; y++)o[y] = p[y] * a; else { let y = w.vertices; for (let T = 0; T < c; T++) { let A = y[T]; o[T] = A + (p[T] - A) * a } } break } case 1: case 2: for (let w = 0; w < c; w++)o[w] += (p[w] - o[w]) * a; break; case 3: let b = h; if (b.bones) for (let w = 0; w < c; w++)o[w] += p[w] * a; else { let w = b.vertices; for (let y = 0; y < c; y++)o[y] += (p[y] - w[y]) * a } }return } let f = mt.search1(u, i), g = this.getCurvePercent(i, f), x = l[f], v = l[f + 1]; if (a == 1) if (d == 3) { let p = h; if (p.bones) for (let b = 0; b < c; b++) { let w = x[b]; o[b] += w + (v[b] - w) * g } else { let b = p.vertices; for (let w = 0; w < c; w++) { let y = x[w]; o[w] += y + (v[w] - y) * g - b[w] } } } else for (let p = 0; p < c; p++) { let b = x[p]; o[p] = b + (v[p] - b) * g } else switch (d) { case 0: { let b = h; if (b.bones) for (let w = 0; w < c; w++) { let y = x[w]; o[w] = (y + (v[w] - y) * g) * a } else { let w = b.vertices; for (let y = 0; y < c; y++) { let T = x[y], A = w[y]; o[y] = A + (T + (v[y] - T) * g - A) * a } } break } case 1: case 2: for (let b = 0; b < c; b++) { let w = x[b]; o[b] += (w + (v[b] - w) * g - o[b]) * a } break; case 3: let p = h; if (p.bones) for (let b = 0; b < c; b++) { let w = x[b]; o[b] += (w + (v[b] - w) * g) * a } else { let b = p.vertices; for (let w = 0; w < c; w++) { let y = x[w]; o[w] += (y + (v[w] - y) * g - b[w]) * a } } } } }, Hi = class extends mt { constructor(t) { super(t, Hi.propertyIds); this.events = null, this.events = new Array(t) } getFrameCount() { return this.frames.length } setFrame(t, e) { this.frames[t] = e.time, this.events[t] = e } apply(t, e, i, s, a, d, n) { if (!s) return; let r = this.frames, h = this.frames.length; if (e > i) this.apply(t, e, Number.MAX_VALUE, s, a, d, n), e = -1; else if (e >= r[h - 1]) return; if (i < r[0]) return; let o = 0; if (e < r[0]) o = 0; else { o = mt.search1(r, e) + 1; let l = r[o]; for (; o > 0 && r[o - 1] == l;)o-- } for (; o < h && i >= r[o]; o++)s.push(this.events[o]) } }, me = Hi; me.propertyIds = ["" + ot.event]; var Gi = class extends mt { constructor(t) { super(t, Gi.propertyIds); this.drawOrders = null, this.drawOrders = new Array(t) } getFrameCount() { return this.frames.length } setFrame(t, e, i) { this.frames[t] = e, this.drawOrders[t] = i } apply(t, e, i, s, a, d, n) { if (n == 1) { d == 0 && V.arrayCopy(t.slots, 0, t.drawOrder, 0, t.slots.length); return } if (i < this.frames[0]) { (d == 0 || d == 1) && V.arrayCopy(t.slots, 0, t.drawOrder, 0, t.slots.length); return } let r = this.drawOrders[mt.search1(this.frames, i)]; if (!r) V.arrayCopy(t.slots, 0, t.drawOrder, 0, t.slots.length); else { let h = t.drawOrder, o = t.slots; for (let l = 0, c = r.length; l < c; l++)h[l] = o[r[l]] } } }, Qt = Gi; Qt.propertyIds = ["" + ot.drawOrder]; var ri = class extends Rt { constructor(t, e, i) { super(t, e, [ot.ikConstraint + "|" + i]); this.ikConstraintIndex = 0, this.ikConstraintIndex = i } getFrameEntries() { return 6 } setFrame(t, e, i, s, a, d, n) { t *= 6, this.frames[t] = e, this.frames[t + 1] = i, this.frames[t + 2] = s, this.frames[t + 3] = a, this.frames[t + 4] = d ? 1 : 0, this.frames[t + 5] = n ? 1 : 0 } apply(t, e, i, s, a, d, n) { let r = t.ikConstraints[this.ikConstraintIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.mix = r.data.mix, r.softness = r.data.softness, r.bendDirection = r.data.bendDirection, r.compress = r.data.compress, r.stretch = r.data.stretch; return; case 1: r.mix += (r.data.mix - r.mix) * a, r.softness += (r.data.softness - r.softness) * a, r.bendDirection = r.data.bendDirection, r.compress = r.data.compress, r.stretch = r.data.stretch }return } let o = 0, l = 0, c = mt.search(h, i, 6), u = this.curves[c / 6]; switch (u) { case 0: let m = h[c]; o = h[c + 1], l = h[c + 2]; let f = (i - m) / (h[c + 6] - m); o += (h[c + 6 + 1] - o) * f, l += (h[c + 6 + 2] - l) * f; break; case 1: o = h[c + 1], l = h[c + 2]; break; default: o = this.getBezierValue(i, c, 1, u - 2), l = this.getBezierValue(i, c, 2, u + 18 - 2) }d == 0 ? (r.mix = r.data.mix + (o - r.data.mix) * a, r.softness = r.data.softness + (l - r.data.softness) * a, n == 1 ? (r.bendDirection = r.data.bendDirection, r.compress = r.data.compress, r.stretch = r.data.stretch) : (r.bendDirection = h[c + 3], r.compress = h[c + 4] != 0, r.stretch = h[c + 5] != 0)) : (r.mix += (o - r.mix) * a, r.softness += (l - r.softness) * a, n == 0 && (r.bendDirection = h[c + 3], r.compress = h[c + 4] != 0, r.stretch = h[c + 5] != 0)) } }, ai = class extends Rt { constructor(t, e, i) { super(t, e, [ot.transformConstraint + "|" + i]); this.transformConstraintIndex = 0, this.transformConstraintIndex = i } getFrameEntries() { return 7 } setFrame(t, e, i, s, a, d, n, r) { let h = this.frames; t *= 7, h[t] = e, h[t + 1] = i, h[t + 2] = s, h[t + 3] = a, h[t + 4] = d, h[t + 5] = n, h[t + 6] = r } apply(t, e, i, s, a, d, n) { let r = t.transformConstraints[this.transformConstraintIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { let v = r.data; switch (d) { case 0: r.mixRotate = v.mixRotate, r.mixX = v.mixX, r.mixY = v.mixY, r.mixScaleX = v.mixScaleX, r.mixScaleY = v.mixScaleY, r.mixShearY = v.mixShearY; return; case 1: r.mixRotate += (v.mixRotate - r.mixRotate) * a, r.mixX += (v.mixX - r.mixX) * a, r.mixY += (v.mixY - r.mixY) * a, r.mixScaleX += (v.mixScaleX - r.mixScaleX) * a, r.mixScaleY += (v.mixScaleY - r.mixScaleY) * a, r.mixShearY += (v.mixShearY - r.mixShearY) * a }return } let o, l, c, u, m, f, g = mt.search(h, i, 7), x = this.curves[g / 7]; switch (x) { case 0: let v = h[g]; o = h[g + 1], l = h[g + 2], c = h[g + 3], u = h[g + 4], m = h[g + 5], f = h[g + 6]; let p = (i - v) / (h[g + 7] - v); o += (h[g + 7 + 1] - o) * p, l += (h[g + 7 + 2] - l) * p, c += (h[g + 7 + 3] - c) * p, u += (h[g + 7 + 4] - u) * p, m += (h[g + 7 + 5] - m) * p, f += (h[g + 7 + 6] - f) * p; break; case 1: o = h[g + 1], l = h[g + 2], c = h[g + 3], u = h[g + 4], m = h[g + 5], f = h[g + 6]; break; default: o = this.getBezierValue(i, g, 1, x - 2), l = this.getBezierValue(i, g, 2, x + 18 - 2), c = this.getBezierValue(i, g, 3, x + 18 * 2 - 2), u = this.getBezierValue(i, g, 4, x + 18 * 3 - 2), m = this.getBezierValue(i, g, 5, x + 18 * 4 - 2), f = this.getBezierValue(i, g, 6, x + 18 * 5 - 2) }if (d == 0) { let v = r.data; r.mixRotate = v.mixRotate + (o - v.mixRotate) * a, r.mixX = v.mixX + (l - v.mixX) * a, r.mixY = v.mixY + (c - v.mixY) * a, r.mixScaleX = v.mixScaleX + (u - v.mixScaleX) * a, r.mixScaleY = v.mixScaleY + (m - v.mixScaleY) * a, r.mixShearY = v.mixShearY + (f - v.mixShearY) * a } else r.mixRotate += (o - r.mixRotate) * a, r.mixX += (l - r.mixX) * a, r.mixY += (c - r.mixY) * a, r.mixScaleX += (u - r.mixScaleX) * a, r.mixScaleY += (m - r.mixScaleY) * a, r.mixShearY += (f - r.mixShearY) * a } }, ni = class extends Ft { constructor(t, e, i) { super(t, e, ot.pathConstraintPosition + "|" + i); this.pathConstraintIndex = 0, this.pathConstraintIndex = i } apply(t, e, i, s, a, d, n) { let r = t.pathConstraints[this.pathConstraintIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.position = r.data.position; return; case 1: r.position += (r.data.position - r.position) * a }return } let o = this.getCurveValue(i); d == 0 ? r.position = r.data.position + (o - r.data.position) * a : r.position += (o - r.position) * a } }, li = class extends Ft { constructor(t, e, i) { super(t, e, ot.pathConstraintSpacing + "|" + i); this.pathConstraintIndex = 0, this.pathConstraintIndex = i } apply(t, e, i, s, a, d, n) { let r = t.pathConstraints[this.pathConstraintIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.spacing = r.data.spacing; return; case 1: r.spacing += (r.data.spacing - r.spacing) * a }return } let o = this.getCurveValue(i); d == 0 ? r.spacing = r.data.spacing + (o - r.data.spacing) * a : r.spacing += (o - r.spacing) * a } }, oi = class extends Rt { constructor(t, e, i) { super(t, e, [ot.pathConstraintMix + "|" + i]); this.pathConstraintIndex = 0, this.pathConstraintIndex = i } getFrameEntries() { return 4 } setFrame(t, e, i, s, a) { let d = this.frames; t <<= 2, d[t] = e, d[t + 1] = i, d[t + 2] = s, d[t + 3] = a } apply(t, e, i, s, a, d, n) { let r = t.pathConstraints[this.pathConstraintIndex]; if (!r.active) return; let h = this.frames; if (i < h[0]) { switch (d) { case 0: r.mixRotate = r.data.mixRotate, r.mixX = r.data.mixX, r.mixY = r.data.mixY; return; case 1: r.mixRotate += (r.data.mixRotate - r.mixRotate) * a, r.mixX += (r.data.mixX - r.mixX) * a, r.mixY += (r.data.mixY - r.mixY) * a }return } let o, l, c, u = mt.search(h, i, 4), m = this.curves[u >> 2]; switch (m) { case 0: let f = h[u]; o = h[u + 1], l = h[u + 2], c = h[u + 3]; let g = (i - f) / (h[u + 4] - f); o += (h[u + 4 + 1] - o) * g, l += (h[u + 4 + 2] - l) * g, c += (h[u + 4 + 3] - c) * g; break; case 1: o = h[u + 1], l = h[u + 2], c = h[u + 3]; break; default: o = this.getBezierValue(i, u, 1, m - 2), l = this.getBezierValue(i, u, 2, m + 18 - 2), c = this.getBezierValue(i, u, 3, m + 18 * 2 - 2) }if (d == 0) { let f = r.data; r.mixRotate = f.mixRotate + (o - f.mixRotate) * a, r.mixX = f.mixX + (l - f.mixX) * a, r.mixY = f.mixY + (c - f.mixY) * a } else r.mixRotate += (o - r.mixRotate) * a, r.mixX += (l - r.mixX) * a, r.mixY += (c - r.mixY) * a } }, Se = class { constructor(t) { this.data = null, this.tracks = new Array, this.timeScale = 1, this.unkeyedState = 0, this.events = new Array, this.listeners = new Array, this.queue = new Ji(this), this.propertyIDs = new Ue, this.animationsChanged = !1, this.trackEntryPool = new ue(() => new Zi), this.data = t } static emptyAnimation() { return ui || (ui = new ye("<empty>", [], 0)), ui } update(t) { t *= this.timeScale; let e = this.tracks; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (!a) continue; a.animationLast = a.nextAnimationLast, a.trackLast = a.nextTrackLast; let d = t * a.timeScale; if (a.delay > 0) { if (a.delay -= d, a.delay > 0) continue; d = -a.delay, a.delay = 0 } let n = a.next; if (n) { let r = a.trackLast - n.delay; if (r >= 0) { for (n.delay = 0, n.trackTime += a.timeScale == 0 ? 0 : (r / a.timeScale + t) * n.timeScale, a.trackTime += d, this.setCurrent(i, n, !0); n.mixingFrom;)n.mixTime += t, n = n.mixingFrom; continue } } else if (a.trackLast >= a.trackEnd && !a.mixingFrom) { e[i] = null, this.queue.end(a), this.clearNext(a); continue } if (a.mixingFrom && this.updateMixingFrom(a, t)) { let r = a.mixingFrom; for (a.mixingFrom = null, r && (r.mixingTo = null); r;)this.queue.end(r), r = r.mixingFrom } a.trackTime += d } this.queue.drain() } updateMixingFrom(t, e) { let i = t.mixingFrom; if (!i) return !0; let s = this.updateMixingFrom(i, e); return i.animationLast = i.nextAnimationLast, i.trackLast = i.nextTrackLast, t.mixTime > 0 && t.mixTime >= t.mixDuration ? ((i.totalAlpha == 0 || t.mixDuration == 0) && (t.mixingFrom = i.mixingFrom, i.mixingFrom && (i.mixingFrom.mixingTo = t), t.interruptAlpha = i.interruptAlpha, this.queue.end(i)), s) : (i.trackTime += e * i.timeScale, t.mixTime += e, !1) } apply(t) { if (!t) throw new Error("skeleton cannot be null."); this.animationsChanged && this._animationsChanged(); let e = this.events, i = this.tracks, s = !1; for (let c = 0, u = i.length; c < u; c++) { let m = i[c]; if (!m || m.delay > 0) continue; s = !0; let f = c == 0 ? ft.first : m.mixBlend, g = m.alpha; m.mixingFrom ? g *= this.applyMixingFrom(m, t, f) : m.trackTime >= m.trackEnd && !m.next && (g = 0); let x = m.animationLast, v = m.getAnimationTime(), p = v, b = e; m.reverse && (p = m.animation.duration - p, b = null); let w = m.animation.timelines, y = w.length; if (c == 0 && g == 1 || f == ft.add) for (let T = 0; T < y; T++) { V.webkit602BugfixHelper(g, f); var a = w[T]; a instanceof Kt ? this.applyAttachmentTimeline(a, t, p, f, !0) : a.apply(t, x, p, b, g, f, Vt.mixIn) } else { let T = m.timelineMode, A = m.timelinesRotation.length != y << 1; A && (m.timelinesRotation.length = y << 1); for (let E = 0; E < y; E++) { let I = w[E], Y = T[E] == Ce ? f : ft.setup; I instanceof fe ? this.applyRotateTimeline(I, t, p, g, Y, m.timelinesRotation, E << 1, A) : I instanceof Kt ? this.applyAttachmentTimeline(I, t, p, f, !0) : (V.webkit602BugfixHelper(g, f), I.apply(t, x, p, b, g, Y, Vt.mixIn)) } } this.queueEvents(m, v), e.length = 0, m.nextAnimationLast = v, m.nextTrackLast = m.trackTime } for (var d = this.unkeyedState + ci, n = t.slots, r = 0, h = t.slots.length; r < h; r++) { var o = n[r]; if (o.attachmentState == d) { var l = o.data.attachmentName; o.setAttachment(l ? t.getAttachment(o.data.index, l) : null) } } return this.unkeyedState += 2, this.queue.drain(), s } applyMixingFrom(t, e, i) { let s = t.mixingFrom; s.mixingFrom && this.applyMixingFrom(s, e, i); let a = 0; t.mixDuration == 0 ? (a = 1, i == ft.first && (i = ft.setup)) : (a = t.mixTime / t.mixDuration, a > 1 && (a = 1), i != ft.first && (i = s.mixBlend)); let d = a < s.attachmentThreshold, n = a < s.drawOrderThreshold, r = s.animation.timelines, h = r.length, o = s.alpha * t.interruptAlpha, l = o * (1 - a), c = s.animationLast, u = s.getAnimationTime(), m = u, f = null; if (s.reverse ? m = s.animation.duration - m : a < s.eventThreshold && (f = this.events), i == ft.add) for (let g = 0; g < h; g++)r[g].apply(e, c, m, f, l, i, Vt.mixOut); else { let g = s.timelineMode, x = s.timelineHoldMix, v = s.timelinesRotation.length != h << 1; v && (s.timelinesRotation.length = h << 1), s.totalAlpha = 0; for (let p = 0; p < h; p++) { let b = r[p], w = Vt.mixOut, y, T = 0; switch (g[p]) { case Ce: if (!n && b instanceof Qt) continue; y = i, T = l; break; case hi: y = ft.setup, T = l; break; case di: y = i, T = o; break; case Te: y = ft.setup, T = o; break; default: y = ft.setup; let A = x[p]; T = o * Math.max(0, 1 - A.mixTime / A.mixDuration); break }s.totalAlpha += T, b instanceof fe ? this.applyRotateTimeline(b, e, m, T, y, s.timelinesRotation, p << 1, v) : b instanceof Kt ? this.applyAttachmentTimeline(b, e, m, y, d) : (V.webkit602BugfixHelper(T, i), n && b instanceof Qt && y == ft.setup && (w = Vt.mixIn), b.apply(e, c, m, f, T, y, w)) } } return t.mixDuration > 0 && this.queueEvents(s, u), this.events.length = 0, s.nextAnimationLast = u, s.nextTrackLast = s.trackTime, a } applyAttachmentTimeline(t, e, i, s, a) { var d = e.slots[t.slotIndex]; !d.bone.active || (i < t.frames[0] ? (s == ft.setup || s == ft.first) && this.setAttachment(e, d, d.data.attachmentName, a) : this.setAttachment(e, d, t.attachmentNames[mt.search1(t.frames, i)], a), d.attachmentState <= this.unkeyedState && (d.attachmentState = this.unkeyedState + ci)) } setAttachment(t, e, i, s) { e.setAttachment(i ? t.getAttachment(e.data.index, i) : null), s && (e.attachmentState = this.unkeyedState + Qi) } applyRotateTimeline(t, e, i, s, a, d, n, r) { if (r && (d[n] = 0), s == 1) { t.apply(e, 0, i, null, 1, a, Vt.mixIn); return } let h = e.bones[t.boneIndex]; if (!h.active) return; let o = t.frames, l = 0, c = 0; if (i < o[0]) switch (a) { case ft.setup: h.rotation = h.data.rotation; default: return; case ft.first: l = h.rotation, c = h.data.rotation } else l = a == ft.setup ? h.data.rotation : h.rotation, c = h.data.rotation + t.getCurveValue(i); let u = 0, m = c - l; if (m -= (16384 - (16384.499999999996 - m / 360 | 0)) * 360, m == 0) u = d[n]; else { let f = 0, g = 0; r ? (f = 0, g = m) : (f = d[n], g = d[n + 1]); let x = m > 0, v = f >= 0; F.signum(g) != F.signum(m) && Math.abs(g) <= 90 && (Math.abs(f) > 180 && (f += 360 * F.signum(f)), v = x), u = m + f - f % 360, v != x && (u += 360 * F.signum(f)), d[n] = u } d[n + 1] = m, h.rotation = l + u * s } queueEvents(t, e) { let i = t.animationStart, s = t.animationEnd, a = s - i, d = t.trackLast % a, n = this.events, r = 0, h = n.length; for (; r < h; r++) { let l = n[r]; if (l.time < d) break; l.time > s || this.queue.event(t, l) } let o = !1; for (t.loop ? o = a == 0 || d > t.trackTime % a : o = e >= s && t.animationLast < s, o && this.queue.complete(t); r < h; r++) { let l = n[r]; l.time < i || this.queue.event(t, l) } } clearTracks() { let t = this.queue.drainDisabled; this.queue.drainDisabled = !0; for (let e = 0, i = this.tracks.length; e < i; e++)this.clearTrack(e); this.tracks.length = 0, this.queue.drainDisabled = t, this.queue.drain() } clearTrack(t) { if (t >= this.tracks.length) return; let e = this.tracks[t]; if (!e) return; this.queue.end(e), this.clearNext(e); let i = e; for (; ;) { let s = i.mixingFrom; if (!s) break; this.queue.end(s), i.mixingFrom = null, i.mixingTo = null, i = s } this.tracks[e.trackIndex] = null, this.queue.drain() } setCurrent(t, e, i) { let s = this.expandToIndex(t); this.tracks[t] = e, e.previous = null, s && (i && this.queue.interrupt(s), e.mixingFrom = s, s.mixingTo = e, e.mixTime = 0, s.mixingFrom && s.mixDuration > 0 && (e.interruptAlpha *= Math.min(1, s.mixTime / s.mixDuration)), s.timelinesRotation.length = 0), this.queue.start(e) } setAnimation(t, e, i = !1) { let s = this.data.skeletonData.findAnimation(e); if (!s) throw new Error("Animation not found: " + e); return this.setAnimationWith(t, s, i) } setAnimationWith(t, e, i = !1) { if (!e) throw new Error("animation cannot be null."); let s = !0, a = this.expandToIndex(t); a && (a.nextTrackLast == -1 ? (this.tracks[t] = a.mixingFrom, this.queue.interrupt(a), this.queue.end(a), this.clearNext(a), a = a.mixingFrom, s = !1) : this.clearNext(a)); let d = this.trackEntry(t, e, i, a); return this.setCurrent(t, d, s), this.queue.drain(), d } addAnimation(t, e, i = !1, s = 0) { let a = this.data.skeletonData.findAnimation(e); if (!a) throw new Error("Animation not found: " + e); return this.addAnimationWith(t, a, i, s) } addAnimationWith(t, e, i = !1, s = 0) { if (!e) throw new Error("animation cannot be null."); let a = this.expandToIndex(t); if (a) for (; a.next;)a = a.next; let d = this.trackEntry(t, e, i, a); return a ? (a.next = d, d.previous = a, s <= 0 && (s += a.getTrackComplete() - d.mixDuration)) : (this.setCurrent(t, d, !0), this.queue.drain()), d.delay = s, d } setEmptyAnimation(t, e = 0) { let i = this.setAnimationWith(t, Se.emptyAnimation(), !1); return i.mixDuration = e, i.trackEnd = e, i } addEmptyAnimation(t, e = 0, i = 0) { let s = this.addAnimationWith(t, Se.emptyAnimation(), !1, i); return i <= 0 && (s.delay += s.mixDuration - e), s.mixDuration = e, s.trackEnd = e, s } setEmptyAnimations(t = 0) { let e = this.queue.drainDisabled; this.queue.drainDisabled = !0; for (let i = 0, s = this.tracks.length; i < s; i++) { let a = this.tracks[i]; a && this.setEmptyAnimation(a.trackIndex, t) } this.queue.drainDisabled = e, this.queue.drain() } expandToIndex(t) { return t < this.tracks.length ? this.tracks[t] : (V.ensureArrayCapacity(this.tracks, t + 1, null), this.tracks.length = t + 1, null) } trackEntry(t, e, i, s) { let a = this.trackEntryPool.obtain(); return a.reset(), a.trackIndex = t, a.animation = e, a.loop = i, a.holdPrevious = !1, a.eventThreshold = 0, a.attachmentThreshold = 0, a.drawOrderThreshold = 0, a.animationStart = 0, a.animationEnd = e.duration, a.animationLast = -1, a.nextAnimationLast = -1, a.delay = 0, a.trackTime = 0, a.trackLast = -1, a.nextTrackLast = -1, a.trackEnd = Number.MAX_VALUE, a.timeScale = 1, a.alpha = 1, a.interruptAlpha = 1, a.mixTime = 0, a.mixDuration = s ? this.data.getMix(s.animation, e) : 0, a.mixBlend = ft.replace, a } clearNext(t) { let e = t.next; for (; e;)this.queue.dispose(e), e = e.next; t.next = null } _animationsChanged() { this.animationsChanged = !1, this.propertyIDs.clear(); let t = this.tracks; for (let e = 0, i = t.length; e < i; e++) { let s = t[e]; if (!!s) { for (; s.mixingFrom;)s = s.mixingFrom; do (!s.mixingTo || s.mixBlend != ft.add) && this.computeHold(s), s = s.mixingTo; while (s) } } } computeHold(t) { let e = t.mixingTo, i = t.animation.timelines, s = t.animation.timelines.length, a = t.timelineMode; a.length = s; let d = t.timelineHoldMix; d.length = 0; let n = this.propertyIDs; if (e && e.holdPrevious) { for (let r = 0; r < s; r++)a[r] = n.addAll(i[r].getPropertyIds()) ? Te : di; return } t: for (let r = 0; r < s; r++) { let h = i[r], o = h.getPropertyIds(); if (!n.addAll(o)) a[r] = Ce; else if (!e || h instanceof Kt || h instanceof Qt || h instanceof me || !e.animation.hasTimeline(o)) a[r] = hi; else { for (let l = e.mixingTo; l; l = l.mixingTo)if (!l.animation.hasTimeline(o)) { if (t.mixDuration > 0) { a[r] = Ki, d[r] = l; continue t } break } a[r] = Te } } } getCurrent(t) { return t >= this.tracks.length ? null : this.tracks[t] } addListener(t) { if (!t) throw new Error("listener cannot be null."); this.listeners.push(t) } removeListener(t) { let e = this.listeners.indexOf(t); e >= 0 && this.listeners.splice(e, 1) } clearListeners() { this.listeners.length = 0 } clearListenerNotifications() { this.queue.clear() } }, Zi = class { constructor() { this.animation = null, this.previous = null, this.next = null, this.mixingFrom = null, this.mixingTo = null, this.listener = null, this.trackIndex = 0, this.loop = !1, this.holdPrevious = !1, this.reverse = !1, this.eventThreshold = 0, this.attachmentThreshold = 0, this.drawOrderThreshold = 0, this.animationStart = 0, this.animationEnd = 0, this.animationLast = 0, this.nextAnimationLast = 0, this.delay = 0, this.trackTime = 0, this.trackLast = 0, this.nextTrackLast = 0, this.trackEnd = 0, this.timeScale = 0, this.alpha = 0, this.mixTime = 0, this.mixDuration = 0, this.interruptAlpha = 0, this.totalAlpha = 0, this.mixBlend = ft.replace, this.timelineMode = new Array, this.timelineHoldMix = new Array, this.timelinesRotation = new Array } reset() { this.next = null, this.previous = null, this.mixingFrom = null, this.mixingTo = null, this.animation = null, this.listener = null, this.timelineMode.length = 0, this.timelineHoldMix.length = 0, this.timelinesRotation.length = 0 } getAnimationTime() { if (this.loop) { let t = this.animationEnd - this.animationStart; return t == 0 ? this.animationStart : this.trackTime % t + this.animationStart } return Math.min(this.trackTime + this.animationStart, this.animationEnd) } setAnimationLast(t) { this.animationLast = t, this.nextAnimationLast = t } isComplete() { return this.trackTime >= this.animationEnd - this.animationStart } resetRotationDirections() { this.timelinesRotation.length = 0 } getTrackComplete() { let t = this.animationEnd - this.animationStart; if (t != 0) { if (this.loop) return t * (1 + (this.trackTime / t | 0)); if (this.trackTime < t) return t } return this.trackTime } }, Ji = class { constructor(t) { this.objects = [], this.drainDisabled = !1, this.animState = null, this.animState = t } start(t) { this.objects.push(Ct.start), this.objects.push(t), this.animState.animationsChanged = !0 } interrupt(t) { this.objects.push(Ct.interrupt), this.objects.push(t) } end(t) { this.objects.push(Ct.end), this.objects.push(t), this.animState.animationsChanged = !0 } dispose(t) { this.objects.push(Ct.dispose), this.objects.push(t) } complete(t) { this.objects.push(Ct.complete), this.objects.push(t) } event(t, e) { this.objects.push(Ct.event), this.objects.push(t), this.objects.push(e) } drain() { if (this.drainDisabled) return; this.drainDisabled = !0; let t = this.objects, e = this.animState.listeners; for (let i = 0; i < t.length; i += 2) { let s = t[i], a = t[i + 1]; switch (s) { case Ct.start: a.listener && a.listener.start && a.listener.start(a); for (let n = 0; n < e.length; n++)e[n].start && e[n].start(a); break; case Ct.interrupt: a.listener && a.listener.interrupt && a.listener.interrupt(a); for (let n = 0; n < e.length; n++)e[n].interrupt && e[n].interrupt(a); break; case Ct.end: a.listener && a.listener.end && a.listener.end(a); for (let n = 0; n < e.length; n++)e[n].end && e[n].end(a); case Ct.dispose: a.listener && a.listener.dispose && a.listener.dispose(a); for (let n = 0; n < e.length; n++)e[n].dispose && e[n].dispose(a); this.animState.trackEntryPool.free(a); break; case Ct.complete: a.listener && a.listener.complete && a.listener.complete(a); for (let n = 0; n < e.length; n++)e[n].complete && e[n].complete(a); break; case Ct.event: let d = t[i++ + 2]; a.listener && a.listener.event && a.listener.event(a, d); for (let n = 0; n < e.length; n++)e[n].event && e[n].event(a, d); break } } this.clear(), this.drainDisabled = !1 } clear() { this.objects.length = 0 } }, Ct; (function (t) { t[t.start = 0] = "start", t[t.interrupt = 1] = "interrupt", t[t.end = 2] = "end", t[t.dispose = 3] = "dispose", t[t.complete = 4] = "complete", t[t.event = 5] = "event" })(Ct || (Ct = {})); var Os = class { start(t) { } interrupt(t) { } end(t) { } dispose(t) { } complete(t) { } event(t, e) { } }, Ce = 0, hi = 1, di = 2, Te = 3, Ki = 4, ci = 1, Qi = 2, ui = null, $i = class { constructor(t) { if (this.skeletonData = null, this.animationToMixTime = {}, this.defaultMix = 0, !t) throw new Error("skeletonData cannot be null."); this.skeletonData = t } setMix(t, e, i) { let s = this.skeletonData.findAnimation(t); if (!s) throw new Error("Animation not found: " + t); let a = this.skeletonData.findAnimation(e); if (!a) throw new Error("Animation not found: " + e); this.setMixWith(s, a, i) } setMixWith(t, e, i) { if (!t) throw new Error("from cannot be null."); if (!e) throw new Error("to cannot be null."); let s = t.name + "." + e.name; this.animationToMixTime[s] = i } getMix(t, e) { let i = t.name + "." + e.name, s = this.animationToMixTime[i]; return s === void 0 ? this.defaultMix : s } }, ke = class extends Pt { constructor(t) { super(t); this.color = new O(1, 1, 1, 1) } copy() { let t = new ke(this.name); return this.copyTo(t), t.color.setFromColor(this.color), t } }, ge = class extends Pt { constructor(t) { super(t); this.endSlot = null, this.color = new O(.2275, .2275, .8078, 1) } copy() { let t = new ge(this.name); return this.copyTo(t), t.endSlot = this.endSlot, t.color.setFromColor(this.color), t } }, fi = class { constructor(t) { this._image = t } getImage() { return this._image } }, pt; (function (t) { t[t.Nearest = 9728] = "Nearest", t[t.Linear = 9729] = "Linear", t[t.MipMap = 9987] = "MipMap", t[t.MipMapNearestNearest = 9984] = "MipMapNearestNearest", t[t.MipMapLinearNearest = 9985] = "MipMapLinearNearest", t[t.MipMapNearestLinear = 9986] = "MipMapNearestLinear", t[t.MipMapLinearLinear = 9987] = "MipMapLinearLinear" })(pt || (pt = {})); var $t; (function (t) { t[t.MirroredRepeat = 33648] = "MirroredRepeat", t[t.ClampToEdge = 33071] = "ClampToEdge", t[t.Repeat = 10497] = "Repeat" })($t || ($t = {})); var ts = class { constructor() { this.u = 0, this.v = 0, this.u2 = 0, this.v2 = 0, this.width = 0, this.height = 0, this.degrees = 0, this.offsetX = 0, this.offsetY = 0, this.originalWidth = 0, this.originalHeight = 0 } }, Ns = class extends fi { setFilters(t, e) { } setWraps(t, e) { } dispose() { } }, es = class { constructor(t) { this.pages = new Array, this.regions = new Array; let e = new Us(t), i = new Array(4), s = null, a = null, d = {}; d.size = () => { s.width = parseInt(i[1]), s.height = parseInt(i[2]) }, d.format = () => { }, d.filter = () => { s.minFilter = V.enumValue(pt, i[1]), s.magFilter = V.enumValue(pt, i[2]) }, d.repeat = () => { i[1].indexOf("x") != -1 && (s.uWrap = $t.Repeat), i[1].indexOf("y") != -1 && (s.vWrap = $t.Repeat) }, d.pma = () => { s.pma = i[1] == "true" }; var n = {}; n.xy = () => { a.x = parseInt(i[1]), a.y = parseInt(i[2]) }, n.size = () => { a.width = parseInt(i[1]), a.height = parseInt(i[2]) }, n.bounds = () => { a.x = parseInt(i[1]), a.y = parseInt(i[2]), a.width = parseInt(i[3]), a.height = parseInt(i[4]) }, n.offset = () => { a.offsetX = parseInt(i[1]), a.offsetY = parseInt(i[2]) }, n.orig = () => { a.originalWidth = parseInt(i[1]), a.originalHeight = parseInt(i[2]) }, n.offsets = () => { a.offsetX = parseInt(i[1]), a.offsetY = parseInt(i[2]), a.originalWidth = parseInt(i[3]), a.originalHeight = parseInt(i[4]) }, n.rotate = () => { let l = i[1]; l == "true" ? a.degrees = 90 : l != "false" && (a.degrees = parseInt(l)) }, n.index = () => { a.index = parseInt(i[1]) }; let r = e.readLine(); for (; r && r.trim().length == 0;)r = e.readLine(); for (; !(!r || r.trim().length == 0 || e.readEntry(i, r) == 0);)r = e.readLine(); let h = null, o = null; for (; r !== null;)if (r.trim().length == 0) s = null, r = e.readLine(); else if (s) { for (a = new mi, a.page = s, a.name = r; ;) { let l = e.readEntry(i, r = e.readLine()); if (l == 0) break; let c = n[i[0]]; if (c) c(); else { h || (h = [], o = []), h.push(i[0]); let u = []; for (let m = 0; m < l; m++)u.push(parseInt(i[m + 1])); o.push(u) } } a.originalWidth == 0 && a.originalHeight == 0 && (a.originalWidth = a.width, a.originalHeight = a.height), h && h.length > 0 && (a.names = h, a.values = o, h = null, o = null), a.u = a.x / s.width, a.v = a.y / s.height, a.degrees == 90 ? (a.u2 = (a.x + a.height) / s.width, a.v2 = (a.y + a.width) / s.height) : (a.u2 = (a.x + a.width) / s.width, a.v2 = (a.y + a.height) / s.height), this.regions.push(a) } else { for (s = new is, s.name = r.trim(); e.readEntry(i, r = e.readLine()) != 0;) { let l = d[i[0]]; l && l() } this.pages.push(s) } } findRegion(t) { for (let e = 0; e < this.regions.length; e++)if (this.regions[e].name == t) return this.regions[e]; return null } setTextures(t, e = "") { for (let i of this.pages) i.setTexture(t.get(e + i.name)) } dispose() { for (let t = 0; t < this.pages.length; t++)this.pages[t].texture.dispose() } }, Us = class { constructor(t) { this.lines = null, this.index = 0, this.lines = t.split(/\r\n|\r|\n/) } readLine() { return this.index >= this.lines.length ? null : this.lines[this.index++] } readEntry(t, e) { if (!e || (e = e.trim(), e.length == 0)) return 0; let i = e.indexOf(":"); if (i == -1) return 0; t[0] = e.substr(0, i).trim(); for (let s = 1, a = i + 1; ; s++) { let d = e.indexOf(",", a); if (d == -1) return t[s] = e.substr(a).trim(), s; if (t[s] = e.substr(a, d - a).trim(), a = d + 1, s == 4) return 4 } } }, is = class { constructor() { this.name = null, this.minFilter = pt.Nearest, this.magFilter = pt.Nearest, this.uWrap = $t.ClampToEdge, this.vWrap = $t.ClampToEdge, this.texture = null, this.width = 0, this.height = 0, this.pma = !1 } setTexture(t) { this.texture = t, t.setFilters(this.minFilter, this.magFilter), t.setWraps(this.uWrap, this.vWrap) } }, mi = class extends ts { constructor() { super(...arguments); this.page = null, this.name = null, this.x = 0, this.y = 0, this.offsetX = 0, this.offsetY = 0, this.originalWidth = 0, this.originalHeight = 0, this.index = 0, this.degrees = 0, this.names = null, this.values = null } }, jt = class extends Pt { constructor(t) { super(t); this.region = null, this.path = null, this.regionUVs = null, this.uvs = null, this.triangles = null, this.color = new O(1, 1, 1, 1), this.width = 0, this.height = 0, this.hullLength = 0, this.edges = null, this.parentMesh = null, this.tempColor = new O(0, 0, 0, 0) } updateUVs() { let t = this.regionUVs; (!this.uvs || this.uvs.length != t.length) && (this.uvs = V.newFloatArray(t.length)); let e = this.uvs, i = this.uvs.length, s = this.region.u, a = this.region.v, d = 0, n = 0; if (this.region instanceof mi) { let r = this.region, h = r.page.texture.getImage(), o = h.width, l = h.height; switch (r.degrees) { case 90: s -= (r.originalHeight - r.offsetY - r.height) / o, a -= (r.originalWidth - r.offsetX - r.width) / l, d = r.originalHeight / o, n = r.originalWidth / l; for (let c = 0; c < i; c += 2)e[c] = s + t[c + 1] * d, e[c + 1] = a + (1 - t[c]) * n; return; case 180: s -= (r.originalWidth - r.offsetX - r.width) / o, a -= r.offsetY / l, d = r.originalWidth / o, n = r.originalHeight / l; for (let c = 0; c < i; c += 2)e[c] = s + (1 - t[c]) * d, e[c + 1] = a + (1 - t[c + 1]) * n; return; case 270: s -= r.offsetY / o, a -= r.offsetX / l, d = r.originalHeight / o, n = r.originalWidth / l; for (let c = 0; c < i; c += 2)e[c] = s + (1 - t[c + 1]) * d, e[c + 1] = a + t[c] * n; return }s -= r.offsetX / o, a -= (r.originalHeight - r.offsetY - r.height) / l, d = r.originalWidth / o, n = r.originalHeight / l } else this.region ? (d = this.region.u2 - s, n = this.region.v2 - a) : (s = a = 0, d = n = 1); for (let r = 0; r < i; r += 2)e[r] = s + t[r] * d, e[r + 1] = a + t[r + 1] * n } getParentMesh() { return this.parentMesh } setParentMesh(t) { this.parentMesh = t, t && (this.bones = t.bones, this.vertices = t.vertices, this.worldVerticesLength = t.worldVerticesLength, this.regionUVs = t.regionUVs, this.triangles = t.triangles, this.hullLength = t.hullLength, this.worldVerticesLength = t.worldVerticesLength) } copy() { if (this.parentMesh) return this.newLinkedMesh(); let t = new jt(this.name); return t.region = this.region, t.path = this.path, t.color.setFromColor(this.color), this.copyTo(t), t.regionUVs = new Array(this.regionUVs.length), V.arrayCopy(this.regionUVs, 0, t.regionUVs, 0, this.regionUVs.length), t.uvs = new Array(this.uvs.length), V.arrayCopy(this.uvs, 0, t.uvs, 0, this.uvs.length), t.triangles = new Array(this.triangles.length), V.arrayCopy(this.triangles, 0, t.triangles, 0, this.triangles.length), t.hullLength = this.hullLength, this.edges && (t.edges = new Array(this.edges.length), V.arrayCopy(this.edges, 0, t.edges, 0, this.edges.length)), t.width = this.width, t.height = this.height, t } newLinkedMesh() { let t = new jt(this.name); return t.region = this.region, t.path = this.path, t.color.setFromColor(this.color), t.deformAttachment = this.deformAttachment, t.setParentMesh(this.parentMesh ? this.parentMesh : this), t.updateUVs(), t } }, te = class extends Pt { constructor(t) { super(t); this.lengths = null, this.closed = !1, this.constantSpeed = !1, this.color = new O(1, 1, 1, 1) } copy() { let t = new te(this.name); return this.copyTo(t), t.lengths = new Array(this.lengths.length), V.arrayCopy(this.lengths, 0, t.lengths, 0, this.lengths.length), t.closed = closed, t.constantSpeed = this.constantSpeed, t.color.setFromColor(this.color), t } }, gi = class extends Pt { constructor(t) { super(t); this.x = 0, this.y = 0, this.rotation = 0, this.color = new O(.38, .94, 0, 1) } computeWorldPosition(t, e) { return e.x = this.x * t.a + this.y * t.b + t.worldX, e.y = this.x * t.c + this.y * t.d + t.worldY, e } computeWorldRotation(t) { let e = F.cosDeg(this.rotation), i = F.sinDeg(this.rotation), s = e * t.a + i * t.b, a = e * t.c + i * t.d; return Math.atan2(a, s) * F.radDeg } copy() { let t = new gi(this.name); return t.x = this.x, t.y = this.y, t.rotation = this.rotation, t.color.setFromColor(this.color), t } }, ss = class extends ze { constructor(t) { super(t); this.x = 0, this.y = 0, this.scaleX = 1, this.scaleY = 1, this.rotation = 0, this.width = 0, this.height = 0, this.color = new O(1, 1, 1, 1), this.path = null, this.rendererObject = null, this.region = null, this.offset = V.newFloatArray(8), this.uvs = V.newFloatArray(8), this.tempColor = new O(1, 1, 1, 1) } updateOffset() { let t = this.region, e = this.width / this.region.originalWidth * this.scaleX, i = this.height / this.region.originalHeight * this.scaleY, s = -this.width / 2 * this.scaleX + this.region.offsetX * e, a = -this.height / 2 * this.scaleY + this.region.offsetY * i, d = s + this.region.width * e, n = a + this.region.height * i, r = this.rotation * Math.PI / 180, h = Math.cos(r), o = Math.sin(r), l = this.x, c = this.y, u = s * h + l, m = s * o, f = a * h + c, g = a * o, x = d * h + l, v = d * o, p = n * h + c, b = n * o, w = this.offset; w[0] = u - g, w[1] = f + m, w[2] = u - b, w[3] = p + m, w[4] = x - b, w[5] = p + v, w[6] = x - g, w[7] = f + v } setRegion(t) { this.region = t; let e = this.uvs; t.degrees == 90 ? (e[2] = t.u, e[3] = t.v2, e[4] = t.u, e[5] = t.v, e[6] = t.u2, e[7] = t.v, e[0] = t.u2, e[1] = t.v2) : (e[0] = t.u, e[1] = t.v2, e[2] = t.u, e[3] = t.v, e[4] = t.u2, e[5] = t.v, e[6] = t.u2, e[7] = t.v2) } computeWorldVertices(t, e, i, s) { let a = this.offset, d = t.worldX, n = t.worldY, r = t.a, h = t.b, o = t.c, l = t.d, c = 0, u = 0; c = a[0], u = a[1], e[i] = c * r + u * h + d, e[i + 1] = c * o + u * l + n, i += s, c = a[2], u = a[3], e[i] = c * r + u * h + d, e[i + 1] = c * o + u * l + n, i += s, c = a[4], u = a[5], e[i] = c * r + u * h + d, e[i + 1] = c * o + u * l + n, i += s, c = a[6], u = a[7], e[i] = c * r + u * h + d, e[i + 1] = c * o + u * l + n } copy() { let t = new ss(this.name); return t.region = this.region, t.rendererObject = this.rendererObject, t.path = this.path, t.x = this.x, t.y = this.y, t.scaleX = this.scaleX, t.scaleY = this.scaleY, t.rotation = this.rotation, t.width = this.width, t.height = this.height, V.arrayCopy(this.uvs, 0, t.uvs, 0, 8), V.arrayCopy(this.offset, 0, t.offset, 0, 8), t.color.setFromColor(this.color), t } }, at = ss; at.X1 = 0, at.Y1 = 1, at.C1R = 2, at.C1G = 3, at.C1B = 4, at.C1A = 5, at.U1 = 6, at.V1 = 7, at.X2 = 8, at.Y2 = 9, at.C2R = 10, at.C2G = 11, at.C2B = 12, at.C2A = 13, at.U2 = 14, at.V2 = 15, at.X3 = 16, at.Y3 = 17, at.C3R = 18, at.C3G = 19, at.C3B = 20, at.C3A = 21, at.U3 = 22, at.V3 = 23, at.X4 = 24, at.Y4 = 25, at.C4R = 26, at.C4G = 27, at.C4B = 28, at.C4A = 29, at.U4 = 30, at.V4 = 31; var pi = class { constructor(t) { this.atlas = null, this.atlas = t } newRegionAttachment(t, e, i) { let s = this.atlas.findRegion(i); if (!s) throw new Error("Region not found in atlas: " + i + " (region attachment: " + e + ")"); s.renderObject = s; let a = new at(e); return a.setRegion(s), a } newMeshAttachment(t, e, i) { let s = this.atlas.findRegion(i); if (!s) throw new Error("Region not found in atlas: " + i + " (mesh attachment: " + e + ")"); s.renderObject = s; let a = new jt(e); return a.region = s, a } newBoundingBoxAttachment(t, e) { return new ke(e) } newPathAttachment(t, e) { return new te(e) } newPointAttachment(t, e) { return new gi(e) } newClippingAttachment(t, e) { return new ge(e) } }, xi = class { constructor(t, e, i) { if (this.index = 0, this.name = null, this.parent = null, this.length = 0, this.x = 0, this.y = 0, this.rotation = 0, this.scaleX = 1, this.scaleY = 1, this.shearX = 0, this.shearY = 0, this.transformMode = Tt.Normal, this.skinRequired = !1, this.color = new O, t < 0) throw new Error("index must be >= 0."); if (!e) throw new Error("name cannot be null."); this.index = t, this.name = e, this.parent = i } }, Tt; (function (t) { t[t.Normal = 0] = "Normal", t[t.OnlyTranslation = 1] = "OnlyTranslation", t[t.NoRotationOrReflection = 2] = "NoRotationOrReflection", t[t.NoScale = 3] = "NoScale", t[t.NoScaleOrReflection = 4] = "NoScaleOrReflection" })(Tt || (Tt = {})); var wi = class { constructor(t, e, i) { if (this.data = null, this.skeleton = null, this.parent = null, this.children = new Array, this.x = 0, this.y = 0, this.rotation = 0, this.scaleX = 0, this.scaleY = 0, this.shearX = 0, this.shearY = 0, this.ax = 0, this.ay = 0, this.arotation = 0, this.ascaleX = 0, this.ascaleY = 0, this.ashearX = 0, this.ashearY = 0, this.a = 0, this.b = 0, this.c = 0, this.d = 0, this.worldY = 0, this.worldX = 0, this.sorted = !1, this.active = !1, !t) throw new Error("data cannot be null."); if (!e) throw new Error("skeleton cannot be null."); this.data = t, this.skeleton = e, this.parent = i, this.setToSetupPose() } isActive() { return this.active } update() { this.updateWorldTransformWith(this.ax, this.ay, this.arotation, this.ascaleX, this.ascaleY, this.ashearX, this.ashearY) } updateWorldTransform() { this.updateWorldTransformWith(this.x, this.y, this.rotation, this.scaleX, this.scaleY, this.shearX, this.shearY) } updateWorldTransformWith(t, e, i, s, a, d, n) { this.ax = t, this.ay = e, this.arotation = i, this.ascaleX = s, this.ascaleY = a, this.ashearX = d, this.ashearY = n; let r = this.parent; if (!r) { let u = this.skeleton, m = i + 90 + n, f = u.scaleX, g = u.scaleY; this.a = F.cosDeg(i + d) * s * f, this.b = F.cosDeg(m) * a * f, this.c = F.sinDeg(i + d) * s * g, this.d = F.sinDeg(m) * a * g, this.worldX = t * f + u.x, this.worldY = e * g + u.y; return } let h = r.a, o = r.b, l = r.c, c = r.d; switch (this.worldX = h * t + o * e + r.worldX, this.worldY = l * t + c * e + r.worldY, this.data.transformMode) { case Tt.Normal: { let u = i + 90 + n, m = F.cosDeg(i + d) * s, f = F.cosDeg(u) * a, g = F.sinDeg(i + d) * s, x = F.sinDeg(u) * a; this.a = h * m + o * g, this.b = h * f + o * x, this.c = l * m + c * g, this.d = l * f + c * x; return } case Tt.OnlyTranslation: { let u = i + 90 + n; this.a = F.cosDeg(i + d) * s, this.b = F.cosDeg(u) * a, this.c = F.sinDeg(i + d) * s, this.d = F.sinDeg(u) * a; break } case Tt.NoRotationOrReflection: { let u = h * h + l * l, m = 0; u > 1e-4 ? (u = Math.abs(h * c - o * l) / u, h /= this.skeleton.scaleX, l /= this.skeleton.scaleY, o = l * u, c = h * u, m = Math.atan2(l, h) * F.radDeg) : (h = 0, l = 0, m = 90 - Math.atan2(c, o) * F.radDeg); let f = i + d - m, g = i + n - m + 90, x = F.cosDeg(f) * s, v = F.cosDeg(g) * a, p = F.sinDeg(f) * s, b = F.sinDeg(g) * a; this.a = h * x - o * p, this.b = h * v - o * b, this.c = l * x + c * p, this.d = l * v + c * b; break } case Tt.NoScale: case Tt.NoScaleOrReflection: { let u = F.cosDeg(i), m = F.sinDeg(i), f = (h * u + o * m) / this.skeleton.scaleX, g = (l * u + c * m) / this.skeleton.scaleY, x = Math.sqrt(f * f + g * g); x > 1e-5 && (x = 1 / x), f *= x, g *= x, x = Math.sqrt(f * f + g * g), this.data.transformMode == Tt.NoScale && h * c - o * l < 0 != (this.skeleton.scaleX < 0 != this.skeleton.scaleY < 0) && (x = -x); let v = Math.PI / 2 + Math.atan2(g, f), p = Math.cos(v) * x, b = Math.sin(v) * x, w = F.cosDeg(d) * s, y = F.cosDeg(90 + n) * a, T = F.sinDeg(d) * s, A = F.sinDeg(90 + n) * a; this.a = f * w + p * T, this.b = f * y + p * A, this.c = g * w + b * T, this.d = g * y + b * A; break } }this.a *= this.skeleton.scaleX, this.b *= this.skeleton.scaleX, this.c *= this.skeleton.scaleY, this.d *= this.skeleton.scaleY } setToSetupPose() { let t = this.data; this.x = t.x, this.y = t.y, this.rotation = t.rotation, this.scaleX = t.scaleX, this.scaleY = t.scaleY, this.shearX = t.shearX, this.shearY = t.shearY } getWorldRotationX() { return Math.atan2(this.c, this.a) * F.radDeg } getWorldRotationY() { return Math.atan2(this.d, this.b) * F.radDeg } getWorldScaleX() { return Math.sqrt(this.a * this.a + this.c * this.c) } getWorldScaleY() { return Math.sqrt(this.b * this.b + this.d * this.d) } updateAppliedTransform() { let t = this.parent; if (!t) { this.ax = this.worldX - this.skeleton.x, this.ay = this.worldY - this.skeleton.y, this.arotation = Math.atan2(this.c, this.a) * F.radDeg, this.ascaleX = Math.sqrt(this.a * this.a + this.c * this.c), this.ascaleY = Math.sqrt(this.b * this.b + this.d * this.d), this.ashearX = 0, this.ashearY = Math.atan2(this.a * this.b + this.c * this.d, this.a * this.d - this.b * this.c) * F.radDeg; return } let e = t.a, i = t.b, s = t.c, a = t.d, d = 1 / (e * a - i * s), n = this.worldX - t.worldX, r = this.worldY - t.worldY; this.ax = n * a * d - r * i * d, this.ay = r * e * d - n * s * d; let h = d * a, o = d * e, l = d * i, c = d * s, u = h * this.a - l * this.c, m = h * this.b - l * this.d, f = o * this.c - c * this.a, g = o * this.d - c * this.b; if (this.ashearX = 0, this.ascaleX = Math.sqrt(u * u + f * f), this.ascaleX > 1e-4) { let x = u * g - m * f; this.ascaleY = x / this.ascaleX, this.ashearY = Math.atan2(u * m + f * g, x) * F.radDeg, this.arotation = Math.atan2(f, u) * F.radDeg } else this.ascaleX = 0, this.ascaleY = Math.sqrt(m * m + g * g), this.ashearY = 0, this.arotation = 90 - Math.atan2(g, m) * F.radDeg } worldToLocal(t) { let e = 1 / (this.a * this.d - this.b * this.c), i = t.x - this.worldX, s = t.y - this.worldY; return t.x = i * this.d * e - s * this.b * e, t.y = s * this.a * e - i * this.c * e, t } localToWorld(t) { let e = t.x, i = t.y; return t.x = e * this.a + i * this.b + this.worldX, t.y = e * this.c + i * this.d + this.worldY, t } worldToLocalRotation(t) { let e = F.sinDeg(t), i = F.cosDeg(t); return Math.atan2(this.a * e - this.c * i, this.d * i - this.b * e) * F.radDeg + this.rotation - this.shearX } localToWorldRotation(t) { t -= this.rotation - this.shearX; let e = F.sinDeg(t), i = F.cosDeg(t); return Math.atan2(i * this.c + e * this.d, i * this.a + e * this.b) * F.radDeg } rotateWorld(t) { let e = this.a, i = this.b, s = this.c, a = this.d, d = F.cosDeg(t), n = F.sinDeg(t); this.a = d * e - n * s, this.b = d * i - n * a, this.c = n * e + d * s, this.d = n * i + d * a } }, Me = class { constructor(t, e, i) { this.name = t, this.order = e, this.skinRequired = i } }, rs = class {
-    constructor(t, e = "", i = null) { this.pathPrefix = null, this.assets = {}, this.errors = {}, this.toLoad = 0, this.loaded = 0, this.textureLoader = t, this.pathPrefix = e, this.downloader = i || new as } start(t) { return this.toLoad++, this.pathPrefix + t } success(t, e, i) { this.toLoad--, this.loaded++, this.assets[e] = i, t && t(e, i) } error(t, e, i) { this.toLoad--, this.loaded++, this.errors[e] = i, t && t(e, i) } loadAll() { return new Promise((e, i) => { let s = () => { if (this.isLoadingComplete()) { this.hasErrors() ? i(this.errors) : e(this); return } requestAnimationFrame(s) }; requestAnimationFrame(s) }) } setRawDataURI(t, e) { this.downloader.rawDataUris[this.pathPrefix + t] = e } loadBinary(t, e = null, i = null) { t = this.start(t), this.downloader.downloadBinary(t, s => { this.success(e, t, s) }, (s, a) => { this.error(i, t, `Couldn't load binary ${t}: status ${s}, ${a}`) }) } loadText(t, e = null, i = null) { t = this.start(t), this.downloader.downloadText(t, s => { this.success(e, t, s) }, (s, a) => { this.error(i, t, `Couldn't load text ${t}: status ${s}, ${a}`) }) } loadJson(t, e = null, i = null) { t = this.start(t), this.downloader.downloadJson(t, s => { this.success(e, t, s) }, (s, a) => { this.error(i, t, `Couldn't load JSON ${t}: status ${s}, ${a}`) }) } loadTexture(t, e = null, i = null) { if (t = this.start(t), !!!(typeof window != "undefined" && typeof navigator != "undefined" && window.document)) fetch(t, { mode: "cors" }).then(d => d.ok ? d.blob() : (this.error(i, t, `Couldn't load image: ${t}`), null)).then(d => d ? createImageBitmap(d, { premultiplyAlpha: "none", colorSpaceConversion: "none" }) : null).then(d => { d && this.success(e, t, this.textureLoader(d)) }); else { let d = new Image; d.crossOrigin = "anonymous", d.onload = () => { this.success(e, t, this.textureLoader(d)) }, d.onerror = () => { this.error(i, t, `Couldn't load image: ${t}`) }, this.downloader.rawDataUris[t] && (t = this.downloader.rawDataUris[t]), d.src = t } } loadTextureAtlas(t, e = null, i = null, s = null) { let a = t.lastIndexOf("/"), d = a >= 0 ? t.substring(0, a + 1) : ""; t = this.start(t), this.downloader.downloadText(t, n => { try { let r = new es(n), h = r.pages.length, o = !1; for (let l of r.pages) this.loadTexture(s == null ? d + l.name : s[l.name], (c, u) => { o || (l.setTexture(u), --h == 0 && this.success(e, t, r)) }, (c, u) => { o || this.error(i, t, `Couldn't load texture atlas ${t} page image: ${c}`), o = !0 }) } catch (r) { this.error(i, t, `Couldn't parse texture atlas ${t}: ${r.message}`) } }, (n, r) => { this.error(i, t, `Couldn't load texture atlas ${t}: status ${n}, ${r}`) }) } get(t) { return this.assets[this.pathPrefix + t] } require(t) {
-      t = this.pathPrefix + t; let e = this.assets[t]; if (e) return e; let i = this.errors[t]; throw Error("Asset not found: " + t + (i ? `
-`+ i : ""))
-    } remove(t) { t = this.pathPrefix + t; let e = this.assets[t]; return e.dispose && e.dispose(), delete this.assets[t], e } removeAll() { for (let t in this.assets) { let e = this.assets[t]; e.dispose && e.dispose() } this.assets = {} } isLoadingComplete() { return this.toLoad == 0 } getToLoad() { return this.toLoad } getLoaded() { return this.loaded } dispose() { this.removeAll() } hasErrors() { return Object.keys(this.errors).length > 0 } getErrors() { return this.errors }
-  }, as = class { constructor() { this.callbacks = {}, this.rawDataUris = {} } dataUriToString(t) { if (!t.startsWith("data:")) throw new Error("Not a data URI."); let e = t.indexOf("base64,"); return e != -1 ? (e += "base64,".length, atob(t.substr(e))) : t.substr(t.indexOf(",") + 1) } base64ToUint8Array(t) { for (var e = window.atob(t), i = e.length, s = new Uint8Array(i), a = 0; a < i; a++)s[a] = e.charCodeAt(a); return s } dataUriToUint8Array(t) { if (!t.startsWith("data:")) throw new Error("Not a data URI."); let e = t.indexOf("base64,"); if (e == -1) throw new Error("Not a binary data URI."); return e += "base64,".length, this.base64ToUint8Array(t.substr(e)) } downloadText(t, e, i) { if (this.start(t, e, i)) return; if (this.rawDataUris[t]) { try { let d = this.rawDataUris[t]; this.finish(t, 200, this.dataUriToString(d)) } catch (d) { this.finish(t, 400, JSON.stringify(d)) } return } let s = new XMLHttpRequest; s.overrideMimeType("text/html"), s.open("GET", t, !0); let a = () => { this.finish(t, s.status, s.responseText) }; s.onload = a, s.onerror = a, s.send() } downloadJson(t, e, i) { this.downloadText(t, s => { e(JSON.parse(s)) }, i) } downloadBinary(t, e, i) { if (this.start(t, e, i)) return; if (this.rawDataUris[t]) { try { let d = this.rawDataUris[t]; this.finish(t, 200, this.dataUriToUint8Array(d)) } catch (d) { this.finish(t, 400, JSON.stringify(d)) } return } let s = new XMLHttpRequest; s.open("GET", t, !0), s.responseType = "arraybuffer"; let a = () => { this.finish(t, s.status, s.response) }; s.onload = () => { s.status == 200 || s.status == 0 ? this.finish(t, 200, new Uint8Array(s.response)) : a() }, s.onerror = a, s.send() } start(t, e, i) { let s = this.callbacks[t]; try { if (s) return !0; this.callbacks[t] = s = [] } finally { s.push(e, i) } } finish(t, e, i) { let s = this.callbacks[t]; delete this.callbacks[t]; let a = e == 200 || e == 0 ? [i] : [e, i]; for (let d = a.length - 1, n = s.length; d < n; d += 2)s[d].apply(null, a) } }, bi = class { constructor(t, e) { if (this.data = null, this.intValue = 0, this.floatValue = 0, this.stringValue = null, this.time = 0, this.volume = 0, this.balance = 0, !e) throw new Error("data cannot be null."); this.time = t, this.data = e } }, vi = class { constructor(t) { this.name = null, this.intValue = 0, this.floatValue = 0, this.stringValue = null, this.audioPath = null, this.volume = 0, this.balance = 0, this.name = t } }, ns = class { constructor(t, e) { if (this.data = null, this.bones = null, this.target = null, this.bendDirection = 0, this.compress = !1, this.stretch = !1, this.mix = 1, this.softness = 0, this.active = !1, !t) throw new Error("data cannot be null."); if (!e) throw new Error("skeleton cannot be null."); this.data = t, this.mix = t.mix, this.softness = t.softness, this.bendDirection = t.bendDirection, this.compress = t.compress, this.stretch = t.stretch, this.bones = new Array; for (let i = 0; i < t.bones.length; i++)this.bones.push(e.findBone(t.bones[i].name)); this.target = e.findBone(t.target.name) } isActive() { return this.active } update() { if (this.mix == 0) return; let t = this.target, e = this.bones; switch (e.length) { case 1: this.apply1(e[0], t.worldX, t.worldY, this.compress, this.stretch, this.data.uniform, this.mix); break; case 2: this.apply2(e[0], e[1], t.worldX, t.worldY, this.bendDirection, this.stretch, this.data.uniform, this.softness, this.mix); break } } apply1(t, e, i, s, a, d, n) { let r = t.parent, h = r.a, o = r.b, l = r.c, c = r.d, u = -t.ashearX - t.arotation, m = 0, f = 0; switch (t.data.transformMode) { case Tt.OnlyTranslation: m = e - t.worldX, f = i - t.worldY; break; case Tt.NoRotationOrReflection: let v = Math.abs(h * c - o * l) / (h * h + l * l), p = h / t.skeleton.scaleX, b = l / t.skeleton.scaleY; o = -b * v * t.skeleton.scaleX, c = p * v * t.skeleton.scaleY, u += Math.atan2(b, p) * F.radDeg; default: let w = e - r.worldX, y = i - r.worldY, T = h * c - o * l; m = (w * c - y * o) / T - t.ax, f = (y * h - w * l) / T - t.ay }u += Math.atan2(f, m) * F.radDeg, t.ascaleX < 0 && (u += 180), u > 180 ? u -= 360 : u < -180 && (u += 360); let g = t.ascaleX, x = t.ascaleY; if (s || a) { switch (t.data.transformMode) { case Tt.NoScale: case Tt.NoScaleOrReflection: m = e - t.worldX, f = i - t.worldY }let v = t.data.length * g, p = Math.sqrt(m * m + f * f); if (s && p < v || a && p > v && v > 1e-4) { let b = (p / v - 1) * n + 1; g *= b, d && (x *= b) } } t.updateWorldTransformWith(t.ax, t.ay, t.arotation + u * n, g, x, t.ashearX, t.ashearY) } apply2(t, e, i, s, a, d, n, r, h) { let o = t.ax, l = t.ay, c = t.ascaleX, u = t.ascaleY, m = c, f = u, g = e.ascaleX, x = 0, v = 0, p = 0; c < 0 ? (c = -c, x = 180, p = -1) : (x = 0, p = 1), u < 0 && (u = -u, p = -p), g < 0 ? (g = -g, v = 180) : v = 0; let b = e.ax, w = 0, y = 0, T = 0, A = t.a, E = t.b, I = t.c, Y = t.d, P = Math.abs(c - u) <= 1e-4; !P || d ? (w = 0, y = A * b + t.worldX, T = I * b + t.worldY) : (w = e.ay, y = A * b + E * w + t.worldX, T = I * b + Y * w + t.worldY); let X = t.parent; A = X.a, E = X.b, I = X.c, Y = X.d; let B = 1 / (A * Y - E * I), C = y - X.worldX, k = T - X.worldY, D = (C * Y - k * E) * B - o, R = (k * A - C * I) * B - l, L = Math.sqrt(D * D + R * R), st = e.data.length * g, ct, ht; if (L < 1e-4) { this.apply1(t, i, s, !1, d, !1, h), e.updateWorldTransformWith(b, w, 0, e.ascaleX, e.ascaleY, e.ashearX, e.ashearY); return } C = i - X.worldX, k = s - X.worldY; let rt = (C * Y - k * E) * B - o, it = (k * A - C * I) * B - l, dt = rt * rt + it * it; if (r != 0) { r *= c * (g + 1) * .5; let vt = Math.sqrt(dt), Et = vt - L - st * c + r; if (Et > 0) { let It = Math.min(1, Et / (r * 2)) - 1; It = (Et - r * (1 - It * It)) / vt, rt -= It * rt, it -= It * it, dt = rt * rt + it * it } } t: if (P) { st *= c; let vt = (dt - L * L - st * st) / (2 * L * st); vt < -1 ? (vt = -1, ht = Math.PI * a) : vt > 1 ? (vt = 1, ht = 0, d && (A = (Math.sqrt(dt) / (L + st) - 1) * h + 1, m *= A, n && (f *= A))) : ht = Math.acos(vt) * a, A = L + st * vt, E = st * Math.sin(ht), ct = Math.atan2(it * A - rt * E, rt * A + it * E) } else { A = c * st, E = u * st; let vt = A * A, Et = E * E, It = Math.atan2(it, rt); I = Et * L * L + vt * dt - vt * Et; let Zt = -2 * Et * L, he = Et - vt; if (Y = Zt * Zt - 4 * he * I, Y >= 0) { let de = Math.sqrt(Y); Zt < 0 && (de = -de), de = -(Zt + de) * .5; let Fs = de / he, Ls = I / de, ce = Math.abs(Fs) < Math.abs(Ls) ? Fs : Ls; if (ce * ce <= dt) { k = Math.sqrt(dt - ce * ce) * a, ct = It - Math.atan2(k, ce), ht = Math.atan2(k / u, (ce - L) / c); break t } } let be = F.PI, Oe = L - A, Oi = Oe * Oe, Is = 0, Ys = 0, Ne = L + A, Ni = Ne * Ne, Rs = 0; I = -A * L / (vt - Et), I >= -1 && I <= 1 && (I = Math.acos(I), C = A * Math.cos(I) + L, k = E * Math.sin(I), Y = C * C + k * k, Y < Oi && (be = I, Oi = Y, Oe = C, Is = k), Y > Ni && (Ys = I, Ni = Y, Ne = C, Rs = k)), dt <= (Oi + Ni) * .5 ? (ct = It - Math.atan2(Is * a, Oe), ht = be * a) : (ct = It - Math.atan2(Rs * a, Ne), ht = Ys * a) } let St = Math.atan2(w, b) * p, Bt = t.arotation; ct = (ct - St) * F.radDeg + x - Bt, ct > 180 ? ct -= 360 : ct < -180 && (ct += 360), t.updateWorldTransformWith(o, l, Bt + ct * h, m, f, 0, 0), Bt = e.arotation, ht = ((ht + St) * F.radDeg - e.ashearX) * p + v - Bt, ht > 180 ? ht -= 360 : ht < -180 && (ht += 360), e.updateWorldTransformWith(b, w, Bt + ht * h, e.ascaleX, e.ascaleY, e.ashearX, e.ashearY) } }, yi = class extends Me { constructor(t) { super(t, 0, !1); this.bones = new Array, this.target = null, this.bendDirection = 1, this.compress = !1, this.stretch = !1, this.uniform = !1, this.mix = 1, this.softness = 0 } }, Ai = class extends Me { constructor(t) { super(t, 0, !1); this.bones = new Array, this.target = null, this.positionMode = null, this.spacingMode = null, this.rotateMode = null, this.offsetRotation = 0, this.position = 0, this.spacing = 0, this.mixRotate = 0, this.mixX = 0, this.mixY = 0 } }, Dt; (function (t) { t[t.Fixed = 0] = "Fixed", t[t.Percent = 1] = "Percent" })(Dt || (Dt = {})); var gt; (function (t) { t[t.Length = 0] = "Length", t[t.Fixed = 1] = "Fixed", t[t.Percent = 2] = "Percent", t[t.Proportional = 3] = "Proportional" })(gt || (gt = {})); var ee; (function (t) { t[t.Tangent = 0] = "Tangent", t[t.Chain = 1] = "Chain", t[t.ChainScale = 2] = "ChainScale" })(ee || (ee = {})); var Ut = class { constructor(t, e) { if (this.data = null, this.bones = null, this.target = null, this.position = 0, this.spacing = 0, this.mixRotate = 0, this.mixX = 0, this.mixY = 0, this.spaces = new Array, this.positions = new Array, this.world = new Array, this.curves = new Array, this.lengths = new Array, this.segments = new Array, this.active = !1, !t) throw new Error("data cannot be null."); if (!e) throw new Error("skeleton cannot be null."); this.data = t, this.bones = new Array; for (let i = 0, s = t.bones.length; i < s; i++)this.bones.push(e.findBone(t.bones[i].name)); this.target = e.findSlot(t.target.name), this.position = t.position, this.spacing = t.spacing, this.mixRotate = t.mixRotate, this.mixX = t.mixX, this.mixY = t.mixY } isActive() { return this.active } update() { let t = this.target.getAttachment(); if (!(t instanceof te)) return; let e = this.mixRotate, i = this.mixX, s = this.mixY; if (e == 0 && i == 0 && s == 0) return; let a = this.data, d = a.rotateMode == ee.Tangent, n = a.rotateMode == ee.ChainScale, r = this.bones, h = r.length, o = d ? h : h + 1, l = V.setArraySize(this.spaces, o), c = n ? this.lengths = V.setArraySize(this.lengths, h) : null, u = this.spacing; switch (a.spacingMode) { case gt.Percent: if (n) for (let w = 0, y = o - 1; w < y; w++) { let T = r[w], A = T.data.length; if (A < Ut.epsilon) c[w] = 0; else { let E = A * T.a, I = A * T.c; c[w] = Math.sqrt(E * E + I * I) } } V.arrayFill(l, 1, o, u); break; case gt.Proportional: let p = 0; for (let w = 0, y = o - 1; w < y;) { let T = r[w], A = T.data.length; if (A < Ut.epsilon) n && (c[w] = 0), l[++w] = u; else { let E = A * T.a, I = A * T.c, Y = Math.sqrt(E * E + I * I); n && (c[w] = Y), l[++w] = Y, p += Y } } if (p > 0) { p = o / p * u; for (let w = 1; w < o; w++)l[w] *= p } break; default: let b = a.spacingMode == gt.Length; for (let w = 0, y = o - 1; w < y;) { let T = r[w], A = T.data.length; if (A < Ut.epsilon) n && (c[w] = 0), l[++w] = u; else { let E = A * T.a, I = A * T.c, Y = Math.sqrt(E * E + I * I); n && (c[w] = Y), l[++w] = (b ? A + u : u) * Y / A } } }let m = this.computeWorldPositions(t, o, d), f = m[0], g = m[1], x = a.offsetRotation, v = !1; if (x == 0) v = a.rotateMode == ee.Chain; else { v = !1; let p = this.target.bone; x *= p.a * p.d - p.b * p.c > 0 ? F.degRad : -F.degRad } for (let p = 0, b = 3; p < h; p++, b += 3) { let w = r[p]; w.worldX += (f - w.worldX) * i, w.worldY += (g - w.worldY) * s; let y = m[b], T = m[b + 1], A = y - f, E = T - g; if (n) { let I = c[p]; if (I != 0) { let Y = (Math.sqrt(A * A + E * E) / I - 1) * e + 1; w.a *= Y, w.c *= Y } } if (f = y, g = T, e > 0) { let I = w.a, Y = w.b, P = w.c, X = w.d, B = 0, C = 0, k = 0; if (d ? B = m[b - 1] : l[p + 1] == 0 ? B = m[b + 2] : B = Math.atan2(E, A), B -= Math.atan2(P, I), v) { C = Math.cos(B), k = Math.sin(B); let D = w.data.length; f += (D * (C * I - k * P) - A) * e, g += (D * (k * I + C * P) - E) * e } else B += x; B > F.PI ? B -= F.PI2 : B < -F.PI && (B += F.PI2), B *= e, C = Math.cos(B), k = Math.sin(B), w.a = C * I - k * P, w.b = C * Y - k * X, w.c = k * I + C * P, w.d = k * Y + C * X } w.updateAppliedTransform() } } computeWorldPositions(t, e, i) { let s = this.target, a = this.position, d = this.spaces, n = V.setArraySize(this.positions, e * 3 + 2), r = null, h = t.closed, o = t.worldVerticesLength, l = o / 6, c = Ut.NONE; if (!t.constantSpeed) { let R = t.lengths; l -= h ? 1 : 2; let L = R[l]; this.data.positionMode == Dt.Percent && (a *= L); let st; switch (this.data.spacingMode) { case gt.Percent: st = L; break; case gt.Proportional: st = L / e; break; default: st = 1 }r = V.setArraySize(this.world, 8); for (let ct = 0, ht = 0, rt = 0; ct < e; ct++, ht += 3) { let it = d[ct] * st; a += it; let dt = a; if (h) dt %= L, dt < 0 && (dt += L), rt = 0; else if (dt < 0) { c != Ut.BEFORE && (c = Ut.BEFORE, t.computeWorldVertices(s, 2, 4, r, 0, 2)), this.addBeforePosition(dt, r, 0, n, ht); continue } else if (dt > L) { c != Ut.AFTER && (c = Ut.AFTER, t.computeWorldVertices(s, o - 6, 4, r, 0, 2)), this.addAfterPosition(dt - L, r, 0, n, ht); continue } for (; ; rt++) { let St = R[rt]; if (!(dt > St)) { if (rt == 0) dt /= St; else { let Bt = R[rt - 1]; dt = (dt - Bt) / (St - Bt) } break } } rt != c && (c = rt, h && rt == l ? (t.computeWorldVertices(s, o - 4, 4, r, 0, 2), t.computeWorldVertices(s, 0, 4, r, 4, 2)) : t.computeWorldVertices(s, rt * 6 + 2, 8, r, 0, 2)), this.addCurvePosition(dt, r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], n, ht, i || ct > 0 && it == 0) } return n } h ? (o += 2, r = V.setArraySize(this.world, o), t.computeWorldVertices(s, 2, o - 4, r, 0, 2), t.computeWorldVertices(s, 0, 2, r, o - 4, 2), r[o - 2] = r[0], r[o - 1] = r[1]) : (l--, o -= 4, r = V.setArraySize(this.world, o), t.computeWorldVertices(s, 2, o, r, 0, 2)); let u = V.setArraySize(this.curves, l), m = 0, f = r[0], g = r[1], x = 0, v = 0, p = 0, b = 0, w = 0, y = 0, T = 0, A = 0, E = 0, I = 0, Y = 0, P = 0, X = 0, B = 0; for (let R = 0, L = 2; R < l; R++, L += 6)x = r[L], v = r[L + 1], p = r[L + 2], b = r[L + 3], w = r[L + 4], y = r[L + 5], T = (f - x * 2 + p) * .1875, A = (g - v * 2 + b) * .1875, E = ((x - p) * 3 - f + w) * .09375, I = ((v - b) * 3 - g + y) * .09375, Y = T * 2 + E, P = A * 2 + I, X = (x - f) * .75 + T + E * .16666667, B = (v - g) * .75 + A + I * .16666667, m += Math.sqrt(X * X + B * B), X += Y, B += P, Y += E, P += I, m += Math.sqrt(X * X + B * B), X += Y, B += P, m += Math.sqrt(X * X + B * B), X += Y + E, B += P + I, m += Math.sqrt(X * X + B * B), u[R] = m, f = w, g = y; this.data.positionMode == Dt.Percent && (a *= m); let C; switch (this.data.spacingMode) { case gt.Percent: C = m; break; case gt.Proportional: C = m / e; break; default: C = 1 }let k = this.segments, D = 0; for (let R = 0, L = 0, st = 0, ct = 0; R < e; R++, L += 3) { let ht = d[R] * C; a += ht; let rt = a; if (h) rt %= m, rt < 0 && (rt += m), st = 0; else if (rt < 0) { this.addBeforePosition(rt, r, 0, n, L); continue } else if (rt > m) { this.addAfterPosition(rt - m, r, o - 4, n, L); continue } for (; ; st++) { let it = u[st]; if (!(rt > it)) { if (st == 0) rt /= it; else { let dt = u[st - 1]; rt = (rt - dt) / (it - dt) } break } } if (st != c) { c = st; let it = st * 6; for (f = r[it], g = r[it + 1], x = r[it + 2], v = r[it + 3], p = r[it + 4], b = r[it + 5], w = r[it + 6], y = r[it + 7], T = (f - x * 2 + p) * .03, A = (g - v * 2 + b) * .03, E = ((x - p) * 3 - f + w) * .006, I = ((v - b) * 3 - g + y) * .006, Y = T * 2 + E, P = A * 2 + I, X = (x - f) * .3 + T + E * .16666667, B = (v - g) * .3 + A + I * .16666667, D = Math.sqrt(X * X + B * B), k[0] = D, it = 1; it < 8; it++)X += Y, B += P, Y += E, P += I, D += Math.sqrt(X * X + B * B), k[it] = D; X += Y, B += P, D += Math.sqrt(X * X + B * B), k[8] = D, X += Y + E, B += P + I, D += Math.sqrt(X * X + B * B), k[9] = D, ct = 0 } for (rt *= D; ; ct++) { let it = k[ct]; if (!(rt > it)) { if (ct == 0) rt /= it; else { let dt = k[ct - 1]; rt = ct + (rt - dt) / (it - dt) } break } } this.addCurvePosition(rt * .1, f, g, x, v, p, b, w, y, n, L, i || R > 0 && ht == 0) } return n } addBeforePosition(t, e, i, s, a) { let d = e[i], n = e[i + 1], r = e[i + 2] - d, h = e[i + 3] - n, o = Math.atan2(h, r); s[a] = d + t * Math.cos(o), s[a + 1] = n + t * Math.sin(o), s[a + 2] = o } addAfterPosition(t, e, i, s, a) { let d = e[i + 2], n = e[i + 3], r = d - e[i], h = n - e[i + 1], o = Math.atan2(h, r); s[a] = d + t * Math.cos(o), s[a + 1] = n + t * Math.sin(o), s[a + 2] = o } addCurvePosition(t, e, i, s, a, d, n, r, h, o, l, c) { if (t == 0 || isNaN(t)) { o[l] = e, o[l + 1] = i, o[l + 2] = Math.atan2(a - i, s - e); return } let u = t * t, m = u * t, f = 1 - t, g = f * f, x = g * f, v = f * t, p = v * 3, b = f * p, w = p * t, y = e * x + s * b + d * w + r * m, T = i * x + a * b + n * w + h * m; o[l] = y, o[l + 1] = T, c && (t < .001 ? o[l + 2] = Math.atan2(a - i, s - e) : o[l + 2] = Math.atan2(T - (i * g + a * v * 2 + n * u), y - (e * g + s * v * 2 + d * u))) } }, ae = Ut; ae.NONE = -1, ae.BEFORE = -2, ae.AFTER = -3, ae.epsilon = 1e-5; var ls = class { constructor(t, e) { if (this.data = null, this.bone = null, this.color = null, this.darkColor = null, this.attachment = null, this.attachmentTime = 0, this.attachmentState = 0, this.deform = new Array, !t) throw new Error("data cannot be null."); if (!e) throw new Error("bone cannot be null."); this.data = t, this.bone = e, this.color = new O, this.darkColor = t.darkColor ? new O : null, this.setToSetupPose() } getSkeleton() { return this.bone.skeleton } getAttachment() { return this.attachment } setAttachment(t) { this.attachment != t && ((!(t instanceof Pt) || !(this.attachment instanceof Pt) || t.deformAttachment != this.attachment.deformAttachment) && (this.deform.length = 0), this.attachment = t, this.attachmentTime = this.bone.skeleton.time) } setAttachmentTime(t) { this.attachmentTime = this.bone.skeleton.time - t } getAttachmentTime() { return this.bone.skeleton.time - this.attachmentTime } setToSetupPose() { this.color.setFromColor(this.data.color), this.darkColor && this.darkColor.setFromColor(this.data.darkColor), this.data.attachmentName ? (this.attachment = null, this.setAttachment(this.bone.skeleton.getAttachment(this.data.index, this.data.attachmentName))) : this.attachment = null } }, os = class { constructor(t, e) { if (this.data = null, this.bones = null, this.target = null, this.mixRotate = 0, this.mixX = 0, this.mixY = 0, this.mixScaleX = 0, this.mixScaleY = 0, this.mixShearY = 0, this.temp = new Yt, this.active = !1, !t) throw new Error("data cannot be null."); if (!e) throw new Error("skeleton cannot be null."); this.data = t, this.mixRotate = t.mixRotate, this.mixX = t.mixX, this.mixY = t.mixY, this.mixScaleX = t.mixScaleX, this.mixScaleY = t.mixScaleY, this.mixShearY = t.mixShearY, this.bones = new Array; for (let i = 0; i < t.bones.length; i++)this.bones.push(e.findBone(t.bones[i].name)); this.target = e.findBone(t.target.name) } isActive() { return this.active } update() { this.mixRotate == 0 && this.mixX == 0 && this.mixY == 0 && this.mixScaleX == 0 && this.mixScaleX == 0 && this.mixShearY == 0 || (this.data.local ? this.data.relative ? this.applyRelativeLocal() : this.applyAbsoluteLocal() : this.data.relative ? this.applyRelativeWorld() : this.applyAbsoluteWorld()) } applyAbsoluteWorld() { let t = this.mixRotate, e = this.mixX, i = this.mixY, s = this.mixScaleX, a = this.mixScaleY, d = this.mixShearY, n = e != 0 || i != 0, r = this.target, h = r.a, o = r.b, l = r.c, c = r.d, u = h * c - o * l > 0 ? F.degRad : -F.degRad, m = this.data.offsetRotation * u, f = this.data.offsetShearY * u, g = this.bones; for (let x = 0, v = g.length; x < v; x++) { let p = g[x]; if (t != 0) { let b = p.a, w = p.b, y = p.c, T = p.d, A = Math.atan2(l, h) - Math.atan2(y, b) + m; A > F.PI ? A -= F.PI2 : A < -F.PI && (A += F.PI2), A *= t; let E = Math.cos(A), I = Math.sin(A); p.a = E * b - I * y, p.b = E * w - I * T, p.c = I * b + E * y, p.d = I * w + E * T } if (n) { let b = this.temp; r.localToWorld(b.set(this.data.offsetX, this.data.offsetY)), p.worldX += (b.x - p.worldX) * e, p.worldY += (b.y - p.worldY) * i } if (s != 0) { let b = Math.sqrt(p.a * p.a + p.c * p.c); b != 0 && (b = (b + (Math.sqrt(h * h + l * l) - b + this.data.offsetScaleX) * s) / b), p.a *= b, p.c *= b } if (a != 0) { let b = Math.sqrt(p.b * p.b + p.d * p.d); b != 0 && (b = (b + (Math.sqrt(o * o + c * c) - b + this.data.offsetScaleY) * a) / b), p.b *= b, p.d *= b } if (d > 0) { let b = p.b, w = p.d, y = Math.atan2(w, b), T = Math.atan2(c, o) - Math.atan2(l, h) - (y - Math.atan2(p.c, p.a)); T > F.PI ? T -= F.PI2 : T < -F.PI && (T += F.PI2), T = y + (T + f) * d; let A = Math.sqrt(b * b + w * w); p.b = Math.cos(T) * A, p.d = Math.sin(T) * A } p.updateAppliedTransform() } } applyRelativeWorld() { let t = this.mixRotate, e = this.mixX, i = this.mixY, s = this.mixScaleX, a = this.mixScaleY, d = this.mixShearY, n = e != 0 || i != 0, r = this.target, h = r.a, o = r.b, l = r.c, c = r.d, u = h * c - o * l > 0 ? F.degRad : -F.degRad, m = this.data.offsetRotation * u, f = this.data.offsetShearY * u, g = this.bones; for (let x = 0, v = g.length; x < v; x++) { let p = g[x]; if (t != 0) { let b = p.a, w = p.b, y = p.c, T = p.d, A = Math.atan2(l, h) + m; A > F.PI ? A -= F.PI2 : A < -F.PI && (A += F.PI2), A *= t; let E = Math.cos(A), I = Math.sin(A); p.a = E * b - I * y, p.b = E * w - I * T, p.c = I * b + E * y, p.d = I * w + E * T } if (n) { let b = this.temp; r.localToWorld(b.set(this.data.offsetX, this.data.offsetY)), p.worldX += b.x * e, p.worldY += b.y * i } if (s != 0) { let b = (Math.sqrt(h * h + l * l) - 1 + this.data.offsetScaleX) * s + 1; p.a *= b, p.c *= b } if (a != 0) { let b = (Math.sqrt(o * o + c * c) - 1 + this.data.offsetScaleY) * a + 1; p.b *= b, p.d *= b } if (d > 0) { let b = Math.atan2(c, o) - Math.atan2(l, h); b > F.PI ? b -= F.PI2 : b < -F.PI && (b += F.PI2); let w = p.b, y = p.d; b = Math.atan2(y, w) + (b - F.PI / 2 + f) * d; let T = Math.sqrt(w * w + y * y); p.b = Math.cos(b) * T, p.d = Math.sin(b) * T } p.updateAppliedTransform() } } applyAbsoluteLocal() { let t = this.mixRotate, e = this.mixX, i = this.mixY, s = this.mixScaleX, a = this.mixScaleY, d = this.mixShearY, n = this.target, r = this.bones; for (let h = 0, o = r.length; h < o; h++) { let l = r[h], c = l.arotation; if (t != 0) { let v = n.arotation - c + this.data.offsetRotation; v -= (16384 - (16384.499999999996 - v / 360 | 0)) * 360, c += v * t } let u = l.ax, m = l.ay; u += (n.ax - u + this.data.offsetX) * e, m += (n.ay - m + this.data.offsetY) * i; let f = l.ascaleX, g = l.ascaleY; s != 0 && f != 0 && (f = (f + (n.ascaleX - f + this.data.offsetScaleX) * s) / f), a != 0 && g != 0 && (g = (g + (n.ascaleY - g + this.data.offsetScaleY) * a) / g); let x = l.ashearY; if (d != 0) { let v = n.ashearY - x + this.data.offsetShearY; v -= (16384 - (16384.499999999996 - v / 360 | 0)) * 360, x += v * d } l.updateWorldTransformWith(u, m, c, f, g, l.ashearX, x) } } applyRelativeLocal() { let t = this.mixRotate, e = this.mixX, i = this.mixY, s = this.mixScaleX, a = this.mixScaleY, d = this.mixShearY, n = this.target, r = this.bones; for (let h = 0, o = r.length; h < o; h++) { let l = r[h], c = l.arotation + (n.arotation + this.data.offsetRotation) * t, u = l.ax + (n.ax + this.data.offsetX) * e, m = l.ay + (n.ay + this.data.offsetY) * i, f = l.ascaleX * ((n.ascaleX - 1 + this.data.offsetScaleX) * s + 1), g = l.ascaleY * ((n.ascaleY - 1 + this.data.offsetScaleY) * a + 1), x = l.ashearY + (n.ashearY + this.data.offsetShearY) * d; l.updateWorldTransformWith(u, m, c, f, g, l.ashearX, x) } } }, hs = class { constructor(t) { if (this.data = null, this.bones = null, this.slots = null, this.drawOrder = null, this.ikConstraints = null, this.transformConstraints = null, this.pathConstraints = null, this._updateCache = new Array, this.skin = null, this.color = null, this.time = 0, this.scaleX = 1, this.scaleY = 1, this.x = 0, this.y = 0, !t) throw new Error("data cannot be null."); this.data = t, this.bones = new Array; for (let e = 0; e < t.bones.length; e++) { let i = t.bones[e], s; if (!i.parent) s = new wi(i, this, null); else { let a = this.bones[i.parent.index]; s = new wi(i, this, a), a.children.push(s) } this.bones.push(s) } this.slots = new Array, this.drawOrder = new Array; for (let e = 0; e < t.slots.length; e++) { let i = t.slots[e], s = this.bones[i.boneData.index], a = new ls(i, s); this.slots.push(a), this.drawOrder.push(a) } this.ikConstraints = new Array; for (let e = 0; e < t.ikConstraints.length; e++) { let i = t.ikConstraints[e]; this.ikConstraints.push(new ns(i, this)) } this.transformConstraints = new Array; for (let e = 0; e < t.transformConstraints.length; e++) { let i = t.transformConstraints[e]; this.transformConstraints.push(new os(i, this)) } this.pathConstraints = new Array; for (let e = 0; e < t.pathConstraints.length; e++) { let i = t.pathConstraints[e]; this.pathConstraints.push(new ae(i, this)) } this.color = new O(1, 1, 1, 1), this.updateCache() } updateCache() { let t = this._updateCache; t.length = 0; let e = this.bones; for (let o = 0, l = e.length; o < l; o++) { let c = e[o]; c.sorted = c.data.skinRequired, c.active = !c.sorted } if (this.skin) { let o = this.skin.bones; for (let l = 0, c = this.skin.bones.length; l < c; l++) { let u = this.bones[o[l].index]; do u.sorted = !1, u.active = !0, u = u.parent; while (u) } } let i = this.ikConstraints, s = this.transformConstraints, a = this.pathConstraints, d = i.length, n = s.length, r = a.length, h = d + n + r; t: for (let o = 0; o < h; o++) { for (let l = 0; l < d; l++) { let c = i[l]; if (c.data.order == o) { this.sortIkConstraint(c); continue t } } for (let l = 0; l < n; l++) { let c = s[l]; if (c.data.order == o) { this.sortTransformConstraint(c); continue t } } for (let l = 0; l < r; l++) { let c = a[l]; if (c.data.order == o) { this.sortPathConstraint(c); continue t } } } for (let o = 0, l = e.length; o < l; o++)this.sortBone(e[o]) } sortIkConstraint(t) { if (t.active = t.target.isActive() && (!t.data.skinRequired || this.skin && V.contains(this.skin.constraints, t.data, !0)), !t.active) return; let e = t.target; this.sortBone(e); let i = t.bones, s = i[0]; if (this.sortBone(s), i.length == 1) this._updateCache.push(t), this.sortReset(s.children); else { let a = i[i.length - 1]; this.sortBone(a), this._updateCache.push(t), this.sortReset(s.children), a.sorted = !0 } } sortPathConstraint(t) { if (t.active = t.target.bone.isActive() && (!t.data.skinRequired || this.skin && V.contains(this.skin.constraints, t.data, !0)), !t.active) return; let e = t.target, i = e.data.index, s = e.bone; this.skin && this.sortPathConstraintAttachment(this.skin, i, s), this.data.defaultSkin && this.data.defaultSkin != this.skin && this.sortPathConstraintAttachment(this.data.defaultSkin, i, s); for (let r = 0, h = this.data.skins.length; r < h; r++)this.sortPathConstraintAttachment(this.data.skins[r], i, s); let a = e.getAttachment(); a instanceof te && this.sortPathConstraintAttachmentWith(a, s); let d = t.bones, n = d.length; for (let r = 0; r < n; r++)this.sortBone(d[r]); this._updateCache.push(t); for (let r = 0; r < n; r++)this.sortReset(d[r].children); for (let r = 0; r < n; r++)d[r].sorted = !0 } sortTransformConstraint(t) { if (t.active = t.target.isActive() && (!t.data.skinRequired || this.skin && V.contains(this.skin.constraints, t.data, !0)), !t.active) return; this.sortBone(t.target); let e = t.bones, i = e.length; if (t.data.local) for (let s = 0; s < i; s++) { let a = e[s]; this.sortBone(a.parent), this.sortBone(a) } else for (let s = 0; s < i; s++)this.sortBone(e[s]); this._updateCache.push(t); for (let s = 0; s < i; s++)this.sortReset(e[s].children); for (let s = 0; s < i; s++)e[s].sorted = !0 } sortPathConstraintAttachment(t, e, i) { let s = t.attachments[e]; if (!!s) for (let a in s) this.sortPathConstraintAttachmentWith(s[a], i) } sortPathConstraintAttachmentWith(t, e) { if (!(t instanceof te)) return; let i = t.bones; if (!i) this.sortBone(e); else { let s = this.bones; for (let a = 0, d = i.length; a < d;) { let n = i[a++]; for (n += a; a < n;)this.sortBone(s[i[a++]]) } } } sortBone(t) { if (t.sorted) return; let e = t.parent; e && this.sortBone(e), t.sorted = !0, this._updateCache.push(t) } sortReset(t) { for (let e = 0, i = t.length; e < i; e++) { let s = t[e]; !s.active || (s.sorted && this.sortReset(s.children), s.sorted = !1) } } updateWorldTransform() { let t = this.bones; for (let i = 0, s = t.length; i < s; i++) { let a = t[i]; a.ax = a.x, a.ay = a.y, a.arotation = a.rotation, a.ascaleX = a.scaleX, a.ascaleY = a.scaleY, a.ashearX = a.shearX, a.ashearY = a.shearY } let e = this._updateCache; for (let i = 0, s = e.length; i < s; i++)e[i].update() } updateWorldTransformWith(t) { let e = this.getRootBone(), i = t.a, s = t.b, a = t.c, d = t.d; e.worldX = i * this.x + s * this.y + t.worldX, e.worldY = a * this.x + d * this.y + t.worldY; let n = e.rotation + 90 + e.shearY, r = F.cosDeg(e.rotation + e.shearX) * e.scaleX, h = F.cosDeg(n) * e.scaleY, o = F.sinDeg(e.rotation + e.shearX) * e.scaleX, l = F.sinDeg(n) * e.scaleY; e.a = (i * r + s * o) * this.scaleX, e.b = (i * h + s * l) * this.scaleX, e.c = (a * r + d * o) * this.scaleY, e.d = (a * h + d * l) * this.scaleY; let c = this._updateCache; for (let u = 0, m = c.length; u < m; u++) { let f = c[u]; f != e && f.update() } } setToSetupPose() { this.setBonesToSetupPose(), this.setSlotsToSetupPose() } setBonesToSetupPose() { let t = this.bones; for (let a = 0, d = t.length; a < d; a++)t[a].setToSetupPose(); let e = this.ikConstraints; for (let a = 0, d = e.length; a < d; a++) { let n = e[a]; n.mix = n.data.mix, n.softness = n.data.softness, n.bendDirection = n.data.bendDirection, n.compress = n.data.compress, n.stretch = n.data.stretch } let i = this.transformConstraints; for (let a = 0, d = i.length; a < d; a++) { let n = i[a], r = n.data; n.mixRotate = r.mixRotate, n.mixX = r.mixX, n.mixY = r.mixY, n.mixScaleX = r.mixScaleX, n.mixScaleY = r.mixScaleY, n.mixShearY = r.mixShearY } let s = this.pathConstraints; for (let a = 0, d = s.length; a < d; a++) { let n = s[a], r = n.data; n.position = r.position, n.spacing = r.spacing, n.mixRotate = r.mixRotate, n.mixX = r.mixX, n.mixY = r.mixY } } setSlotsToSetupPose() { let t = this.slots; V.arrayCopy(t, 0, this.drawOrder, 0, t.length); for (let e = 0, i = t.length; e < i; e++)t[e].setToSetupPose() } getRootBone() { return this.bones.length == 0 ? null : this.bones[0] } findBone(t) { if (!t) throw new Error("boneName cannot be null."); let e = this.bones; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.data.name == t) return a } return null } findSlot(t) { if (!t) throw new Error("slotName cannot be null."); let e = this.slots; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.data.name == t) return a } return null } setSkinByName(t) { let e = this.data.findSkin(t); if (!e) throw new Error("Skin not found: " + t); this.setSkin(e) } setSkin(t) { if (t != this.skin) { if (t) if (this.skin) t.attachAll(this, this.skin); else { let e = this.slots; for (let i = 0, s = e.length; i < s; i++) { let a = e[i], d = a.data.attachmentName; if (d) { let n = t.getAttachment(i, d); n && a.setAttachment(n) } } } this.skin = t, this.updateCache() } } getAttachmentByName(t, e) { return this.getAttachment(this.data.findSlot(t).index, e) } getAttachment(t, e) { if (!e) throw new Error("attachmentName cannot be null."); if (this.skin) { let i = this.skin.getAttachment(t, e); if (i) return i } return this.data.defaultSkin ? this.data.defaultSkin.getAttachment(t, e) : null } setAttachment(t, e) { if (!t) throw new Error("slotName cannot be null."); let i = this.slots; for (let s = 0, a = i.length; s < a; s++) { let d = i[s]; if (d.data.name == t) { let n = null; if (e && (n = this.getAttachment(s, e), !n)) throw new Error("Attachment not found: " + e + ", for slot: " + t); d.setAttachment(n); return } } throw new Error("Slot not found: " + t) } findIkConstraint(t) { if (!t) throw new Error("constraintName cannot be null."); let e = this.ikConstraints; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.data.name == t) return a } return null } findTransformConstraint(t) { if (!t) throw new Error("constraintName cannot be null."); let e = this.transformConstraints; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.data.name == t) return a } return null } findPathConstraint(t) { if (!t) throw new Error("constraintName cannot be null."); let e = this.pathConstraints; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.data.name == t) return a } return null } getBoundsRect() { let t = new Yt, e = new Yt; return this.getBounds(t, e), { x: t.x, y: t.y, width: e.x, height: e.y } } getBounds(t, e, i = new Array(2)) { if (!t) throw new Error("offset cannot be null."); if (!e) throw new Error("size cannot be null."); let s = this.drawOrder, a = Number.POSITIVE_INFINITY, d = Number.POSITIVE_INFINITY, n = Number.NEGATIVE_INFINITY, r = Number.NEGATIVE_INFINITY; for (let h = 0, o = s.length; h < o; h++) { let l = s[h]; if (!l.bone.active) continue; let c = 0, u = null, m = l.getAttachment(); if (m instanceof at) c = 8, u = V.setArraySize(i, c, 0), m.computeWorldVertices(l.bone, u, 0, 2); else if (m instanceof jt) { let f = m; c = f.worldVerticesLength, u = V.setArraySize(i, c, 0), f.computeWorldVertices(l, 0, c, u, 0, 2) } if (u) for (let f = 0, g = u.length; f < g; f += 2) { let x = u[f], v = u[f + 1]; a = Math.min(a, x), d = Math.min(d, v), n = Math.max(n, x), r = Math.max(r, v) } } t.set(a, d), e.set(n - a, r - d) } update(t) { this.time += t } }, Si = class { constructor() { this.name = null, this.bones = new Array, this.slots = new Array, this.skins = new Array, this.defaultSkin = null, this.events = new Array, this.animations = new Array, this.ikConstraints = new Array, this.transformConstraints = new Array, this.pathConstraints = new Array, this.x = 0, this.y = 0, this.width = 0, this.height = 0, this.version = null, this.hash = null, this.fps = 0, this.imagesPath = null, this.audioPath = null } findBone(t) { if (!t) throw new Error("boneName cannot be null."); let e = this.bones; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.name == t) return a } return null } findSlot(t) { if (!t) throw new Error("slotName cannot be null."); let e = this.slots; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.name == t) return a } return null } findSkin(t) { if (!t) throw new Error("skinName cannot be null."); let e = this.skins; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.name == t) return a } return null } findEvent(t) { if (!t) throw new Error("eventDataName cannot be null."); let e = this.events; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.name == t) return a } return null } findAnimation(t) { if (!t) throw new Error("animationName cannot be null."); let e = this.animations; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.name == t) return a } return null } findIkConstraint(t) { if (!t) throw new Error("constraintName cannot be null."); let e = this.ikConstraints; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.name == t) return a } return null } findTransformConstraint(t) { if (!t) throw new Error("constraintName cannot be null."); let e = this.transformConstraints; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.name == t) return a } return null } findPathConstraint(t) { if (!t) throw new Error("constraintName cannot be null."); let e = this.pathConstraints; for (let i = 0, s = e.length; i < s; i++) { let a = e[i]; if (a.name == t) return a } return null } }, Ci = class { constructor(t = 0, e = null, i = null) { this.slotIndex = t, this.name = e, this.attachment = i } }, Ee = class { constructor(t) { if (this.name = null, this.attachments = new Array, this.bones = Array(), this.constraints = new Array, !t) throw new Error("name cannot be null."); this.name = t } setAttachment(t, e, i) { if (!i) throw new Error("attachment cannot be null."); let s = this.attachments; t >= s.length && (s.length = t + 1), s[t] || (s[t] = {}), s[t][e] = i } addSkin(t) { for (let s = 0; s < t.bones.length; s++) { let a = t.bones[s], d = !1; for (let n = 0; n < this.bones.length; n++)if (this.bones[n] == a) { d = !0; break } d || this.bones.push(a) } for (let s = 0; s < t.constraints.length; s++) { let a = t.constraints[s], d = !1; for (let n = 0; n < this.constraints.length; n++)if (this.constraints[n] == a) { d = !0; break } d || this.constraints.push(a) } let e = t.getAttachments(); for (let s = 0; s < e.length; s++) { var i = e[s]; this.setAttachment(i.slotIndex, i.name, i.attachment) } } copySkin(t) { for (let s = 0; s < t.bones.length; s++) { let a = t.bones[s], d = !1; for (let n = 0; n < this.bones.length; n++)if (this.bones[n] == a) { d = !0; break } d || this.bones.push(a) } for (let s = 0; s < t.constraints.length; s++) { let a = t.constraints[s], d = !1; for (let n = 0; n < this.constraints.length; n++)if (this.constraints[n] == a) { d = !0; break } d || this.constraints.push(a) } let e = t.getAttachments(); for (let s = 0; s < e.length; s++) { var i = e[s]; !i.attachment || (i.attachment instanceof jt ? (i.attachment = i.attachment.newLinkedMesh(), this.setAttachment(i.slotIndex, i.name, i.attachment)) : (i.attachment = i.attachment.copy(), this.setAttachment(i.slotIndex, i.name, i.attachment))) } } getAttachment(t, e) { let i = this.attachments[t]; return i ? i[e] : null } removeAttachment(t, e) { let i = this.attachments[t]; i && (i[e] = null) } getAttachments() { let t = new Array; for (var e = 0; e < this.attachments.length; e++) { let i = this.attachments[e]; if (i) for (let s in i) { let a = i[s]; a && t.push(new Ci(e, s, a)) } } return t } getAttachmentsForSlot(t, e) { let i = this.attachments[t]; if (i) for (let s in i) { let a = i[s]; a && e.push(new Ci(t, s, a)) } } clear() { this.attachments.length = 0, this.bones.length = 0, this.constraints.length = 0 } attachAll(t, e) { let i = 0; for (let s = 0; s < t.slots.length; s++) { let a = t.slots[s], d = a.getAttachment(); if (d && i < e.attachments.length) { let n = e.attachments[i]; for (let r in n) { let h = n[r]; if (d == h) { let o = this.getAttachment(i, r); o && a.setAttachment(o); break } } } i++ } } }, Ti = class { constructor(t, e, i) { if (this.index = 0, this.name = null, this.boneData = null, this.color = new O(1, 1, 1, 1), this.darkColor = null, this.attachmentName = null, this.blendMode = null, t < 0) throw new Error("index must be >= 0."); if (!e) throw new Error("name cannot be null."); if (!i) throw new Error("boneData cannot be null."); this.index = t, this.name = e, this.boneData = i } }, yt; (function (t) { t[t.Normal = 0] = "Normal", t[t.Additive = 1] = "Additive", t[t.Multiply = 2] = "Multiply", t[t.Screen = 3] = "Screen" })(yt || (yt = {})); var ki = class extends Me { constructor(t) { super(t, 0, !1); this.bones = new Array, this.target = null, this.mixRotate = 0, this.mixX = 0, this.mixY = 0, this.mixScaleX = 0, this.mixScaleY = 0, this.mixShearY = 0, this.offsetRotation = 0, this.offsetX = 0, this.offsetY = 0, this.offsetScaleX = 0, this.offsetScaleY = 0, this.offsetShearY = 0, this.relative = !1, this.local = !1 } }, ds = class { constructor(t) { this.scale = 1, this.attachmentLoader = null, this.linkedMeshes = new Array, this.attachmentLoader = t } readSkeletonData(t) { let e = this.scale, i = new Si; i.name = ""; let s = new cs(t), a = s.readInt32(), d = s.readInt32(); i.hash = d == 0 && a == 0 ? null : d.toString(16) + a.toString(16), i.version = s.readString(), i.x = s.readFloat(), i.y = s.readFloat(), i.width = s.readFloat(), i.height = s.readFloat(); let n = s.readBoolean(); n && (i.fps = s.readFloat(), i.imagesPath = s.readString(), i.audioPath = s.readString()); let r = 0; r = s.readInt(!0); for (let o = 0; o < r; o++)s.strings.push(s.readString()); r = s.readInt(!0); for (let o = 0; o < r; o++) { let l = s.readString(), c = o == 0 ? null : i.bones[s.readInt(!0)], u = new xi(o, l, c); u.rotation = s.readFloat(), u.x = s.readFloat() * e, u.y = s.readFloat() * e, u.scaleX = s.readFloat(), u.scaleY = s.readFloat(), u.shearX = s.readFloat(), u.shearY = s.readFloat(), u.length = s.readFloat() * e, u.transformMode = s.readInt(!0), u.skinRequired = s.readBoolean(), n && O.rgba8888ToColor(u.color, s.readInt32()), i.bones.push(u) } r = s.readInt(!0); for (let o = 0; o < r; o++) { let l = s.readString(), c = i.bones[s.readInt(!0)], u = new Ti(o, l, c); O.rgba8888ToColor(u.color, s.readInt32()); let m = s.readInt32(); m != -1 && O.rgb888ToColor(u.darkColor = new O, m), u.attachmentName = s.readStringRef(), u.blendMode = s.readInt(!0), i.slots.push(u) } r = s.readInt(!0); for (let o = 0, l; o < r; o++) { let c = new yi(s.readString()); c.order = s.readInt(!0), c.skinRequired = s.readBoolean(), l = s.readInt(!0); for (let u = 0; u < l; u++)c.bones.push(i.bones[s.readInt(!0)]); c.target = i.bones[s.readInt(!0)], c.mix = s.readFloat(), c.softness = s.readFloat() * e, c.bendDirection = s.readByte(), c.compress = s.readBoolean(), c.stretch = s.readBoolean(), c.uniform = s.readBoolean(), i.ikConstraints.push(c) } r = s.readInt(!0); for (let o = 0, l; o < r; o++) { let c = new ki(s.readString()); c.order = s.readInt(!0), c.skinRequired = s.readBoolean(), l = s.readInt(!0); for (let u = 0; u < l; u++)c.bones.push(i.bones[s.readInt(!0)]); c.target = i.bones[s.readInt(!0)], c.local = s.readBoolean(), c.relative = s.readBoolean(), c.offsetRotation = s.readFloat(), c.offsetX = s.readFloat() * e, c.offsetY = s.readFloat() * e, c.offsetScaleX = s.readFloat(), c.offsetScaleY = s.readFloat(), c.offsetShearY = s.readFloat(), c.mixRotate = s.readFloat(), c.mixX = s.readFloat(), c.mixY = s.readFloat(), c.mixScaleX = s.readFloat(), c.mixScaleY = s.readFloat(), c.mixShearY = s.readFloat(), i.transformConstraints.push(c) } r = s.readInt(!0); for (let o = 0, l; o < r; o++) { let c = new Ai(s.readString()); c.order = s.readInt(!0), c.skinRequired = s.readBoolean(), l = s.readInt(!0); for (let u = 0; u < l; u++)c.bones.push(i.bones[s.readInt(!0)]); c.target = i.slots[s.readInt(!0)], c.positionMode = s.readInt(!0), c.spacingMode = s.readInt(!0), c.rotateMode = s.readInt(!0), c.offsetRotation = s.readFloat(), c.position = s.readFloat(), c.positionMode == Dt.Fixed && (c.position *= e), c.spacing = s.readFloat(), (c.spacingMode == gt.Length || c.spacingMode == gt.Fixed) && (c.spacing *= e), c.mixRotate = s.readFloat(), c.mixX = s.readFloat(), c.mixY = s.readFloat(), i.pathConstraints.push(c) } let h = this.readSkin(s, i, !0, n); h && (i.defaultSkin = h, i.skins.push(h)); { let o = i.skins.length; for (V.setArraySize(i.skins, r = o + s.readInt(!0)); o < r; o++)i.skins[o] = this.readSkin(s, i, !1, n) } r = this.linkedMeshes.length; for (let o = 0; o < r; o++) { let l = this.linkedMeshes[o], u = (l.skin ? i.findSkin(l.skin) : i.defaultSkin).getAttachment(l.slotIndex, l.parent); l.mesh.deformAttachment = l.inheritDeform ? u : l.mesh, l.mesh.setParentMesh(u), l.mesh.updateUVs() } this.linkedMeshes.length = 0, r = s.readInt(!0); for (let o = 0; o < r; o++) { let l = new vi(s.readStringRef()); l.intValue = s.readInt(!1), l.floatValue = s.readFloat(), l.stringValue = s.readString(), l.audioPath = s.readString(), l.audioPath && (l.volume = s.readFloat(), l.balance = s.readFloat()), i.events.push(l) } r = s.readInt(!0); for (let o = 0; o < r; o++)i.animations.push(this.readAnimation(s, s.readString(), i)); return i } readSkin(t, e, i, s) { let a = null, d = 0; if (i) { if (d = t.readInt(!0), d == 0) return null; a = new Ee("default") } else { a = new Ee(t.readStringRef()), a.bones.length = t.readInt(!0); for (let n = 0, r = a.bones.length; n < r; n++)a.bones[n] = e.bones[t.readInt(!0)]; for (let n = 0, r = t.readInt(!0); n < r; n++)a.constraints.push(e.ikConstraints[t.readInt(!0)]); for (let n = 0, r = t.readInt(!0); n < r; n++)a.constraints.push(e.transformConstraints[t.readInt(!0)]); for (let n = 0, r = t.readInt(!0); n < r; n++)a.constraints.push(e.pathConstraints[t.readInt(!0)]); d = t.readInt(!0) } for (let n = 0; n < d; n++) { let r = t.readInt(!0); for (let h = 0, o = t.readInt(!0); h < o; h++) { let l = t.readStringRef(), c = this.readAttachment(t, e, a, r, l, s); c && a.setAttachment(r, l, c) } } return a } readAttachment(t, e, i, s, a, d) { let n = this.scale, r = t.readStringRef(); switch (r || (r = a), t.readByte()) { case zt.Region: { let h = t.readStringRef(), o = t.readFloat(), l = t.readFloat(), c = t.readFloat(), u = t.readFloat(), m = t.readFloat(), f = t.readFloat(), g = t.readFloat(), x = t.readInt32(); h || (h = r); let v = this.attachmentLoader.newRegionAttachment(i, r, h); return v ? (v.path = h, v.x = l * n, v.y = c * n, v.scaleX = u, v.scaleY = m, v.rotation = o, v.width = f * n, v.height = g * n, O.rgba8888ToColor(v.color, x), v.updateOffset(), v) : null } case zt.BoundingBox: { let h = t.readInt(!0), o = this.readVertices(t, h), l = d ? t.readInt32() : 0, c = this.attachmentLoader.newBoundingBoxAttachment(i, r); return c ? (c.worldVerticesLength = h << 1, c.vertices = o.vertices, c.bones = o.bones, d && O.rgba8888ToColor(c.color, l), c) : null } case zt.Mesh: { let h = t.readStringRef(), o = t.readInt32(), l = t.readInt(!0), c = this.readFloatArray(t, l << 1, 1), u = this.readShortArray(t), m = this.readVertices(t, l), f = t.readInt(!0), g = null, x = 0, v = 0; d && (g = this.readShortArray(t), x = t.readFloat(), v = t.readFloat()), h || (h = r); let p = this.attachmentLoader.newMeshAttachment(i, r, h); return p ? (p.path = h, O.rgba8888ToColor(p.color, o), p.bones = m.bones, p.vertices = m.vertices, p.worldVerticesLength = l << 1, p.triangles = u, p.regionUVs = c, p.updateUVs(), p.hullLength = f << 1, d && (p.edges = g, p.width = x * n, p.height = v * n), p) : null } case zt.LinkedMesh: { let h = t.readStringRef(), o = t.readInt32(), l = t.readStringRef(), c = t.readStringRef(), u = t.readBoolean(), m = 0, f = 0; d && (m = t.readFloat(), f = t.readFloat()), h || (h = r); let g = this.attachmentLoader.newMeshAttachment(i, r, h); return g ? (g.path = h, O.rgba8888ToColor(g.color, o), d && (g.width = m * n, g.height = f * n), this.linkedMeshes.push(new zs(g, l, s, c, u)), g) : null } case zt.Path: { let h = t.readBoolean(), o = t.readBoolean(), l = t.readInt(!0), c = this.readVertices(t, l), u = V.newArray(l / 3, 0); for (let g = 0, x = u.length; g < x; g++)u[g] = t.readFloat() * n; let m = d ? t.readInt32() : 0, f = this.attachmentLoader.newPathAttachment(i, r); return f ? (f.closed = h, f.constantSpeed = o, f.worldVerticesLength = l << 1, f.vertices = c.vertices, f.bones = c.bones, f.lengths = u, d && O.rgba8888ToColor(f.color, m), f) : null } case zt.Point: { let h = t.readFloat(), o = t.readFloat(), l = t.readFloat(), c = d ? t.readInt32() : 0, u = this.attachmentLoader.newPointAttachment(i, r); return u ? (u.x = o * n, u.y = l * n, u.rotation = h, d && O.rgba8888ToColor(u.color, c), u) : null } case zt.Clipping: { let h = t.readInt(!0), o = t.readInt(!0), l = this.readVertices(t, o), c = d ? t.readInt32() : 0, u = this.attachmentLoader.newClippingAttachment(i, r); return u ? (u.endSlot = e.slots[h], u.worldVerticesLength = o << 1, u.vertices = l.vertices, u.bones = l.bones, d && O.rgba8888ToColor(u.color, c), u) : null } }return null } readVertices(t, e) { let i = this.scale, s = e << 1, a = new Ws; if (!t.readBoolean()) return a.vertices = this.readFloatArray(t, s, i), a; let d = new Array, n = new Array; for (let r = 0; r < e; r++) { let h = t.readInt(!0); n.push(h); for (let o = 0; o < h; o++)n.push(t.readInt(!0)), d.push(t.readFloat() * i), d.push(t.readFloat() * i), d.push(t.readFloat()) } return a.vertices = V.toFloatArray(d), a.bones = n, a } readFloatArray(t, e, i) { let s = new Array(e); if (i == 1) for (let a = 0; a < e; a++)s[a] = t.readFloat(); else for (let a = 0; a < e; a++)s[a] = t.readFloat() * i; return s } readShortArray(t) { let e = t.readInt(!0), i = new Array(e); for (let s = 0; s < e; s++)i[s] = t.readShort(); return i } readAnimation(t, e, i) { t.readInt(!0); let s = new Array, a = this.scale, d = new O, n = new O; for (let l = 0, c = t.readInt(!0); l < c; l++) { let u = t.readInt(!0); for (let m = 0, f = t.readInt(!0); m < f; m++) { let g = t.readByte(), x = t.readInt(!0), v = x - 1; switch (g) { case tr: { let p = new Kt(x, u); for (let b = 0; b < x; b++)p.setFrame(b, t.readFloat(), t.readStringRef()); s.push(p); break } case er: { let p = t.readInt(!0), b = new Qe(x, p, u), w = t.readFloat(), y = t.readUnsignedByte() / 255, T = t.readUnsignedByte() / 255, A = t.readUnsignedByte() / 255, E = t.readUnsignedByte() / 255; for (let I = 0, Y = 0; b.setFrame(I, w, y, T, A, E), I != v; I++) { let P = t.readFloat(), X = t.readUnsignedByte() / 255, B = t.readUnsignedByte() / 255, C = t.readUnsignedByte() / 255, k = t.readUnsignedByte() / 255; switch (t.readByte()) { case Lt: b.setStepped(I); break; case Xt: nt(t, b, Y++, I, 0, w, P, y, X, 1), nt(t, b, Y++, I, 1, w, P, T, B, 1), nt(t, b, Y++, I, 2, w, P, A, C, 1), nt(t, b, Y++, I, 3, w, P, E, k, 1) }w = P, y = X, T = B, A = C, E = k } s.push(b); break } case ir: { let p = t.readInt(!0), b = new $e(x, p, u), w = t.readFloat(), y = t.readUnsignedByte() / 255, T = t.readUnsignedByte() / 255, A = t.readUnsignedByte() / 255; for (let E = 0, I = 0; b.setFrame(E, w, y, T, A), E != v; E++) { let Y = t.readFloat(), P = t.readUnsignedByte() / 255, X = t.readUnsignedByte() / 255, B = t.readUnsignedByte() / 255; switch (t.readByte()) { case Lt: b.setStepped(E); break; case Xt: nt(t, b, I++, E, 0, w, Y, y, P, 1), nt(t, b, I++, E, 1, w, Y, T, X, 1), nt(t, b, I++, E, 2, w, Y, A, B, 1) }w = Y, y = P, T = X, A = B } s.push(b); break } case sr: { let p = t.readInt(!0), b = new ei(x, p, u), w = t.readFloat(), y = t.readUnsignedByte() / 255, T = t.readUnsignedByte() / 255, A = t.readUnsignedByte() / 255, E = t.readUnsignedByte() / 255, I = t.readUnsignedByte() / 255, Y = t.readUnsignedByte() / 255, P = t.readUnsignedByte() / 255; for (let X = 0, B = 0; b.setFrame(X, w, y, T, A, E, I, Y, P), X != v; X++) { let C = t.readFloat(), k = t.readUnsignedByte() / 255, D = t.readUnsignedByte() / 255, R = t.readUnsignedByte() / 255, L = t.readUnsignedByte() / 255, st = t.readUnsignedByte() / 255, ct = t.readUnsignedByte() / 255, ht = t.readUnsignedByte() / 255; switch (t.readByte()) { case Lt: b.setStepped(X); break; case Xt: nt(t, b, B++, X, 0, w, C, y, k, 1), nt(t, b, B++, X, 1, w, C, T, D, 1), nt(t, b, B++, X, 2, w, C, A, R, 1), nt(t, b, B++, X, 3, w, C, E, L, 1), nt(t, b, B++, X, 4, w, C, I, st, 1), nt(t, b, B++, X, 5, w, C, Y, ct, 1), nt(t, b, B++, X, 6, w, C, P, ht, 1) }w = C, y = k, T = D, A = R, E = L, I = st, Y = ct, P = ht } s.push(b); break } case rr: { let p = t.readInt(!0), b = new ii(x, p, u), w = t.readFloat(), y = t.readUnsignedByte() / 255, T = t.readUnsignedByte() / 255, A = t.readUnsignedByte() / 255, E = t.readUnsignedByte() / 255, I = t.readUnsignedByte() / 255, Y = t.readUnsignedByte() / 255; for (let P = 0, X = 0; b.setFrame(P, w, y, T, A, E, I, Y), P != v; P++) { let B = t.readFloat(), C = t.readUnsignedByte() / 255, k = t.readUnsignedByte() / 255, D = t.readUnsignedByte() / 255, R = t.readUnsignedByte() / 255, L = t.readUnsignedByte() / 255, st = t.readUnsignedByte() / 255; switch (t.readByte()) { case Lt: b.setStepped(P); break; case Xt: nt(t, b, X++, P, 0, w, B, y, C, 1), nt(t, b, X++, P, 1, w, B, T, k, 1), nt(t, b, X++, P, 2, w, B, A, D, 1), nt(t, b, X++, P, 3, w, B, E, R, 1), nt(t, b, X++, P, 4, w, B, I, L, 1), nt(t, b, X++, P, 5, w, B, Y, st, 1) }w = B, y = C, T = k, A = D, E = R, I = L, Y = st } s.push(b); break } case ar: { let p = new ti(x, t.readInt(!0), u), b = t.readFloat(), w = t.readUnsignedByte() / 255; for (let y = 0, T = 0; p.setFrame(y, b, w), y != v; y++) { let A = t.readFloat(), E = t.readUnsignedByte() / 255; switch (t.readByte()) { case Lt: p.setStepped(y); break; case Xt: nt(t, p, T++, y, 0, b, A, w, E, 1) }b = A, w = E } s.push(p); break } } } } for (let l = 0, c = t.readInt(!0); l < c; l++) { let u = t.readInt(!0); for (let m = 0, f = t.readInt(!0); m < f; m++) { let g = t.readByte(), x = t.readInt(!0), v = t.readInt(!0); switch (g) { case _s: s.push(Wt(t, new fe(x, v, u), 1)); break; case qs: s.push(Mi(t, new We(x, v, u), a)); break; case js: s.push(Wt(t, new _e(x, v, u), a)); break; case Hs: s.push(Wt(t, new qe(x, v, u), a)); break; case Gs: s.push(Mi(t, new je(x, v, u), 1)); break; case Zs: s.push(Wt(t, new He(x, v, u), 1)); break; case Js: s.push(Wt(t, new Ge(x, v, u), 1)); break; case Ks: s.push(Mi(t, new Ze(x, v, u), 1)); break; case Qs: s.push(Wt(t, new Je(x, v, u), 1)); break; case $s: s.push(Wt(t, new Ke(x, v, u), 1)) } } } for (let l = 0, c = t.readInt(!0); l < c; l++) { let u = t.readInt(!0), m = t.readInt(!0), f = m - 1, g = new ri(m, t.readInt(!0), u), x = t.readFloat(), v = t.readFloat(), p = t.readFloat() * a; for (let b = 0, w = 0; g.setFrame(b, x, v, p, t.readByte(), t.readBoolean(), t.readBoolean()), b != f; b++) { let y = t.readFloat(), T = t.readFloat(), A = t.readFloat() * a; switch (t.readByte()) { case Lt: g.setStepped(b); break; case Xt: nt(t, g, w++, b, 0, x, y, v, T, 1), nt(t, g, w++, b, 1, x, y, p, A, a) }x = y, v = T, p = A } s.push(g) } for (let l = 0, c = t.readInt(!0); l < c; l++) { let u = t.readInt(!0), m = t.readInt(!0), f = m - 1, g = new ai(m, t.readInt(!0), u), x = t.readFloat(), v = t.readFloat(), p = t.readFloat(), b = t.readFloat(), w = t.readFloat(), y = t.readFloat(), T = t.readFloat(); for (let A = 0, E = 0; g.setFrame(A, x, v, p, b, w, y, T), A != f; A++) { let I = t.readFloat(), Y = t.readFloat(), P = t.readFloat(), X = t.readFloat(), B = t.readFloat(), C = t.readFloat(), k = t.readFloat(); switch (t.readByte()) { case Lt: g.setStepped(A); break; case Xt: nt(t, g, E++, A, 0, x, I, v, Y, 1), nt(t, g, E++, A, 1, x, I, p, P, 1), nt(t, g, E++, A, 2, x, I, b, X, 1), nt(t, g, E++, A, 3, x, I, w, B, 1), nt(t, g, E++, A, 4, x, I, y, C, 1), nt(t, g, E++, A, 5, x, I, T, k, 1) }x = I, v = Y, p = P, b = X, w = B, y = C, T = k } s.push(g) } for (let l = 0, c = t.readInt(!0); l < c; l++) { let u = t.readInt(!0), m = i.pathConstraints[u]; for (let f = 0, g = t.readInt(!0); f < g; f++)switch (t.readByte()) { case nr: s.push(Wt(t, new ni(t.readInt(!0), t.readInt(!0), u), m.positionMode == Dt.Fixed ? a : 1)); break; case lr: s.push(Wt(t, new li(t.readInt(!0), t.readInt(!0), u), m.spacingMode == gt.Length || m.spacingMode == gt.Fixed ? a : 1)); break; case or: let x = new oi(t.readInt(!0), t.readInt(!0), u), v = t.readFloat(), p = t.readFloat(), b = t.readFloat(), w = t.readFloat(); for (let y = 0, T = 0, A = x.getFrameCount() - 1; x.setFrame(y, v, p, b, w), y != A; y++) { let E = t.readFloat(), I = t.readFloat(), Y = t.readFloat(), P = t.readFloat(); switch (t.readByte()) { case Lt: x.setStepped(y); break; case Xt: nt(t, x, T++, y, 0, v, E, p, I, 1), nt(t, x, T++, y, 1, v, E, b, Y, 1), nt(t, x, T++, y, 2, v, E, w, P, 1) }v = E, p = I, b = Y, w = P } s.push(x) } } for (let l = 0, c = t.readInt(!0); l < c; l++) { let u = i.skins[t.readInt(!0)]; for (let m = 0, f = t.readInt(!0); m < f; m++) { let g = t.readInt(!0); for (let x = 0, v = t.readInt(!0); x < v; x++) { let p = t.readStringRef(), b = u.getAttachment(g, p), w = b.bones, y = b.vertices, T = w ? y.length / 3 * 2 : y.length, A = t.readInt(!0), E = A - 1, I = t.readInt(!0), Y = new si(A, I, g, b), P = t.readFloat(); for (let X = 0, B = 0; ; X++) { let C, k = t.readInt(!0); if (k == 0) C = w ? V.newFloatArray(T) : y; else { C = V.newFloatArray(T); let R = t.readInt(!0); if (k += R, a == 1) for (let L = R; L < k; L++)C[L] = t.readFloat(); else for (let L = R; L < k; L++)C[L] = t.readFloat() * a; if (!w) for (let L = 0, st = C.length; L < st; L++)C[L] += y[L] } if (Y.setFrame(X, P, C), X == E) break; let D = t.readFloat(); switch (t.readByte()) { case Lt: Y.setStepped(X); break; case Xt: nt(t, Y, B++, X, 0, P, D, 0, 1, 1) }P = D } s.push(Y) } } } let r = t.readInt(!0); if (r > 0) { let l = new Qt(r), c = i.slots.length; for (let u = 0; u < r; u++) { let m = t.readFloat(), f = t.readInt(!0), g = V.newArray(c, 0); for (let b = c - 1; b >= 0; b--)g[b] = -1; let x = V.newArray(c - f, 0), v = 0, p = 0; for (let b = 0; b < f; b++) { let w = t.readInt(!0); for (; v != w;)x[p++] = v++; g[v + t.readInt(!0)] = v++ } for (; v < c;)x[p++] = v++; for (let b = c - 1; b >= 0; b--)g[b] == -1 && (g[b] = x[--p]); l.setFrame(u, m, g) } s.push(l) } let h = t.readInt(!0); if (h > 0) { let l = new me(h); for (let c = 0; c < h; c++) { let u = t.readFloat(), m = i.events[t.readInt(!0)], f = new bi(u, m); f.intValue = t.readInt(!1), f.floatValue = t.readFloat(), f.stringValue = t.readBoolean() ? t.readString() : m.stringValue, f.data.audioPath && (f.volume = t.readFloat(), f.balance = t.readFloat()), l.setFrame(c, f) } s.push(l) } let o = 0; for (let l = 0, c = s.length; l < c; l++)o = Math.max(o, s[l].getDuration()); return new ye(e, s, o) } }, cs = class { constructor(t, e = new Array, i = 0, s = new DataView(t.buffer)) { this.strings = e, this.index = i, this.buffer = s } readByte() { return this.buffer.getInt8(this.index++) } readUnsignedByte() { return this.buffer.getUint8(this.index++) } readShort() { let t = this.buffer.getInt16(this.index); return this.index += 2, t } readInt32() { let t = this.buffer.getInt32(this.index); return this.index += 4, t } readInt(t) { let e = this.readByte(), i = e & 127; return (e & 128) != 0 && (e = this.readByte(), i |= (e & 127) << 7, (e & 128) != 0 && (e = this.readByte(), i |= (e & 127) << 14, (e & 128) != 0 && (e = this.readByte(), i |= (e & 127) << 21, (e & 128) != 0 && (e = this.readByte(), i |= (e & 127) << 28)))), t ? i : i >>> 1 ^ -(i & 1) } readStringRef() { let t = this.readInt(!0); return t == 0 ? null : this.strings[t - 1] } readString() { let t = this.readInt(!0); switch (t) { case 0: return null; case 1: return "" }t--; let e = "", i = 0; for (let s = 0; s < t;) { let a = this.readUnsignedByte(); switch (a >> 4) { case 12: case 13: e += String.fromCharCode((a & 31) << 6 | this.readByte() & 63), s += 2; break; case 14: e += String.fromCharCode((a & 15) << 12 | (this.readByte() & 63) << 6 | this.readByte() & 63), s += 3; break; default: e += String.fromCharCode(a), s++ } } return e } readFloat() { let t = this.buffer.getFloat32(this.index); return this.index += 4, t } readBoolean() { return this.readByte() != 0 } }, zs = class { constructor(t, e, i, s, a) { this.mesh = t, this.skin = e, this.slotIndex = i, this.parent = s, this.inheritDeform = a } }, Ws = class { constructor(t = null, e = null) { this.bones = t, this.vertices = e } }, zt; (function (t) { t[t.Region = 0] = "Region", t[t.BoundingBox = 1] = "BoundingBox", t[t.Mesh = 2] = "Mesh", t[t.LinkedMesh = 3] = "LinkedMesh", t[t.Path = 4] = "Path", t[t.Point = 5] = "Point", t[t.Clipping = 6] = "Clipping" })(zt || (zt = {})); function Wt(t, e, i) { let s = t.readFloat(), a = t.readFloat() * i; for (let d = 0, n = 0, r = e.getFrameCount() - 1; e.setFrame(d, s, a), d != r; d++) { let h = t.readFloat(), o = t.readFloat() * i; switch (t.readByte()) { case Lt: e.setStepped(d); break; case Xt: nt(t, e, n++, d, 0, s, h, a, o, i) }s = h, a = o } return e } function Mi(t, e, i) { let s = t.readFloat(), a = t.readFloat() * i, d = t.readFloat() * i; for (let n = 0, r = 0, h = e.getFrameCount() - 1; e.setFrame(n, s, a, d), n != h; n++) { let o = t.readFloat(), l = t.readFloat() * i, c = t.readFloat() * i; switch (t.readByte()) { case Lt: e.setStepped(n); break; case Xt: nt(t, e, r++, n, 0, s, o, a, l, i), nt(t, e, r++, n, 1, s, o, d, c, i) }s = o, a = l, d = c } return e } function nt(t, e, i, s, a, d, n, r, h, o) { e.setBezier(i, s, a, d, r, t.readFloat(), t.readFloat() * o, t.readFloat(), t.readFloat() * o, n, h) } var _s = 0, qs = 1, js = 2, Hs = 3, Gs = 4, Zs = 5, Js = 6, Ks = 7, Qs = 8, $s = 9, tr = 0, er = 1, ir = 2, sr = 3, rr = 4, ar = 5, nr = 0, lr = 1, or = 2, Lt = 1, Xt = 2, us = class { constructor() { this.minX = 0, this.minY = 0, this.maxX = 0, this.maxY = 0, this.boundingBoxes = new Array, this.polygons = new Array, this.polygonPool = new ue(() => V.newFloatArray(16)) } update(t, e) { if (!t) throw new Error("skeleton cannot be null."); let i = this.boundingBoxes, s = this.polygons, a = this.polygonPool, d = t.slots, n = d.length; i.length = 0, a.freeAll(s), s.length = 0; for (let r = 0; r < n; r++) { let h = d[r]; if (!h.bone.active) continue; let o = h.getAttachment(); if (o instanceof ke) { let l = o; i.push(l); let c = a.obtain(); c.length != l.worldVerticesLength && (c = V.newFloatArray(l.worldVerticesLength)), s.push(c), l.computeWorldVertices(h, 0, l.worldVerticesLength, c, 0, 2) } } e ? this.aabbCompute() : (this.minX = Number.POSITIVE_INFINITY, this.minY = Number.POSITIVE_INFINITY, this.maxX = Number.NEGATIVE_INFINITY, this.maxY = Number.NEGATIVE_INFINITY) } aabbCompute() { let t = Number.POSITIVE_INFINITY, e = Number.POSITIVE_INFINITY, i = Number.NEGATIVE_INFINITY, s = Number.NEGATIVE_INFINITY, a = this.polygons; for (let d = 0, n = a.length; d < n; d++) { let r = a[d], h = r; for (let o = 0, l = r.length; o < l; o += 2) { let c = h[o], u = h[o + 1]; t = Math.min(t, c), e = Math.min(e, u), i = Math.max(i, c), s = Math.max(s, u) } } this.minX = t, this.minY = e, this.maxX = i, this.maxY = s } aabbContainsPoint(t, e) { return t >= this.minX && t <= this.maxX && e >= this.minY && e <= this.maxY } aabbIntersectsSegment(t, e, i, s) { let a = this.minX, d = this.minY, n = this.maxX, r = this.maxY; if (t <= a && i <= a || e <= d && s <= d || t >= n && i >= n || e >= r && s >= r) return !1; let h = (s - e) / (i - t), o = h * (a - t) + e; if (o > d && o < r || (o = h * (n - t) + e, o > d && o < r)) return !0; let l = (d - e) / h + t; return !!(l > a && l < n || (l = (r - e) / h + t, l > a && l < n)) } aabbIntersectsSkeleton(t) { return this.minX < t.maxX && this.maxX > t.minX && this.minY < t.maxY && this.maxY > t.minY } containsPoint(t, e) { let i = this.polygons; for (let s = 0, a = i.length; s < a; s++)if (this.containsPointPolygon(i[s], t, e)) return this.boundingBoxes[s]; return null } containsPointPolygon(t, e, i) { let s = t, a = t.length, d = a - 2, n = !1; for (let r = 0; r < a; r += 2) { let h = s[r + 1], o = s[d + 1]; if (h < i && o >= i || o < i && h >= i) { let l = s[r]; l + (i - h) / (o - h) * (s[d] - l) < e && (n = !n) } d = r } return n } intersectsSegment(t, e, i, s) { let a = this.polygons; for (let d = 0, n = a.length; d < n; d++)if (this.intersectsSegmentPolygon(a[d], t, e, i, s)) return this.boundingBoxes[d]; return null } intersectsSegmentPolygon(t, e, i, s, a) { let d = t, n = t.length, r = e - s, h = i - a, o = e * a - i * s, l = d[n - 2], c = d[n - 1]; for (let u = 0; u < n; u += 2) { let m = d[u], f = d[u + 1], g = l * f - c * m, x = l - m, v = c - f, p = r * v - h * x, b = (o * x - r * g) / p; if ((b >= l && b <= m || b >= m && b <= l) && (b >= e && b <= s || b >= s && b <= e)) { let w = (o * v - h * g) / p; if ((w >= c && w <= f || w >= f && w <= c) && (w >= i && w <= a || w >= a && w <= i)) return !0 } l = m, c = f } return !1 } getPolygon(t) { if (!t) throw new Error("boundingBox cannot be null."); let e = this.boundingBoxes.indexOf(t); return e == -1 ? null : this.polygons[e] } getWidth() { return this.maxX - this.minX } getHeight() { return this.maxY - this.minY } }, kt = class { constructor() { this.convexPolygons = new Array, this.convexPolygonsIndices = new Array, this.indicesArray = new Array, this.isConcaveArray = new Array, this.triangles = new Array, this.polygonPool = new ue(() => new Array), this.polygonIndicesPool = new ue(() => new Array) } triangulate(t) { let e = t, i = t.length >> 1, s = this.indicesArray; s.length = 0; for (let n = 0; n < i; n++)s[n] = n; let a = this.isConcaveArray; a.length = 0; for (let n = 0, r = i; n < r; ++n)a[n] = kt.isConcave(n, i, e, s); let d = this.triangles; for (d.length = 0; i > 3;) { let n = i - 1, r = 0, h = 1; for (; ;) { t: if (!a[r]) { let c = s[n] << 1, u = s[r] << 1, m = s[h] << 1, f = e[c], g = e[c + 1], x = e[u], v = e[u + 1], p = e[m], b = e[m + 1]; for (let w = (h + 1) % i; w != n; w = (w + 1) % i) { if (!a[w]) continue; let y = s[w] << 1, T = e[y], A = e[y + 1]; if (kt.positiveArea(p, b, f, g, T, A) && kt.positiveArea(f, g, x, v, T, A) && kt.positiveArea(x, v, p, b, T, A)) break t } break } if (h == 0) { do { if (!a[r]) break; r-- } while (r > 0); break } n = r, r = h, h = (h + 1) % i } d.push(s[(i + r - 1) % i]), d.push(s[r]), d.push(s[(r + 1) % i]), s.splice(r, 1), a.splice(r, 1), i--; let o = (i + r - 1) % i, l = r == i ? 0 : r; a[o] = kt.isConcave(o, i, e, s), a[l] = kt.isConcave(l, i, e, s) } return i == 3 && (d.push(s[2]), d.push(s[0]), d.push(s[1])), d } decompose(t, e) { let i = t, s = this.convexPolygons; this.polygonPool.freeAll(s), s.length = 0; let a = this.convexPolygonsIndices; this.polygonIndicesPool.freeAll(a), a.length = 0; let d = this.polygonIndicesPool.obtain(); d.length = 0; let n = this.polygonPool.obtain(); n.length = 0; let r = -1, h = 0; for (let o = 0, l = e.length; o < l; o += 3) { let c = e[o] << 1, u = e[o + 1] << 1, m = e[o + 2] << 1, f = i[c], g = i[c + 1], x = i[u], v = i[u + 1], p = i[m], b = i[m + 1], w = !1; if (r == c) { let y = n.length - 4, T = kt.winding(n[y], n[y + 1], n[y + 2], n[y + 3], p, b), A = kt.winding(p, b, n[0], n[1], n[2], n[3]); T == h && A == h && (n.push(p), n.push(b), d.push(m), w = !0) } w || (n.length > 0 ? (s.push(n), a.push(d)) : (this.polygonPool.free(n), this.polygonIndicesPool.free(d)), n = this.polygonPool.obtain(), n.length = 0, n.push(f), n.push(g), n.push(x), n.push(v), n.push(p), n.push(b), d = this.polygonIndicesPool.obtain(), d.length = 0, d.push(c), d.push(u), d.push(m), h = kt.winding(f, g, x, v, p, b), r = c) } n.length > 0 && (s.push(n), a.push(d)); for (let o = 0, l = s.length; o < l; o++) { if (d = a[o], d.length == 0) continue; let c = d[0], u = d[d.length - 1]; n = s[o]; let m = n.length - 4, f = n[m], g = n[m + 1], x = n[m + 2], v = n[m + 3], p = n[0], b = n[1], w = n[2], y = n[3], T = kt.winding(f, g, x, v, p, b); for (let A = 0; A < l; A++) { if (A == o) continue; let E = a[A]; if (E.length != 3) continue; let I = E[0], Y = E[1], P = E[2], X = s[A], B = X[X.length - 2], C = X[X.length - 1]; if (I != c || Y != u) continue; let k = kt.winding(f, g, x, v, B, C), D = kt.winding(B, C, p, b, w, y); k == T && D == T && (X.length = 0, E.length = 0, n.push(B), n.push(C), d.push(P), f = x, g = v, x = B, v = C, A = 0) } } for (let o = s.length - 1; o >= 0; o--)n = s[o], n.length == 0 && (s.splice(o, 1), this.polygonPool.free(n), d = a[o], a.splice(o, 1), this.polygonIndicesPool.free(d)); return s } static isConcave(t, e, i, s) { let a = s[(e + t - 1) % e] << 1, d = s[t] << 1, n = s[(t + 1) % e] << 1; return !this.positiveArea(i[a], i[a + 1], i[d], i[d + 1], i[n], i[n + 1]) } static positiveArea(t, e, i, s, a, d) { return t * (d - s) + i * (e - d) + a * (s - e) >= 0 } static winding(t, e, i, s, a, d) { let n = i - t, r = s - e; return a * r - d * n + n * e - t * r >= 0 ? 1 : -1 } }, Ie = class { constructor() { this.triangulator = new kt, this.clippingPolygon = new Array, this.clipOutput = new Array, this.clippedVertices = new Array, this.clippedTriangles = new Array, this.scratch = new Array } clipStart(t, e) { if (this.clipAttachment) return 0; this.clipAttachment = e; let i = e.worldVerticesLength, s = V.setArraySize(this.clippingPolygon, i); e.computeWorldVertices(t, 0, i, s, 0, 2); let a = this.clippingPolygon; Ie.makeClockwise(a); let d = this.clippingPolygons = this.triangulator.decompose(a, this.triangulator.triangulate(a)); for (let n = 0, r = d.length; n < r; n++) { let h = d[n]; Ie.makeClockwise(h), h.push(h[0]), h.push(h[1]) } return d.length } clipEndWithSlot(t) { this.clipAttachment && this.clipAttachment.endSlot == t.data && this.clipEnd() } clipEnd() { !this.clipAttachment || (this.clipAttachment = null, this.clippingPolygons = null, this.clippedVertices.length = 0, this.clippedTriangles.length = 0, this.clippingPolygon.length = 0) } isClipping() { return this.clipAttachment != null } clipTriangles(t, e, i, s, a, d, n, r) { let h = this.clipOutput, o = this.clippedVertices, l = this.clippedTriangles, c = this.clippingPolygons, u = this.clippingPolygons.length, m = r ? 12 : 8, f = 0; o.length = 0, l.length = 0; t: for (let g = 0; g < s; g += 3) { let x = i[g] << 1, v = t[x], p = t[x + 1], b = a[x], w = a[x + 1]; x = i[g + 1] << 1; let y = t[x], T = t[x + 1], A = a[x], E = a[x + 1]; x = i[g + 2] << 1; let I = t[x], Y = t[x + 1], P = a[x], X = a[x + 1]; for (let B = 0; B < u; B++) { let C = o.length; if (this.clip(v, p, y, T, I, Y, c[B], h)) { let k = h.length; if (k == 0) continue; let D = T - Y, R = I - y, L = v - I, st = Y - p, ct = 1 / (D * L + R * (p - Y)), ht = k >> 1, rt = this.clipOutput, it = V.setArraySize(o, C + ht * m); for (let St = 0; St < k; St += 2) { let Bt = rt[St], vt = rt[St + 1]; it[C] = Bt, it[C + 1] = vt, it[C + 2] = d.r, it[C + 3] = d.g, it[C + 4] = d.b, it[C + 5] = d.a; let Et = Bt - I, It = vt - Y, Zt = (D * Et + R * It) * ct, he = (st * Et + L * It) * ct, be = 1 - Zt - he; it[C + 6] = b * Zt + A * he + P * be, it[C + 7] = w * Zt + E * he + X * be, r && (it[C + 8] = n.r, it[C + 9] = n.g, it[C + 10] = n.b, it[C + 11] = n.a), C += m } C = l.length; let dt = V.setArraySize(l, C + 3 * (ht - 2)); ht--; for (let St = 1; St < ht; St++)dt[C] = f, dt[C + 1] = f + St, dt[C + 2] = f + St + 1, C += 3; f += ht + 1 } else { let k = V.setArraySize(o, C + 3 * m); k[C] = v, k[C + 1] = p, k[C + 2] = d.r, k[C + 3] = d.g, k[C + 4] = d.b, k[C + 5] = d.a, r ? (k[C + 6] = b, k[C + 7] = w, k[C + 8] = n.r, k[C + 9] = n.g, k[C + 10] = n.b, k[C + 11] = n.a, k[C + 12] = y, k[C + 13] = T, k[C + 14] = d.r, k[C + 15] = d.g, k[C + 16] = d.b, k[C + 17] = d.a, k[C + 18] = A, k[C + 19] = E, k[C + 20] = n.r, k[C + 21] = n.g, k[C + 22] = n.b, k[C + 23] = n.a, k[C + 24] = I, k[C + 25] = Y, k[C + 26] = d.r, k[C + 27] = d.g, k[C + 28] = d.b, k[C + 29] = d.a, k[C + 30] = P, k[C + 31] = X, k[C + 32] = n.r, k[C + 33] = n.g, k[C + 34] = n.b, k[C + 35] = n.a) : (k[C + 6] = b, k[C + 7] = w, k[C + 8] = y, k[C + 9] = T, k[C + 10] = d.r, k[C + 11] = d.g, k[C + 12] = d.b, k[C + 13] = d.a, k[C + 14] = A, k[C + 15] = E, k[C + 16] = I, k[C + 17] = Y, k[C + 18] = d.r, k[C + 19] = d.g, k[C + 20] = d.b, k[C + 21] = d.a, k[C + 22] = P, k[C + 23] = X), C = l.length; let D = V.setArraySize(l, C + 3); D[C] = f, D[C + 1] = f + 1, D[C + 2] = f + 2, f += 3; continue t } } } } clip(t, e, i, s, a, d, n, r) { let h = r, o = !1, l = null; n.length % 4 >= 2 ? (l = r, r = this.scratch) : l = this.scratch, l.length = 0, l.push(t), l.push(e), l.push(i), l.push(s), l.push(a), l.push(d), l.push(t), l.push(e), r.length = 0; let c = n, u = n.length - 4; for (let m = 0; ; m += 2) { let f = c[m], g = c[m + 1], x = c[m + 2], v = c[m + 3], p = f - x, b = g - v, w = l, y = l.length - 2, T = r.length; for (let E = 0; E < y; E += 2) { let I = w[E], Y = w[E + 1], P = w[E + 2], X = w[E + 3], B = p * (X - v) - b * (P - x) > 0; if (p * (Y - v) - b * (I - x) > 0) { if (B) { r.push(P), r.push(X); continue } let C = X - Y, k = P - I, D = C * (x - f) - k * (v - g); if (Math.abs(D) > 1e-6) { let R = (k * (g - Y) - C * (f - I)) / D; r.push(f + (x - f) * R), r.push(g + (v - g) * R) } else r.push(f), r.push(g) } else if (B) { let C = X - Y, k = P - I, D = C * (x - f) - k * (v - g); if (Math.abs(D) > 1e-6) { let R = (k * (g - Y) - C * (f - I)) / D; r.push(f + (x - f) * R), r.push(g + (v - g) * R) } else r.push(f), r.push(g); r.push(P), r.push(X) } o = !0 } if (T == r.length) return h.length = 0, !0; if (r.push(r[0]), r.push(r[1]), m == u) break; let A = r; r = l, r.length = 0, l = A } if (h != r) { h.length = 0; for (let m = 0, f = r.length - 2; m < f; m++)h[m] = r[m] } else h.length = h.length - 2; return o } static makeClockwise(t) { let e = t, i = t.length, s = e[i - 2] * e[1] - e[0] * e[i - 1], a = 0, d = 0, n = 0, r = 0; for (let h = 0, o = i - 3; h < o; h += 2)a = e[h], d = e[h + 1], n = e[h + 2], r = e[h + 3], s += a * r - n * d; if (!(s < 0)) for (let h = 0, o = i - 2, l = i >> 1; h < l; h += 2) { let c = e[h], u = e[h + 1], m = o - h; e[h] = e[m], e[h + 1] = e[m + 1], e[m] = c, e[m + 1] = u } } }, fs = class { constructor(t) { this.attachmentLoader = null, this.scale = 1, this.linkedMeshes = new Array, this.attachmentLoader = t } readSkeletonData(t) { let e = this.scale, i = new Si, s = typeof t == "string" ? JSON.parse(t) : t, a = s.skeleton; if (a && (i.hash = a.hash, i.version = a.spine, i.x = a.x, i.y = a.y, i.width = a.width, i.height = a.height, i.fps = a.fps, i.imagesPath = a.images), s.bones) for (let d = 0; d < s.bones.length; d++) { let n = s.bones[d], r = null, h = M(n, "parent", null); h && (r = i.findBone(h)); let o = new xi(i.bones.length, n.name, r); o.length = M(n, "length", 0) * e, o.x = M(n, "x", 0) * e, o.y = M(n, "y", 0) * e, o.rotation = M(n, "rotation", 0), o.scaleX = M(n, "scaleX", 1), o.scaleY = M(n, "scaleY", 1), o.shearX = M(n, "shearX", 0), o.shearY = M(n, "shearY", 0), o.transformMode = V.enumValue(Tt, M(n, "transform", "Normal")), o.skinRequired = M(n, "skin", !1); let l = M(n, "color", null); l && o.color.setFromString(l), i.bones.push(o) } if (s.slots) for (let d = 0; d < s.slots.length; d++) { let n = s.slots[d], r = i.findBone(n.bone), h = new Ti(i.slots.length, n.name, r), o = M(n, "color", null); o && h.color.setFromString(o); let l = M(n, "dark", null); l && (h.darkColor = O.fromString(l)), h.attachmentName = M(n, "attachment", null), h.blendMode = V.enumValue(yt, M(n, "blend", "normal")), i.slots.push(h) } if (s.ik) for (let d = 0; d < s.ik.length; d++) { let n = s.ik[d], r = new yi(n.name); r.order = M(n, "order", 0), r.skinRequired = M(n, "skin", !1); for (let h = 0; h < n.bones.length; h++)r.bones.push(i.findBone(n.bones[h])); r.target = i.findBone(n.target), r.mix = M(n, "mix", 1), r.softness = M(n, "softness", 0) * e, r.bendDirection = M(n, "bendPositive", !0) ? 1 : -1, r.compress = M(n, "compress", !1), r.stretch = M(n, "stretch", !1), r.uniform = M(n, "uniform", !1), i.ikConstraints.push(r) } if (s.transform) for (let d = 0; d < s.transform.length; d++) { let n = s.transform[d], r = new ki(n.name); r.order = M(n, "order", 0), r.skinRequired = M(n, "skin", !1); for (let o = 0; o < n.bones.length; o++)r.bones.push(i.findBone(n.bones[o])); let h = n.target; r.target = i.findBone(h), r.local = M(n, "local", !1), r.relative = M(n, "relative", !1), r.offsetRotation = M(n, "rotation", 0), r.offsetX = M(n, "x", 0) * e, r.offsetY = M(n, "y", 0) * e, r.offsetScaleX = M(n, "scaleX", 0), r.offsetScaleY = M(n, "scaleY", 0), r.offsetShearY = M(n, "shearY", 0), r.mixRotate = M(n, "mixRotate", 1), r.mixX = M(n, "mixX", 1), r.mixY = M(n, "mixY", r.mixX), r.mixScaleX = M(n, "mixScaleX", 1), r.mixScaleY = M(n, "mixScaleY", r.mixScaleX), r.mixShearY = M(n, "mixShearY", 1), i.transformConstraints.push(r) } if (s.path) for (let d = 0; d < s.path.length; d++) { let n = s.path[d], r = new Ai(n.name); r.order = M(n, "order", 0), r.skinRequired = M(n, "skin", !1); for (let o = 0; o < n.bones.length; o++)r.bones.push(i.findBone(n.bones[o])); let h = n.target; r.target = i.findSlot(h), r.positionMode = V.enumValue(Dt, M(n, "positionMode", "Percent")), r.spacingMode = V.enumValue(gt, M(n, "spacingMode", "Length")), r.rotateMode = V.enumValue(ee, M(n, "rotateMode", "Tangent")), r.offsetRotation = M(n, "rotation", 0), r.position = M(n, "position", 0), r.positionMode == Dt.Fixed && (r.position *= e), r.spacing = M(n, "spacing", 0), (r.spacingMode == gt.Length || r.spacingMode == gt.Fixed) && (r.spacing *= e), r.mixRotate = M(n, "mixRotate", 1), r.mixX = M(n, "mixX", 1), r.mixY = M(n, "mixY", r.mixX), i.pathConstraints.push(r) } if (s.skins) for (let d = 0; d < s.skins.length; d++) { let n = s.skins[d], r = new Ee(n.name); if (n.bones) for (let h = 0; h < n.bones.length; h++)r.bones.push(i.findBone(n.bones[h])); if (n.ik) for (let h = 0; h < n.ik.length; h++)r.constraints.push(i.findIkConstraint(n.ik[h])); if (n.transform) for (let h = 0; h < n.transform.length; h++)r.constraints.push(i.findTransformConstraint(n.transform[h])); if (n.path) for (let h = 0; h < n.path.length; h++)r.constraints.push(i.findPathConstraint(n.path[h])); for (let h in n.attachments) { let o = i.findSlot(h), l = n.attachments[h]; for (let c in l) { let u = this.readAttachment(l[c], r, o.index, c, i); u && r.setAttachment(o.index, c, u) } } i.skins.push(r), r.name == "default" && (i.defaultSkin = r) } for (let d = 0, n = this.linkedMeshes.length; d < n; d++) { let r = this.linkedMeshes[d], o = (r.skin ? i.findSkin(r.skin) : i.defaultSkin).getAttachment(r.slotIndex, r.parent); r.mesh.deformAttachment = r.inheritDeform ? o : r.mesh, r.mesh.setParentMesh(o), r.mesh.updateUVs() } if (this.linkedMeshes.length = 0, s.events) for (let d in s.events) { let n = s.events[d], r = new vi(d); r.intValue = M(n, "int", 0), r.floatValue = M(n, "float", 0), r.stringValue = M(n, "string", ""), r.audioPath = M(n, "audio", null), r.audioPath && (r.volume = M(n, "volume", 1), r.balance = M(n, "balance", 0)), i.events.push(r) } if (s.animations) for (let d in s.animations) { let n = s.animations[d]; this.readAnimation(n, d, i) } return i } readAttachment(t, e, i, s, a) { let d = this.scale; switch (s = M(t, "name", s), M(t, "type", "region")) { case "region": { let n = M(t, "path", s), r = this.attachmentLoader.newRegionAttachment(e, s, n); if (!r) return null; r.path = n, r.x = M(t, "x", 0) * d, r.y = M(t, "y", 0) * d, r.scaleX = M(t, "scaleX", 1), r.scaleY = M(t, "scaleY", 1), r.rotation = M(t, "rotation", 0), r.width = t.width * d, r.height = t.height * d; let h = M(t, "color", null); return h && r.color.setFromString(h), r.updateOffset(), r } case "boundingbox": { let n = this.attachmentLoader.newBoundingBoxAttachment(e, s); if (!n) return null; this.readVertices(t, n, t.vertexCount << 1); let r = M(t, "color", null); return r && n.color.setFromString(r), n } case "mesh": case "linkedmesh": { let n = M(t, "path", s), r = this.attachmentLoader.newMeshAttachment(e, s, n); if (!r) return null; r.path = n; let h = M(t, "color", null); h && r.color.setFromString(h), r.width = M(t, "width", 0) * d, r.height = M(t, "height", 0) * d; let o = M(t, "parent", null); if (o) return this.linkedMeshes.push(new hr(r, M(t, "skin", null), i, o, M(t, "deform", !0))), r; let l = t.uvs; return this.readVertices(t, r, l.length), r.triangles = t.triangles, r.regionUVs = l, r.updateUVs(), r.edges = M(t, "edges", null), r.hullLength = M(t, "hull", 0) * 2, r } case "path": { let n = this.attachmentLoader.newPathAttachment(e, s); if (!n) return null; n.closed = M(t, "closed", !1), n.constantSpeed = M(t, "constantSpeed", !0); let r = t.vertexCount; this.readVertices(t, n, r << 1); let h = V.newArray(r / 3, 0); for (let l = 0; l < t.lengths.length; l++)h[l] = t.lengths[l] * d; n.lengths = h; let o = M(t, "color", null); return o && n.color.setFromString(o), n } case "point": { let n = this.attachmentLoader.newPointAttachment(e, s); if (!n) return null; n.x = M(t, "x", 0) * d, n.y = M(t, "y", 0) * d, n.rotation = M(t, "rotation", 0); let r = M(t, "color", null); return r && n.color.setFromString(r), n } case "clipping": { let n = this.attachmentLoader.newClippingAttachment(e, s); if (!n) return null; let r = M(t, "end", null); r && (n.endSlot = a.findSlot(r)); let h = t.vertexCount; this.readVertices(t, n, h << 1); let o = M(t, "color", null); return o && n.color.setFromString(o), n } }return null } readVertices(t, e, i) { let s = this.scale; e.worldVerticesLength = i; let a = t.vertices; if (i == a.length) { let r = V.toFloatArray(a); if (s != 1) for (let h = 0, o = a.length; h < o; h++)r[h] *= s; e.vertices = r; return } let d = new Array, n = new Array; for (let r = 0, h = a.length; r < h;) { let o = a[r++]; n.push(o); for (let l = r + o * 4; r < l; r += 4)n.push(a[r]), d.push(a[r + 1] * s), d.push(a[r + 2] * s), d.push(a[r + 3]) } e.bones = n, e.vertices = V.toFloatArray(d) } readAnimation(t, e, i) { let s = this.scale, a = new Array; if (t.slots) for (let n in t.slots) { let r = t.slots[n], h = i.findSlot(n).index; for (let o in r) { let l = r[o]; if (!l) continue; let c = l.length; if (o == "attachment") { let u = new Kt(c, h); for (let m = 0; m < c; m++) { let f = l[m]; u.setFrame(m, M(f, "time", 0), f.name) } a.push(u) } else if (o == "rgba") { let u = new Qe(c, c << 2, h), m = l[0], f = M(m, "time", 0), g = O.fromString(m.color); for (let x = 0, v = 0; ; x++) { u.setFrame(x, f, g.r, g.g, g.b, g.a); let p = l[x + 1]; if (!p) { u.shrink(v); break } let b = M(p, "time", 0), w = O.fromString(p.color), y = m.curve; y && (v = lt(y, u, v, x, 0, f, b, g.r, w.r, 1), v = lt(y, u, v, x, 1, f, b, g.g, w.g, 1), v = lt(y, u, v, x, 2, f, b, g.b, w.b, 1), v = lt(y, u, v, x, 3, f, b, g.a, w.a, 1)), f = b, g = w, m = p } a.push(u) } else if (o == "rgb") { let u = new $e(c, c * 3, h), m = l[0], f = M(m, "time", 0), g = O.fromString(m.color); for (let x = 0, v = 0; ; x++) { u.setFrame(x, f, g.r, g.g, g.b); let p = l[x + 1]; if (!p) { u.shrink(v); break } let b = M(p, "time", 0), w = O.fromString(p.color), y = m.curve; y && (v = lt(y, u, v, x, 0, f, b, g.r, w.r, 1), v = lt(y, u, v, x, 1, f, b, g.g, w.g, 1), v = lt(y, u, v, x, 2, f, b, g.b, w.b, 1)), f = b, g = w, m = p } a.push(u) } else if (o == "alpha") a.push(Ot(l, new ti(c, c, h), 0, 1)); else if (o == "rgba2") { let u = new ei(c, c * 7, h), m = l[0], f = M(m, "time", 0), g = O.fromString(m.light), x = O.fromString(m.dark); for (let v = 0, p = 0; ; v++) { u.setFrame(v, f, g.r, g.g, g.b, g.a, x.r, x.g, x.b); let b = l[v + 1]; if (!b) { u.shrink(p); break } let w = M(b, "time", 0), y = O.fromString(b.light), T = O.fromString(b.dark), A = m.curve; A && (p = lt(A, u, p, v, 0, f, w, g.r, y.r, 1), p = lt(A, u, p, v, 1, f, w, g.g, y.g, 1), p = lt(A, u, p, v, 2, f, w, g.b, y.b, 1), p = lt(A, u, p, v, 3, f, w, g.a, y.a, 1), p = lt(A, u, p, v, 4, f, w, x.r, T.r, 1), p = lt(A, u, p, v, 5, f, w, x.g, T.g, 1), p = lt(A, u, p, v, 6, f, w, x.b, T.b, 1)), f = w, g = y, x = T, m = b } a.push(u) } else if (o == "rgb2") { let u = new ii(c, c * 6, h), m = l[0], f = M(m, "time", 0), g = O.fromString(m.light), x = O.fromString(m.dark); for (let v = 0, p = 0; ; v++) { u.setFrame(v, f, g.r, g.g, g.b, x.r, x.g, x.b); let b = l[v + 1]; if (!b) { u.shrink(p); break } let w = M(b, "time", 0), y = O.fromString(b.light), T = O.fromString(b.dark), A = m.curve; A && (p = lt(A, u, p, v, 0, f, w, g.r, y.r, 1), p = lt(A, u, p, v, 1, f, w, g.g, y.g, 1), p = lt(A, u, p, v, 2, f, w, g.b, y.b, 1), p = lt(A, u, p, v, 3, f, w, x.r, T.r, 1), p = lt(A, u, p, v, 4, f, w, x.g, T.g, 1), p = lt(A, u, p, v, 5, f, w, x.b, T.b, 1)), f = w, g = y, x = T, m = b } a.push(u) } } } if (t.bones) for (let n in t.bones) { let r = t.bones[n], h = i.findBone(n).index; for (let o in r) { let l = r[o], c = l.length; if (c != 0) { if (o === "rotate") a.push(Ot(l, new fe(c, c, h), 0, 1)); else if (o === "translate") { let u = new We(c, c << 1, h); a.push(Ei(l, u, "x", "y", 0, s)) } else if (o === "translatex") { let u = new _e(c, c, h); a.push(Ot(l, u, 0, s)) } else if (o === "translatey") { let u = new qe(c, c, h); a.push(Ot(l, u, 0, s)) } else if (o === "scale") { let u = new je(c, c << 1, h); a.push(Ei(l, u, "x", "y", 1, 1)) } else if (o === "scalex") { let u = new He(c, c, h); a.push(Ot(l, u, 1, 1)) } else if (o === "scaley") { let u = new Ge(c, c, h); a.push(Ot(l, u, 1, 1)) } else if (o === "shear") { let u = new Ze(c, c << 1, h); a.push(Ei(l, u, "x", "y", 0, 1)) } else if (o === "shearx") { let u = new Je(c, c, h); a.push(Ot(l, u, 0, 1)) } else if (o === "sheary") { let u = new Ke(c, c, h); a.push(Ot(l, u, 0, 1)) } } } } if (t.ik) for (let n in t.ik) { let r = t.ik[n], h = r[0]; if (!h) continue; let o = i.findIkConstraint(n), l = i.ikConstraints.indexOf(o), c = new ri(r.length, r.length << 1, l), u = M(h, "time", 0), m = M(h, "mix", 1), f = M(h, "softness", 0) * s; for (let g = 0, x = 0; ; g++) { c.setFrame(g, u, m, f, M(h, "bendPositive", !0) ? 1 : -1, M(h, "compress", !1), M(h, "stretch", !1)); let v = r[g + 1]; if (!v) { c.shrink(x); break } let p = M(v, "time", 0), b = M(v, "mix", 1), w = M(v, "softness", 0) * s, y = h.curve; y && (x = lt(y, c, x, g, 0, u, p, m, b, 1), x = lt(y, c, x, g, 1, u, p, f, w, s)), u = p, m = b, f = w, h = v } a.push(c) } if (t.transform) for (let n in t.transform) { let r = t.transform[n], h = r[0]; if (!h) continue; let o = i.findTransformConstraint(n), l = i.transformConstraints.indexOf(o), c = new ai(r.length, r.length * 6, l), u = M(h, "time", 0), m = M(h, "mixRotate", 1), f = M(h, "mixX", 1), g = M(h, "mixY", f), x = M(h, "mixScaleX", 1), v = M(h, "mixScaleY", x), p = M(h, "mixShearY", 1); for (let b = 0, w = 0; ; b++) { c.setFrame(b, u, m, f, g, x, v, p); let y = r[b + 1]; if (!y) { c.shrink(w); break } let T = M(y, "time", 0), A = M(y, "mixRotate", 1), E = M(y, "mixX", 1), I = M(y, "mixY", E), Y = M(y, "mixScaleX", 1), P = M(y, "mixScaleY", Y), X = M(y, "mixShearY", 1), B = h.curve; B && (w = lt(B, c, w, b, 0, u, T, m, A, 1), w = lt(B, c, w, b, 1, u, T, f, E, 1), w = lt(B, c, w, b, 2, u, T, g, I, 1), w = lt(B, c, w, b, 3, u, T, x, Y, 1), w = lt(B, c, w, b, 4, u, T, v, P, 1), w = lt(B, c, w, b, 5, u, T, p, X, 1)), u = T, m = A, f = E, g = I, x = Y, v = P, x = Y, h = y } a.push(c) } if (t.path) for (let n in t.path) { let r = t.path[n], h = i.findPathConstraint(n), o = i.pathConstraints.indexOf(h); for (let l in r) { let c = r[l], u = c[0]; if (!u) continue; let m = c.length; if (l === "position") { let f = new ni(m, m, o); a.push(Ot(c, f, 0, h.positionMode == Dt.Fixed ? s : 1)) } else if (l === "spacing") { let f = new li(m, m, o); a.push(Ot(c, f, 0, h.spacingMode == gt.Length || h.spacingMode == gt.Fixed ? s : 1)) } else if (l === "mix") { let f = new oi(m, m * 3, o), g = M(u, "time", 0), x = M(u, "mixRotate", 1), v = M(u, "mixX", 1), p = M(u, "mixY", v); for (let b = 0, w = 0; ; b++) { f.setFrame(b, g, x, v, p); let y = c[b + 1]; if (!y) { f.shrink(w); break } let T = M(y, "time", 0), A = M(y, "mixRotate", 1), E = M(y, "mixX", 1), I = M(y, "mixY", E), Y = u.curve; Y && (w = lt(Y, f, w, b, 0, g, T, x, A, 1), w = lt(Y, f, w, b, 1, g, T, v, E, 1), w = lt(Y, f, w, b, 2, g, T, p, I, 1)), g = T, x = A, v = E, p = I, u = y } a.push(f) } } } if (t.deform) for (let n in t.deform) { let r = t.deform[n], h = i.findSkin(n); for (let o in r) { let l = r[o], c = i.findSlot(o).index; for (let u in l) { let m = l[u], f = m[0]; if (!f) continue; let g = h.getAttachment(c, u), x = g.bones, v = g.vertices, p = x ? v.length / 3 * 2 : v.length, b = new si(m.length, m.length, c, g), w = M(f, "time", 0); for (let y = 0, T = 0; ; y++) { let A, E = M(f, "vertices", null); if (!E) A = x ? V.newFloatArray(p) : v; else { A = V.newFloatArray(p); let X = M(f, "offset", 0); if (V.arrayCopy(E, 0, A, X, E.length), s != 1) for (let B = X, C = B + E.length; B < C; B++)A[B] *= s; if (!x) for (let B = 0; B < p; B++)A[B] += v[B] } b.setFrame(y, w, A); let I = m[y + 1]; if (!I) { b.shrink(T); break } let Y = M(I, "time", 0), P = f.curve; P && (T = lt(P, b, T, y, 0, w, Y, 0, 1, 1)), w = Y, f = I } a.push(b) } } } if (t.drawOrder) { let n = new Qt(t.drawOrder.length), r = i.slots.length, h = 0; for (let o = 0; o < t.drawOrder.length; o++, h++) { let l = t.drawOrder[o], c = null, u = M(l, "offsets", null); if (u) { c = V.newArray(r, -1); let m = V.newArray(r - u.length, 0), f = 0, g = 0; for (let x = 0; x < u.length; x++) { let v = u[x], p = i.findSlot(v.slot).index; for (; f != p;)m[g++] = f++; c[f + v.offset] = f++ } for (; f < r;)m[g++] = f++; for (let x = r - 1; x >= 0; x--)c[x] == -1 && (c[x] = m[--g]) } n.setFrame(h, M(l, "time", 0), c) } a.push(n) } if (t.events) { let n = new me(t.events.length), r = 0; for (let h = 0; h < t.events.length; h++, r++) { let o = t.events[h], l = i.findEvent(o.name), c = new bi(V.toSinglePrecision(M(o, "time", 0)), l); c.intValue = M(o, "int", l.intValue), c.floatValue = M(o, "float", l.floatValue), c.stringValue = M(o, "string", l.stringValue), c.data.audioPath && (c.volume = M(o, "volume", 1), c.balance = M(o, "balance", 0)), n.setFrame(r, c) } a.push(n) } let d = 0; for (let n = 0, r = a.length; n < r; n++)d = Math.max(d, a[n].getDuration()); i.animations.push(new ye(e, a, d)) } }, hr = class { constructor(t, e, i, s, a) { this.mesh = t, this.skin = e, this.slotIndex = i, this.parent = s, this.inheritDeform = a } }; function Ot(t, e, i, s) { let a = t[0], d = M(a, "time", 0), n = M(a, "value", i) * s, r = 0; for (let h = 0; ; h++) { e.setFrame(h, d, n); let o = t[h + 1]; if (!o) return e.shrink(r), e; let l = M(o, "time", 0), c = M(o, "value", i) * s; a.curve && (r = lt(a.curve, e, r, h, 0, d, l, n, c, s)), d = l, n = c, a = o } } function Ei(t, e, i, s, a, d) { let n = t[0], r = M(n, "time", 0), h = M(n, i, a) * d, o = M(n, s, a) * d, l = 0; for (let c = 0; ; c++) { e.setFrame(c, r, h, o); let u = t[c + 1]; if (!u) return e.shrink(l), e; let m = M(u, "time", 0), f = M(u, i, a) * d, g = M(u, s, a) * d, x = n.curve; x && (l = lt(x, e, l, c, 0, r, m, h, f, d), l = lt(x, e, l, c, 1, r, m, o, g, d)), r = m, h = f, o = g, n = u } } function lt(t, e, i, s, a, d, n, r, h, o) { if (t == "stepped") return e.setStepped(s), i; let l = a << 2, c = t[l], u = t[l + 1] * o, m = t[l + 2], f = t[l + 3] * o; return e.setBezier(i, s, a, d, r, c, u, m, f, n, h), i + 1 } function M(t, e, i) { return t[e] !== void 0 ? t[e] : i } (() => { typeof Math.fround == "undefined" && (Math.fround = function (t) { return function (e) { return t[0] = e, t[0] } }(new Float32Array(1))) })(); var dr = class { constructor(t, e) { this.jitterX = 0, this.jitterY = 0, this.jitterX = t, this.jitterY = e } begin(t) { } transform(t, e, i, s) { t.x += F.randomTriangular(-this.jitterX, this.jitterY), t.y += F.randomTriangular(-this.jitterX, this.jitterY) } end() { } }, ms = class { constructor(t) { this.centerX = 0, this.centerY = 0, this.radius = 0, this.angle = 0, this.worldX = 0, this.worldY = 0, this.radius = t } begin(t) { this.worldX = t.x + this.centerX, this.worldY = t.y + this.centerY } transform(t, e, i, s) { let a = this.angle * F.degreesToRadians, d = t.x - this.worldX, n = t.y - this.worldY, r = Math.sqrt(d * d + n * n); if (r < this.radius) { let h = ms.interpolation.apply(0, a, (this.radius - r) / this.radius), o = Math.cos(h), l = Math.sin(h); t.x = o * d - l * n + this.worldX, t.y = l * d + o * n + this.worldY } } end() { } }, gs = ms; gs.interpolation = new qi(2); var wt = class { constructor(t, e = { alpha: "true" }) { this.restorables = new Array, t instanceof WebGLRenderingContext || typeof WebGL2RenderingContext != "undefined" && t instanceof WebGL2RenderingContext ? (this.gl = t, this.canvas = this.gl.canvas) : this.setupCanvas(t, e) } setupCanvas(t, e) { this.gl = t.getContext("webgl2", e) || t.getContext("webgl", e), this.canvas = t, t.addEventListener("webglcontextlost", i => { let s = i; i && i.preventDefault() }), t.addEventListener("webglcontextrestored", i => { for (let s = 0, a = this.restorables.length; s < a; s++)this.restorables[s].restore() }) } addRestorable(t) { this.restorables.push(t) } removeRestorable(t) { let e = this.restorables.indexOf(t); e > -1 && this.restorables.splice(e, 1) } }, ne = 1, cr = 769, ps = 770, Ye = 771, ur = 774, Re = class { static getDestGLBlendMode(t) { switch (t) { case yt.Normal: return Ye; case yt.Additive: return ne; case yt.Multiply: return Ye; case yt.Screen: return Ye; default: throw new Error("Unknown blend mode: " + t) } } static getSourceColorGLBlendMode(t, e = !1) { switch (t) { case yt.Normal: return e ? ne : ps; case yt.Additive: return e ? ne : ps; case yt.Multiply: return ur; case yt.Screen: return ne; default: throw new Error("Unknown blend mode: " + t) } } static getSourceAlphaGLBlendMode(t) { switch (t) { case yt.Normal: return ne; case yt.Additive: return ne; case yt.Multiply: return Ye; case yt.Screen: return cr; default: throw new Error("Unknown blend mode: " + t) } } }, Ii = class extends fi { constructor(t, e, i = !1) { super(e); this.texture = null, this.boundUnit = 0, this.useMipMaps = !1, this.context = t instanceof wt ? t : new wt(t), this.useMipMaps = i, this.restore(), this.context.addRestorable(this) } setFilters(t, e) { let i = this.context.gl; this.bind(), i.texParameteri(i.TEXTURE_2D, i.TEXTURE_MIN_FILTER, t), i.texParameteri(i.TEXTURE_2D, i.TEXTURE_MAG_FILTER, Ii.validateMagFilter(e)) } static validateMagFilter(t) { switch (t) { case pt.MipMap: case pt.MipMapLinearLinear: case pt.MipMapLinearNearest: case pt.MipMapNearestLinear: case pt.MipMapNearestNearest: return pt.Linear; default: return t } } setWraps(t, e) { let i = this.context.gl; this.bind(), i.texParameteri(i.TEXTURE_2D, i.TEXTURE_WRAP_S, t), i.texParameteri(i.TEXTURE_2D, i.TEXTURE_WRAP_T, e) } update(t) { let e = this.context.gl; this.texture || (this.texture = this.context.gl.createTexture()), this.bind(), Ii.DISABLE_UNPACK_PREMULTIPLIED_ALPHA_WEBGL && e.pixelStorei(e.UNPACK_PREMULTIPLY_ALPHA_WEBGL, !1), e.texImage2D(e.TEXTURE_2D, 0, e.RGBA, e.RGBA, e.UNSIGNED_BYTE, this._image), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_MAG_FILTER, e.LINEAR), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_MIN_FILTER, t ? e.LINEAR_MIPMAP_LINEAR : e.LINEAR), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_WRAP_S, e.CLAMP_TO_EDGE), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_WRAP_T, e.CLAMP_TO_EDGE), t && e.generateMipmap(e.TEXTURE_2D) } restore() { this.texture = null, this.update(this.useMipMaps) } bind(t = 0) { let e = this.context.gl; this.boundUnit = t, e.activeTexture(e.TEXTURE0 + t), e.bindTexture(e.TEXTURE_2D, this.texture) } unbind() { let t = this.context.gl; t.activeTexture(t.TEXTURE0 + this.boundUnit), t.bindTexture(t.TEXTURE_2D, null) } dispose() { this.context.removeRestorable(this), this.context.gl.deleteTexture(this.texture) } }, pe = Ii; pe.DISABLE_UNPACK_PREMULTIPLIED_ALPHA_WEBGL = !1; var Yi = class extends rs { constructor(t, e = "", i = null) { super(s => new pe(t, s), e, i) } }, Mt = class { constructor(t = 0, e = 0, i = 0) { this.x = 0, this.y = 0, this.z = 0, this.x = t, this.y = e, this.z = i } setFrom(t) { return this.x = t.x, this.y = t.y, this.z = t.z, this } set(t, e, i) { return this.x = t, this.y = e, this.z = i, this } add(t) { return this.x += t.x, this.y += t.y, this.z += t.z, this } sub(t) { return this.x -= t.x, this.y -= t.y, this.z -= t.z, this } scale(t) { return this.x *= t, this.y *= t, this.z *= t, this } normalize() { let t = this.length(); return t == 0 ? this : (t = 1 / t, this.x *= t, this.y *= t, this.z *= t, this) } cross(t) { return this.set(this.y * t.z - this.z * t.y, this.z * t.x - this.x * t.z, this.x * t.y - this.y * t.x) } multiply(t) { let e = t.values; return this.set(this.x * e[N] + this.y * e[j] + this.z * e[H] + e[U], this.x * e[G] + this.y * e[z] + this.z * e[Z] + e[W], this.x * e[J] + this.y * e[K] + this.z * e[_] + e[q]) } project(t) { let e = t.values, i = 1 / (this.x * e[$] + this.y * e[tt] + this.z * e[et] + e[Q]); return this.set((this.x * e[N] + this.y * e[j] + this.z * e[H] + e[U]) * i, (this.x * e[G] + this.y * e[z] + this.z * e[Z] + e[W]) * i, (this.x * e[J] + this.y * e[K] + this.z * e[_] + e[q]) * i) } dot(t) { return this.x * t.x + this.y * t.y + this.z * t.z } length() { return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z) } distance(t) { let e = t.x - this.x, i = t.y - this.y, s = t.z - this.z; return Math.sqrt(e * e + i * i + s * s) } }, N = 0, j = 4, H = 8, U = 12, G = 1, z = 5, Z = 9, W = 13, J = 2, K = 6, _ = 10, q = 14, $ = 3, tt = 7, et = 11, Q = 15, xt = class { constructor() { this.temp = new Float32Array(16), this.values = new Float32Array(16); let t = this.values; t[N] = 1, t[z] = 1, t[_] = 1, t[Q] = 1 } set(t) { return this.values.set(t), this } transpose() { let t = this.temp, e = this.values; return t[N] = e[N], t[j] = e[G], t[H] = e[J], t[U] = e[$], t[G] = e[j], t[z] = e[z], t[Z] = e[K], t[W] = e[tt], t[J] = e[H], t[K] = e[Z], t[_] = e[_], t[q] = e[et], t[$] = e[U], t[tt] = e[W], t[et] = e[q], t[Q] = e[Q], this.set(t) } identity() { let t = this.values; return t[N] = 1, t[j] = 0, t[H] = 0, t[U] = 0, t[G] = 0, t[z] = 1, t[Z] = 0, t[W] = 0, t[J] = 0, t[K] = 0, t[_] = 1, t[q] = 0, t[$] = 0, t[tt] = 0, t[et] = 0, t[Q] = 1, this } invert() { let t = this.values, e = this.temp, i = t[$] * t[K] * t[Z] * t[U] - t[J] * t[tt] * t[Z] * t[U] - t[$] * t[z] * t[_] * t[U] + t[G] * t[tt] * t[_] * t[U] + t[J] * t[z] * t[et] * t[U] - t[G] * t[K] * t[et] * t[U] - t[$] * t[K] * t[H] * t[W] + t[J] * t[tt] * t[H] * t[W] + t[$] * t[j] * t[_] * t[W] - t[N] * t[tt] * t[_] * t[W] - t[J] * t[j] * t[et] * t[W] + t[N] * t[K] * t[et] * t[W] + t[$] * t[z] * t[H] * t[q] - t[G] * t[tt] * t[H] * t[q] - t[$] * t[j] * t[Z] * t[q] + t[N] * t[tt] * t[Z] * t[q] + t[G] * t[j] * t[et] * t[q] - t[N] * t[z] * t[et] * t[q] - t[J] * t[z] * t[H] * t[Q] + t[G] * t[K] * t[H] * t[Q] + t[J] * t[j] * t[Z] * t[Q] - t[N] * t[K] * t[Z] * t[Q] - t[G] * t[j] * t[_] * t[Q] + t[N] * t[z] * t[_] * t[Q]; if (i == 0) throw new Error("non-invertible matrix"); let s = 1 / i; return e[N] = t[Z] * t[q] * t[tt] - t[W] * t[_] * t[tt] + t[W] * t[K] * t[et] - t[z] * t[q] * t[et] - t[Z] * t[K] * t[Q] + t[z] * t[_] * t[Q], e[j] = t[U] * t[_] * t[tt] - t[H] * t[q] * t[tt] - t[U] * t[K] * t[et] + t[j] * t[q] * t[et] + t[H] * t[K] * t[Q] - t[j] * t[_] * t[Q], e[H] = t[H] * t[W] * t[tt] - t[U] * t[Z] * t[tt] + t[U] * t[z] * t[et] - t[j] * t[W] * t[et] - t[H] * t[z] * t[Q] + t[j] * t[Z] * t[Q], e[U] = t[U] * t[Z] * t[K] - t[H] * t[W] * t[K] - t[U] * t[z] * t[_] + t[j] * t[W] * t[_] + t[H] * t[z] * t[q] - t[j] * t[Z] * t[q], e[G] = t[W] * t[_] * t[$] - t[Z] * t[q] * t[$] - t[W] * t[J] * t[et] + t[G] * t[q] * t[et] + t[Z] * t[J] * t[Q] - t[G] * t[_] * t[Q], e[z] = t[H] * t[q] * t[$] - t[U] * t[_] * t[$] + t[U] * t[J] * t[et] - t[N] * t[q] * t[et] - t[H] * t[J] * t[Q] + t[N] * t[_] * t[Q], e[Z] = t[U] * t[Z] * t[$] - t[H] * t[W] * t[$] - t[U] * t[G] * t[et] + t[N] * t[W] * t[et] + t[H] * t[G] * t[Q] - t[N] * t[Z] * t[Q], e[W] = t[H] * t[W] * t[J] - t[U] * t[Z] * t[J] + t[U] * t[G] * t[_] - t[N] * t[W] * t[_] - t[H] * t[G] * t[q] + t[N] * t[Z] * t[q], e[J] = t[z] * t[q] * t[$] - t[W] * t[K] * t[$] + t[W] * t[J] * t[tt] - t[G] * t[q] * t[tt] - t[z] * t[J] * t[Q] + t[G] * t[K] * t[Q], e[K] = t[U] * t[K] * t[$] - t[j] * t[q] * t[$] - t[U] * t[J] * t[tt] + t[N] * t[q] * t[tt] + t[j] * t[J] * t[Q] - t[N] * t[K] * t[Q], e[_] = t[j] * t[W] * t[$] - t[U] * t[z] * t[$] + t[U] * t[G] * t[tt] - t[N] * t[W] * t[tt] - t[j] * t[G] * t[Q] + t[N] * t[z] * t[Q], e[q] = t[U] * t[z] * t[J] - t[j] * t[W] * t[J] - t[U] * t[G] * t[K] + t[N] * t[W] * t[K] + t[j] * t[G] * t[q] - t[N] * t[z] * t[q], e[$] = t[Z] * t[K] * t[$] - t[z] * t[_] * t[$] - t[Z] * t[J] * t[tt] + t[G] * t[_] * t[tt] + t[z] * t[J] * t[et] - t[G] * t[K] * t[et], e[tt] = t[j] * t[_] * t[$] - t[H] * t[K] * t[$] + t[H] * t[J] * t[tt] - t[N] * t[_] * t[tt] - t[j] * t[J] * t[et] + t[N] * t[K] * t[et], e[et] = t[H] * t[z] * t[$] - t[j] * t[Z] * t[$] - t[H] * t[G] * t[tt] + t[N] * t[Z] * t[tt] + t[j] * t[G] * t[et] - t[N] * t[z] * t[et], e[Q] = t[j] * t[Z] * t[J] - t[H] * t[z] * t[J] + t[H] * t[G] * t[K] - t[N] * t[Z] * t[K] - t[j] * t[G] * t[_] + t[N] * t[z] * t[_], t[N] = e[N] * s, t[j] = e[j] * s, t[H] = e[H] * s, t[U] = e[U] * s, t[G] = e[G] * s, t[z] = e[z] * s, t[Z] = e[Z] * s, t[W] = e[W] * s, t[J] = e[J] * s, t[K] = e[K] * s, t[_] = e[_] * s, t[q] = e[q] * s, t[$] = e[$] * s, t[tt] = e[tt] * s, t[et] = e[et] * s, t[Q] = e[Q] * s, this } determinant() { let t = this.values; return t[$] * t[K] * t[Z] * t[U] - t[J] * t[tt] * t[Z] * t[U] - t[$] * t[z] * t[_] * t[U] + t[G] * t[tt] * t[_] * t[U] + t[J] * t[z] * t[et] * t[U] - t[G] * t[K] * t[et] * t[U] - t[$] * t[K] * t[H] * t[W] + t[J] * t[tt] * t[H] * t[W] + t[$] * t[j] * t[_] * t[W] - t[N] * t[tt] * t[_] * t[W] - t[J] * t[j] * t[et] * t[W] + t[N] * t[K] * t[et] * t[W] + t[$] * t[z] * t[H] * t[q] - t[G] * t[tt] * t[H] * t[q] - t[$] * t[j] * t[Z] * t[q] + t[N] * t[tt] * t[Z] * t[q] + t[G] * t[j] * t[et] * t[q] - t[N] * t[z] * t[et] * t[q] - t[J] * t[z] * t[H] * t[Q] + t[G] * t[K] * t[H] * t[Q] + t[J] * t[j] * t[Z] * t[Q] - t[N] * t[K] * t[Z] * t[Q] - t[G] * t[j] * t[_] * t[Q] + t[N] * t[z] * t[_] * t[Q] } translate(t, e, i) { let s = this.values; return s[U] += t, s[W] += e, s[q] += i, this } copy() { return new xt().set(this.values) } projection(t, e, i, s) { this.identity(); let a = 1 / Math.tan(i * (Math.PI / 180) / 2), d = (e + t) / (t - e), n = 2 * e * t / (t - e), r = this.values; return r[N] = a / s, r[G] = 0, r[J] = 0, r[$] = 0, r[j] = 0, r[z] = a, r[K] = 0, r[tt] = 0, r[H] = 0, r[Z] = 0, r[_] = d, r[et] = -1, r[U] = 0, r[W] = 0, r[q] = n, r[Q] = 0, this } ortho2d(t, e, i, s) { return this.ortho(t, t + i, e, e + s, 0, 1) } ortho(t, e, i, s, a, d) { this.identity(); let n = 2 / (e - t), r = 2 / (s - i), h = -2 / (d - a), o = -(e + t) / (e - t), l = -(s + i) / (s - i), c = -(d + a) / (d - a), u = this.values; return u[N] = n, u[G] = 0, u[J] = 0, u[$] = 0, u[j] = 0, u[z] = r, u[K] = 0, u[tt] = 0, u[H] = 0, u[Z] = 0, u[_] = h, u[et] = 0, u[U] = o, u[W] = l, u[q] = c, u[Q] = 1, this } multiply(t) { let e = this.temp, i = this.values, s = t.values; return e[N] = i[N] * s[N] + i[j] * s[G] + i[H] * s[J] + i[U] * s[$], e[j] = i[N] * s[j] + i[j] * s[z] + i[H] * s[K] + i[U] * s[tt], e[H] = i[N] * s[H] + i[j] * s[Z] + i[H] * s[_] + i[U] * s[et], e[U] = i[N] * s[U] + i[j] * s[W] + i[H] * s[q] + i[U] * s[Q], e[G] = i[G] * s[N] + i[z] * s[G] + i[Z] * s[J] + i[W] * s[$], e[z] = i[G] * s[j] + i[z] * s[z] + i[Z] * s[K] + i[W] * s[tt], e[Z] = i[G] * s[H] + i[z] * s[Z] + i[Z] * s[_] + i[W] * s[et], e[W] = i[G] * s[U] + i[z] * s[W] + i[Z] * s[q] + i[W] * s[Q], e[J] = i[J] * s[N] + i[K] * s[G] + i[_] * s[J] + i[q] * s[$], e[K] = i[J] * s[j] + i[K] * s[z] + i[_] * s[K] + i[q] * s[tt], e[_] = i[J] * s[H] + i[K] * s[Z] + i[_] * s[_] + i[q] * s[et], e[q] = i[J] * s[U] + i[K] * s[W] + i[_] * s[q] + i[q] * s[Q], e[$] = i[$] * s[N] + i[tt] * s[G] + i[et] * s[J] + i[Q] * s[$], e[tt] = i[$] * s[j] + i[tt] * s[z] + i[et] * s[K] + i[Q] * s[tt], e[et] = i[$] * s[H] + i[tt] * s[Z] + i[et] * s[_] + i[Q] * s[et], e[Q] = i[$] * s[U] + i[tt] * s[W] + i[et] * s[q] + i[Q] * s[Q], this.set(this.temp) } multiplyLeft(t) { let e = this.temp, i = this.values, s = t.values; return e[N] = s[N] * i[N] + s[j] * i[G] + s[H] * i[J] + s[U] * i[$], e[j] = s[N] * i[j] + s[j] * i[z] + s[H] * i[K] + s[U] * i[tt], e[H] = s[N] * i[H] + s[j] * i[Z] + s[H] * i[_] + s[U] * i[et], e[U] = s[N] * i[U] + s[j] * i[W] + s[H] * i[q] + s[U] * i[Q], e[G] = s[G] * i[N] + s[z] * i[G] + s[Z] * i[J] + s[W] * i[$], e[z] = s[G] * i[j] + s[z] * i[z] + s[Z] * i[K] + s[W] * i[tt], e[Z] = s[G] * i[H] + s[z] * i[Z] + s[Z] * i[_] + s[W] * i[et], e[W] = s[G] * i[U] + s[z] * i[W] + s[Z] * i[q] + s[W] * i[Q], e[J] = s[J] * i[N] + s[K] * i[G] + s[_] * i[J] + s[q] * i[$], e[K] = s[J] * i[j] + s[K] * i[z] + s[_] * i[K] + s[q] * i[tt], e[_] = s[J] * i[H] + s[K] * i[Z] + s[_] * i[_] + s[q] * i[et], e[q] = s[J] * i[U] + s[K] * i[W] + s[_] * i[q] + s[q] * i[Q], e[$] = s[$] * i[N] + s[tt] * i[G] + s[et] * i[J] + s[Q] * i[$], e[tt] = s[$] * i[j] + s[tt] * i[z] + s[et] * i[K] + s[Q] * i[tt], e[et] = s[$] * i[H] + s[tt] * i[Z] + s[et] * i[_] + s[Q] * i[et], e[Q] = s[$] * i[U] + s[tt] * i[W] + s[et] * i[q] + s[Q] * i[Q], this.set(this.temp) } lookAt(t, e, i) { xt.initTemps(); let s = xt.xAxis, a = xt.yAxis, d = xt.zAxis; d.setFrom(e).normalize(), s.setFrom(e).normalize(), s.cross(i).normalize(), a.setFrom(s).cross(d).normalize(), this.identity(); let n = this.values; return n[N] = s.x, n[j] = s.y, n[H] = s.z, n[G] = a.x, n[z] = a.y, n[Z] = a.z, n[J] = -d.x, n[K] = -d.y, n[_] = -d.z, xt.tmpMatrix.identity(), xt.tmpMatrix.values[U] = -t.x, xt.tmpMatrix.values[W] = -t.y, xt.tmpMatrix.values[q] = -t.z, this.multiply(xt.tmpMatrix), this } static initTemps() { xt.xAxis === null && (xt.xAxis = new Mt), xt.yAxis === null && (xt.yAxis = new Mt), xt.zAxis === null && (xt.zAxis = new Mt) } }, _t = xt; _t.xAxis = null, _t.yAxis = null, _t.zAxis = null, _t.tmpMatrix = new xt; var xs = class { constructor(t, e) { this.position = new Mt(0, 0, 0), this.direction = new Mt(0, 0, -1), this.up = new Mt(0, 1, 0), this.near = 0, this.far = 100, this.zoom = 1, this.viewportWidth = 0, this.viewportHeight = 0, this.projectionView = new _t, this.inverseProjectionView = new _t, this.projection = new _t, this.view = new _t, this.viewportWidth = t, this.viewportHeight = e, this.update() } update() { let t = this.projection, e = this.view, i = this.projectionView, s = this.inverseProjectionView, a = this.zoom, d = this.viewportWidth, n = this.viewportHeight; t.ortho(a * (-d / 2), a * (d / 2), a * (-n / 2), a * (n / 2), this.near, this.far), e.lookAt(this.position, this.direction, this.up), i.set(t.values), i.multiply(e), s.set(i.values).invert() } screenToWorld(t, e, i) { let s = t.x, a = i - t.y - 1; return t.x = 2 * s / e - 1, t.y = 2 * a / i - 1, t.z = 2 * t.z - 1, t.project(this.inverseProjectionView), t } worldToScreen(t, e, i) { return t.project(this.projectionView), t.x = e * (t.x + 1) / 2, t.y = i * (t.y + 1) / 2, t.z = (t.z + 1) / 2, t } setViewport(t, e) { this.viewportWidth = t, this.viewportHeight = e } }, xe = class { constructor(t) { this.mouseX = 0, this.mouseY = 0, this.buttonDown = !1, this.touch0 = null, this.touch1 = null, this.initialPinchDistance = 0, this.listeners = new Array, this.eventListeners = [], this.element = t, this.setupCallbacks(t) } setupCallbacks(t) { let e = n => { if (n instanceof MouseEvent) { let r = t.getBoundingClientRect(); this.mouseX = n.clientX - r.left, this.mouseY = n.clientY - r.top, this.buttonDown = !0, this.listeners.map(h => { h.down && h.down(this.mouseX, this.mouseY) }), document.addEventListener("mousemove", i), document.addEventListener("mouseup", s) } }, i = n => { if (n instanceof MouseEvent) { let r = t.getBoundingClientRect(); this.mouseX = n.clientX - r.left, this.mouseY = n.clientY - r.top, this.listeners.map(h => { this.buttonDown ? h.dragged && h.dragged(this.mouseX, this.mouseY) : h.moved && h.moved(this.mouseX, this.mouseY) }) } }, s = n => { if (n instanceof MouseEvent) { let r = t.getBoundingClientRect(); this.mouseX = n.clientX - r.left, this.mouseY = n.clientY - r.top, this.buttonDown = !1, this.listeners.map(h => { h.up && h.up(this.mouseX, this.mouseY) }), document.removeEventListener("mousemove", i), document.removeEventListener("mouseup", s) } }, a = n => { n.preventDefault(); let r = n.deltaY; n.deltaMode == WheelEvent.DOM_DELTA_LINE && (r *= 8), n.deltaMode == WheelEvent.DOM_DELTA_PAGE && (r *= 24), this.listeners.map(h => { h.wheel && h.wheel(n.deltaY) }) }; t.addEventListener("mousedown", e, !0), t.addEventListener("mousemove", i, !0), t.addEventListener("mouseup", s, !0), t.addEventListener("wheel", a, !0), t.addEventListener("touchstart", n => { if (!this.touch0 || !this.touch1) { var r = n.changedTouches; let h = r.item(0), o = t.getBoundingClientRect(), l = h.clientX - o.left, c = h.clientY - o.top, u = new ws(h.identifier, l, c); if (this.mouseX = l, this.mouseY = c, this.buttonDown = !0, !this.touch0) this.touch0 = u, this.listeners.map(m => { m.down && m.down(u.x, u.y) }); else if (!this.touch1) { this.touch1 = u; let m = this.touch1.x - this.touch0.x, f = this.touch1.x - this.touch0.x; this.initialPinchDistance = Math.sqrt(m * m + f * f), this.listeners.map(g => { g.zoom && g.zoom(this.initialPinchDistance, this.initialPinchDistance) }) } } n.preventDefault() }, !1), t.addEventListener("touchmove", n => { if (this.touch0) { var r = n.changedTouches; let l = t.getBoundingClientRect(); for (var h = 0; h < r.length; h++) { var o = r[h]; let c = o.clientX - l.left, u = o.clientY - l.top; this.touch0.identifier === o.identifier && (this.touch0.x = this.mouseX = c, this.touch0.y = this.mouseY = u, this.listeners.map(m => { m.dragged && m.dragged(c, u) })), this.touch1 && this.touch1.identifier === o.identifier && (this.touch1.x = this.mouseX = c, this.touch1.y = this.mouseY = u) } if (this.touch0 && this.touch1) { let c = this.touch1.x - this.touch0.x, u = this.touch1.x - this.touch0.x, m = Math.sqrt(c * c + u * u); this.listeners.map(f => { f.zoom && f.zoom(this.initialPinchDistance, m) }) } } n.preventDefault() }, !1); let d = n => { if (this.touch0) { var r = n.changedTouches; let l = t.getBoundingClientRect(); for (var h = 0; h < r.length; h++) { var o = r[h]; let c = o.clientX - l.left, u = o.clientY - l.top; if (this.touch0.identifier === o.identifier) if (this.touch0 = null, this.mouseX = c, this.mouseY = u, this.listeners.map(m => { m.up && m.up(c, u) }), this.touch1) this.touch0 = this.touch1, this.touch1 = null, this.mouseX = this.touch0.x, this.mouseX = this.touch0.x, this.buttonDown = !0, this.listeners.map(m => { m.down && m.down(this.touch0.x, this.touch0.y) }); else { this.buttonDown = !1; break } this.touch1 && this.touch1.identifier && (this.touch1 = null) } } n.preventDefault() }; t.addEventListener("touchend", d, !1), t.addEventListener("touchcancel", d) } addListener(t) { this.listeners.push(t) } removeListener(t) { let e = this.listeners.indexOf(t); e > -1 && this.listeners.splice(e, 1) } }, ws = class { constructor(t, e, i) { this.identifier = t, this.x = e, this.y = i } }, fr = class { constructor(t, e) { this.canvas = t, this.camera = e; let i = 0, s = 0, a = 0, d = 0, n = 0, r = 0, h = 0, o = 0; new xe(t).addListener({ down: (l, c) => { i = e.position.x, s = e.position.y, d = r = l, n = h = c, o = e.zoom }, dragged: (l, c) => { let u = l - d, m = c - n, f = e.screenToWorld(new Mt(0, 0), t.clientWidth, t.clientHeight), g = e.screenToWorld(new Mt(u, m), t.clientWidth, t.clientHeight).sub(f); e.position.set(i - g.x, s - g.y, 0), e.update(), r = l, h = c }, wheel: l => { let c = l / 200 * e.zoom, u = e.zoom + c; if (u > 0) { let m = 0, f = 0; if (l < 0) m = r, f = h; else { let v = new Mt(t.clientWidth / 2 + 15, t.clientHeight / 2), p = r - v.x, b = t.clientHeight - 1 - h - v.y; m = v.x - p, f = t.clientHeight - 1 - v.y + b } let g = e.screenToWorld(new Mt(m, f), t.clientWidth, t.clientHeight); e.zoom = u, e.update(); let x = e.screenToWorld(new Mt(m, f), t.clientWidth, t.clientHeight); e.position.add(g.sub(x)), e.update() } }, zoom: (l, c) => { let u = l / c; e.zoom = o * u }, up: (l, c) => { r = l, h = c }, moved: (l, c) => { r = l, h = c } }) } }, ut = class {
-    constructor(t, e, i) { this.vertexShader = e, this.fragmentShader = i, this.vs = null, this.fs = null, this.program = null, this.tmp2x2 = new Float32Array(2 * 2), this.tmp3x3 = new Float32Array(3 * 3), this.tmp4x4 = new Float32Array(4 * 4), this.vsSource = e, this.fsSource = i, this.context = t instanceof wt ? t : new wt(t), this.context.addRestorable(this), this.compile() } getProgram() { return this.program } getVertexShader() { return this.vertexShader } getFragmentShader() { return this.fragmentShader } getVertexShaderSource() { return this.vsSource } getFragmentSource() { return this.fsSource } compile() { let t = this.context.gl; try { this.vs = this.compileShader(t.VERTEX_SHADER, this.vertexShader), this.fs = this.compileShader(t.FRAGMENT_SHADER, this.fragmentShader), this.program = this.compileProgram(this.vs, this.fs) } catch (e) { throw this.dispose(), e } } compileShader(t, e) { let i = this.context.gl, s = i.createShader(t); if (i.shaderSource(s, e), i.compileShader(s), !i.getShaderParameter(s, i.COMPILE_STATUS)) { let a = "Couldn't compile shader: " + i.getShaderInfoLog(s); if (i.deleteShader(s), !i.isContextLost()) throw new Error(a) } return s } compileProgram(t, e) { let i = this.context.gl, s = i.createProgram(); if (i.attachShader(s, t), i.attachShader(s, e), i.linkProgram(s), !i.getProgramParameter(s, i.LINK_STATUS)) { let a = "Couldn't compile shader program: " + i.getProgramInfoLog(s); if (i.deleteProgram(s), !i.isContextLost()) throw new Error(a) } return s } restore() { this.compile() } bind() { this.context.gl.useProgram(this.program) } unbind() { this.context.gl.useProgram(null) } setUniformi(t, e) { this.context.gl.uniform1i(this.getUniformLocation(t), e) } setUniformf(t, e) { this.context.gl.uniform1f(this.getUniformLocation(t), e) } setUniform2f(t, e, i) { this.context.gl.uniform2f(this.getUniformLocation(t), e, i) } setUniform3f(t, e, i, s) { this.context.gl.uniform3f(this.getUniformLocation(t), e, i, s) } setUniform4f(t, e, i, s, a) { this.context.gl.uniform4f(this.getUniformLocation(t), e, i, s, a) } setUniform2x2f(t, e) { let i = this.context.gl; this.tmp2x2.set(e), i.uniformMatrix2fv(this.getUniformLocation(t), !1, this.tmp2x2) } setUniform3x3f(t, e) { let i = this.context.gl; this.tmp3x3.set(e), i.uniformMatrix3fv(this.getUniformLocation(t), !1, this.tmp3x3) } setUniform4x4f(t, e) { let i = this.context.gl; this.tmp4x4.set(e), i.uniformMatrix4fv(this.getUniformLocation(t), !1, this.tmp4x4) } getUniformLocation(t) { let e = this.context.gl, i = e.getUniformLocation(this.program, t); if (!i && !e.isContextLost()) throw new Error(`Couldn't find location for uniform ${t}`); return i } getAttributeLocation(t) { let e = this.context.gl, i = e.getAttribLocation(this.program, t); if (i == -1 && !e.isContextLost()) throw new Error(`Couldn't find location for attribute ${t}`); return i } dispose() { this.context.removeRestorable(this); let t = this.context.gl; this.vs && (t.deleteShader(this.vs), this.vs = null), this.fs && (t.deleteShader(this.fs), this.fs = null), this.program && (t.deleteProgram(this.program), this.program = null) } static newColoredTextured(t) {
-      let e = `
-				attribute vec4 ${ut.POSITION};
-				attribute vec4 ${ut.COLOR};
-				attribute vec2 ${ut.TEXCOORDS};
-				uniform mat4 ${ut.MVP_MATRIX};
-				varying vec4 v_color;
-				varying vec2 v_texCoords;
+	var __defProp = Object.defineProperty;
+	var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+	var __getOwnPropNames = Object.getOwnPropertyNames;
+	var __hasOwnProp = Object.prototype.hasOwnProperty;
+	var __export = (target, all) => {
+		for (var name in all)
+			__defProp(target, name, { get: all[name], enumerable: true });
+	};
+	var __copyProps = (to, from, except, desc) => {
+		if (from && typeof from === "object" || typeof from === "function") {
+			for (let key of __getOwnPropNames(from))
+				if (!__hasOwnProp.call(to, key) && key !== except)
+					__defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+		}
+		return to;
+	};
+	var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-				void main () {
-					v_color = ${ut.COLOR};
-					v_texCoords = ${ut.TEXCOORDS};
-					gl_Position = ${ut.MVP_MATRIX} * ${ut.POSITION};
-				}
-			`, i = `
-				#ifdef GL_ES
-					#define LOWP lowp
-					precision mediump float;
-				#else
-					#define LOWP
-				#endif
-				varying LOWP vec4 v_color;
-				varying vec2 v_texCoords;
-				uniform sampler2D u_texture;
+	// spine-player/src/index.ts
+	var src_exports = {};
+	__export(src_exports, {
+		AlphaTimeline: () => AlphaTimeline,
+		Animation: () => Animation,
+		AnimationState: () => AnimationState,
+		AnimationStateAdapter: () => AnimationStateAdapter,
+		AnimationStateData: () => AnimationStateData,
+		AssetManager: () => AssetManager,
+		AssetManagerBase: () => AssetManagerBase,
+		AtlasAttachmentLoader: () => AtlasAttachmentLoader,
+		Attachment: () => Attachment,
+		AttachmentTimeline: () => AttachmentTimeline,
+		BinaryInput: () => BinaryInput,
+		BlendMode: () => BlendMode,
+		Bone: () => Bone,
+		BoneData: () => BoneData,
+		BoundingBoxAttachment: () => BoundingBoxAttachment,
+		CURRENT: () => CURRENT,
+		CameraController: () => CameraController,
+		ClippingAttachment: () => ClippingAttachment,
+		Color: () => Color,
+		Color2Attribute: () => Color2Attribute,
+		ColorAttribute: () => ColorAttribute,
+		ConstraintData: () => ConstraintData,
+		CurveTimeline: () => CurveTimeline,
+		CurveTimeline1: () => CurveTimeline1,
+		CurveTimeline2: () => CurveTimeline2,
+		DebugUtils: () => DebugUtils,
+		DeformTimeline: () => DeformTimeline,
+		Downloader: () => Downloader,
+		DrawOrderTimeline: () => DrawOrderTimeline,
+		Event: () => Event,
+		EventData: () => EventData,
+		EventQueue: () => EventQueue,
+		EventTimeline: () => EventTimeline,
+		EventType: () => EventType,
+		FIRST: () => FIRST,
+		FakeTexture: () => FakeTexture,
+		GLTexture: () => GLTexture,
+		HOLD_FIRST: () => HOLD_FIRST,
+		HOLD_MIX: () => HOLD_MIX,
+		HOLD_SUBSEQUENT: () => HOLD_SUBSEQUENT,
+		IkConstraint: () => IkConstraint,
+		IkConstraintData: () => IkConstraintData,
+		IkConstraintTimeline: () => IkConstraintTimeline,
+		Input: () => Input,
+		IntSet: () => IntSet,
+		Interpolation: () => Interpolation,
+		LoadingScreen: () => LoadingScreen,
+		M00: () => M00,
+		M01: () => M01,
+		M02: () => M02,
+		M03: () => M03,
+		M10: () => M10,
+		M11: () => M11,
+		M12: () => M12,
+		M13: () => M13,
+		M20: () => M20,
+		M21: () => M21,
+		M22: () => M22,
+		M23: () => M23,
+		M30: () => M30,
+		M31: () => M31,
+		M32: () => M32,
+		M33: () => M33,
+		ManagedWebGLRenderingContext: () => ManagedWebGLRenderingContext,
+		MathUtils: () => MathUtils,
+		Matrix4: () => Matrix42,
+		Mesh: () => Mesh,
+		MeshAttachment: () => MeshAttachment,
+		MixBlend: () => MixBlend,
+		MixDirection: () => MixDirection,
+		OrthoCamera: () => OrthoCamera,
+		PathAttachment: () => PathAttachment,
+		PathConstraint: () => PathConstraint,
+		PathConstraintData: () => PathConstraintData,
+		PathConstraintMixTimeline: () => PathConstraintMixTimeline,
+		PathConstraintPositionTimeline: () => PathConstraintPositionTimeline,
+		PathConstraintSpacingTimeline: () => PathConstraintSpacingTimeline,
+		PointAttachment: () => PointAttachment,
+		PolygonBatcher: () => PolygonBatcher,
+		Pool: () => Pool,
+		Position2Attribute: () => Position2Attribute,
+		Position3Attribute: () => Position3Attribute,
+		PositionMode: () => PositionMode,
+		Pow: () => Pow,
+		PowOut: () => PowOut,
+		RGB2Timeline: () => RGB2Timeline,
+		RGBA2Timeline: () => RGBA2Timeline,
+		RGBATimeline: () => RGBATimeline,
+		RGBTimeline: () => RGBTimeline,
+		RegionAttachment: () => RegionAttachment,
+		ResizeMode: () => ResizeMode,
+		RotateMode: () => RotateMode,
+		RotateTimeline: () => RotateTimeline,
+		SETUP: () => SETUP,
+		SUBSEQUENT: () => SUBSEQUENT,
+		ScaleTimeline: () => ScaleTimeline,
+		ScaleXTimeline: () => ScaleXTimeline,
+		ScaleYTimeline: () => ScaleYTimeline,
+		SceneRenderer: () => SceneRenderer,
+		SequenceTimeline: () => SequenceTimeline,
+		Shader: () => Shader,
+		ShapeRenderer: () => ShapeRenderer,
+		ShapeType: () => ShapeType,
+		ShearTimeline: () => ShearTimeline,
+		ShearXTimeline: () => ShearXTimeline,
+		ShearYTimeline: () => ShearYTimeline,
+		Skeleton: () => Skeleton,
+		SkeletonBinary: () => SkeletonBinary,
+		SkeletonBounds: () => SkeletonBounds,
+		SkeletonClipping: () => SkeletonClipping,
+		SkeletonData: () => SkeletonData,
+		SkeletonDebugRenderer: () => SkeletonDebugRenderer,
+		SkeletonJson: () => SkeletonJson,
+		SkeletonRenderer: () => SkeletonRenderer,
+		Skin: () => Skin,
+		SkinEntry: () => SkinEntry,
+		Slot: () => Slot,
+		SlotData: () => SlotData,
+		SpacingMode: () => SpacingMode,
+		SpineCanvas: () => SpineCanvas,
+		SpinePlayer: () => SpinePlayer,
+		StringSet: () => StringSet,
+		TexCoordAttribute: () => TexCoordAttribute,
+		Texture: () => Texture,
+		TextureAtlas: () => TextureAtlas,
+		TextureAtlasPage: () => TextureAtlasPage,
+		TextureAtlasRegion: () => TextureAtlasRegion,
+		TextureFilter: () => TextureFilter,
+		TextureRegion: () => TextureRegion,
+		TextureWrap: () => TextureWrap,
+		TimeKeeper: () => TimeKeeper,
+		Timeline: () => Timeline,
+		Touch: () => Touch,
+		TrackEntry: () => TrackEntry,
+		TransformConstraint: () => TransformConstraint,
+		TransformConstraintData: () => TransformConstraintData,
+		TransformConstraintTimeline: () => TransformConstraintTimeline,
+		TransformMode: () => TransformMode,
+		TranslateTimeline: () => TranslateTimeline,
+		TranslateXTimeline: () => TranslateXTimeline,
+		TranslateYTimeline: () => TranslateYTimeline,
+		Triangulator: () => Triangulator,
+		Utils: () => Utils,
+		Vector2: () => Vector2,
+		Vector3: () => Vector3,
+		VertexAttachment: () => VertexAttachment,
+		VertexAttribute: () => VertexAttribute,
+		VertexAttributeType: () => VertexAttributeType,
+		WebGLBlendModeConverter: () => WebGLBlendModeConverter,
+		WindowedMean: () => WindowedMean
+	});
 
-				void main () {
-					gl_FragColor = v_color * texture2D(u_texture, v_texCoords);
+	// spine-core/src/Utils.ts
+	var IntSet = class {
+		constructor() {
+			this.array = new Array();
+		}
+		add(value) {
+			let contains = this.contains(value);
+			this.array[value | 0] = value | 0;
+			return !contains;
+		}
+		contains(value) {
+			return this.array[value | 0] != void 0;
+		}
+		remove(value) {
+			this.array[value | 0] = void 0;
+		}
+		clear() {
+			this.array.length = 0;
+		}
+	};
+	var StringSet = class {
+		constructor() {
+			this.entries = {};
+			this.size = 0;
+		}
+		add(value) {
+			let contains = this.entries[value];
+			this.entries[value] = true;
+			if (!contains) {
+				this.size++;
+				return true;
+			}
+			return false;
+		}
+		addAll(values) {
+			let oldSize = this.size;
+			for (var i = 0, n = values.length; i < n; i++)
+				this.add(values[i]);
+			return oldSize != this.size;
+		}
+		contains(value) {
+			return this.entries[value];
+		}
+		clear() {
+			this.entries = {};
+			this.size = 0;
+		}
+	};
+	var _Color = class {
+		constructor(r = 0, g = 0, b = 0, a = 0) {
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			this.a = a;
+		}
+		set(r, g, b, a) {
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			this.a = a;
+			return this.clamp();
+		}
+		setFromColor(c) {
+			this.r = c.r;
+			this.g = c.g;
+			this.b = c.b;
+			this.a = c.a;
+			return this;
+		}
+		setFromString(hex) {
+			hex = hex.charAt(0) == "#" ? hex.substr(1) : hex;
+			this.r = parseInt(hex.substr(0, 2), 16) / 255;
+			this.g = parseInt(hex.substr(2, 2), 16) / 255;
+			this.b = parseInt(hex.substr(4, 2), 16) / 255;
+			this.a = hex.length != 8 ? 1 : parseInt(hex.substr(6, 2), 16) / 255;
+			return this;
+		}
+		add(r, g, b, a) {
+			this.r += r;
+			this.g += g;
+			this.b += b;
+			this.a += a;
+			return this.clamp();
+		}
+		clamp() {
+			if (this.r < 0)
+				this.r = 0;
+			else if (this.r > 1)
+				this.r = 1;
+			if (this.g < 0)
+				this.g = 0;
+			else if (this.g > 1)
+				this.g = 1;
+			if (this.b < 0)
+				this.b = 0;
+			else if (this.b > 1)
+				this.b = 1;
+			if (this.a < 0)
+				this.a = 0;
+			else if (this.a > 1)
+				this.a = 1;
+			return this;
+		}
+		static rgba8888ToColor(color, value) {
+			color.r = ((value & 4278190080) >>> 24) / 255;
+			color.g = ((value & 16711680) >>> 16) / 255;
+			color.b = ((value & 65280) >>> 8) / 255;
+			color.a = (value & 255) / 255;
+		}
+		static rgb888ToColor(color, value) {
+			color.r = ((value & 16711680) >>> 16) / 255;
+			color.g = ((value & 65280) >>> 8) / 255;
+			color.b = (value & 255) / 255;
+		}
+		static fromString(hex) {
+			return new _Color().setFromString(hex);
+		}
+	};
+	var Color = _Color;
+	Color.WHITE = new _Color(1, 1, 1, 1);
+	Color.RED = new _Color(1, 0, 0, 1);
+	Color.GREEN = new _Color(0, 1, 0, 1);
+	Color.BLUE = new _Color(0, 0, 1, 1);
+	Color.MAGENTA = new _Color(1, 0, 1, 1);
+	var _MathUtils = class {
+		static clamp(value, min, max) {
+			if (value < min)
+				return min;
+			if (value > max)
+				return max;
+			return value;
+		}
+		static cosDeg(degrees) {
+			return Math.cos(degrees * _MathUtils.degRad);
+		}
+		static sinDeg(degrees) {
+			return Math.sin(degrees * _MathUtils.degRad);
+		}
+		static signum(value) {
+			return value > 0 ? 1 : value < 0 ? -1 : 0;
+		}
+		static toInt(x) {
+			return x > 0 ? Math.floor(x) : Math.ceil(x);
+		}
+		static cbrt(x) {
+			let y = Math.pow(Math.abs(x), 1 / 3);
+			return x < 0 ? -y : y;
+		}
+		static randomTriangular(min, max) {
+			return _MathUtils.randomTriangularWith(min, max, (min + max) * 0.5);
+		}
+		static randomTriangularWith(min, max, mode) {
+			let u = Math.random();
+			let d = max - min;
+			if (u <= (mode - min) / d)
+				return min + Math.sqrt(u * d * (mode - min));
+			return max - Math.sqrt((1 - u) * d * (max - mode));
+		}
+		static isPowerOfTwo(value) {
+			return value && (value & value - 1) === 0;
+		}
+	};
+	var MathUtils = _MathUtils;
+	MathUtils.PI = 3.1415927;
+	MathUtils.PI2 = _MathUtils.PI * 2;
+	MathUtils.radiansToDegrees = 180 / _MathUtils.PI;
+	MathUtils.radDeg = _MathUtils.radiansToDegrees;
+	MathUtils.degreesToRadians = _MathUtils.PI / 180;
+	MathUtils.degRad = _MathUtils.degreesToRadians;
+	var Interpolation = class {
+		apply(start, end, a) {
+			return start + (end - start) * this.applyInternal(a);
+		}
+	};
+	var Pow = class extends Interpolation {
+		constructor(power) {
+			super();
+			this.power = 2;
+			this.power = power;
+		}
+		applyInternal(a) {
+			if (a <= 0.5)
+				return Math.pow(a * 2, this.power) / 2;
+			return Math.pow((a - 1) * 2, this.power) / (this.power % 2 == 0 ? -2 : 2) + 1;
+		}
+	};
+	var PowOut = class extends Pow {
+		constructor(power) {
+			super(power);
+		}
+		applyInternal(a) {
+			return Math.pow(a - 1, this.power) * (this.power % 2 == 0 ? -1 : 1) + 1;
+		}
+	};
+	var _Utils = class {
+		static arrayCopy(source, sourceStart, dest, destStart, numElements) {
+			for (let i = sourceStart, j = destStart; i < sourceStart + numElements; i++, j++) {
+				dest[j] = source[i];
+			}
+		}
+		static arrayFill(array, fromIndex, toIndex, value) {
+			for (let i = fromIndex; i < toIndex; i++)
+				array[i] = value;
+		}
+		static setArraySize(array, size, value = 0) {
+			let oldSize = array.length;
+			if (oldSize == size)
+				return array;
+			array.length = size;
+			if (oldSize < size) {
+				for (let i = oldSize; i < size; i++)
+					array[i] = value;
+			}
+			return array;
+		}
+		static ensureArrayCapacity(array, size, value = 0) {
+			if (array.length >= size)
+				return array;
+			return _Utils.setArraySize(array, size, value);
+		}
+		static newArray(size, defaultValue) {
+			let array = new Array(size);
+			for (let i = 0; i < size; i++)
+				array[i] = defaultValue;
+			return array;
+		}
+		static newFloatArray(size) {
+			if (_Utils.SUPPORTS_TYPED_ARRAYS)
+				return new Float32Array(size);
+			else {
+				let array = new Array(size);
+				for (let i = 0; i < array.length; i++)
+					array[i] = 0;
+				return array;
+			}
+		}
+		static newShortArray(size) {
+			if (_Utils.SUPPORTS_TYPED_ARRAYS)
+				return new Int16Array(size);
+			else {
+				let array = new Array(size);
+				for (let i = 0; i < array.length; i++)
+					array[i] = 0;
+				return array;
+			}
+		}
+		static toFloatArray(array) {
+			return _Utils.SUPPORTS_TYPED_ARRAYS ? new Float32Array(array) : array;
+		}
+		static toSinglePrecision(value) {
+			return _Utils.SUPPORTS_TYPED_ARRAYS ? Math.fround(value) : value;
+		}
+		// This function is used to fix WebKit 602 specific issue described at http://esotericsoftware.com/forum/iOS-10-disappearing-graphics-10109
+		static webkit602BugfixHelper(alpha, blend) {
+		}
+		static contains(array, element, identity = true) {
+			for (var i = 0; i < array.length; i++)
+				if (array[i] == element)
+					return true;
+			return false;
+		}
+		static enumValue(type, name) {
+			return type[name[0].toUpperCase() + name.slice(1)];
+		}
+	};
+	var Utils = _Utils;
+	Utils.SUPPORTS_TYPED_ARRAYS = typeof Float32Array !== "undefined";
+	var DebugUtils = class {
+		static logBones(skeleton) {
+			for (let i = 0; i < skeleton.bones.length; i++) {
+				let bone = skeleton.bones[i];
+				console.log(bone.data.name + ", " + bone.a + ", " + bone.b + ", " + bone.c + ", " + bone.d + ", " + bone.worldX + ", " + bone.worldY);
+			}
+		}
+	};
+	var Pool = class {
+		constructor(instantiator) {
+			this.items = new Array();
+			this.instantiator = instantiator;
+		}
+		obtain() {
+			return this.items.length > 0 ? this.items.pop() : this.instantiator();
+		}
+		free(item) {
+			if (item.reset)
+				item.reset();
+			this.items.push(item);
+		}
+		freeAll(items) {
+			for (let i = 0; i < items.length; i++)
+				this.free(items[i]);
+		}
+		clear() {
+			this.items.length = 0;
+		}
+	};
+	var Vector2 = class {
+		constructor(x = 0, y = 0) {
+			this.x = x;
+			this.y = y;
+		}
+		set(x, y) {
+			this.x = x;
+			this.y = y;
+			return this;
+		}
+		length() {
+			let x = this.x;
+			let y = this.y;
+			return Math.sqrt(x * x + y * y);
+		}
+		normalize() {
+			let len = this.length();
+			if (len != 0) {
+				this.x /= len;
+				this.y /= len;
+			}
+			return this;
+		}
+	};
+	var TimeKeeper = class {
+		constructor() {
+			this.maxDelta = 0.064;
+			this.framesPerSecond = 0;
+			this.delta = 0;
+			this.totalTime = 0;
+			this.lastTime = Date.now() / 1e3;
+			this.frameCount = 0;
+			this.frameTime = 0;
+		}
+		update() {
+			let now = Date.now() / 1e3;
+			this.delta = now - this.lastTime;
+			this.frameTime += this.delta;
+			this.totalTime += this.delta;
+			if (this.delta > this.maxDelta)
+				this.delta = this.maxDelta;
+			this.lastTime = now;
+			this.frameCount++;
+			if (this.frameTime > 1) {
+				this.framesPerSecond = this.frameCount / this.frameTime;
+				this.frameTime = 0;
+				this.frameCount = 0;
+			}
+		}
+	};
+	var WindowedMean = class {
+		constructor(windowSize = 32) {
+			this.addedValues = 0;
+			this.lastValue = 0;
+			this.mean = 0;
+			this.dirty = true;
+			this.values = new Array(windowSize);
+		}
+		hasEnoughData() {
+			return this.addedValues >= this.values.length;
+		}
+		addValue(value) {
+			if (this.addedValues < this.values.length)
+				this.addedValues++;
+			this.values[this.lastValue++] = value;
+			if (this.lastValue > this.values.length - 1)
+				this.lastValue = 0;
+			this.dirty = true;
+		}
+		getMean() {
+			if (this.hasEnoughData()) {
+				if (this.dirty) {
+					let mean = 0;
+					for (let i = 0; i < this.values.length; i++)
+						mean += this.values[i];
+					this.mean = mean / this.values.length;
+					this.dirty = false;
 				}
-			`; return new ut(t, e, i)
-    } static newTwoColoredTextured(t) {
-      let e = `
-				attribute vec4 ${ut.POSITION};
-				attribute vec4 ${ut.COLOR};
-				attribute vec4 ${ut.COLOR2};
-				attribute vec2 ${ut.TEXCOORDS};
-				uniform mat4 ${ut.MVP_MATRIX};
-				varying vec4 v_light;
-				varying vec4 v_dark;
-				varying vec2 v_texCoords;
+				return this.mean;
+			}
+			return 0;
+		}
+	};
 
-				void main () {
-					v_light = ${ut.COLOR};
-					v_dark = ${ut.COLOR2};
-					v_texCoords = ${ut.TEXCOORDS};
-					gl_Position = ${ut.MVP_MATRIX} * ${ut.POSITION};
+	// spine-core/src/attachments/Attachment.ts
+	var Attachment = class {
+		constructor(name) {
+			if (!name)
+				throw new Error("name cannot be null.");
+			this.name = name;
+		}
+	};
+	var _VertexAttachment = class extends Attachment {
+		constructor(name) {
+			super(name);
+			/** The unique ID for this attachment. */
+			this.id = _VertexAttachment.nextID++;
+			/** The bones which affect the {@link #getVertices()}. The array entries are, for each vertex, the number of bones affecting
+			 * the vertex followed by that many bone indices, which is the index of the bone in {@link Skeleton#bones}. Will be null
+			 * if this attachment has no weights. */
+			this.bones = null;
+			/** The vertex positions in the bone's coordinate system. For a non-weighted attachment, the values are `x,y`
+			 * entries for each vertex. For a weighted attachment, the values are `x,y,weight` entries for each bone affecting
+			 * each vertex. */
+			this.vertices = [];
+			/** The maximum number of world vertex values that can be output by
+			 * {@link #computeWorldVertices()} using the `count` parameter. */
+			this.worldVerticesLength = 0;
+			/** Timelines for the timeline attachment are also applied to this attachment.
+			 * May be null if no attachment-specific timelines should be applied. */
+			this.timelineAttachment = this;
+		}
+		/** Transforms the attachment's local {@link #vertices} to world coordinates. If the slot's {@link Slot#deform} is
+		 * not empty, it is used to deform the vertices.
+		 *
+		 * See [World transforms](http://esotericsoftware.com/spine-runtime-skeletons#World-transforms) in the Spine
+		 * Runtimes Guide.
+		 * @param start The index of the first {@link #vertices} value to transform. Each vertex has 2 values, x and y.
+		 * @param count The number of world vertex values to output. Must be <= {@link #worldVerticesLength} - `start`.
+		 * @param worldVertices The output world vertices. Must have a length >= `offset` + `count` *
+		 *           `stride` / 2.
+		 * @param offset The `worldVertices` index to begin writing values.
+		 * @param stride The number of `worldVertices` entries between the value pairs written. */
+		computeWorldVertices(slot, start, count, worldVertices, offset, stride) {
+			count = offset + (count >> 1) * stride;
+			let skeleton = slot.bone.skeleton;
+			let deformArray = slot.deform;
+			let vertices = this.vertices;
+			let bones = this.bones;
+			if (!bones) {
+				if (deformArray.length > 0)
+					vertices = deformArray;
+				let bone = slot.bone;
+				let x = bone.worldX;
+				let y = bone.worldY;
+				let a = bone.a, b = bone.b, c = bone.c, d = bone.d;
+				for (let v2 = start, w = offset; w < count; v2 += 2, w += stride) {
+					let vx = vertices[v2], vy = vertices[v2 + 1];
+					worldVertices[w] = vx * a + vy * b + x;
+					worldVertices[w + 1] = vx * c + vy * d + y;
 				}
-			`, i = `
-				#ifdef GL_ES
-					#define LOWP lowp
-					precision mediump float;
-				#else
-					#define LOWP
-				#endif
-				varying LOWP vec4 v_light;
-				varying LOWP vec4 v_dark;
-				varying vec2 v_texCoords;
-				uniform sampler2D u_texture;
+				return;
+			}
+			let v = 0, skip = 0;
+			for (let i = 0; i < start; i += 2) {
+				let n = bones[v];
+				v += n + 1;
+				skip += n;
+			}
+			let skeletonBones = skeleton.bones;
+			if (deformArray.length == 0) {
+				for (let w = offset, b = skip * 3; w < count; w += stride) {
+					let wx = 0, wy = 0;
+					let n = bones[v++];
+					n += v;
+					for (; v < n; v++, b += 3) {
+						let bone = skeletonBones[bones[v]];
+						let vx = vertices[b], vy = vertices[b + 1], weight = vertices[b + 2];
+						wx += (vx * bone.a + vy * bone.b + bone.worldX) * weight;
+						wy += (vx * bone.c + vy * bone.d + bone.worldY) * weight;
+					}
+					worldVertices[w] = wx;
+					worldVertices[w + 1] = wy;
+				}
+			} else {
+				let deform = deformArray;
+				for (let w = offset, b = skip * 3, f = skip << 1; w < count; w += stride) {
+					let wx = 0, wy = 0;
+					let n = bones[v++];
+					n += v;
+					for (; v < n; v++, b += 3, f += 2) {
+						let bone = skeletonBones[bones[v]];
+						let vx = vertices[b] + deform[f], vy = vertices[b + 1] + deform[f + 1], weight = vertices[b + 2];
+						wx += (vx * bone.a + vy * bone.b + bone.worldX) * weight;
+						wy += (vx * bone.c + vy * bone.d + bone.worldY) * weight;
+					}
+					worldVertices[w] = wx;
+					worldVertices[w + 1] = wy;
+				}
+			}
+		}
+		/** Does not copy id (generated) or name (set on construction). **/
+		copyTo(attachment) {
+			if (this.bones) {
+				attachment.bones = new Array(this.bones.length);
+				Utils.arrayCopy(this.bones, 0, attachment.bones, 0, this.bones.length);
+			} else
+				attachment.bones = null;
+			if (this.vertices) {
+				attachment.vertices = Utils.newFloatArray(this.vertices.length);
+				Utils.arrayCopy(this.vertices, 0, attachment.vertices, 0, this.vertices.length);
+			}
+			attachment.worldVerticesLength = this.worldVerticesLength;
+			attachment.timelineAttachment = this.timelineAttachment;
+		}
+	};
+	var VertexAttachment = _VertexAttachment;
+	VertexAttachment.nextID = 0;
 
-				void main () {
-					vec4 texColor = texture2D(u_texture, v_texCoords);
-					gl_FragColor.a = texColor.a * v_light.a;
-					gl_FragColor.rgb = ((texColor.a - 1.0) * v_dark.a + 1.0 - texColor.rgb) * v_dark.rgb + texColor.rgb * v_light.rgb;
-				}
-			`; return new ut(t, e, i)
-    } static newColored(t) {
-      let e = `
-				attribute vec4 ${ut.POSITION};
-				attribute vec4 ${ut.COLOR};
-				uniform mat4 ${ut.MVP_MATRIX};
-				varying vec4 v_color;
+	// spine-core/src/attachments/Sequence.ts
+	var _Sequence = class {
+		constructor(count) {
+			this.id = _Sequence.nextID();
+			this.start = 0;
+			this.digits = 0;
+			/** The index of the region to show for the setup pose. */
+			this.setupIndex = 0;
+			this.regions = new Array(count);
+		}
+		copy() {
+			let copy = new _Sequence(this.regions.length);
+			Utils.arrayCopy(this.regions, 0, copy.regions, 0, this.regions.length);
+			copy.start = this.start;
+			copy.digits = this.digits;
+			copy.setupIndex = this.setupIndex;
+			return copy;
+		}
+		apply(slot, attachment) {
+			let index = slot.sequenceIndex;
+			if (index == -1)
+				index = this.setupIndex;
+			if (index >= this.regions.length)
+				index = this.regions.length - 1;
+			let region = this.regions[index];
+			if (attachment.region != region) {
+				attachment.region = region;
+				attachment.updateRegion();
+			}
+		}
+		getPath(basePath, index) {
+			let result = basePath;
+			let frame = (this.start + index).toString();
+			for (let i = this.digits - frame.length; i > 0; i--)
+				result += "0";
+			result += frame;
+			return result;
+		}
+		static nextID() {
+			return _Sequence._nextID++;
+		}
+	};
+	var Sequence = _Sequence;
+	Sequence._nextID = 0;
+	var SequenceMode = /* @__PURE__ */ ((SequenceMode2) => {
+		SequenceMode2[SequenceMode2["hold"] = 0] = "hold";
+		SequenceMode2[SequenceMode2["once"] = 1] = "once";
+		SequenceMode2[SequenceMode2["loop"] = 2] = "loop";
+		SequenceMode2[SequenceMode2["pingpong"] = 3] = "pingpong";
+		SequenceMode2[SequenceMode2["onceReverse"] = 4] = "onceReverse";
+		SequenceMode2[SequenceMode2["loopReverse"] = 5] = "loopReverse";
+		SequenceMode2[SequenceMode2["pingpongReverse"] = 6] = "pingpongReverse";
+		return SequenceMode2;
+	})(SequenceMode || {});
+	var SequenceModeValues = [
+		0 /* hold */,
+		1 /* once */,
+		2 /* loop */,
+		3 /* pingpong */,
+		4 /* onceReverse */,
+		5 /* loopReverse */,
+		6 /* pingpongReverse */
+	];
 
-				void main () {
-					v_color = ${ut.COLOR};
-					gl_Position = ${ut.MVP_MATRIX} * ${ut.POSITION};
+	// spine-core/src/Animation.ts
+	var Animation = class {
+		constructor(name, timelines, duration) {
+			this.timelines = [];
+			this.timelineIds = new StringSet();
+			if (!name)
+				throw new Error("name cannot be null.");
+			this.name = name;
+			this.setTimelines(timelines);
+			this.duration = duration;
+		}
+		setTimelines(timelines) {
+			if (!timelines)
+				throw new Error("timelines cannot be null.");
+			this.timelines = timelines;
+			this.timelineIds.clear();
+			for (var i = 0; i < timelines.length; i++)
+				this.timelineIds.addAll(timelines[i].getPropertyIds());
+		}
+		hasTimeline(ids) {
+			for (let i = 0; i < ids.length; i++)
+				if (this.timelineIds.contains(ids[i]))
+					return true;
+			return false;
+		}
+		/** Applies all the animation's timelines to the specified skeleton.
+		 *
+		 * See Timeline {@link Timeline#apply(Skeleton, float, float, Array, float, MixBlend, MixDirection)}.
+		 * @param loop If true, the animation repeats after {@link #getDuration()}.
+		 * @param events May be null to ignore fired events. */
+		apply(skeleton, lastTime, time, loop, events, alpha, blend, direction) {
+			if (!skeleton)
+				throw new Error("skeleton cannot be null.");
+			if (loop && this.duration != 0) {
+				time %= this.duration;
+				if (lastTime > 0)
+					lastTime %= this.duration;
+			}
+			let timelines = this.timelines;
+			for (let i = 0, n = timelines.length; i < n; i++)
+				timelines[i].apply(skeleton, lastTime, time, events, alpha, blend, direction);
+		}
+	};
+	var MixBlend = /* @__PURE__ */ ((MixBlend2) => {
+		MixBlend2[MixBlend2["setup"] = 0] = "setup";
+		MixBlend2[MixBlend2["first"] = 1] = "first";
+		MixBlend2[MixBlend2["replace"] = 2] = "replace";
+		MixBlend2[MixBlend2["add"] = 3] = "add";
+		return MixBlend2;
+	})(MixBlend || {});
+	var MixDirection = /* @__PURE__ */ ((MixDirection2) => {
+		MixDirection2[MixDirection2["mixIn"] = 0] = "mixIn";
+		MixDirection2[MixDirection2["mixOut"] = 1] = "mixOut";
+		return MixDirection2;
+	})(MixDirection || {});
+	var Property = {
+		rotate: 0,
+		x: 1,
+		y: 2,
+		scaleX: 3,
+		scaleY: 4,
+		shearX: 5,
+		shearY: 6,
+		rgb: 7,
+		alpha: 8,
+		rgb2: 9,
+		attachment: 10,
+		deform: 11,
+		event: 12,
+		drawOrder: 13,
+		ikConstraint: 14,
+		transformConstraint: 15,
+		pathConstraintPosition: 16,
+		pathConstraintSpacing: 17,
+		pathConstraintMix: 18,
+		sequence: 19
+	};
+	var Timeline = class {
+		constructor(frameCount, propertyIds) {
+			this.propertyIds = propertyIds;
+			this.frames = Utils.newFloatArray(frameCount * this.getFrameEntries());
+		}
+		getPropertyIds() {
+			return this.propertyIds;
+		}
+		getFrameEntries() {
+			return 1;
+		}
+		getFrameCount() {
+			return this.frames.length / this.getFrameEntries();
+		}
+		getDuration() {
+			return this.frames[this.frames.length - this.getFrameEntries()];
+		}
+		static search1(frames, time) {
+			let n = frames.length;
+			for (let i = 1; i < n; i++)
+				if (frames[i] > time)
+					return i - 1;
+			return n - 1;
+		}
+		static search(frames, time, step) {
+			let n = frames.length;
+			for (let i = step; i < n; i += step)
+				if (frames[i] > time)
+					return i - step;
+			return n - step;
+		}
+	};
+	var CurveTimeline = class extends Timeline {
+		// type, x, y, ...
+		constructor(frameCount, bezierCount, propertyIds) {
+			super(frameCount, propertyIds);
+			this.curves = Utils.newFloatArray(
+				frameCount + bezierCount * 18
+				/*BEZIER_SIZE*/
+			);
+			this.curves[frameCount - 1] = 1;
+		}
+		/** Sets the specified key frame to linear interpolation. */
+		setLinear(frame) {
+			this.curves[frame] = 0;
+		}
+		/** Sets the specified key frame to stepped interpolation. */
+		setStepped(frame) {
+			this.curves[frame] = 1;
+		}
+		/** Shrinks the storage for Bezier curves, for use when <code>bezierCount</code> (specified in the constructor) was larger
+		 * than the actual number of Bezier curves. */
+		shrink(bezierCount) {
+			let size = this.getFrameCount() + bezierCount * 18;
+			if (this.curves.length > size) {
+				let newCurves = Utils.newFloatArray(size);
+				Utils.arrayCopy(this.curves, 0, newCurves, 0, size);
+				this.curves = newCurves;
+			}
+		}
+		/** Stores the segments for the specified Bezier curve. For timelines that modify multiple values, there may be more than
+		 * one curve per frame.
+		 * @param bezier The ordinal of this Bezier curve for this timeline, between 0 and <code>bezierCount - 1</code> (specified
+		 *           in the constructor), inclusive.
+		 * @param frame Between 0 and <code>frameCount - 1</code>, inclusive.
+		 * @param value The index of the value for this frame that this curve is used for.
+		 * @param time1 The time for the first key.
+		 * @param value1 The value for the first key.
+		 * @param cx1 The time for the first Bezier handle.
+		 * @param cy1 The value for the first Bezier handle.
+		 * @param cx2 The time of the second Bezier handle.
+		 * @param cy2 The value for the second Bezier handle.
+		 * @param time2 The time for the second key.
+		 * @param value2 The value for the second key. */
+		setBezier(bezier, frame, value, time1, value1, cx1, cy1, cx2, cy2, time2, value2) {
+			let curves = this.curves;
+			let i = this.getFrameCount() + bezier * 18;
+			if (value == 0)
+				curves[frame] = 2 + i;
+			let tmpx = (time1 - cx1 * 2 + cx2) * 0.03, tmpy = (value1 - cy1 * 2 + cy2) * 0.03;
+			let dddx = ((cx1 - cx2) * 3 - time1 + time2) * 6e-3, dddy = ((cy1 - cy2) * 3 - value1 + value2) * 6e-3;
+			let ddx = tmpx * 2 + dddx, ddy = tmpy * 2 + dddy;
+			let dx = (cx1 - time1) * 0.3 + tmpx + dddx * 0.16666667, dy = (cy1 - value1) * 0.3 + tmpy + dddy * 0.16666667;
+			let x = time1 + dx, y = value1 + dy;
+			for (let n = i + 18; i < n; i += 2) {
+				curves[i] = x;
+				curves[i + 1] = y;
+				dx += ddx;
+				dy += ddy;
+				ddx += dddx;
+				ddy += dddy;
+				x += dx;
+				y += dy;
+			}
+		}
+		/** Returns the Bezier interpolated value for the specified time.
+		 * @param frameIndex The index into {@link #getFrames()} for the values of the frame before <code>time</code>.
+		 * @param valueOffset The offset from <code>frameIndex</code> to the value this curve is used for.
+		 * @param i The index of the Bezier segments. See {@link #getCurveType(int)}. */
+		getBezierValue(time, frameIndex, valueOffset, i) {
+			let curves = this.curves;
+			if (curves[i] > time) {
+				let x2 = this.frames[frameIndex], y2 = this.frames[frameIndex + valueOffset];
+				return y2 + (time - x2) / (curves[i] - x2) * (curves[i + 1] - y2);
+			}
+			let n = i + 18;
+			for (i += 2; i < n; i += 2) {
+				if (curves[i] >= time) {
+					let x2 = curves[i - 2], y2 = curves[i - 1];
+					return y2 + (time - x2) / (curves[i] - x2) * (curves[i + 1] - y2);
 				}
-			`, i = `
-				#ifdef GL_ES
-					#define LOWP lowp
-					precision mediump float;
-				#else
-					#define LOWP
-				#endif
-				varying LOWP vec4 v_color;
+			}
+			frameIndex += this.getFrameEntries();
+			let x = curves[n - 2], y = curves[n - 1];
+			return y + (time - x) / (this.frames[frameIndex] - x) * (this.frames[frameIndex + valueOffset] - y);
+		}
+	};
+	var CurveTimeline1 = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, propertyId) {
+			super(frameCount, bezierCount, [propertyId]);
+		}
+		getFrameEntries() {
+			return 2;
+		}
+		/** Sets the time and value for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		setFrame(frame, time, value) {
+			frame <<= 1;
+			this.frames[frame] = time;
+			this.frames[
+				frame + 1
+				/*VALUE*/
+			] = value;
+		}
+		/** Returns the interpolated value for the specified time. */
+		getCurveValue(time) {
+			let frames = this.frames;
+			let i = frames.length - 2;
+			for (let ii = 2; ii <= i; ii += 2) {
+				if (frames[ii] > time) {
+					i = ii - 2;
+					break;
+				}
+			}
+			let curveType = this.curves[i >> 1];
+			switch (curveType) {
+				case 0:
+					let before = frames[i], value = frames[
+						i + 1
+						/*VALUE*/
+					];
+					return value + (time - before) / (frames[
+						i + 2
+						/*ENTRIES*/
+					] - before) * (frames[
+						i + 2 + 1
+						/*VALUE*/
+					] - value);
+				case 1:
+					return frames[
+						i + 1
+						/*VALUE*/
+					];
+			}
+			return this.getBezierValue(
+				time,
+				i,
+				1,
+				curveType - 2
+				/*BEZIER*/
+			);
+		}
+	};
+	var CurveTimeline2 = class extends CurveTimeline {
+		/** @param bezierCount The maximum number of Bezier curves. See {@link #shrink(int)}.
+		 * @param propertyIds Unique identifiers for the properties the timeline modifies. */
+		constructor(frameCount, bezierCount, propertyId1, propertyId2) {
+			super(frameCount, bezierCount, [propertyId1, propertyId2]);
+		}
+		getFrameEntries() {
+			return 3;
+		}
+		/** Sets the time and values for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		setFrame(frame, time, value1, value2) {
+			frame *= 3;
+			this.frames[frame] = time;
+			this.frames[
+				frame + 1
+				/*VALUE1*/
+			] = value1;
+			this.frames[
+				frame + 2
+				/*VALUE2*/
+			] = value2;
+		}
+	};
+	var RotateTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(frameCount, bezierCount, Property.rotate + "|" + boneIndex);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.rotation = bone.data.rotation;
+						return;
+					case 1 /* first */:
+						bone.rotation += (bone.data.rotation - bone.rotation) * alpha;
+				}
+				return;
+			}
+			let r = this.getCurveValue(time);
+			switch (blend) {
+				case 0 /* setup */:
+					bone.rotation = bone.data.rotation + r * alpha;
+					break;
+				case 1 /* first */:
+				case 2 /* replace */:
+					r += bone.data.rotation - bone.rotation;
+				case 3 /* add */:
+					bone.rotation += r * alpha;
+			}
+		}
+	};
+	var TranslateTimeline = class extends CurveTimeline2 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(
+				frameCount,
+				bezierCount,
+				Property.x + "|" + boneIndex,
+				Property.y + "|" + boneIndex
+			);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.x = bone.data.x;
+						bone.y = bone.data.y;
+						return;
+					case 1 /* first */:
+						bone.x += (bone.data.x - bone.x) * alpha;
+						bone.y += (bone.data.y - bone.y) * alpha;
+				}
+				return;
+			}
+			let x = 0, y = 0;
+			let i = Timeline.search(
+				frames,
+				time,
+				3
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[
+				i / 3
+				/*ENTRIES*/
+			];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					x = frames[
+						i + 1
+						/*VALUE1*/
+					];
+					y = frames[
+						i + 2
+						/*VALUE2*/
+					];
+					let t = (time - before) / (frames[
+						i + 3
+						/*ENTRIES*/
+					] - before);
+					x += (frames[
+						i + 3 + 1
+						/*VALUE1*/
+					] - x) * t;
+					y += (frames[
+						i + 3 + 2
+						/*VALUE2*/
+					] - y) * t;
+					break;
+				case 1:
+					x = frames[
+						i + 1
+						/*VALUE1*/
+					];
+					y = frames[
+						i + 2
+						/*VALUE2*/
+					];
+					break;
+				default:
+					x = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					y = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+			}
+			switch (blend) {
+				case 0 /* setup */:
+					bone.x = bone.data.x + x * alpha;
+					bone.y = bone.data.y + y * alpha;
+					break;
+				case 1 /* first */:
+				case 2 /* replace */:
+					bone.x += (bone.data.x + x - bone.x) * alpha;
+					bone.y += (bone.data.y + y - bone.y) * alpha;
+					break;
+				case 3 /* add */:
+					bone.x += x * alpha;
+					bone.y += y * alpha;
+			}
+		}
+	};
+	var TranslateXTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(frameCount, bezierCount, Property.x + "|" + boneIndex);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.x = bone.data.x;
+						return;
+					case 1 /* first */:
+						bone.x += (bone.data.x - bone.x) * alpha;
+				}
+				return;
+			}
+			let x = this.getCurveValue(time);
+			switch (blend) {
+				case 0 /* setup */:
+					bone.x = bone.data.x + x * alpha;
+					break;
+				case 1 /* first */:
+				case 2 /* replace */:
+					bone.x += (bone.data.x + x - bone.x) * alpha;
+					break;
+				case 3 /* add */:
+					bone.x += x * alpha;
+			}
+		}
+	};
+	var TranslateYTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(frameCount, bezierCount, Property.y + "|" + boneIndex);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.y = bone.data.y;
+						return;
+					case 1 /* first */:
+						bone.y += (bone.data.y - bone.y) * alpha;
+				}
+				return;
+			}
+			let y = this.getCurveValue(time);
+			switch (blend) {
+				case 0 /* setup */:
+					bone.y = bone.data.y + y * alpha;
+					break;
+				case 1 /* first */:
+				case 2 /* replace */:
+					bone.y += (bone.data.y + y - bone.y) * alpha;
+					break;
+				case 3 /* add */:
+					bone.y += y * alpha;
+			}
+		}
+	};
+	var ScaleTimeline = class extends CurveTimeline2 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(
+				frameCount,
+				bezierCount,
+				Property.scaleX + "|" + boneIndex,
+				Property.scaleY + "|" + boneIndex
+			);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.scaleX = bone.data.scaleX;
+						bone.scaleY = bone.data.scaleY;
+						return;
+					case 1 /* first */:
+						bone.scaleX += (bone.data.scaleX - bone.scaleX) * alpha;
+						bone.scaleY += (bone.data.scaleY - bone.scaleY) * alpha;
+				}
+				return;
+			}
+			let x, y;
+			let i = Timeline.search(
+				frames,
+				time,
+				3
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[
+				i / 3
+				/*ENTRIES*/
+			];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					x = frames[
+						i + 1
+						/*VALUE1*/
+					];
+					y = frames[
+						i + 2
+						/*VALUE2*/
+					];
+					let t = (time - before) / (frames[
+						i + 3
+						/*ENTRIES*/
+					] - before);
+					x += (frames[
+						i + 3 + 1
+						/*VALUE1*/
+					] - x) * t;
+					y += (frames[
+						i + 3 + 2
+						/*VALUE2*/
+					] - y) * t;
+					break;
+				case 1:
+					x = frames[
+						i + 1
+						/*VALUE1*/
+					];
+					y = frames[
+						i + 2
+						/*VALUE2*/
+					];
+					break;
+				default:
+					x = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					y = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+			}
+			x *= bone.data.scaleX;
+			y *= bone.data.scaleY;
+			if (alpha == 1) {
+				if (blend == 3 /* add */) {
+					bone.scaleX += x - bone.data.scaleX;
+					bone.scaleY += y - bone.data.scaleY;
+				} else {
+					bone.scaleX = x;
+					bone.scaleY = y;
+				}
+			} else {
+				let bx = 0, by = 0;
+				if (direction == 1 /* mixOut */) {
+					switch (blend) {
+						case 0 /* setup */:
+							bx = bone.data.scaleX;
+							by = bone.data.scaleY;
+							bone.scaleX = bx + (Math.abs(x) * MathUtils.signum(bx) - bx) * alpha;
+							bone.scaleY = by + (Math.abs(y) * MathUtils.signum(by) - by) * alpha;
+							break;
+						case 1 /* first */:
+						case 2 /* replace */:
+							bx = bone.scaleX;
+							by = bone.scaleY;
+							bone.scaleX = bx + (Math.abs(x) * MathUtils.signum(bx) - bx) * alpha;
+							bone.scaleY = by + (Math.abs(y) * MathUtils.signum(by) - by) * alpha;
+							break;
+						case 3 /* add */:
+							bone.scaleX += (x - bone.data.scaleX) * alpha;
+							bone.scaleY += (y - bone.data.scaleY) * alpha;
+					}
+				} else {
+					switch (blend) {
+						case 0 /* setup */:
+							bx = Math.abs(bone.data.scaleX) * MathUtils.signum(x);
+							by = Math.abs(bone.data.scaleY) * MathUtils.signum(y);
+							bone.scaleX = bx + (x - bx) * alpha;
+							bone.scaleY = by + (y - by) * alpha;
+							break;
+						case 1 /* first */:
+						case 2 /* replace */:
+							bx = Math.abs(bone.scaleX) * MathUtils.signum(x);
+							by = Math.abs(bone.scaleY) * MathUtils.signum(y);
+							bone.scaleX = bx + (x - bx) * alpha;
+							bone.scaleY = by + (y - by) * alpha;
+							break;
+						case 3 /* add */:
+							bone.scaleX += (x - bone.data.scaleX) * alpha;
+							bone.scaleY += (y - bone.data.scaleY) * alpha;
+					}
+				}
+			}
+		}
+	};
+	var ScaleXTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(frameCount, bezierCount, Property.scaleX + "|" + boneIndex);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.scaleX = bone.data.scaleX;
+						return;
+					case 1 /* first */:
+						bone.scaleX += (bone.data.scaleX - bone.scaleX) * alpha;
+				}
+				return;
+			}
+			let x = this.getCurveValue(time) * bone.data.scaleX;
+			if (alpha == 1) {
+				if (blend == 3 /* add */)
+					bone.scaleX += x - bone.data.scaleX;
+				else
+					bone.scaleX = x;
+			} else {
+				let bx = 0;
+				if (direction == 1 /* mixOut */) {
+					switch (blend) {
+						case 0 /* setup */:
+							bx = bone.data.scaleX;
+							bone.scaleX = bx + (Math.abs(x) * MathUtils.signum(bx) - bx) * alpha;
+							break;
+						case 1 /* first */:
+						case 2 /* replace */:
+							bx = bone.scaleX;
+							bone.scaleX = bx + (Math.abs(x) * MathUtils.signum(bx) - bx) * alpha;
+							break;
+						case 3 /* add */:
+							bone.scaleX += (x - bone.data.scaleX) * alpha;
+					}
+				} else {
+					switch (blend) {
+						case 0 /* setup */:
+							bx = Math.abs(bone.data.scaleX) * MathUtils.signum(x);
+							bone.scaleX = bx + (x - bx) * alpha;
+							break;
+						case 1 /* first */:
+						case 2 /* replace */:
+							bx = Math.abs(bone.scaleX) * MathUtils.signum(x);
+							bone.scaleX = bx + (x - bx) * alpha;
+							break;
+						case 3 /* add */:
+							bone.scaleX += (x - bone.data.scaleX) * alpha;
+					}
+				}
+			}
+		}
+	};
+	var ScaleYTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(frameCount, bezierCount, Property.scaleY + "|" + boneIndex);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.scaleY = bone.data.scaleY;
+						return;
+					case 1 /* first */:
+						bone.scaleY += (bone.data.scaleY - bone.scaleY) * alpha;
+				}
+				return;
+			}
+			let y = this.getCurveValue(time) * bone.data.scaleY;
+			if (alpha == 1) {
+				if (blend == 3 /* add */)
+					bone.scaleY += y - bone.data.scaleY;
+				else
+					bone.scaleY = y;
+			} else {
+				let by = 0;
+				if (direction == 1 /* mixOut */) {
+					switch (blend) {
+						case 0 /* setup */:
+							by = bone.data.scaleY;
+							bone.scaleY = by + (Math.abs(y) * MathUtils.signum(by) - by) * alpha;
+							break;
+						case 1 /* first */:
+						case 2 /* replace */:
+							by = bone.scaleY;
+							bone.scaleY = by + (Math.abs(y) * MathUtils.signum(by) - by) * alpha;
+							break;
+						case 3 /* add */:
+							bone.scaleY += (y - bone.data.scaleY) * alpha;
+					}
+				} else {
+					switch (blend) {
+						case 0 /* setup */:
+							by = Math.abs(bone.data.scaleY) * MathUtils.signum(y);
+							bone.scaleY = by + (y - by) * alpha;
+							break;
+						case 1 /* first */:
+						case 2 /* replace */:
+							by = Math.abs(bone.scaleY) * MathUtils.signum(y);
+							bone.scaleY = by + (y - by) * alpha;
+							break;
+						case 3 /* add */:
+							bone.scaleY += (y - bone.data.scaleY) * alpha;
+					}
+				}
+			}
+		}
+	};
+	var ShearTimeline = class extends CurveTimeline2 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(
+				frameCount,
+				bezierCount,
+				Property.shearX + "|" + boneIndex,
+				Property.shearY + "|" + boneIndex
+			);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.shearX = bone.data.shearX;
+						bone.shearY = bone.data.shearY;
+						return;
+					case 1 /* first */:
+						bone.shearX += (bone.data.shearX - bone.shearX) * alpha;
+						bone.shearY += (bone.data.shearY - bone.shearY) * alpha;
+				}
+				return;
+			}
+			let x = 0, y = 0;
+			let i = Timeline.search(
+				frames,
+				time,
+				3
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[
+				i / 3
+				/*ENTRIES*/
+			];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					x = frames[
+						i + 1
+						/*VALUE1*/
+					];
+					y = frames[
+						i + 2
+						/*VALUE2*/
+					];
+					let t = (time - before) / (frames[
+						i + 3
+						/*ENTRIES*/
+					] - before);
+					x += (frames[
+						i + 3 + 1
+						/*VALUE1*/
+					] - x) * t;
+					y += (frames[
+						i + 3 + 2
+						/*VALUE2*/
+					] - y) * t;
+					break;
+				case 1:
+					x = frames[
+						i + 1
+						/*VALUE1*/
+					];
+					y = frames[
+						i + 2
+						/*VALUE2*/
+					];
+					break;
+				default:
+					x = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					y = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+			}
+			switch (blend) {
+				case 0 /* setup */:
+					bone.shearX = bone.data.shearX + x * alpha;
+					bone.shearY = bone.data.shearY + y * alpha;
+					break;
+				case 1 /* first */:
+				case 2 /* replace */:
+					bone.shearX += (bone.data.shearX + x - bone.shearX) * alpha;
+					bone.shearY += (bone.data.shearY + y - bone.shearY) * alpha;
+					break;
+				case 3 /* add */:
+					bone.shearX += x * alpha;
+					bone.shearY += y * alpha;
+			}
+		}
+	};
+	var ShearXTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(frameCount, bezierCount, Property.shearX + "|" + boneIndex);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.shearX = bone.data.shearX;
+						return;
+					case 1 /* first */:
+						bone.shearX += (bone.data.shearX - bone.shearX) * alpha;
+				}
+				return;
+			}
+			let x = this.getCurveValue(time);
+			switch (blend) {
+				case 0 /* setup */:
+					bone.shearX = bone.data.shearX + x * alpha;
+					break;
+				case 1 /* first */:
+				case 2 /* replace */:
+					bone.shearX += (bone.data.shearX + x - bone.shearX) * alpha;
+					break;
+				case 3 /* add */:
+					bone.shearX += x * alpha;
+			}
+		}
+	};
+	var ShearYTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, boneIndex) {
+			super(frameCount, bezierCount, Property.shearY + "|" + boneIndex);
+			this.boneIndex = 0;
+			this.boneIndex = boneIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let bone = skeleton.bones[this.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.shearY = bone.data.shearY;
+						return;
+					case 1 /* first */:
+						bone.shearY += (bone.data.shearY - bone.shearY) * alpha;
+				}
+				return;
+			}
+			let y = this.getCurveValue(time);
+			switch (blend) {
+				case 0 /* setup */:
+					bone.shearY = bone.data.shearY + y * alpha;
+					break;
+				case 1 /* first */:
+				case 2 /* replace */:
+					bone.shearY += (bone.data.shearY + y - bone.shearY) * alpha;
+					break;
+				case 3 /* add */:
+					bone.shearY += y * alpha;
+			}
+		}
+	};
+	var RGBATimeline = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, slotIndex) {
+			super(frameCount, bezierCount, [
+				Property.rgb + "|" + slotIndex,
+				Property.alpha + "|" + slotIndex
+			]);
+			this.slotIndex = 0;
+			this.slotIndex = slotIndex;
+		}
+		getFrameEntries() {
+			return 5;
+		}
+		/** Sets the time in seconds, red, green, blue, and alpha for the specified key frame. */
+		setFrame(frame, time, r, g, b, a) {
+			frame *= 5;
+			this.frames[frame] = time;
+			this.frames[
+				frame + 1
+				/*R*/
+			] = r;
+			this.frames[
+				frame + 2
+				/*G*/
+			] = g;
+			this.frames[
+				frame + 3
+				/*B*/
+			] = b;
+			this.frames[
+				frame + 4
+				/*A*/
+			] = a;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let slot = skeleton.slots[this.slotIndex];
+			if (!slot.bone.active)
+				return;
+			let frames = this.frames;
+			let color = slot.color;
+			if (time < frames[0]) {
+				let setup = slot.data.color;
+				switch (blend) {
+					case 0 /* setup */:
+						color.setFromColor(setup);
+						return;
+					case 1 /* first */:
+						color.add(
+							(setup.r - color.r) * alpha,
+							(setup.g - color.g) * alpha,
+							(setup.b - color.b) * alpha,
+							(setup.a - color.a) * alpha
+						);
+				}
+				return;
+			}
+			let r = 0, g = 0, b = 0, a = 0;
+			let i = Timeline.search(
+				frames,
+				time,
+				5
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[
+				i / 5
+				/*ENTRIES*/
+			];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					r = frames[
+						i + 1
+						/*R*/
+					];
+					g = frames[
+						i + 2
+						/*G*/
+					];
+					b = frames[
+						i + 3
+						/*B*/
+					];
+					a = frames[
+						i + 4
+						/*A*/
+					];
+					let t = (time - before) / (frames[
+						i + 5
+						/*ENTRIES*/
+					] - before);
+					r += (frames[
+						i + 5 + 1
+						/*R*/
+					] - r) * t;
+					g += (frames[
+						i + 5 + 2
+						/*G*/
+					] - g) * t;
+					b += (frames[
+						i + 5 + 3
+						/*B*/
+					] - b) * t;
+					a += (frames[
+						i + 5 + 4
+						/*A*/
+					] - a) * t;
+					break;
+				case 1:
+					r = frames[
+						i + 1
+						/*R*/
+					];
+					g = frames[
+						i + 2
+						/*G*/
+					];
+					b = frames[
+						i + 3
+						/*B*/
+					];
+					a = frames[
+						i + 4
+						/*A*/
+					];
+					break;
+				default:
+					r = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					g = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+					b = this.getBezierValue(
+						time,
+						i,
+						3,
+						curveType + 18 * 2 - 2
+						/*BEZIER*/
+					);
+					a = this.getBezierValue(
+						time,
+						i,
+						4,
+						curveType + 18 * 3 - 2
+						/*BEZIER*/
+					);
+			}
+			if (alpha == 1)
+				color.set(r, g, b, a);
+			else {
+				if (blend == 0 /* setup */)
+					color.setFromColor(slot.data.color);
+				color.add((r - color.r) * alpha, (g - color.g) * alpha, (b - color.b) * alpha, (a - color.a) * alpha);
+			}
+		}
+	};
+	var RGBTimeline = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, slotIndex) {
+			super(frameCount, bezierCount, [
+				Property.rgb + "|" + slotIndex
+			]);
+			this.slotIndex = 0;
+			this.slotIndex = slotIndex;
+		}
+		getFrameEntries() {
+			return 4;
+		}
+		/** Sets the time in seconds, red, green, blue, and alpha for the specified key frame. */
+		setFrame(frame, time, r, g, b) {
+			frame <<= 2;
+			this.frames[frame] = time;
+			this.frames[
+				frame + 1
+				/*R*/
+			] = r;
+			this.frames[
+				frame + 2
+				/*G*/
+			] = g;
+			this.frames[
+				frame + 3
+				/*B*/
+			] = b;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let slot = skeleton.slots[this.slotIndex];
+			if (!slot.bone.active)
+				return;
+			let frames = this.frames;
+			let color = slot.color;
+			if (time < frames[0]) {
+				let setup = slot.data.color;
+				switch (blend) {
+					case 0 /* setup */:
+						color.r = setup.r;
+						color.g = setup.g;
+						color.b = setup.b;
+						return;
+					case 1 /* first */:
+						color.r += (setup.r - color.r) * alpha;
+						color.g += (setup.g - color.g) * alpha;
+						color.b += (setup.b - color.b) * alpha;
+				}
+				return;
+			}
+			let r = 0, g = 0, b = 0;
+			let i = Timeline.search(
+				frames,
+				time,
+				4
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[i >> 2];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					r = frames[
+						i + 1
+						/*R*/
+					];
+					g = frames[
+						i + 2
+						/*G*/
+					];
+					b = frames[
+						i + 3
+						/*B*/
+					];
+					let t = (time - before) / (frames[
+						i + 4
+						/*ENTRIES*/
+					] - before);
+					r += (frames[
+						i + 4 + 1
+						/*R*/
+					] - r) * t;
+					g += (frames[
+						i + 4 + 2
+						/*G*/
+					] - g) * t;
+					b += (frames[
+						i + 4 + 3
+						/*B*/
+					] - b) * t;
+					break;
+				case 1:
+					r = frames[
+						i + 1
+						/*R*/
+					];
+					g = frames[
+						i + 2
+						/*G*/
+					];
+					b = frames[
+						i + 3
+						/*B*/
+					];
+					break;
+				default:
+					r = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					g = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+					b = this.getBezierValue(
+						time,
+						i,
+						3,
+						curveType + 18 * 2 - 2
+						/*BEZIER*/
+					);
+			}
+			if (alpha == 1) {
+				color.r = r;
+				color.g = g;
+				color.b = b;
+			} else {
+				if (blend == 0 /* setup */) {
+					let setup = slot.data.color;
+					color.r = setup.r;
+					color.g = setup.g;
+					color.b = setup.b;
+				}
+				color.r += (r - color.r) * alpha;
+				color.g += (g - color.g) * alpha;
+				color.b += (b - color.b) * alpha;
+			}
+		}
+	};
+	var AlphaTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, slotIndex) {
+			super(frameCount, bezierCount, Property.alpha + "|" + slotIndex);
+			this.slotIndex = 0;
+			this.slotIndex = slotIndex;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let slot = skeleton.slots[this.slotIndex];
+			if (!slot.bone.active)
+				return;
+			let color = slot.color;
+			if (time < this.frames[0]) {
+				let setup = slot.data.color;
+				switch (blend) {
+					case 0 /* setup */:
+						color.a = setup.a;
+						return;
+					case 1 /* first */:
+						color.a += (setup.a - color.a) * alpha;
+				}
+				return;
+			}
+			let a = this.getCurveValue(time);
+			if (alpha == 1)
+				color.a = a;
+			else {
+				if (blend == 0 /* setup */)
+					color.a = slot.data.color.a;
+				color.a += (a - color.a) * alpha;
+			}
+		}
+	};
+	var RGBA2Timeline = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, slotIndex) {
+			super(frameCount, bezierCount, [
+				Property.rgb + "|" + slotIndex,
+				Property.alpha + "|" + slotIndex,
+				Property.rgb2 + "|" + slotIndex
+			]);
+			this.slotIndex = 0;
+			this.slotIndex = slotIndex;
+		}
+		getFrameEntries() {
+			return 8;
+		}
+		/** Sets the time in seconds, light, and dark colors for the specified key frame. */
+		setFrame(frame, time, r, g, b, a, r2, g2, b2) {
+			frame <<= 3;
+			this.frames[frame] = time;
+			this.frames[
+				frame + 1
+				/*R*/
+			] = r;
+			this.frames[
+				frame + 2
+				/*G*/
+			] = g;
+			this.frames[
+				frame + 3
+				/*B*/
+			] = b;
+			this.frames[
+				frame + 4
+				/*A*/
+			] = a;
+			this.frames[
+				frame + 5
+				/*R2*/
+			] = r2;
+			this.frames[
+				frame + 6
+				/*G2*/
+			] = g2;
+			this.frames[
+				frame + 7
+				/*B2*/
+			] = b2;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let slot = skeleton.slots[this.slotIndex];
+			if (!slot.bone.active)
+				return;
+			let frames = this.frames;
+			let light = slot.color, dark = slot.darkColor;
+			if (time < frames[0]) {
+				let setupLight = slot.data.color, setupDark = slot.data.darkColor;
+				switch (blend) {
+					case 0 /* setup */:
+						light.setFromColor(setupLight);
+						dark.r = setupDark.r;
+						dark.g = setupDark.g;
+						dark.b = setupDark.b;
+						return;
+					case 1 /* first */:
+						light.add(
+							(setupLight.r - light.r) * alpha,
+							(setupLight.g - light.g) * alpha,
+							(setupLight.b - light.b) * alpha,
+							(setupLight.a - light.a) * alpha
+						);
+						dark.r += (setupDark.r - dark.r) * alpha;
+						dark.g += (setupDark.g - dark.g) * alpha;
+						dark.b += (setupDark.b - dark.b) * alpha;
+				}
+				return;
+			}
+			let r = 0, g = 0, b = 0, a = 0, r2 = 0, g2 = 0, b2 = 0;
+			let i = Timeline.search(
+				frames,
+				time,
+				8
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[i >> 3];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					r = frames[
+						i + 1
+						/*R*/
+					];
+					g = frames[
+						i + 2
+						/*G*/
+					];
+					b = frames[
+						i + 3
+						/*B*/
+					];
+					a = frames[
+						i + 4
+						/*A*/
+					];
+					r2 = frames[
+						i + 5
+						/*R2*/
+					];
+					g2 = frames[
+						i + 6
+						/*G2*/
+					];
+					b2 = frames[
+						i + 7
+						/*B2*/
+					];
+					let t = (time - before) / (frames[
+						i + 8
+						/*ENTRIES*/
+					] - before);
+					r += (frames[
+						i + 8 + 1
+						/*R*/
+					] - r) * t;
+					g += (frames[
+						i + 8 + 2
+						/*G*/
+					] - g) * t;
+					b += (frames[
+						i + 8 + 3
+						/*B*/
+					] - b) * t;
+					a += (frames[
+						i + 8 + 4
+						/*A*/
+					] - a) * t;
+					r2 += (frames[
+						i + 8 + 5
+						/*R2*/
+					] - r2) * t;
+					g2 += (frames[
+						i + 8 + 6
+						/*G2*/
+					] - g2) * t;
+					b2 += (frames[
+						i + 8 + 7
+						/*B2*/
+					] - b2) * t;
+					break;
+				case 1:
+					r = frames[
+						i + 1
+						/*R*/
+					];
+					g = frames[
+						i + 2
+						/*G*/
+					];
+					b = frames[
+						i + 3
+						/*B*/
+					];
+					a = frames[
+						i + 4
+						/*A*/
+					];
+					r2 = frames[
+						i + 5
+						/*R2*/
+					];
+					g2 = frames[
+						i + 6
+						/*G2*/
+					];
+					b2 = frames[
+						i + 7
+						/*B2*/
+					];
+					break;
+				default:
+					r = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					g = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+					b = this.getBezierValue(
+						time,
+						i,
+						3,
+						curveType + 18 * 2 - 2
+						/*BEZIER*/
+					);
+					a = this.getBezierValue(
+						time,
+						i,
+						4,
+						curveType + 18 * 3 - 2
+						/*BEZIER*/
+					);
+					r2 = this.getBezierValue(
+						time,
+						i,
+						5,
+						curveType + 18 * 4 - 2
+						/*BEZIER*/
+					);
+					g2 = this.getBezierValue(
+						time,
+						i,
+						6,
+						curveType + 18 * 5 - 2
+						/*BEZIER*/
+					);
+					b2 = this.getBezierValue(
+						time,
+						i,
+						7,
+						curveType + 18 * 6 - 2
+						/*BEZIER*/
+					);
+			}
+			if (alpha == 1) {
+				light.set(r, g, b, a);
+				dark.r = r2;
+				dark.g = g2;
+				dark.b = b2;
+			} else {
+				if (blend == 0 /* setup */) {
+					light.setFromColor(slot.data.color);
+					let setupDark = slot.data.darkColor;
+					dark.r = setupDark.r;
+					dark.g = setupDark.g;
+					dark.b = setupDark.b;
+				}
+				light.add((r - light.r) * alpha, (g - light.g) * alpha, (b - light.b) * alpha, (a - light.a) * alpha);
+				dark.r += (r2 - dark.r) * alpha;
+				dark.g += (g2 - dark.g) * alpha;
+				dark.b += (b2 - dark.b) * alpha;
+			}
+		}
+	};
+	var RGB2Timeline = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, slotIndex) {
+			super(frameCount, bezierCount, [
+				Property.rgb + "|" + slotIndex,
+				Property.rgb2 + "|" + slotIndex
+			]);
+			this.slotIndex = 0;
+			this.slotIndex = slotIndex;
+		}
+		getFrameEntries() {
+			return 7;
+		}
+		/** Sets the time in seconds, light, and dark colors for the specified key frame. */
+		setFrame(frame, time, r, g, b, r2, g2, b2) {
+			frame *= 7;
+			this.frames[frame] = time;
+			this.frames[
+				frame + 1
+				/*R*/
+			] = r;
+			this.frames[
+				frame + 2
+				/*G*/
+			] = g;
+			this.frames[
+				frame + 3
+				/*B*/
+			] = b;
+			this.frames[
+				frame + 4
+				/*R2*/
+			] = r2;
+			this.frames[
+				frame + 5
+				/*G2*/
+			] = g2;
+			this.frames[
+				frame + 6
+				/*B2*/
+			] = b2;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let slot = skeleton.slots[this.slotIndex];
+			if (!slot.bone.active)
+				return;
+			let frames = this.frames;
+			let light = slot.color, dark = slot.darkColor;
+			if (time < frames[0]) {
+				let setupLight = slot.data.color, setupDark = slot.data.darkColor;
+				switch (blend) {
+					case 0 /* setup */:
+						light.r = setupLight.r;
+						light.g = setupLight.g;
+						light.b = setupLight.b;
+						dark.r = setupDark.r;
+						dark.g = setupDark.g;
+						dark.b = setupDark.b;
+						return;
+					case 1 /* first */:
+						light.r += (setupLight.r - light.r) * alpha;
+						light.g += (setupLight.g - light.g) * alpha;
+						light.b += (setupLight.b - light.b) * alpha;
+						dark.r += (setupDark.r - dark.r) * alpha;
+						dark.g += (setupDark.g - dark.g) * alpha;
+						dark.b += (setupDark.b - dark.b) * alpha;
+				}
+				return;
+			}
+			let r = 0, g = 0, b = 0, a = 0, r2 = 0, g2 = 0, b2 = 0;
+			let i = Timeline.search(
+				frames,
+				time,
+				7
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[
+				i / 7
+				/*ENTRIES*/
+			];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					r = frames[
+						i + 1
+						/*R*/
+					];
+					g = frames[
+						i + 2
+						/*G*/
+					];
+					b = frames[
+						i + 3
+						/*B*/
+					];
+					r2 = frames[
+						i + 4
+						/*R2*/
+					];
+					g2 = frames[
+						i + 5
+						/*G2*/
+					];
+					b2 = frames[
+						i + 6
+						/*B2*/
+					];
+					let t = (time - before) / (frames[
+						i + 7
+						/*ENTRIES*/
+					] - before);
+					r += (frames[
+						i + 7 + 1
+						/*R*/
+					] - r) * t;
+					g += (frames[
+						i + 7 + 2
+						/*G*/
+					] - g) * t;
+					b += (frames[
+						i + 7 + 3
+						/*B*/
+					] - b) * t;
+					r2 += (frames[
+						i + 7 + 4
+						/*R2*/
+					] - r2) * t;
+					g2 += (frames[
+						i + 7 + 5
+						/*G2*/
+					] - g2) * t;
+					b2 += (frames[
+						i + 7 + 6
+						/*B2*/
+					] - b2) * t;
+					break;
+				case 1:
+					r = frames[
+						i + 1
+						/*R*/
+					];
+					g = frames[
+						i + 2
+						/*G*/
+					];
+					b = frames[
+						i + 3
+						/*B*/
+					];
+					r2 = frames[
+						i + 4
+						/*R2*/
+					];
+					g2 = frames[
+						i + 5
+						/*G2*/
+					];
+					b2 = frames[
+						i + 6
+						/*B2*/
+					];
+					break;
+				default:
+					r = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					g = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+					b = this.getBezierValue(
+						time,
+						i,
+						3,
+						curveType + 18 * 2 - 2
+						/*BEZIER*/
+					);
+					r2 = this.getBezierValue(
+						time,
+						i,
+						4,
+						curveType + 18 * 3 - 2
+						/*BEZIER*/
+					);
+					g2 = this.getBezierValue(
+						time,
+						i,
+						5,
+						curveType + 18 * 4 - 2
+						/*BEZIER*/
+					);
+					b2 = this.getBezierValue(
+						time,
+						i,
+						6,
+						curveType + 18 * 5 - 2
+						/*BEZIER*/
+					);
+			}
+			if (alpha == 1) {
+				light.r = r;
+				light.g = g;
+				light.b = b;
+				dark.r = r2;
+				dark.g = g2;
+				dark.b = b2;
+			} else {
+				if (blend == 0 /* setup */) {
+					let setupLight = slot.data.color, setupDark = slot.data.darkColor;
+					light.r = setupLight.r;
+					light.g = setupLight.g;
+					light.b = setupLight.b;
+					dark.r = setupDark.r;
+					dark.g = setupDark.g;
+					dark.b = setupDark.b;
+				}
+				light.r += (r - light.r) * alpha;
+				light.g += (g - light.g) * alpha;
+				light.b += (b - light.b) * alpha;
+				dark.r += (r2 - dark.r) * alpha;
+				dark.g += (g2 - dark.g) * alpha;
+				dark.b += (b2 - dark.b) * alpha;
+			}
+		}
+	};
+	var AttachmentTimeline = class extends Timeline {
+		constructor(frameCount, slotIndex) {
+			super(frameCount, [
+				Property.attachment + "|" + slotIndex
+			]);
+			this.slotIndex = 0;
+			this.slotIndex = slotIndex;
+			this.attachmentNames = new Array(frameCount);
+		}
+		getFrameCount() {
+			return this.frames.length;
+		}
+		/** Sets the time in seconds and the attachment name for the specified key frame. */
+		setFrame(frame, time, attachmentName) {
+			this.frames[frame] = time;
+			this.attachmentNames[frame] = attachmentName;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let slot = skeleton.slots[this.slotIndex];
+			if (!slot.bone.active)
+				return;
+			if (direction == 1 /* mixOut */) {
+				if (blend == 0 /* setup */)
+					this.setAttachment(skeleton, slot, slot.data.attachmentName);
+				return;
+			}
+			if (time < this.frames[0]) {
+				if (blend == 0 /* setup */ || blend == 1 /* first */)
+					this.setAttachment(skeleton, slot, slot.data.attachmentName);
+				return;
+			}
+			this.setAttachment(skeleton, slot, this.attachmentNames[Timeline.search1(this.frames, time)]);
+		}
+		setAttachment(skeleton, slot, attachmentName) {
+			slot.setAttachment(!attachmentName ? null : skeleton.getAttachment(this.slotIndex, attachmentName));
+		}
+	};
+	var DeformTimeline = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, slotIndex, attachment) {
+			super(frameCount, bezierCount, [
+				Property.deform + "|" + slotIndex + "|" + attachment.id
+			]);
+			this.slotIndex = 0;
+			this.slotIndex = slotIndex;
+			this.attachment = attachment;
+			this.vertices = new Array(frameCount);
+		}
+		getFrameCount() {
+			return this.frames.length;
+		}
+		/** Sets the time in seconds and the vertices for the specified key frame.
+		 * @param vertices Vertex positions for an unweighted VertexAttachment, or deform offsets if it has weights. */
+		setFrame(frame, time, vertices) {
+			this.frames[frame] = time;
+			this.vertices[frame] = vertices;
+		}
+		/** @param value1 Ignored (0 is used for a deform timeline).
+		 * @param value2 Ignored (1 is used for a deform timeline). */
+		setBezier(bezier, frame, value, time1, value1, cx1, cy1, cx2, cy2, time2, value2) {
+			let curves = this.curves;
+			let i = this.getFrameCount() + bezier * 18;
+			if (value == 0)
+				curves[frame] = 2 + i;
+			let tmpx = (time1 - cx1 * 2 + cx2) * 0.03, tmpy = cy2 * 0.03 - cy1 * 0.06;
+			let dddx = ((cx1 - cx2) * 3 - time1 + time2) * 6e-3, dddy = (cy1 - cy2 + 0.33333333) * 0.018;
+			let ddx = tmpx * 2 + dddx, ddy = tmpy * 2 + dddy;
+			let dx = (cx1 - time1) * 0.3 + tmpx + dddx * 0.16666667, dy = cy1 * 0.3 + tmpy + dddy * 0.16666667;
+			let x = time1 + dx, y = dy;
+			for (let n = i + 18; i < n; i += 2) {
+				curves[i] = x;
+				curves[i + 1] = y;
+				dx += ddx;
+				dy += ddy;
+				ddx += dddx;
+				ddy += dddy;
+				x += dx;
+				y += dy;
+			}
+		}
+		getCurvePercent(time, frame) {
+			let curves = this.curves;
+			let i = curves[frame];
+			switch (i) {
+				case 0:
+					let x2 = this.frames[frame];
+					return (time - x2) / (this.frames[frame + this.getFrameEntries()] - x2);
+				case 1:
+					return 0;
+			}
+			i -= 2;
+			if (curves[i] > time) {
+				let x2 = this.frames[frame];
+				return curves[i + 1] * (time - x2) / (curves[i] - x2);
+			}
+			let n = i + 18;
+			for (i += 2; i < n; i += 2) {
+				if (curves[i] >= time) {
+					let x2 = curves[i - 2], y2 = curves[i - 1];
+					return y2 + (time - x2) / (curves[i] - x2) * (curves[i + 1] - y2);
+				}
+			}
+			let x = curves[n - 2], y = curves[n - 1];
+			return y + (1 - y) * (time - x) / (this.frames[frame + this.getFrameEntries()] - x);
+		}
+		apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+			let slot = skeleton.slots[this.slotIndex];
+			if (!slot.bone.active)
+				return;
+			let slotAttachment = slot.getAttachment();
+			if (!slotAttachment)
+				return;
+			if (!(slotAttachment instanceof VertexAttachment) || slotAttachment.timelineAttachment != this.attachment)
+				return;
+			let deform = slot.deform;
+			if (deform.length == 0)
+				blend = 0 /* setup */;
+			let vertices = this.vertices;
+			let vertexCount = vertices[0].length;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						deform.length = 0;
+						return;
+					case 1 /* first */:
+						if (alpha == 1) {
+							deform.length = 0;
+							return;
+						}
+						deform.length = vertexCount;
+						let vertexAttachment = slotAttachment;
+						if (!vertexAttachment.bones) {
+							let setupVertices = vertexAttachment.vertices;
+							for (var i = 0; i < vertexCount; i++)
+								deform[i] += (setupVertices[i] - deform[i]) * alpha;
+						} else {
+							alpha = 1 - alpha;
+							for (var i = 0; i < vertexCount; i++)
+								deform[i] *= alpha;
+						}
+				}
+				return;
+			}
+			deform.length = vertexCount;
+			if (time >= frames[frames.length - 1]) {
+				let lastVertices = vertices[frames.length - 1];
+				if (alpha == 1) {
+					if (blend == 3 /* add */) {
+						let vertexAttachment = slotAttachment;
+						if (!vertexAttachment.bones) {
+							let setupVertices = vertexAttachment.vertices;
+							for (let i2 = 0; i2 < vertexCount; i2++)
+								deform[i2] += lastVertices[i2] - setupVertices[i2];
+						} else {
+							for (let i2 = 0; i2 < vertexCount; i2++)
+								deform[i2] += lastVertices[i2];
+						}
+					} else
+						Utils.arrayCopy(lastVertices, 0, deform, 0, vertexCount);
+				} else {
+					switch (blend) {
+						case 0 /* setup */: {
+							let vertexAttachment2 = slotAttachment;
+							if (!vertexAttachment2.bones) {
+								let setupVertices = vertexAttachment2.vertices;
+								for (let i2 = 0; i2 < vertexCount; i2++) {
+									let setup = setupVertices[i2];
+									deform[i2] = setup + (lastVertices[i2] - setup) * alpha;
+								}
+							} else {
+								for (let i2 = 0; i2 < vertexCount; i2++)
+									deform[i2] = lastVertices[i2] * alpha;
+							}
+							break;
+						}
+						case 1 /* first */:
+						case 2 /* replace */:
+							for (let i2 = 0; i2 < vertexCount; i2++)
+								deform[i2] += (lastVertices[i2] - deform[i2]) * alpha;
+							break;
+						case 3 /* add */:
+							let vertexAttachment = slotAttachment;
+							if (!vertexAttachment.bones) {
+								let setupVertices = vertexAttachment.vertices;
+								for (let i2 = 0; i2 < vertexCount; i2++)
+									deform[i2] += (lastVertices[i2] - setupVertices[i2]) * alpha;
+							} else {
+								for (let i2 = 0; i2 < vertexCount; i2++)
+									deform[i2] += lastVertices[i2] * alpha;
+							}
+					}
+				}
+				return;
+			}
+			let frame = Timeline.search1(frames, time);
+			let percent = this.getCurvePercent(time, frame);
+			let prevVertices = vertices[frame];
+			let nextVertices = vertices[frame + 1];
+			if (alpha == 1) {
+				if (blend == 3 /* add */) {
+					let vertexAttachment = slotAttachment;
+					if (!vertexAttachment.bones) {
+						let setupVertices = vertexAttachment.vertices;
+						for (let i2 = 0; i2 < vertexCount; i2++) {
+							let prev = prevVertices[i2];
+							deform[i2] += prev + (nextVertices[i2] - prev) * percent - setupVertices[i2];
+						}
+					} else {
+						for (let i2 = 0; i2 < vertexCount; i2++) {
+							let prev = prevVertices[i2];
+							deform[i2] += prev + (nextVertices[i2] - prev) * percent;
+						}
+					}
+				} else {
+					for (let i2 = 0; i2 < vertexCount; i2++) {
+						let prev = prevVertices[i2];
+						deform[i2] = prev + (nextVertices[i2] - prev) * percent;
+					}
+				}
+			} else {
+				switch (blend) {
+					case 0 /* setup */: {
+						let vertexAttachment2 = slotAttachment;
+						if (!vertexAttachment2.bones) {
+							let setupVertices = vertexAttachment2.vertices;
+							for (let i2 = 0; i2 < vertexCount; i2++) {
+								let prev = prevVertices[i2], setup = setupVertices[i2];
+								deform[i2] = setup + (prev + (nextVertices[i2] - prev) * percent - setup) * alpha;
+							}
+						} else {
+							for (let i2 = 0; i2 < vertexCount; i2++) {
+								let prev = prevVertices[i2];
+								deform[i2] = (prev + (nextVertices[i2] - prev) * percent) * alpha;
+							}
+						}
+						break;
+					}
+					case 1 /* first */:
+					case 2 /* replace */:
+						for (let i2 = 0; i2 < vertexCount; i2++) {
+							let prev = prevVertices[i2];
+							deform[i2] += (prev + (nextVertices[i2] - prev) * percent - deform[i2]) * alpha;
+						}
+						break;
+					case 3 /* add */:
+						let vertexAttachment = slotAttachment;
+						if (!vertexAttachment.bones) {
+							let setupVertices = vertexAttachment.vertices;
+							for (let i2 = 0; i2 < vertexCount; i2++) {
+								let prev = prevVertices[i2];
+								deform[i2] += (prev + (nextVertices[i2] - prev) * percent - setupVertices[i2]) * alpha;
+							}
+						} else {
+							for (let i2 = 0; i2 < vertexCount; i2++) {
+								let prev = prevVertices[i2];
+								deform[i2] += (prev + (nextVertices[i2] - prev) * percent) * alpha;
+							}
+						}
+				}
+			}
+		}
+	};
+	var _EventTimeline = class extends Timeline {
+		constructor(frameCount) {
+			super(frameCount, _EventTimeline.propertyIds);
+			this.events = new Array(frameCount);
+		}
+		getFrameCount() {
+			return this.frames.length;
+		}
+		/** Sets the time in seconds and the event for the specified key frame. */
+		setFrame(frame, event) {
+			this.frames[frame] = event.time;
+			this.events[frame] = event;
+		}
+		/** Fires events for frames > `lastTime` and <= `time`. */
+		apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+			if (!firedEvents)
+				return;
+			let frames = this.frames;
+			let frameCount = this.frames.length;
+			if (lastTime > time) {
+				this.apply(skeleton, lastTime, Number.MAX_VALUE, firedEvents, alpha, blend, direction);
+				lastTime = -1;
+			} else if (lastTime >= frames[frameCount - 1])
+				return;
+			if (time < frames[0])
+				return;
+			let i = 0;
+			if (lastTime < frames[0])
+				i = 0;
+			else {
+				i = Timeline.search1(frames, lastTime) + 1;
+				let frameTime = frames[i];
+				while (i > 0) {
+					if (frames[i - 1] != frameTime)
+						break;
+					i--;
+				}
+			}
+			for (; i < frameCount && time >= frames[i]; i++)
+				firedEvents.push(this.events[i]);
+		}
+	};
+	var EventTimeline = _EventTimeline;
+	EventTimeline.propertyIds = ["" + Property.event];
+	var _DrawOrderTimeline = class extends Timeline {
+		constructor(frameCount) {
+			super(frameCount, _DrawOrderTimeline.propertyIds);
+			this.drawOrders = new Array(frameCount);
+		}
+		getFrameCount() {
+			return this.frames.length;
+		}
+		/** Sets the time in seconds and the draw order for the specified key frame.
+		 * @param drawOrder For each slot in {@link Skeleton#slots}, the index of the new draw order. May be null to use setup pose
+		 *           draw order. */
+		setFrame(frame, time, drawOrder) {
+			this.frames[frame] = time;
+			this.drawOrders[frame] = drawOrder;
+		}
+		apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+			if (direction == 1 /* mixOut */) {
+				if (blend == 0 /* setup */)
+					Utils.arrayCopy(skeleton.slots, 0, skeleton.drawOrder, 0, skeleton.slots.length);
+				return;
+			}
+			if (time < this.frames[0]) {
+				if (blend == 0 /* setup */ || blend == 1 /* first */)
+					Utils.arrayCopy(skeleton.slots, 0, skeleton.drawOrder, 0, skeleton.slots.length);
+				return;
+			}
+			let idx = Timeline.search1(this.frames, time);
+			let drawOrderToSetupIndex = this.drawOrders[idx];
+			if (!drawOrderToSetupIndex)
+				Utils.arrayCopy(skeleton.slots, 0, skeleton.drawOrder, 0, skeleton.slots.length);
+			else {
+				let drawOrder = skeleton.drawOrder;
+				let slots = skeleton.slots;
+				for (let i = 0, n = drawOrderToSetupIndex.length; i < n; i++)
+					drawOrder[i] = slots[drawOrderToSetupIndex[i]];
+			}
+		}
+	};
+	var DrawOrderTimeline = _DrawOrderTimeline;
+	DrawOrderTimeline.propertyIds = ["" + Property.drawOrder];
+	var IkConstraintTimeline = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, ikConstraintIndex) {
+			super(frameCount, bezierCount, [
+				Property.ikConstraint + "|" + ikConstraintIndex
+			]);
+			/** The index of the IK constraint slot in {@link Skeleton#ikConstraints} that will be changed. */
+			this.ikConstraintIndex = 0;
+			this.ikConstraintIndex = ikConstraintIndex;
+		}
+		getFrameEntries() {
+			return 6;
+		}
+		/** Sets the time in seconds, mix, softness, bend direction, compress, and stretch for the specified key frame. */
+		setFrame(frame, time, mix, softness, bendDirection, compress, stretch) {
+			frame *= 6;
+			this.frames[frame] = time;
+			this.frames[
+				frame + 1
+				/*MIX*/
+			] = mix;
+			this.frames[
+				frame + 2
+				/*SOFTNESS*/
+			] = softness;
+			this.frames[
+				frame + 3
+				/*BEND_DIRECTION*/
+			] = bendDirection;
+			this.frames[
+				frame + 4
+				/*COMPRESS*/
+			] = compress ? 1 : 0;
+			this.frames[
+				frame + 5
+				/*STRETCH*/
+			] = stretch ? 1 : 0;
+		}
+		apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+			let constraint = skeleton.ikConstraints[this.ikConstraintIndex];
+			if (!constraint.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						constraint.mix = constraint.data.mix;
+						constraint.softness = constraint.data.softness;
+						constraint.bendDirection = constraint.data.bendDirection;
+						constraint.compress = constraint.data.compress;
+						constraint.stretch = constraint.data.stretch;
+						return;
+					case 1 /* first */:
+						constraint.mix += (constraint.data.mix - constraint.mix) * alpha;
+						constraint.softness += (constraint.data.softness - constraint.softness) * alpha;
+						constraint.bendDirection = constraint.data.bendDirection;
+						constraint.compress = constraint.data.compress;
+						constraint.stretch = constraint.data.stretch;
+				}
+				return;
+			}
+			let mix = 0, softness = 0;
+			let i = Timeline.search(
+				frames,
+				time,
+				6
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[
+				i / 6
+				/*ENTRIES*/
+			];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					mix = frames[
+						i + 1
+						/*MIX*/
+					];
+					softness = frames[
+						i + 2
+						/*SOFTNESS*/
+					];
+					let t = (time - before) / (frames[
+						i + 6
+						/*ENTRIES*/
+					] - before);
+					mix += (frames[
+						i + 6 + 1
+						/*MIX*/
+					] - mix) * t;
+					softness += (frames[
+						i + 6 + 2
+						/*SOFTNESS*/
+					] - softness) * t;
+					break;
+				case 1:
+					mix = frames[
+						i + 1
+						/*MIX*/
+					];
+					softness = frames[
+						i + 2
+						/*SOFTNESS*/
+					];
+					break;
+				default:
+					mix = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					softness = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+			}
+			if (blend == 0 /* setup */) {
+				constraint.mix = constraint.data.mix + (mix - constraint.data.mix) * alpha;
+				constraint.softness = constraint.data.softness + (softness - constraint.data.softness) * alpha;
+				if (direction == 1 /* mixOut */) {
+					constraint.bendDirection = constraint.data.bendDirection;
+					constraint.compress = constraint.data.compress;
+					constraint.stretch = constraint.data.stretch;
+				} else {
+					constraint.bendDirection = frames[
+						i + 3
+						/*BEND_DIRECTION*/
+					];
+					constraint.compress = frames[
+						i + 4
+						/*COMPRESS*/
+					] != 0;
+					constraint.stretch = frames[
+						i + 5
+						/*STRETCH*/
+					] != 0;
+				}
+			} else {
+				constraint.mix += (mix - constraint.mix) * alpha;
+				constraint.softness += (softness - constraint.softness) * alpha;
+				if (direction == 0 /* mixIn */) {
+					constraint.bendDirection = frames[
+						i + 3
+						/*BEND_DIRECTION*/
+					];
+					constraint.compress = frames[
+						i + 4
+						/*COMPRESS*/
+					] != 0;
+					constraint.stretch = frames[
+						i + 5
+						/*STRETCH*/
+					] != 0;
+				}
+			}
+		}
+	};
+	var TransformConstraintTimeline = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, transformConstraintIndex) {
+			super(frameCount, bezierCount, [
+				Property.transformConstraint + "|" + transformConstraintIndex
+			]);
+			/** The index of the transform constraint slot in {@link Skeleton#transformConstraints} that will be changed. */
+			this.transformConstraintIndex = 0;
+			this.transformConstraintIndex = transformConstraintIndex;
+		}
+		getFrameEntries() {
+			return 7;
+		}
+		/** The time in seconds, rotate mix, translate mix, scale mix, and shear mix for the specified key frame. */
+		setFrame(frame, time, mixRotate, mixX, mixY, mixScaleX, mixScaleY, mixShearY) {
+			let frames = this.frames;
+			frame *= 7;
+			frames[frame] = time;
+			frames[
+				frame + 1
+				/*ROTATE*/
+			] = mixRotate;
+			frames[
+				frame + 2
+				/*X*/
+			] = mixX;
+			frames[
+				frame + 3
+				/*Y*/
+			] = mixY;
+			frames[
+				frame + 4
+				/*SCALEX*/
+			] = mixScaleX;
+			frames[
+				frame + 5
+				/*SCALEY*/
+			] = mixScaleY;
+			frames[
+				frame + 6
+				/*SHEARY*/
+			] = mixShearY;
+		}
+		apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+			let constraint = skeleton.transformConstraints[this.transformConstraintIndex];
+			if (!constraint.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				let data = constraint.data;
+				switch (blend) {
+					case 0 /* setup */:
+						constraint.mixRotate = data.mixRotate;
+						constraint.mixX = data.mixX;
+						constraint.mixY = data.mixY;
+						constraint.mixScaleX = data.mixScaleX;
+						constraint.mixScaleY = data.mixScaleY;
+						constraint.mixShearY = data.mixShearY;
+						return;
+					case 1 /* first */:
+						constraint.mixRotate += (data.mixRotate - constraint.mixRotate) * alpha;
+						constraint.mixX += (data.mixX - constraint.mixX) * alpha;
+						constraint.mixY += (data.mixY - constraint.mixY) * alpha;
+						constraint.mixScaleX += (data.mixScaleX - constraint.mixScaleX) * alpha;
+						constraint.mixScaleY += (data.mixScaleY - constraint.mixScaleY) * alpha;
+						constraint.mixShearY += (data.mixShearY - constraint.mixShearY) * alpha;
+				}
+				return;
+			}
+			let rotate, x, y, scaleX, scaleY, shearY;
+			let i = Timeline.search(
+				frames,
+				time,
+				7
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[
+				i / 7
+				/*ENTRIES*/
+			];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					rotate = frames[
+						i + 1
+						/*ROTATE*/
+					];
+					x = frames[
+						i + 2
+						/*X*/
+					];
+					y = frames[
+						i + 3
+						/*Y*/
+					];
+					scaleX = frames[
+						i + 4
+						/*SCALEX*/
+					];
+					scaleY = frames[
+						i + 5
+						/*SCALEY*/
+					];
+					shearY = frames[
+						i + 6
+						/*SHEARY*/
+					];
+					let t = (time - before) / (frames[
+						i + 7
+						/*ENTRIES*/
+					] - before);
+					rotate += (frames[
+						i + 7 + 1
+						/*ROTATE*/
+					] - rotate) * t;
+					x += (frames[
+						i + 7 + 2
+						/*X*/
+					] - x) * t;
+					y += (frames[
+						i + 7 + 3
+						/*Y*/
+					] - y) * t;
+					scaleX += (frames[
+						i + 7 + 4
+						/*SCALEX*/
+					] - scaleX) * t;
+					scaleY += (frames[
+						i + 7 + 5
+						/*SCALEY*/
+					] - scaleY) * t;
+					shearY += (frames[
+						i + 7 + 6
+						/*SHEARY*/
+					] - shearY) * t;
+					break;
+				case 1:
+					rotate = frames[
+						i + 1
+						/*ROTATE*/
+					];
+					x = frames[
+						i + 2
+						/*X*/
+					];
+					y = frames[
+						i + 3
+						/*Y*/
+					];
+					scaleX = frames[
+						i + 4
+						/*SCALEX*/
+					];
+					scaleY = frames[
+						i + 5
+						/*SCALEY*/
+					];
+					shearY = frames[
+						i + 6
+						/*SHEARY*/
+					];
+					break;
+				default:
+					rotate = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					x = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+					y = this.getBezierValue(
+						time,
+						i,
+						3,
+						curveType + 18 * 2 - 2
+						/*BEZIER*/
+					);
+					scaleX = this.getBezierValue(
+						time,
+						i,
+						4,
+						curveType + 18 * 3 - 2
+						/*BEZIER*/
+					);
+					scaleY = this.getBezierValue(
+						time,
+						i,
+						5,
+						curveType + 18 * 4 - 2
+						/*BEZIER*/
+					);
+					shearY = this.getBezierValue(
+						time,
+						i,
+						6,
+						curveType + 18 * 5 - 2
+						/*BEZIER*/
+					);
+			}
+			if (blend == 0 /* setup */) {
+				let data = constraint.data;
+				constraint.mixRotate = data.mixRotate + (rotate - data.mixRotate) * alpha;
+				constraint.mixX = data.mixX + (x - data.mixX) * alpha;
+				constraint.mixY = data.mixY + (y - data.mixY) * alpha;
+				constraint.mixScaleX = data.mixScaleX + (scaleX - data.mixScaleX) * alpha;
+				constraint.mixScaleY = data.mixScaleY + (scaleY - data.mixScaleY) * alpha;
+				constraint.mixShearY = data.mixShearY + (shearY - data.mixShearY) * alpha;
+			} else {
+				constraint.mixRotate += (rotate - constraint.mixRotate) * alpha;
+				constraint.mixX += (x - constraint.mixX) * alpha;
+				constraint.mixY += (y - constraint.mixY) * alpha;
+				constraint.mixScaleX += (scaleX - constraint.mixScaleX) * alpha;
+				constraint.mixScaleY += (scaleY - constraint.mixScaleY) * alpha;
+				constraint.mixShearY += (shearY - constraint.mixShearY) * alpha;
+			}
+		}
+	};
+	var PathConstraintPositionTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, pathConstraintIndex) {
+			super(frameCount, bezierCount, Property.pathConstraintPosition + "|" + pathConstraintIndex);
+			/** The index of the path constraint slot in {@link Skeleton#pathConstraints} that will be changed. */
+			this.pathConstraintIndex = 0;
+			this.pathConstraintIndex = pathConstraintIndex;
+		}
+		apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+			let constraint = skeleton.pathConstraints[this.pathConstraintIndex];
+			if (!constraint.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						constraint.position = constraint.data.position;
+						return;
+					case 1 /* first */:
+						constraint.position += (constraint.data.position - constraint.position) * alpha;
+				}
+				return;
+			}
+			let position = this.getCurveValue(time);
+			if (blend == 0 /* setup */)
+				constraint.position = constraint.data.position + (position - constraint.data.position) * alpha;
+			else
+				constraint.position += (position - constraint.position) * alpha;
+		}
+	};
+	var PathConstraintSpacingTimeline = class extends CurveTimeline1 {
+		constructor(frameCount, bezierCount, pathConstraintIndex) {
+			super(frameCount, bezierCount, Property.pathConstraintSpacing + "|" + pathConstraintIndex);
+			/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed. */
+			this.pathConstraintIndex = 0;
+			this.pathConstraintIndex = pathConstraintIndex;
+		}
+		apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+			let constraint = skeleton.pathConstraints[this.pathConstraintIndex];
+			if (!constraint.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						constraint.spacing = constraint.data.spacing;
+						return;
+					case 1 /* first */:
+						constraint.spacing += (constraint.data.spacing - constraint.spacing) * alpha;
+				}
+				return;
+			}
+			let spacing = this.getCurveValue(time);
+			if (blend == 0 /* setup */)
+				constraint.spacing = constraint.data.spacing + (spacing - constraint.data.spacing) * alpha;
+			else
+				constraint.spacing += (spacing - constraint.spacing) * alpha;
+		}
+	};
+	var PathConstraintMixTimeline = class extends CurveTimeline {
+		constructor(frameCount, bezierCount, pathConstraintIndex) {
+			super(frameCount, bezierCount, [
+				Property.pathConstraintMix + "|" + pathConstraintIndex
+			]);
+			/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed. */
+			this.pathConstraintIndex = 0;
+			this.pathConstraintIndex = pathConstraintIndex;
+		}
+		getFrameEntries() {
+			return 4;
+		}
+		setFrame(frame, time, mixRotate, mixX, mixY) {
+			let frames = this.frames;
+			frame <<= 2;
+			frames[frame] = time;
+			frames[
+				frame + 1
+				/*ROTATE*/
+			] = mixRotate;
+			frames[
+				frame + 2
+				/*X*/
+			] = mixX;
+			frames[
+				frame + 3
+				/*Y*/
+			] = mixY;
+		}
+		apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+			let constraint = skeleton.pathConstraints[this.pathConstraintIndex];
+			if (!constraint.active)
+				return;
+			let frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						constraint.mixRotate = constraint.data.mixRotate;
+						constraint.mixX = constraint.data.mixX;
+						constraint.mixY = constraint.data.mixY;
+						return;
+					case 1 /* first */:
+						constraint.mixRotate += (constraint.data.mixRotate - constraint.mixRotate) * alpha;
+						constraint.mixX += (constraint.data.mixX - constraint.mixX) * alpha;
+						constraint.mixY += (constraint.data.mixY - constraint.mixY) * alpha;
+				}
+				return;
+			}
+			let rotate, x, y;
+			let i = Timeline.search(
+				frames,
+				time,
+				4
+				/*ENTRIES*/
+			);
+			let curveType = this.curves[i >> 2];
+			switch (curveType) {
+				case 0:
+					let before = frames[i];
+					rotate = frames[
+						i + 1
+						/*ROTATE*/
+					];
+					x = frames[
+						i + 2
+						/*X*/
+					];
+					y = frames[
+						i + 3
+						/*Y*/
+					];
+					let t = (time - before) / (frames[
+						i + 4
+						/*ENTRIES*/
+					] - before);
+					rotate += (frames[
+						i + 4 + 1
+						/*ROTATE*/
+					] - rotate) * t;
+					x += (frames[
+						i + 4 + 2
+						/*X*/
+					] - x) * t;
+					y += (frames[
+						i + 4 + 3
+						/*Y*/
+					] - y) * t;
+					break;
+				case 1:
+					rotate = frames[
+						i + 1
+						/*ROTATE*/
+					];
+					x = frames[
+						i + 2
+						/*X*/
+					];
+					y = frames[
+						i + 3
+						/*Y*/
+					];
+					break;
+				default:
+					rotate = this.getBezierValue(
+						time,
+						i,
+						1,
+						curveType - 2
+						/*BEZIER*/
+					);
+					x = this.getBezierValue(
+						time,
+						i,
+						2,
+						curveType + 18 - 2
+						/*BEZIER*/
+					);
+					y = this.getBezierValue(
+						time,
+						i,
+						3,
+						curveType + 18 * 2 - 2
+						/*BEZIER*/
+					);
+			}
+			if (blend == 0 /* setup */) {
+				let data = constraint.data;
+				constraint.mixRotate = data.mixRotate + (rotate - data.mixRotate) * alpha;
+				constraint.mixX = data.mixX + (x - data.mixX) * alpha;
+				constraint.mixY = data.mixY + (y - data.mixY) * alpha;
+			} else {
+				constraint.mixRotate += (rotate - constraint.mixRotate) * alpha;
+				constraint.mixX += (x - constraint.mixX) * alpha;
+				constraint.mixY += (y - constraint.mixY) * alpha;
+			}
+		}
+	};
+	var _SequenceTimeline = class extends Timeline {
+		constructor(frameCount, slotIndex, attachment) {
+			super(frameCount, [
+				Property.sequence + "|" + slotIndex + "|" + attachment.sequence.id
+			]);
+			this.slotIndex = slotIndex;
+			this.attachment = attachment;
+		}
+		getFrameEntries() {
+			return _SequenceTimeline.ENTRIES;
+		}
+		getSlotIndex() {
+			return this.slotIndex;
+		}
+		getAttachment() {
+			return this.attachment;
+		}
+		/** Sets the time, mode, index, and frame time for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time Seconds between frames. */
+		setFrame(frame, time, mode, index, delay) {
+			let frames = this.frames;
+			frame *= _SequenceTimeline.ENTRIES;
+			frames[frame] = time;
+			frames[frame + _SequenceTimeline.MODE] = mode | index << 4;
+			frames[frame + _SequenceTimeline.DELAY] = delay;
+		}
+		apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+			let slot = skeleton.slots[this.slotIndex];
+			if (!slot.bone.active)
+				return;
+			let slotAttachment = slot.attachment;
+			let attachment = this.attachment;
+			if (slotAttachment != attachment) {
+				if (!(slotAttachment instanceof VertexAttachment) || slotAttachment.timelineAttachment != attachment)
+					return;
+			}
+			let frames = this.frames;
+			if (time < frames[0]) {
+				if (blend == 0 /* setup */ || blend == 1 /* first */)
+					slot.sequenceIndex = -1;
+				return;
+			}
+			let i = Timeline.search(frames, time, _SequenceTimeline.ENTRIES);
+			let before = frames[i];
+			let modeAndIndex = frames[i + _SequenceTimeline.MODE];
+			let delay = frames[i + _SequenceTimeline.DELAY];
+			if (!this.attachment.sequence)
+				return;
+			let index = modeAndIndex >> 4, count = this.attachment.sequence.regions.length;
+			let mode = SequenceModeValues[modeAndIndex & 15];
+			if (mode != 0 /* hold */) {
+				index += (time - before) / delay + 1e-5 | 0;
+				switch (mode) {
+					case 1 /* once */:
+						index = Math.min(count - 1, index);
+						break;
+					case 2 /* loop */:
+						index %= count;
+						break;
+					case 3 /* pingpong */: {
+						let n = (count << 1) - 2;
+						index = n == 0 ? 0 : index % n;
+						if (index >= count)
+							index = n - index;
+						break;
+					}
+					case 4 /* onceReverse */:
+						index = Math.max(count - 1 - index, 0);
+						break;
+					case 5 /* loopReverse */:
+						index = count - 1 - index % count;
+						break;
+					case 6 /* pingpongReverse */: {
+						let n = (count << 1) - 2;
+						index = n == 0 ? 0 : (index + count - 1) % n;
+						if (index >= count)
+							index = n - index;
+					}
+				}
+			}
+			slot.sequenceIndex = index;
+		}
+	};
+	var SequenceTimeline = _SequenceTimeline;
+	SequenceTimeline.ENTRIES = 3;
+	SequenceTimeline.MODE = 1;
+	SequenceTimeline.DELAY = 2;
 
-				void main () {
-					gl_FragColor = v_color;
+	// spine-core/src/AnimationState.ts
+	var _AnimationState = class {
+		constructor(data) {
+			/** The list of tracks that currently have animations, which may contain null entries. */
+			this.tracks = new Array();
+			/** Multiplier for the delta time when the animation state is updated, causing time for all animations and mixes to play slower
+			 * or faster. Defaults to 1.
+			 *
+			 * See TrackEntry {@link TrackEntry#timeScale} for affecting a single animation. */
+			this.timeScale = 1;
+			this.unkeyedState = 0;
+			this.events = new Array();
+			this.listeners = new Array();
+			this.queue = new EventQueue(this);
+			this.propertyIDs = new StringSet();
+			this.animationsChanged = false;
+			this.trackEntryPool = new Pool(() => new TrackEntry());
+			this.data = data;
+		}
+		static emptyAnimation() {
+			return _AnimationState._emptyAnimation;
+		}
+		/** Increments each track entry {@link TrackEntry#trackTime()}, setting queued animations as current if needed. */
+		update(delta) {
+			delta *= this.timeScale;
+			let tracks = this.tracks;
+			for (let i = 0, n = tracks.length; i < n; i++) {
+				let current = tracks[i];
+				if (!current)
+					continue;
+				current.animationLast = current.nextAnimationLast;
+				current.trackLast = current.nextTrackLast;
+				let currentDelta = delta * current.timeScale;
+				if (current.delay > 0) {
+					current.delay -= currentDelta;
+					if (current.delay > 0)
+						continue;
+					currentDelta = -current.delay;
+					current.delay = 0;
 				}
-			`; return new ut(t, e, i)
-    }
-  }, bt = ut; bt.MVP_MATRIX = "u_projTrans", bt.POSITION = "a_position", bt.COLOR = "a_color", bt.COLOR2 = "a_color2", bt.TEXCOORDS = "a_texCoords", bt.SAMPLER = "u_texture"; var Ri = class { constructor(t, e, i, s) { this.attributes = e, this.verticesLength = 0, this.dirtyVertices = !1, this.indicesLength = 0, this.dirtyIndices = !1, this.elementsPerVertex = 0, this.context = t instanceof wt ? t : new wt(t), this.elementsPerVertex = 0; for (let a = 0; a < e.length; a++)this.elementsPerVertex += e[a].numElements; this.vertices = new Float32Array(i * this.elementsPerVertex), this.indices = new Uint16Array(s), this.context.addRestorable(this) } getAttributes() { return this.attributes } maxVertices() { return this.vertices.length / this.elementsPerVertex } numVertices() { return this.verticesLength / this.elementsPerVertex } setVerticesLength(t) { this.dirtyVertices = !0, this.verticesLength = t } getVertices() { return this.vertices } maxIndices() { return this.indices.length } numIndices() { return this.indicesLength } setIndicesLength(t) { this.dirtyIndices = !0, this.indicesLength = t } getIndices() { return this.indices } getVertexSizeInFloats() { let t = 0; for (var e = 0; e < this.attributes.length; e++)t += this.attributes[e].numElements; return t } setVertices(t) { if (this.dirtyVertices = !0, t.length > this.vertices.length) throw Error("Mesh can't store more than " + this.maxVertices() + " vertices"); this.vertices.set(t, 0), this.verticesLength = t.length } setIndices(t) { if (this.dirtyIndices = !0, t.length > this.indices.length) throw Error("Mesh can't store more than " + this.maxIndices() + " indices"); this.indices.set(t, 0), this.indicesLength = t.length } draw(t, e) { this.drawWithOffset(t, e, 0, this.indicesLength > 0 ? this.indicesLength : this.verticesLength / this.elementsPerVertex) } drawWithOffset(t, e, i, s) { let a = this.context.gl; (this.dirtyVertices || this.dirtyIndices) && this.update(), this.bind(t), this.indicesLength > 0 ? a.drawElements(e, s, a.UNSIGNED_SHORT, i * 2) : a.drawArrays(e, i, s), this.unbind(t) } bind(t) { let e = this.context.gl; e.bindBuffer(e.ARRAY_BUFFER, this.verticesBuffer); let i = 0; for (let s = 0; s < this.attributes.length; s++) { let a = this.attributes[s], d = t.getAttributeLocation(a.name); e.enableVertexAttribArray(d), e.vertexAttribPointer(d, a.numElements, e.FLOAT, !1, this.elementsPerVertex * 4, i * 4), i += a.numElements } this.indicesLength > 0 && e.bindBuffer(e.ELEMENT_ARRAY_BUFFER, this.indicesBuffer) } unbind(t) { let e = this.context.gl; for (let i = 0; i < this.attributes.length; i++) { let s = this.attributes[i], a = t.getAttributeLocation(s.name); e.disableVertexAttribArray(a) } e.bindBuffer(e.ARRAY_BUFFER, null), this.indicesLength > 0 && e.bindBuffer(e.ELEMENT_ARRAY_BUFFER, null) } update() { let t = this.context.gl; this.dirtyVertices && (this.verticesBuffer || (this.verticesBuffer = t.createBuffer()), t.bindBuffer(t.ARRAY_BUFFER, this.verticesBuffer), t.bufferData(t.ARRAY_BUFFER, this.vertices.subarray(0, this.verticesLength), t.DYNAMIC_DRAW), this.dirtyVertices = !1), this.dirtyIndices && (this.indicesBuffer || (this.indicesBuffer = t.createBuffer()), t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, this.indicesBuffer), t.bufferData(t.ELEMENT_ARRAY_BUFFER, this.indices.subarray(0, this.indicesLength), t.DYNAMIC_DRAW), this.dirtyIndices = !1) } restore() { this.verticesBuffer = null, this.indicesBuffer = null, this.update() } dispose() { this.context.removeRestorable(this); let t = this.context.gl; t.deleteBuffer(this.verticesBuffer), t.deleteBuffer(this.indicesBuffer) } }, le = class { constructor(t, e, i) { this.name = t, this.type = e, this.numElements = i } }, Fe = class extends le { constructor() { super(bt.POSITION, Ht.Float, 2) } }, mr = class extends le { constructor() { super(bt.POSITION, Ht.Float, 3) } }, Fi = class extends le { constructor(t = 0) { super(bt.TEXCOORDS + (t == 0 ? "" : t), Ht.Float, 2) } }, Le = class extends le { constructor() { super(bt.COLOR, Ht.Float, 4) } }, bs = class extends le { constructor() { super(bt.COLOR2, Ht.Float, 4) } }, Ht; (function (t) { t[t.Float = 0] = "Float" })(Ht || (Ht = {})); var Li = class { constructor(t, e = !0, i = 10920) { if (this.isDrawing = !1, this.shader = null, this.lastTexture = null, this.verticesLength = 0, this.indicesLength = 0, i > 10920) throw new Error("Can't have more than 10920 triangles per batch: " + i); this.context = t instanceof wt ? t : new wt(t); let s = e ? [new Fe, new Le, new Fi, new bs] : [new Fe, new Le, new Fi]; this.mesh = new Ri(t, s, i, i * 3); let a = this.context.gl; this.srcColorBlend = a.SRC_ALPHA, this.srcAlphaBlend = a.ONE, this.dstBlend = a.ONE_MINUS_SRC_ALPHA } begin(t) { if (this.isDrawing) throw new Error("PolygonBatch is already drawing. Call PolygonBatch.end() before calling PolygonBatch.begin()"); this.drawCalls = 0, this.shader = t, this.lastTexture = null, this.isDrawing = !0; let e = this.context.gl; e.enable(e.BLEND), e.blendFuncSeparate(this.srcColorBlend, this.dstBlend, this.srcAlphaBlend, this.dstBlend) } setBlendMode(t, e, i) { this.srcColorBlend == t && this.srcAlphaBlend == e && this.dstBlend == i || (this.srcColorBlend = t, this.srcAlphaBlend = e, this.dstBlend = i, this.isDrawing && (this.flush(), this.context.gl.blendFuncSeparate(t, i, e, i))) } draw(t, e, i) { t != this.lastTexture ? (this.flush(), this.lastTexture = t) : (this.verticesLength + e.length > this.mesh.getVertices().length || this.indicesLength + i.length > this.mesh.getIndices().length) && this.flush(); let s = this.mesh.numVertices(); this.mesh.getVertices().set(e, this.verticesLength), this.verticesLength += e.length, this.mesh.setVerticesLength(this.verticesLength); let a = this.mesh.getIndices(); for (let d = this.indicesLength, n = 0; n < i.length; d++, n++)a[d] = i[n] + s; this.indicesLength += i.length, this.mesh.setIndicesLength(this.indicesLength) } flush() { this.verticesLength != 0 && (this.lastTexture.bind(), this.mesh.draw(this.shader, this.context.gl.TRIANGLES), this.verticesLength = 0, this.indicesLength = 0, this.mesh.setVerticesLength(0), this.mesh.setIndicesLength(0), this.drawCalls++) } end() { if (!this.isDrawing) throw new Error("PolygonBatch is not drawing. Call PolygonBatch.begin() before calling PolygonBatch.end()"); (this.verticesLength > 0 || this.indicesLength > 0) && this.flush(), this.shader = null, this.lastTexture = null, this.isDrawing = !1; let t = this.context.gl; t.disable(t.BLEND) } getDrawCalls() { return this.drawCalls } dispose() { this.mesh.dispose() } }, Xi = class { constructor(t, e = 10920) { if (this.isDrawing = !1, this.shapeType = At.Filled, this.color = new O(1, 1, 1, 1), this.vertexIndex = 0, this.tmp = new Yt, e > 10920) throw new Error("Can't have more than 10920 triangles per batch: " + e); this.context = t instanceof wt ? t : new wt(t), this.mesh = new Ri(t, [new Fe, new Le], e, 0); let i = this.context.gl; this.srcColorBlend = i.SRC_ALPHA, this.srcAlphaBlend = i.ONE, this.dstBlend = i.ONE_MINUS_SRC_ALPHA } begin(t) { if (this.isDrawing) throw new Error("ShapeRenderer.begin() has already been called"); this.shader = t, this.vertexIndex = 0, this.isDrawing = !0; let e = this.context.gl; e.enable(e.BLEND), e.blendFuncSeparate(this.srcColorBlend, this.dstBlend, this.srcAlphaBlend, this.dstBlend) } setBlendMode(t, e, i) { this.srcColorBlend = t, this.srcAlphaBlend = e, this.dstBlend = i, this.isDrawing && (this.flush(), this.context.gl.blendFuncSeparate(t, i, e, i)) } setColor(t) { this.color.setFromColor(t) } setColorWith(t, e, i, s) { this.color.set(t, e, i, s) } point(t, e, i = null) { this.check(At.Point, 1), i === null && (i = this.color), this.vertex(t, e, i) } line(t, e, i, s, a = null) { this.check(At.Line, 2); let d = this.mesh.getVertices(), n = this.vertexIndex; a === null && (a = this.color), this.vertex(t, e, a), this.vertex(i, s, a) } triangle(t, e, i, s, a, d, n, r = null, h = null, o = null) { this.check(t ? At.Filled : At.Line, 3); let l = this.mesh.getVertices(), c = this.vertexIndex; r === null && (r = this.color), h === null && (h = this.color), o === null && (o = this.color), t ? (this.vertex(e, i, r), this.vertex(s, a, h), this.vertex(d, n, o)) : (this.vertex(e, i, r), this.vertex(s, a, h), this.vertex(s, a, r), this.vertex(d, n, h), this.vertex(d, n, r), this.vertex(e, i, h)) } quad(t, e, i, s, a, d, n, r, h, o = null, l = null, c = null, u = null) { this.check(t ? At.Filled : At.Line, 3); let m = this.mesh.getVertices(), f = this.vertexIndex; o === null && (o = this.color), l === null && (l = this.color), c === null && (c = this.color), u === null && (u = this.color), t ? (this.vertex(e, i, o), this.vertex(s, a, l), this.vertex(d, n, c), this.vertex(d, n, c), this.vertex(r, h, u), this.vertex(e, i, o)) : (this.vertex(e, i, o), this.vertex(s, a, l), this.vertex(s, a, l), this.vertex(d, n, c), this.vertex(d, n, c), this.vertex(r, h, u), this.vertex(r, h, u), this.vertex(e, i, o)) } rect(t, e, i, s, a, d = null) { this.quad(t, e, i, e + s, i, e + s, i + a, e, i + a, d, d, d, d) } rectLine(t, e, i, s, a, d, n = null) { this.check(t ? At.Filled : At.Line, 8), n === null && (n = this.color); let r = this.tmp.set(a - i, e - s); r.normalize(), d *= .5; let h = r.x * d, o = r.y * d; t ? (this.vertex(e + h, i + o, n), this.vertex(e - h, i - o, n), this.vertex(s + h, a + o, n), this.vertex(s - h, a - o, n), this.vertex(s + h, a + o, n), this.vertex(e - h, i - o, n)) : (this.vertex(e + h, i + o, n), this.vertex(e - h, i - o, n), this.vertex(s + h, a + o, n), this.vertex(s - h, a - o, n), this.vertex(s + h, a + o, n), this.vertex(e + h, i + o, n), this.vertex(s - h, a - o, n), this.vertex(e - h, i - o, n)) } x(t, e, i) { this.line(t - i, e - i, t + i, e + i), this.line(t - i, e + i, t + i, e - i) } polygon(t, e, i, s = null) { if (i < 3) throw new Error("Polygon must contain at least 3 vertices"); this.check(At.Line, i * 2), s === null && (s = this.color); let a = this.mesh.getVertices(), d = this.vertexIndex; e <<= 1, i <<= 1; let n = t[e], r = t[e + 1], h = e + i; for (let o = e, l = e + i - 2; o < l; o += 2) { let c = t[o], u = t[o + 1], m = 0, f = 0; o + 2 >= h ? (m = n, f = r) : (m = t[o + 2], f = t[o + 3]), this.vertex(c, u, s), this.vertex(m, f, s) } } circle(t, e, i, s, a = null, d = 0) { if (d === 0 && (d = Math.max(1, 6 * F.cbrt(s) | 0)), d <= 0) throw new Error("segments must be > 0."); a === null && (a = this.color); let n = 2 * F.PI / d, r = Math.cos(n), h = Math.sin(n), o = s, l = 0; if (t) { this.check(At.Filled, d * 3 + 3), d--; for (let u = 0; u < d; u++) { this.vertex(e, i, a), this.vertex(e + o, i + l, a); let m = o; o = r * o - h * l, l = h * m + r * l, this.vertex(e + o, i + l, a) } this.vertex(e, i, a), this.vertex(e + o, i + l, a) } else { this.check(At.Line, d * 2 + 2); for (let u = 0; u < d; u++) { this.vertex(e + o, i + l, a); let m = o; o = r * o - h * l, l = h * m + r * l, this.vertex(e + o, i + l, a) } this.vertex(e + o, i + l, a) } let c = o; o = s, l = 0, this.vertex(e + o, i + l, a) } curve(t, e, i, s, a, d, n, r, h, o = null) { this.check(At.Line, h * 2 + 2), o === null && (o = this.color); let l = 1 / h, c = l * l, u = l * l * l, m = 3 * l, f = 3 * c, g = 6 * c, x = 6 * u, v = t - i * 2 + a, p = e - s * 2 + d, b = (i - a) * 3 - t + n, w = (s - d) * 3 - e + r, y = t, T = e, A = (i - t) * m + v * f + b * u, E = (s - e) * m + p * f + w * u, I = v * g + b * x, Y = p * g + w * x, P = b * x, X = w * x; for (; h-- > 0;)this.vertex(y, T, o), y += A, T += E, A += I, E += Y, I += P, Y += X, this.vertex(y, T, o); this.vertex(y, T, o), this.vertex(n, r, o) } vertex(t, e, i) { let s = this.vertexIndex, a = this.mesh.getVertices(); a[s++] = t, a[s++] = e, a[s++] = i.r, a[s++] = i.g, a[s++] = i.b, a[s++] = i.a, this.vertexIndex = s } end() { if (!this.isDrawing) throw new Error("ShapeRenderer.begin() has not been called"); this.flush(); let t = this.context.gl; t.disable(t.BLEND), this.isDrawing = !1 } flush() { this.vertexIndex != 0 && (this.mesh.setVerticesLength(this.vertexIndex), this.mesh.draw(this.shader, this.shapeType), this.vertexIndex = 0) } check(t, e) { if (!this.isDrawing) throw new Error("ShapeRenderer.begin() has not been called"); if (this.shapeType == t) if (this.mesh.maxVertices() - this.mesh.numVertices() < e) this.flush(); else return; else this.flush(), this.shapeType = t } dispose() { this.mesh.dispose() } }, At; (function (t) { t[t.Point = 0] = "Point", t[t.Line = 1] = "Line", t[t.Filled = 4] = "Filled" })(At || (At = {})); var Xe = class { constructor(t) { this.boneLineColor = new O(1, 0, 0, 1), this.boneOriginColor = new O(0, 1, 0, 1), this.attachmentLineColor = new O(0, 0, 1, .5), this.triangleLineColor = new O(1, .64, 0, .5), this.pathColor = new O().setFromString("FF7F00"), this.clipColor = new O(.8, 0, 0, 2), this.aabbColor = new O(0, 1, 0, .5), this.drawBones = !0, this.drawRegionAttachments = !0, this.drawBoundingBoxes = !0, this.drawMeshHull = !0, this.drawMeshTriangles = !0, this.drawPaths = !0, this.drawSkeletonXY = !1, this.drawClipping = !0, this.premultipliedAlpha = !1, this.scale = 1, this.boneWidth = 2, this.bounds = new us, this.temp = new Array, this.vertices = V.newFloatArray(2 * 1024), this.context = t instanceof wt ? t : new wt(t) } draw(t, e, i = null) { let s = e.x, a = e.y, d = this.context.gl, n = this.premultipliedAlpha ? d.ONE : d.SRC_ALPHA; t.setBlendMode(n, d.ONE, d.ONE_MINUS_SRC_ALPHA); let r = e.bones; if (this.drawBones) { t.setColor(this.boneLineColor); for (let h = 0, o = r.length; h < o; h++) { let l = r[h]; if (i && i.indexOf(l.data.name) > -1 || !l.parent) continue; let c = s + l.data.length * l.a + l.worldX, u = a + l.data.length * l.c + l.worldY; t.rectLine(!0, s + l.worldX, a + l.worldY, c, u, this.boneWidth * this.scale) } this.drawSkeletonXY && t.x(s, a, 4 * this.scale) } if (this.drawRegionAttachments) { t.setColor(this.attachmentLineColor); let h = e.slots; for (let o = 0, l = h.length; o < l; o++) { let c = h[o], u = c.getAttachment(); if (u instanceof at) { let m = u, f = this.vertices; m.computeWorldVertices(c.bone, f, 0, 2), t.line(f[0], f[1], f[2], f[3]), t.line(f[2], f[3], f[4], f[5]), t.line(f[4], f[5], f[6], f[7]), t.line(f[6], f[7], f[0], f[1]) } } } if (this.drawMeshHull || this.drawMeshTriangles) { let h = e.slots; for (let o = 0, l = h.length; o < l; o++) { let c = h[o]; if (!c.bone.active) continue; let u = c.getAttachment(); if (!(u instanceof jt)) continue; let m = u, f = this.vertices; m.computeWorldVertices(c, 0, m.worldVerticesLength, f, 0, 2); let g = m.triangles, x = m.hullLength; if (this.drawMeshTriangles) { t.setColor(this.triangleLineColor); for (let v = 0, p = g.length; v < p; v += 3) { let b = g[v] * 2, w = g[v + 1] * 2, y = g[v + 2] * 2; t.triangle(!1, f[b], f[b + 1], f[w], f[w + 1], f[y], f[y + 1]) } } if (this.drawMeshHull && x > 0) { t.setColor(this.attachmentLineColor), x = (x >> 1) * 2; let v = f[x - 2], p = f[x - 1]; for (let b = 0, w = x; b < w; b += 2) { let y = f[b], T = f[b + 1]; t.line(y, T, v, p), v = y, p = T } } } } if (this.drawBoundingBoxes) { let h = this.bounds; h.update(e, !0), t.setColor(this.aabbColor), t.rect(!1, h.minX, h.minY, h.getWidth(), h.getHeight()); let o = h.polygons, l = h.boundingBoxes; for (let c = 0, u = o.length; c < u; c++) { let m = o[c]; t.setColor(l[c].color), t.polygon(m, 0, m.length) } } if (this.drawPaths) { let h = e.slots; for (let o = 0, l = h.length; o < l; o++) { let c = h[o]; if (!c.bone.active) continue; let u = c.getAttachment(); if (!(u instanceof te)) continue; let m = u, f = m.worldVerticesLength, g = this.temp = V.setArraySize(this.temp, f, 0); m.computeWorldVertices(c, 0, f, g, 0, 2); let x = this.pathColor, v = g[2], p = g[3], b = 0, w = 0; if (m.closed) { t.setColor(x); let y = g[0], T = g[1], A = g[f - 2], E = g[f - 1]; b = g[f - 4], w = g[f - 3], t.curve(v, p, y, T, A, E, b, w, 32), t.setColor(Xe.LIGHT_GRAY), t.line(v, p, y, T), t.line(b, w, A, E) } f -= 4; for (let y = 4; y < f; y += 6) { let T = g[y], A = g[y + 1], E = g[y + 2], I = g[y + 3]; b = g[y + 4], w = g[y + 5], t.setColor(x), t.curve(v, p, T, A, E, I, b, w, 32), t.setColor(Xe.LIGHT_GRAY), t.line(v, p, T, A), t.line(b, w, E, I), v = b, p = w } } } if (this.drawBones) { t.setColor(this.boneOriginColor); for (let h = 0, o = r.length; h < o; h++) { let l = r[h]; i && i.indexOf(l.data.name) > -1 || t.circle(!0, s + l.worldX, a + l.worldY, 3 * this.scale, Xe.GREEN, 8) } } if (this.drawClipping) { let h = e.slots; t.setColor(this.clipColor); for (let o = 0, l = h.length; o < l; o++) { let c = h[o]; if (!c.bone.active) continue; let u = c.getAttachment(); if (!(u instanceof ge)) continue; let m = u, f = m.worldVerticesLength, g = this.temp = V.setArraySize(this.temp, f, 0); m.computeWorldVertices(c, 0, f, g, 0, 2); for (let x = 0, v = g.length; x < v; x += 2) { let p = g[x], b = g[x + 1], w = g[(x + 2) % g.length], y = g[(x + 3) % g.length]; t.line(p, b, w, y) } } } } dispose() { } }, Be = Xe; Be.LIGHT_GRAY = new O(192 / 255, 192 / 255, 192 / 255, 1), Be.GREEN = new O(0, 1, 0, 1); var gr = class { constructor(t, e, i) { this.vertices = t, this.numVertices = e, this.numFloats = i } }, vs = class { constructor(t, e = !0) { this.premultipliedAlpha = !1, this.vertexEffect = null, this.tempColor = new O, this.tempColor2 = new O, this.vertexSize = 2 + 2 + 4, this.twoColorTint = !1, this.renderable = new gr(null, 0, 0), this.clipper = new Ie, this.temp = new Yt, this.temp2 = new Yt, this.temp3 = new O, this.temp4 = new O, this.twoColorTint = e, e && (this.vertexSize += 4), this.vertices = V.newFloatArray(this.vertexSize * 1024) } draw(t, e, i = -1, s = -1) { let a = this.clipper, d = this.premultipliedAlpha, n = this.twoColorTint, r = null, h = this.temp, o = this.temp2, l = this.temp3, c = this.temp4, u = this.renderable, m = null, f = null, g = e.drawOrder, x = null, v = e.color, p = n ? 12 : 8, b = !1; i == -1 && (b = !0); for (let w = 0, y = g.length; w < y; w++) { let T = a.isClipping() ? 2 : p, A = g[w]; if (!A.bone.active) { a.clipEndWithSlot(A); continue } if (i >= 0 && i == A.data.index && (b = !0), !b) { a.clipEndWithSlot(A); continue } s >= 0 && s == A.data.index && (b = !1); let E = A.getAttachment(), I = null; if (E instanceof at) { let Y = E; u.vertices = this.vertices, u.numVertices = 4, u.numFloats = T << 2, Y.computeWorldVertices(A.bone, u.vertices, 0, T), f = vs.QUAD_TRIANGLES, m = Y.uvs, I = Y.region.renderObject.page.texture, x = Y.color } else if (E instanceof jt) { let Y = E; u.vertices = this.vertices, u.numVertices = Y.worldVerticesLength >> 1, u.numFloats = u.numVertices * T, u.numFloats > u.vertices.length && (u.vertices = this.vertices = V.newFloatArray(u.numFloats)), Y.computeWorldVertices(A, 0, Y.worldVerticesLength, u.vertices, 0, T), f = Y.triangles, I = Y.region.renderObject.page.texture, m = Y.uvs, x = Y.color } else if (E instanceof ge) { let Y = E; a.clipStart(A, Y); continue } else { a.clipEndWithSlot(A); continue } if (I) { let Y = A.color, P = this.tempColor; P.r = v.r * Y.r * x.r, P.g = v.g * Y.g * x.g, P.b = v.b * Y.b * x.b, P.a = v.a * Y.a * x.a, d && (P.r *= P.a, P.g *= P.a, P.b *= P.a); let X = this.tempColor2; A.darkColor ? (d ? (X.r = A.darkColor.r * P.a, X.g = A.darkColor.g * P.a, X.b = A.darkColor.b * P.a) : X.setFromColor(A.darkColor), X.a = d ? 1 : 0) : X.set(0, 0, 0, 1); let B = A.data.blendMode; if (B != r && (r = B, t.setBlendMode(Re.getSourceColorGLBlendMode(r, d), Re.getSourceAlphaGLBlendMode(r), Re.getDestGLBlendMode(r))), a.isClipping()) { a.clipTriangles(u.vertices, u.numFloats, f, f.length, m, P, X, n); let C = new Float32Array(a.clippedVertices), k = a.clippedTriangles; if (this.vertexEffect) { let D = this.vertexEffect, R = C; if (n) for (let L = 0, st = C.length; L < st; L += p)h.x = R[L], h.y = R[L + 1], l.set(R[L + 2], R[L + 3], R[L + 4], R[L + 5]), o.x = R[L + 6], o.y = R[L + 7], c.set(R[L + 8], R[L + 9], R[L + 10], R[L + 11]), D.transform(h, o, l, c), R[L] = h.x, R[L + 1] = h.y, R[L + 2] = l.r, R[L + 3] = l.g, R[L + 4] = l.b, R[L + 5] = l.a, R[L + 6] = o.x, R[L + 7] = o.y, R[L + 8] = c.r, R[L + 9] = c.g, R[L + 10] = c.b, R[L + 11] = c.a; else for (let L = 0, st = C.length; L < st; L += p)h.x = R[L], h.y = R[L + 1], l.set(R[L + 2], R[L + 3], R[L + 4], R[L + 5]), o.x = R[L + 6], o.y = R[L + 7], c.set(0, 0, 0, 0), D.transform(h, o, l, c), R[L] = h.x, R[L + 1] = h.y, R[L + 2] = l.r, R[L + 3] = l.g, R[L + 4] = l.b, R[L + 5] = l.a, R[L + 6] = o.x, R[L + 7] = o.y } t.draw(I, C, k) } else { let C = u.vertices; if (this.vertexEffect) { let D = this.vertexEffect; if (n) for (let R = 0, L = 0, st = u.numFloats; R < st; R += p, L += 2)h.x = C[R], h.y = C[R + 1], o.x = m[L], o.y = m[L + 1], l.setFromColor(P), c.setFromColor(X), D.transform(h, o, l, c), C[R] = h.x, C[R + 1] = h.y, C[R + 2] = l.r, C[R + 3] = l.g, C[R + 4] = l.b, C[R + 5] = l.a, C[R + 6] = o.x, C[R + 7] = o.y, C[R + 8] = c.r, C[R + 9] = c.g, C[R + 10] = c.b, C[R + 11] = c.a; else for (let R = 0, L = 0, st = u.numFloats; R < st; R += p, L += 2)h.x = C[R], h.y = C[R + 1], o.x = m[L], o.y = m[L + 1], l.setFromColor(P), c.set(0, 0, 0, 0), D.transform(h, o, l, c), C[R] = h.x, C[R + 1] = h.y, C[R + 2] = l.r, C[R + 3] = l.g, C[R + 4] = l.b, C[R + 5] = l.a, C[R + 6] = o.x, C[R + 7] = o.y } else if (n) for (let D = 2, R = 0, L = u.numFloats; D < L; D += p, R += 2)C[D] = P.r, C[D + 1] = P.g, C[D + 2] = P.b, C[D + 3] = P.a, C[D + 4] = m[R], C[D + 5] = m[R + 1], C[D + 6] = X.r, C[D + 7] = X.g, C[D + 8] = X.b, C[D + 9] = X.a; else for (let D = 2, R = 0, L = u.numFloats; D < L; D += p, R += 2)C[D] = P.r, C[D + 1] = P.g, C[D + 2] = P.b, C[D + 3] = P.a, C[D + 4] = m[R], C[D + 5] = m[R + 1]; let k = u.vertices.subarray(0, u.numFloats); t.draw(I, k, f) } } a.clipEndWithSlot(A) } a.clipEnd() } }, Bi = vs; Bi.QUAD_TRIANGLES = [0, 1, 2, 2, 3, 0]; var S = [0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0], Pe = [0, 1, 2, 2, 3, 0], Ve = new O(1, 1, 1, 1), Pi = class { constructor(t, e, i = !0) { this.twoColorTint = !1, this.canvas = t, this.context = e instanceof wt ? e : new wt(e), this.twoColorTint = i, this.camera = new xs(t.width, t.height), this.batcherShader = i ? bt.newTwoColoredTextured(this.context) : bt.newColoredTextured(this.context), this.batcher = new Li(this.context, i), this.shapesShader = bt.newColored(this.context), this.shapes = new Xi(this.context), this.skeletonRenderer = new Bi(this.context, i), this.skeletonDebugRenderer = new Be(this.context) } dispose() { this.batcher.dispose(), this.batcherShader.dispose(), this.shapes.dispose(), this.shapesShader.dispose(), this.skeletonDebugRenderer.dispose() } begin() { this.camera.update(), this.enableRenderer(this.batcher) } drawSkeleton(t, e = !1, i = -1, s = -1) { this.enableRenderer(this.batcher), this.skeletonRenderer.premultipliedAlpha = e, this.skeletonRenderer.draw(this.batcher, t, i, s) } drawSkeletonDebug(t, e = !1, i = null) { this.enableRenderer(this.shapes), this.skeletonDebugRenderer.premultipliedAlpha = e, this.skeletonDebugRenderer.draw(this.shapes, t, i) } drawTexture(t, e, i, s, a, d = null) { this.enableRenderer(this.batcher), d === null && (d = Ve); var n = 0; S[n++] = e, S[n++] = i, S[n++] = d.r, S[n++] = d.g, S[n++] = d.b, S[n++] = d.a, S[n++] = 0, S[n++] = 1, this.twoColorTint && (S[n++] = 0, S[n++] = 0, S[n++] = 0, S[n++] = 0), S[n++] = e + s, S[n++] = i, S[n++] = d.r, S[n++] = d.g, S[n++] = d.b, S[n++] = d.a, S[n++] = 1, S[n++] = 1, this.twoColorTint && (S[n++] = 0, S[n++] = 0, S[n++] = 0, S[n++] = 0), S[n++] = e + s, S[n++] = i + a, S[n++] = d.r, S[n++] = d.g, S[n++] = d.b, S[n++] = d.a, S[n++] = 1, S[n++] = 0, this.twoColorTint && (S[n++] = 0, S[n++] = 0, S[n++] = 0, S[n++] = 0), S[n++] = e, S[n++] = i + a, S[n++] = d.r, S[n++] = d.g, S[n++] = d.b, S[n++] = d.a, S[n++] = 0, S[n++] = 0, this.twoColorTint && (S[n++] = 0, S[n++] = 0, S[n++] = 0, S[n] = 0), this.batcher.draw(t, S, Pe) } drawTextureUV(t, e, i, s, a, d, n, r, h, o = null) { this.enableRenderer(this.batcher), o === null && (o = Ve); var l = 0; S[l++] = e, S[l++] = i, S[l++] = o.r, S[l++] = o.g, S[l++] = o.b, S[l++] = o.a, S[l++] = d, S[l++] = n, this.twoColorTint && (S[l++] = 0, S[l++] = 0, S[l++] = 0, S[l++] = 0), S[l++] = e + s, S[l++] = i, S[l++] = o.r, S[l++] = o.g, S[l++] = o.b, S[l++] = o.a, S[l++] = r, S[l++] = n, this.twoColorTint && (S[l++] = 0, S[l++] = 0, S[l++] = 0, S[l++] = 0), S[l++] = e + s, S[l++] = i + a, S[l++] = o.r, S[l++] = o.g, S[l++] = o.b, S[l++] = o.a, S[l++] = r, S[l++] = h, this.twoColorTint && (S[l++] = 0, S[l++] = 0, S[l++] = 0, S[l++] = 0), S[l++] = e, S[l++] = i + a, S[l++] = o.r, S[l++] = o.g, S[l++] = o.b, S[l++] = o.a, S[l++] = d, S[l++] = h, this.twoColorTint && (S[l++] = 0, S[l++] = 0, S[l++] = 0, S[l] = 0), this.batcher.draw(t, S, Pe) } drawTextureRotated(t, e, i, s, a, d, n, r, h = null) { this.enableRenderer(this.batcher), h === null && (h = Ve); let o = e + d, l = i + n, c = -d, u = -n, m = s - d, f = a - n, g = c, x = u, v = c, p = f, b = m, w = f, y = m, T = u, A = 0, E = 0, I = 0, Y = 0, P = 0, X = 0, B = 0, C = 0; if (r != 0) { let D = F.cosDeg(r), R = F.sinDeg(r); A = D * g - R * x, E = R * g + D * x, B = D * v - R * p, C = R * v + D * p, P = D * b - R * w, X = R * b + D * w, I = P + (A - B), Y = X + (E - C) } else A = g, E = x, B = v, C = p, P = b, X = w, I = y, Y = T; A += o, E += l, I += o, Y += l, P += o, X += l, B += o, C += l; var k = 0; S[k++] = A, S[k++] = E, S[k++] = h.r, S[k++] = h.g, S[k++] = h.b, S[k++] = h.a, S[k++] = 0, S[k++] = 1, this.twoColorTint && (S[k++] = 0, S[k++] = 0, S[k++] = 0, S[k++] = 0), S[k++] = I, S[k++] = Y, S[k++] = h.r, S[k++] = h.g, S[k++] = h.b, S[k++] = h.a, S[k++] = 1, S[k++] = 1, this.twoColorTint && (S[k++] = 0, S[k++] = 0, S[k++] = 0, S[k++] = 0), S[k++] = P, S[k++] = X, S[k++] = h.r, S[k++] = h.g, S[k++] = h.b, S[k++] = h.a, S[k++] = 1, S[k++] = 0, this.twoColorTint && (S[k++] = 0, S[k++] = 0, S[k++] = 0, S[k++] = 0), S[k++] = B, S[k++] = C, S[k++] = h.r, S[k++] = h.g, S[k++] = h.b, S[k++] = h.a, S[k++] = 0, S[k++] = 0, this.twoColorTint && (S[k++] = 0, S[k++] = 0, S[k++] = 0, S[k] = 0), this.batcher.draw(t, S, Pe) } drawRegion(t, e, i, s, a, d = null) { this.enableRenderer(this.batcher), d === null && (d = Ve); var n = 0; S[n++] = e, S[n++] = i, S[n++] = d.r, S[n++] = d.g, S[n++] = d.b, S[n++] = d.a, S[n++] = t.u, S[n++] = t.v2, this.twoColorTint && (S[n++] = 0, S[n++] = 0, S[n++] = 0, S[n++] = 0), S[n++] = e + s, S[n++] = i, S[n++] = d.r, S[n++] = d.g, S[n++] = d.b, S[n++] = d.a, S[n++] = t.u2, S[n++] = t.v2, this.twoColorTint && (S[n++] = 0, S[n++] = 0, S[n++] = 0, S[n++] = 0), S[n++] = e + s, S[n++] = i + a, S[n++] = d.r, S[n++] = d.g, S[n++] = d.b, S[n++] = d.a, S[n++] = t.u2, S[n++] = t.v, this.twoColorTint && (S[n++] = 0, S[n++] = 0, S[n++] = 0, S[n++] = 0), S[n++] = e, S[n++] = i + a, S[n++] = d.r, S[n++] = d.g, S[n++] = d.b, S[n++] = d.a, S[n++] = t.u, S[n++] = t.v, this.twoColorTint && (S[n++] = 0, S[n++] = 0, S[n++] = 0, S[n] = 0), this.batcher.draw(t.page.texture, S, Pe) } line(t, e, i, s, a = null, d = null) { this.enableRenderer(this.shapes), this.shapes.line(t, e, i, s, a) } triangle(t, e, i, s, a, d, n, r = null, h = null, o = null) { this.enableRenderer(this.shapes), this.shapes.triangle(t, e, i, s, a, d, n, r, h, o) } quad(t, e, i, s, a, d, n, r, h, o = null, l = null, c = null, u = null) { this.enableRenderer(this.shapes), this.shapes.quad(t, e, i, s, a, d, n, r, h, o, l, c, u) } rect(t, e, i, s, a, d = null) { this.enableRenderer(this.shapes), this.shapes.rect(t, e, i, s, a, d) } rectLine(t, e, i, s, a, d, n = null) { this.enableRenderer(this.shapes), this.shapes.rectLine(t, e, i, s, a, d, n) } polygon(t, e, i, s = null) { this.enableRenderer(this.shapes), this.shapes.polygon(t, e, i, s) } circle(t, e, i, s, a = null, d = 0) { this.enableRenderer(this.shapes), this.shapes.circle(t, e, i, s, a, d) } curve(t, e, i, s, a, d, n, r, h, o = null) { this.enableRenderer(this.shapes), this.shapes.curve(t, e, i, s, a, d, n, r, h, o) } end() { this.activeRenderer === this.batcher ? this.batcher.end() : this.activeRenderer === this.shapes && this.shapes.end(), this.activeRenderer = null } resize(t) { let e = this.canvas; var i = window.devicePixelRatio || 1, s = Math.round(e.clientWidth * i), a = Math.round(e.clientHeight * i); if ((e.width != s || e.height != a) && (e.width = s, e.height = a), this.context.gl.viewport(0, 0, e.width, e.height), t === ie.Expand) this.camera.setViewport(s, a); else if (t === ie.Fit) { let d = e.width, n = e.height, r = this.camera.viewportWidth, h = this.camera.viewportHeight, o = h / r, l = n / d, c = o < l ? r / d : h / n; this.camera.setViewport(d * c, n * c) } this.camera.update() } enableRenderer(t) { this.activeRenderer !== t && (this.end(), t instanceof Li ? (this.batcherShader.bind(), this.batcherShader.setUniform4x4f(bt.MVP_MATRIX, this.camera.projectionView.values), this.batcherShader.setUniformi("u_texture", 0), this.batcher.begin(this.batcherShader), this.activeRenderer = this.batcher) : t instanceof Xi ? (this.shapesShader.bind(), this.shapesShader.setUniform4x4f(bt.MVP_MATRIX, this.camera.projectionView.values), this.shapes.begin(this.shapesShader), this.activeRenderer = this.shapes) : this.activeRenderer = this.skeletonDebugRenderer) } }, ie; (function (t) { t[t.Stretch = 0] = "Stretch", t[t.Expand = 1] = "Expand", t[t.Fit = 2] = "Fit" })(ie || (ie = {})); var we, oe, ys = 0, pr = 1, Vi = 1, As = 165, Ss = 108, se = 163, Cs = class { constructor(t) { if (this.logo = null, this.spinner = null, this.angle = 0, this.fadeOut = 0, this.fadeIn = 0, this.timeKeeper = new ve, this.backgroundColor = new O(.135, .135, .135, 1), this.tempColor = new O, this.renderer = t, this.timeKeeper.maxDelta = 9, !oe) { let e = navigator.userAgent.indexOf("Safari") > -1, i = () => ys++; oe = new Image, oe.src = wr, e || (oe.crossOrigin = "anonymous"), oe.onload = i, we = new Image, we.src = xr, e || (we.crossOrigin = "anonymous"), we.onload = i } } dispose() { this.logo.dispose(), this.spinner.dispose() } draw(t = !1) { if (ys < 2 || t && this.fadeOut > Vi) return; this.timeKeeper.update(); let e = Math.abs(Math.sin(this.timeKeeper.totalTime + .25)); this.angle -= this.timeKeeper.delta * 200 * (1 + 1.5 * Math.pow(e, 5)); let i = this.tempColor, s = this.renderer, a = s.canvas, d = s.context.gl; if (s.resize(ie.Expand), s.camera.position.set(a.width / 2, a.height / 2, 0), s.batcher.setBlendMode(d.ONE, d.ONE, d.ONE_MINUS_SRC_ALPHA), t) { if (this.fadeOut += this.timeKeeper.delta * (this.timeKeeper.totalTime < 1 ? 2 : 1), this.fadeOut > Vi) return; i.setFromColor(this.backgroundColor), e = 1 - this.fadeOut / Vi, e = 1 - (e - 1) * (e - 1), i.a *= e, i.a > 0 && (s.camera.zoom = 1, s.begin(), s.quad(!0, 0, 0, a.width, 0, a.width, a.height, 0, a.height, i, i, i, i), s.end()) } else this.fadeIn += this.timeKeeper.delta, this.backgroundColor.a > 0 && (d.clearColor(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b, this.backgroundColor.a), d.clear(d.COLOR_BUFFER_BIT)), e = 1; e *= Math.min(this.fadeIn / pr, 1), i.set(e, e, e, e), this.logo || (this.logo = new pe(s.context, oe), this.spinner = new pe(s.context, we)), s.camera.zoom = Math.max(1, se / a.height), s.begin(), s.drawTexture(this.logo, (a.width - As) / 2, (a.height - Ss) / 2, As, Ss, i), s.drawTextureRotated(this.spinner, (a.width - se) / 2, (a.height - se) / 2, se, se, se / 2, se / 2, this.angle, i), s.end() } }, xr = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKMAAACjCAYAAADmbK6AAAALKElEQVR42u2de2iW5R/GPzuqcwfnnKfNmafl5tTNHWzqNi3DEMQykcAoJSsySkspjSIk0iD/07Kf4R+FnVBDUTshZGpWUEJaaiWFgZlUFmXmIe3HNXthyebeZ77P9H13ffBG8Y8H7ut7vff93N/7fu4vGGPiFZiez/Qtw9lytJajfzfw9z/j+efPOv7cV8W+lUNY2a8T/ayTCRsWFLJA5rtUO1LLkV5p9LJeJizQiHeqnlOtmVFtdTGrrZkJCxYXsTgaI6r9MY4/UpNItW4mFDaXsTlaM6qVZlBq3UwofFrJp0HMWJ9DvXUzobCznJ1BzFjWlTLrZkJh/TDWBzFjTgo51s2EgnKI0Rrx+FiOWzNzVaym91Syx5qZsGBWb2ZFa0ZN6dbMhAWTcpkUrRmXD2K5NTNhgVbH0Zpxbl/mWjMTFvRIo0e0ZpzcncnWzISKtvmiMWNRJ4qslwmVXRXsas2Ix8ZwzFqZsGFREYtaM+Oaa1ljrUzYkJ9G/ok6TlzKjJWZVFor0y7c1Zu7WjLiqiGsskamXdHopyT4vALmzS9k/t19uHtKHlOSIMn6xAtARjIZ1sFcUSZ0Y4La+G6M18hS2IlCn4a+WoC0JNL0d/dUupdnUj40g6EJ2VEdMnhrOG/p5f/jUXz8SgmvaGU6KpNRNsLVQV0OdXf24s63h/P2gWoOrBjMCr2GJFQnnxnIM3q5P1PPmaYv+4ev4/C6UtbpV2gzXCkgL5W8Bwt48OIc6ul6Tp+s4+SyASxLiI4+PYCn1bHzDZxvaQW6vZzto7MYnQIpNkf7kp5EuozYUroqEjcNKHHd0Tl9mBPN1pk+hFeieGBnBtog7UXjsj9pWg+m6duecw2cay1OC/uxMC47KmP9OIYfoz1YoC20J/rzRG4quTZK2EAyJGs20qwUbYw0aNRmUxtvfUW/uEtNzc1NB1/X8LVyd15hh82F43AvD+VlXcsSJEZa1CQ3ejleAO7oxR3RDP0XN91X4+NXYb8nkv7UNTwV7e0YTdu7I3g33t7tuaEbNwSZpps2fSyvs4M2Tjhot+jb0Xzbltj8r5j/xVt/6Z1Ob93U1ZYO691EhhzchcHeXosVjcNZysyezLw4xRZt05R+fTeuj8vOj+zKyG0j2aZcVVs6v+QalnjrMFZASQYl2nBoSyz06e3j/Xk8rgWYmMvEICu2pm1HOTuc7okV8FgRj0XukwzanhvCc/F+72TjoQjdObN1OFuDLmh0xP+WHtxiI10ukJlCprb4guiv1fP+avZrS1C7NAkliHZjDtZwMMgqbukAltpMlwuMy2FcEBPqvfLLar5Uqi0hBdEwryy+Mv5n6zkbjTBa+dlMlwvUZFETZKGiFM7tvbhdJ3gSVRO0wzIjnxmvl/J6a6JsGMYGrahtpssFeqbR841S3mhN80OjOaSDEdqd6SjaMKgzgzRK7q1ib3PT9sYyNo7JZoyNFNvRcVMZmy7WOvIuryv/Zvdmdt90+nY0bRp3AvROohFwdwW7dTG7RFlbwlqdrbOBYg005NAQmZU0HWt1rXMBH1Xw0dQ8pmqzoaPmdhun7bHZjNVe9qP9eFQfO1VkUmHjhAVUZ1GtnKFSbjrkrPfy4i4UW5t/6ZxM54J0CqxFe81KpGsQyE4h23oYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjLna+bdOy+IiFquIpGq16Pb79cNYv3IIK/X/ugx+Ui6TVKvYVU9Nc8gX8od8Ir/IN/KPfCQ/yVfyl/6/pfJvLChkQdD6wyqntquCXYuKWJSfRr6D0dEAxV3xlw/khyD+kd/ku/88cHo+09tS3LBpO1HHCVUqcIA6CqB4K+6X6x35L/JM2loXurlWmUmlA5XogOIcK8/If5HncrSWo7F6cKIWPjT/RXGOlWfkv8hzaWsN4uaaysE6WIkOKM6x8oz8F3kusXqo2vxC5jtYiQ4ozrH0TeS5qIZcrB7qkrwdA8U5Vp6R/yLPZV8V+2L14Cl5THGwEh1QnGPlGfkv8lyUlIzFQ1cNYVVHrcjZ0VCcFe9Y+Eb+izy3ceclUl43aFN52DXXssYpnY6a4qFS8ZcP2uIf+e7inRh6pdFrdTGrm8uiHx/L8T2V7NGWzvJBLJ/bl7mTuzO5qBNFDoiJID/IF/KHfCK/yDfyT3O7d/KbfNfS80hNIrU0g9L6HOq1x5iTQo6FNpeLfCQ/yVfyl3xmXYwxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHNk9z4JwJ0SqKTdQkbyEwhU393T6V7zzR6pieR3tE1ITeVXImhe6BXDGZFdRbVeank2TBhcaEMr0rwbixj49IBLL2/L/ffmMuNHfqO9tFZjJYBd1ewO3Lx+IcVfKhqna5nHZYR6XFPH+5R3eeI5t9fx/fvjeC9Jdew5OKZKqFR/RDVKL6vL/f9PJafmyvHsL+a/ff24V6NmjZQbGchVbY6UM2BluqHv1rCqzVZ1KQlkZboepCdQvacPsz5bjTfXao+yMEaDt7Wk9tSIMVGig3TejCtJSM2bSpkPjWPqd1S6Zao+lORSYWmgkOjORRNwZqd5ezMSiHLRooNr5XwWjS6/1XHX9vL2T67N7M1iyXa9JCrYjVrS1gbpJyw6hBfsmiNCYT0P9/A+Wj1/6qGr5YNYFlJBiWJogEzezLz/ZG8/9s4fgtSyuvNYbyp1IONFBtu7sHNv4/j9yAxUHWrdaWsG9+N8XHd+YxkMpSy+aySz841cC5oXbmHCnnI74yxAgZ3YbDeB4PEQCOpBpFNZWwa2ZWRcdnxLsl00crtRB0n2lLg8JNRfDKoM4NsolgBSmw/UMADba1+qpmqfyf6x1u/0a/og3I+aEunP6/i86osqmygcGarF4p54dex/Bo0LqfqOfVwIQ/HW5/RSkwV1oN2WLlHTc82TljAwM4M1O5LWwYKZTjibYXNS0N5KcjKTe10PadfLObFuJwK4ozp+UzXDBTUjL+M5ZcBnRkQV53dMIwNQTu6bSTbVEzbi5awuVByd2E/FgaN0Tc1fKOzBHHV2aAdVSdv6s5NNkp7cSH/++xAng2yyHx+CM/H21YhfdPp+0U1X0TbSZnXx8faG9Aop0MS0cToh1p+iLcpOkLj9t/JOk5eqoPHxnDsyf486an5yqCDK7XZ1O4oZ4dWyy3FSXHUAYq47uyYbMZoGmhpG3DlEFb6uNiVBhpyaHhnBO8oJmfqOROJjzIiP43hJ8UxITqqX56S2Hur2KsOnq3nrE6PPNKPRwrSKbAZrjTQNZmuE7oxYXMZmxWbw9dxWFu4W4ezVedOE6qzI7oyYkY+M7TPeWsPbk2UX1qioSN+E3OZqOR2cReKE+qQRFN0Pi7y73g/UawU1KzezJpXwLz5hczX1ueUPKYkNb6GJQZ+j7/aAfRZREsv+quGsMoamXZBW2Gt5eU0alorEzYsKmJRa/m4NdeyxlqZsCGa84DKnVorEzboC7podis69DfIJmwufHMc7famvvmxZiYsKOtKWbRm1OcW1syEBboSJFozLh/EcmtmwgIluaM14/phrLdmJixYXMTiaM24p5I91syEBTphFOR7Y2tmwgJNvUFOr+tov3UzoaAv44KYUatv62ZCoemdhtG0+hzqrZsJBR08DWLG0gxKrZu50qvpxos3U5NItW4mFPp1ot+lPlpq2lYXs9qamVBZUMiC1ox4pJYjvlfStAu6GmTLcLboMtPIV4/6im5fFfuUi9QIap2MiWP+D96R1vPmsD/fAAAAAElFTkSuQmCC", wr = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAABsCAYAAAALzHKmAAAQ7klEQVR42u3da4xdVRUA4D0zd2Y6nZY59DVtZ1puS9+lzC0YAi2UQ8AAQczFpPgA9VIeIQbirRqJ0cBUBVGjDr/QCKSNRSMmpuODxAdxqhgwxkhFjf6Sxh/+UUNVNGJCzR7uTvas7LXX2q9zzp3em6y0gTN3Zu75utZe5+yztxC9V+/Ve5X9En1Vjd7J6SFbLNF7naPw+l2jh7YHMBWssqMHtlsRdim4qsLtIawaPiHEQOLoNrA9iIkQDnRrVA1qD2LZ8ISoxYqKo13sQAtBWBayQWZUAXGRQM9JjCngDVY0UqJNDbQrMcaGmArdUKpIjbYiQLsCZCyIMQBy8QwnilR4Q5AuCpxFYvRFmBLbEiwKwpsSaWycVQGZBKMrwBjA9BhxDe57u2L2hOoKNCbOrgAZitEVYUxoKSMErQvSxYIzCkguRg5EF4AUhqUlhy/YUKSxcRaKsioYOQhD4I0yYxkR3PcJBcuFysmgsXAWBTMJyBCMIQh9kGGxXIXvexCQXbHGAMrBWTbM2CCpMSMLIxehC77lSJwXGth7M0FzoVJIXXDWQnGmhOkL0ic7YhhtWdGGkAuPAjUWGoF4faCmwBkbZmyUqUCyMqMLRA4+E6IsdTjidUHKBYrh9CnpRcH0ypKxsyOGEYNIIeTCOz91OIJ1QYoB5eAMyZo+MFNnyVTZ0YiRC9EGEMOyAgshxErHsL2XK1gOUgwohtM1a5YNM7Rsu4K0ZkcbRm4mpPBRwFZ5hg9eCqkrUB+csWGGogzNkqEgrdnRhpGLkINudaLgwvVB6oqzCjCTZElb2Y4B0gUjBtEG0ARnDRLjjoG9DwcshtQGlIPTljVjwUySLWNkyRCQVHa0ZUUTRAwgF91a33BEy0VKAcVwwqwZC2bqbOlUurllOxQkJzNyINoAYqjWhYYjWg5SCiiG05Q1U8FMjTIoS8YE6YORi1BHtJ4KIcQEEtTXUWAxpK44YVlPBdO1jCdFWTZIE8bVGEYMIRPcZGBw4HKQcoBiOE1ZMzbMgVQwU6JMAdKEEcuIJogUvg1YCCE2gsCO42DlIIVAKZwpYJaSLVNnSU6XjYHUmxhTmXaFaMO3EYkLqMC+FsLlIoVAKZzMrEnBhJeLfLNlKMrYWRIDCbOkFSSVHbHM6AKRC6/ODUewNqQ+OLlZkxpjUmV8MBbMUJSxyzY3Q1IgTRgxiBRCHdem0KDAUkBh9sRwwjEnAXMMgTnKhFlUtiwkS5rGka4g9SaGgxFmRC7AzTCEEBcyA36dDSsXqAtOLkysjGMwY5XxVChjZ0kuSCo7YlkRQsQQYtDEFsegsLoCxUp7Kpgps2UslFGzJGccSYHUmxhOZqwzEZqAbfUMCisHKIZzgsCpl3MTzMwTpi1bYp2477gyFKUxS7qWbdjY2EBS2dGE0QQRA7gNCyHEdhjE8RhUDlBT9tzgmjWZMFNlSy+Urk1OzCyJlW0XkK4YOQh1cDtcgwBrQmoDWkdgboBZE8mYsJSHlnFbJ+5bwmOPJ7lZkirbC8aRsMvmgtTHjBhGE0QbwJ2egUE1ITVlUC5OmDVdYNrKuN70xM6WoShjlW4464dbtiFIWK6x7GjESEHUUe0iYncnbMdQSE0Z1ITTNOb0hRmjjLtmS9dmJ2rp1jtuKktyyrb6YLEMCUHq2dGG0QQRQ7f72kzc+cJecerne8Wvv7JNPHPvenEkz8Sh3UtFc92QyGt9Yko/HgOLAIUZlItTz5ouMF3KuE+2jFLCQ1D6lm6fLMkBacuOJowYRBUXyfjuHjF3NhdnsfjvAfH6E9vFt9XxKgikEKgJZyyYalzOLeMu2bLbULI6bh+QGwmQ+rgRlumdGEQAao+K56bEL2woVUwOiev0r8OAUjiJrMmFCbvykGxZRAmPitK1dHM7bohyMsuyi/I8f0+e57fJYIKEZXpXo9E4mOf5XTKyLLvCBLETF8uY2SKepkC+dpX4T02Ivepr4HvZcOZ5fmee54fyPL+DmTUhzAs6n4n8bN5dr9f3YdkSg8nsxG0lPBVKVpNjG0/aGhzfLDmRZdnumZmZp8+c+cdZPV555fSr7Xb7s0jJ3i5Pcue4MxKkPPkvvXTqz/B92u32l0wYOzG1fkhcd/py8Rcbyq/vFM/KY1WA95h/3zzP71bfU6JsNpsfgj+P/FlbrdaDGExYyuXvLz8H+DudODH700ajcSM3W6Yu4alQ1spCOTd38jcKocTZbh9+9NixY99XJ8AEUkcpo9W64yH197m5k7+bnZ19QT+J09NHntQhwji/Jg58qi6++ofLxJ8gSFneVw2Ka4QQDfh1Ok4dZavVmtZ/nrm5k7/Vf55O1tRhboUw5+ZOvqyOl5+R/FyOHj32PYVU/tloNG5IXcKrhJIzngwp3fNjomazea/64BuNxts646f50lWv169utw9/DmtqdJQyZFaSJVuV6nq9fqMEof5/vV6/CYBqgJDlee+yAbF/+4i4ZWqZeNfaIfHWzn+Hx0KcEuU9+s8jv3ej0bhVlXOZydX/k0iRMeb8P0D5e6tj8zy/Xb9UJIc56h/yqVOnXul8lmuZ2bJslKmbHG7XrbpCmCXFRLvdfqQD6jTS3Jiy5I4OykM6ADV+1Eu1DmV6evopBORexzDi1L+X/HnGxsb2w3Hm9PSRJ9QxWPOTZdmlKht2hi+w6dkox5bqffI8fye3hDteGqKaHVsHXihKl0tB+h0cY+lute54AGRKDCW89LNTRynHb7ChUWVVjetOnJh9EYBUyPZeNCoOtsbFQwdXi4/esELcd+tq8cCHJ8UXp+viy9efLz7AgamjlKXc1AA1m83DoIRDlFubzeb96hhZLVTlgJ24gttutx+ONa50bHZKRenaeTs1OfpAfnr6yOOdE7EZdNwmlKocntXLNkA5JTGq47Ds+Lf94lWsyfnXleLfnIwJUN4DOnNYwuUxh2A3Ln9XULrfK8t3J27Tu3BVwiOjXJqoAy8UZej1yclGo3GTLN+gu3w+z/P3YaWbQqk3Ne12e4ZC+c8rxWsYytcPiP9RpZxCqWDKnxOiBNlyAUpOnGsoh4tA2Rm8X9xqtT6md5wyZmYe+0YRKL+1S/wYQ3n8zctBl5SBUv5djivfjMOPduIzcizeiYfr9foVvUwZG+XCuzibZKnSceZ5/v4QlKp8y7ElhnJlTeTP7BI/kllRYfzrfvHqFy4UX1vaL/aVlSmROzwbwdS29T2UcEwZF+V8ozM2lu1VY812u/15akypGh3TmFJesJbHHD167IdUxz3YJy5bNySuX1mbvy55CbMLtzU6tjGlsdFptVqfUMc0Go23F4wy1l2dSnbfvpMwVPe9WWVLDsrOJaF9MFu2Wq1PqmNkGce67xiXhTjdNwdlvV6/BgxfbPfBfVCetxi6b9/rlCup65QzM48dl2OjLMv26CibzeZ96sTIzEFdpwQXz9U1yrtVlpR/Zll2Fec65Y6l4pbbx8XHH9kknvzJlPjlHy8Tp29eKT5ou0aJoIT3w3dBlLDzVpfAJEZ1XOdaJZxnOSlvPMjPzxFljIvng914RwebsjYO7uhMyHu46sOfnf3Oz2TXDW6vvYxdFoIXz3Wc8J5zs9n8iOn2IrxTc2BM3Glqdp7dI553uaOjxrhwcob+MyuUpjs6WZZdon8OcigjPx8V+u+GTWFTSWEx3WYcdJ225jNDSE4q0GHCzlueHOyujn6bUWYgeb9ZZUaQPe+GzQ+Gc8+oOGhC+c1d4gfI16n3XDAhQ7+9qE9l01E2Go132GYKyXE1NiFDTcpoNpv3LOYJGWXNErJNW9sEp63p2RKiVPMn1bS1DgxsyhoGdGpmizj+xtXiDYnx7/vFmce3iWdW1cTVGEY4hQ2ZW0nNq8Qm/M6XbXm3S100lwGedFybuvNOibLI+ZS2ceU4eAxiEuvCkfmU8ycToDxETe6FgCBQHeqyAbFvfEhcO7BwDuXFCEbTZF840XeHK0jYcbs2OIGle0mVJ/mmnClEPQqxyTY5I8/zFhif7fSZee4bnrPOU4AssnRXHaVTCTd14dRDY3UbTIiSeFhsN/aMjgnqthFx880rxX3yATL5p3y4LPXzOaBkUyBjZMlYpbtQlIOBD475ZEusjMNSvkXe6VEoJVDkeZ2dzIfIFsRzU+JF2OyM9M9fTC/6SUYOyFQPjQ2nWiUjxnPfw5EeHqMWIqAeIFsAU847lJM2JM6xsewt1OIDLs99P7ZFHNdB/upS8XtPiD7PfLuCXJNolYyyFiNI/Zit65ItrOVafFbHcFohY7hPTN21Tjz4uc3iqfsnxKdX1MTl1OoYRFaMsToGB6Trw2JFP/OdZC2hJZ7ZkrMoAbbSGmelDJ91hFKuJeS7jlBMkJnrAqqJlgMUZS/dArPlGHNdSg5M3xXXtvquuEatvIYtDRhpxbUJuIgqsU5lGWtUploK0KuEU9mSW8YpmFQ556xNuYW7NiW13B+FkMiKHIy+C6eGgBxJvMR0oSv5hi6+z4HJyZoU0M2RVvDlrOQbcxVfX5AhZbuqy0v7ZstYMLHlAVlLTF9ALLbvu9Y5Zylpn/XOsd0ibIvxr2KCLHpp6SCUIdnSZSF+WzfOhem6GD+1KwR3Z4jNjrtDpNoZwmWd8yrupZN6Hx3fbMmFSe0Swdq2ZIPjxk1112Duo8OBGLrBkw/IoncdK2XHsdC9dHz204m50xh3tzFq1zFqtzHXrfCw7OgDsqyNnZLszVijsmXgrmNcmGtS78lIoMX2aJz03fKO2sDJddPQSCDPiQ1DfWBycY6XtXstc2PQKuxgG2McmXTPb9/9vmuJYXKyJrWjbeg+3xPM4O73nWqvbyw7xgZZSJbEUBa157cNJjdr2vb+5iA1YV3HxYscj30PDCEHIgcjtfm8K8hSsmRotkwFk5s1TTghUAopB6xrjHMBBkI0YYTZ0dZlxwLpkiWDULpmy5gwqayZgZNkA7oKQQCxctByYg0XIIEQQuRitGVHblMTA2ShKGPDpC6wu+DEgJqg2rDGDBtAF4Q6RAojp1xXGmSMbImVcR+YWNY04eQCtUG1ofUJ2/uvcETIgUhhdAE5GAlkKShjwHTNmhhODKgJqQ2sC14uOgyfD0IbRF+MlQaZAiZWyn2yJsTJATqGnHQO2Jhh+xlsACFCG0QbRtdyzQFZCZSxYPpmTS7Q5cjJHYNBYIkZpu99HoUQ/o4QIYSIZUZfjJ4ZMjZI32wZBDMU5yhy8pZTULl4XYP5fagMyEVoy4oupTpGduwnkloSlKEwY+AcQU4MhRTD6ovXBRwFzwWgCSEF0QVjJUGmgEllTS5OLlCIlIN1mS9mx/cZ5eLDALpCTI2RAhkTZQqYoTgpoCPECbaBHQ2ETL3PUl98ECAXYijG0OyYAmQoTG7W5ODkAF1CnVgm2JQx4okPA+gCMTbGskBGgRmaOblAh5GTORIrfKFx4VH4EIAxIXIxlg2SBbMvECY3e7oApbDaIgQu5/2HmeEKEINYiwSRi7EQkLFgumZOCuggctKGI4ULZN/vMeSLj0AYMytWEqMLzFg4fYDaoKaC6wvOFR4FkIPQFaILxrJAOsHsc/zlfYDWXE8qF22s8Pz5KHxcgEVALBtjJXBSSEOwFhk1Zgy4hitCT4hVw+gFs8/zwxqIBbUgyK7fcyA0PD9XX4iVxhiC0xdof6STWCsoBmKF7+cVCWFXQYyBMxRpf+STX1b0x45AhN0OMSrOGEirhrY/dfQAdjvS7oy+WCF6r1RIFxXWvlTRg1YVqFWBmxZbD99ig9pt0YPQw9rD1nstVri9V+/Ve3XrS/wfim4P5fIFxLoAAAAASUVORK5CYII=", br = class { constructor(t, e) { this.time = new ve, e.pathPrefix === void 0 && (e.pathPrefix = ""), e.app === void 0 && (e.app = { loadAssets: () => { }, initialize: () => { }, update: () => { }, render: () => { }, error: () => { } }), e.webglConfig === void 0 && (e.webglConfig = { alpha: !0 }), this.htmlCanvas = t, this.context = new wt(t, e.webglConfig), this.renderer = new Pi(t, this.context), this.gl = this.context.gl, this.assetManager = new Yi(this.context, e.pathPrefix), this.input = new xe(t), e.app.loadAssets(this); let i = () => { requestAnimationFrame(i), this.time.update(), e.app.update(this, this.time.delta), e.app.render(this) }, s = () => { if (this.assetManager.isLoadingComplete()) { this.assetManager.hasErrors() ? e.app.error(this, this.assetManager.getErrors()) : (e.app.initialize(this), i()); return } requestAnimationFrame(s) }; requestAnimationFrame(s) } clear(t, e, i, s) { this.gl.clearColor(t, e, i, s), this.gl.clear(this.gl.COLOR_BUFFER_BIT) } }, vr = class {
-    constructor(t, e) {
-      if (this.config = e, this.bg = new O, this.bgFullscreen = new O, this.playTime = 0, this.cancelId = 0, this.paused = !0, this.speed = 1, this.time = new ve, this.stopRequestAnimationFrame = !1, this.disposed = !1, this.viewport = {}, this.viewportTransitionStart = 0, this.eventListeners = [], this.parent = typeof t == "string" ? document.getElementById(t) : t, !this.parent) throw new Error("SpinePlayer parent not found: " + t); e.showControls === void 0 && (e.showControls = !0); let i = e.showControls ? `
+				let next = current.next;
+				if (next) {
+					let nextTime = current.trackLast - next.delay;
+					if (nextTime >= 0) {
+						next.delay = 0;
+						next.trackTime += current.timeScale == 0 ? 0 : (nextTime / current.timeScale + delta) * next.timeScale;
+						current.trackTime += currentDelta;
+						this.setCurrent(i, next, true);
+						while (next.mixingFrom) {
+							next.mixTime += delta;
+							next = next.mixingFrom;
+						}
+						continue;
+					}
+				} else if (current.trackLast >= current.trackEnd && !current.mixingFrom) {
+					tracks[i] = null;
+					this.queue.end(current);
+					this.clearNext(current);
+					continue;
+				}
+				if (current.mixingFrom && this.updateMixingFrom(current, delta)) {
+					let from = current.mixingFrom;
+					current.mixingFrom = null;
+					if (from)
+						from.mixingTo = null;
+					while (from) {
+						this.queue.end(from);
+						from = from.mixingFrom;
+					}
+				}
+				current.trackTime += currentDelta;
+			}
+			this.queue.drain();
+		}
+		/** Returns true when all mixing from entries are complete. */
+		updateMixingFrom(to, delta) {
+			let from = to.mixingFrom;
+			if (!from)
+				return true;
+			let finished = this.updateMixingFrom(from, delta);
+			from.animationLast = from.nextAnimationLast;
+			from.trackLast = from.nextTrackLast;
+			if (to.mixTime > 0 && to.mixTime >= to.mixDuration) {
+				if (from.totalAlpha == 0 || to.mixDuration == 0) {
+					to.mixingFrom = from.mixingFrom;
+					if (from.mixingFrom)
+						from.mixingFrom.mixingTo = to;
+					to.interruptAlpha = from.interruptAlpha;
+					this.queue.end(from);
+				}
+				return finished;
+			}
+			from.trackTime += delta * from.timeScale;
+			to.mixTime += delta;
+			return false;
+		}
+		/** Poses the skeleton using the track entry animations. There are no side effects other than invoking listeners, so the
+		 * animation state can be applied to multiple skeletons to pose them identically.
+		 * @returns True if any animations were applied. */
+		apply(skeleton) {
+			if (!skeleton)
+				throw new Error("skeleton cannot be null.");
+			if (this.animationsChanged)
+				this._animationsChanged();
+			let events = this.events;
+			let tracks = this.tracks;
+			let applied = false;
+			for (let i2 = 0, n2 = tracks.length; i2 < n2; i2++) {
+				let current = tracks[i2];
+				if (!current || current.delay > 0)
+					continue;
+				applied = true;
+				let blend = i2 == 0 ? 1 /* first */ : current.mixBlend;
+				let mix = current.alpha;
+				if (current.mixingFrom)
+					mix *= this.applyMixingFrom(current, skeleton, blend);
+				else if (current.trackTime >= current.trackEnd && !current.next)
+					mix = 0;
+				let animationLast = current.animationLast, animationTime = current.getAnimationTime(), applyTime = animationTime;
+				let applyEvents = events;
+				if (current.reverse) {
+					applyTime = current.animation.duration - applyTime;
+					applyEvents = null;
+				}
+				let timelines = current.animation.timelines;
+				let timelineCount = timelines.length;
+				if (i2 == 0 && mix == 1 || blend == 3 /* add */) {
+					for (let ii = 0; ii < timelineCount; ii++) {
+						Utils.webkit602BugfixHelper(mix, blend);
+						var timeline = timelines[ii];
+						if (timeline instanceof AttachmentTimeline)
+							this.applyAttachmentTimeline(timeline, skeleton, applyTime, blend, true);
+						else
+							timeline.apply(skeleton, animationLast, applyTime, applyEvents, mix, blend, 0 /* mixIn */);
+					}
+				} else {
+					let timelineMode = current.timelineMode;
+					let shortestRotation = current.shortestRotation;
+					let firstFrame = !shortestRotation && current.timelinesRotation.length != timelineCount << 1;
+					if (firstFrame)
+						current.timelinesRotation.length = timelineCount << 1;
+					for (let ii = 0; ii < timelineCount; ii++) {
+						let timeline2 = timelines[ii];
+						let timelineBlend = timelineMode[ii] == SUBSEQUENT ? blend : 0 /* setup */;
+						if (!shortestRotation && timeline2 instanceof RotateTimeline) {
+							this.applyRotateTimeline(timeline2, skeleton, applyTime, mix, timelineBlend, current.timelinesRotation, ii << 1, firstFrame);
+						} else if (timeline2 instanceof AttachmentTimeline) {
+							this.applyAttachmentTimeline(timeline2, skeleton, applyTime, blend, true);
+						} else {
+							Utils.webkit602BugfixHelper(mix, blend);
+							timeline2.apply(skeleton, animationLast, applyTime, applyEvents, mix, timelineBlend, 0 /* mixIn */);
+						}
+					}
+				}
+				this.queueEvents(current, animationTime);
+				events.length = 0;
+				current.nextAnimationLast = animationTime;
+				current.nextTrackLast = current.trackTime;
+			}
+			var setupState = this.unkeyedState + SETUP;
+			var slots = skeleton.slots;
+			for (var i = 0, n = skeleton.slots.length; i < n; i++) {
+				var slot = slots[i];
+				if (slot.attachmentState == setupState) {
+					var attachmentName = slot.data.attachmentName;
+					slot.setAttachment(!attachmentName ? null : skeleton.getAttachment(slot.data.index, attachmentName));
+				}
+			}
+			this.unkeyedState += 2;
+			this.queue.drain();
+			return applied;
+		}
+		applyMixingFrom(to, skeleton, blend) {
+			let from = to.mixingFrom;
+			if (from.mixingFrom)
+				this.applyMixingFrom(from, skeleton, blend);
+			let mix = 0;
+			if (to.mixDuration == 0) {
+				mix = 1;
+				if (blend == 1 /* first */)
+					blend = 0 /* setup */;
+			} else {
+				mix = to.mixTime / to.mixDuration;
+				if (mix > 1)
+					mix = 1;
+				if (blend != 1 /* first */)
+					blend = from.mixBlend;
+			}
+			let attachments = mix < from.attachmentThreshold, drawOrder = mix < from.drawOrderThreshold;
+			let timelines = from.animation.timelines;
+			let timelineCount = timelines.length;
+			let alphaHold = from.alpha * to.interruptAlpha, alphaMix = alphaHold * (1 - mix);
+			let animationLast = from.animationLast, animationTime = from.getAnimationTime(), applyTime = animationTime;
+			let events = null;
+			if (from.reverse)
+				applyTime = from.animation.duration - applyTime;
+			else if (mix < from.eventThreshold)
+				events = this.events;
+			if (blend == 3 /* add */) {
+				for (let i = 0; i < timelineCount; i++)
+					timelines[i].apply(skeleton, animationLast, applyTime, events, alphaMix, blend, 1 /* mixOut */);
+			} else {
+				let timelineMode = from.timelineMode;
+				let timelineHoldMix = from.timelineHoldMix;
+				let shortestRotation = from.shortestRotation;
+				let firstFrame = !shortestRotation && from.timelinesRotation.length != timelineCount << 1;
+				if (firstFrame)
+					from.timelinesRotation.length = timelineCount << 1;
+				from.totalAlpha = 0;
+				for (let i = 0; i < timelineCount; i++) {
+					let timeline = timelines[i];
+					let direction = 1 /* mixOut */;
+					let timelineBlend;
+					let alpha = 0;
+					switch (timelineMode[i]) {
+						case SUBSEQUENT:
+							if (!drawOrder && timeline instanceof DrawOrderTimeline)
+								continue;
+							timelineBlend = blend;
+							alpha = alphaMix;
+							break;
+						case FIRST:
+							timelineBlend = 0 /* setup */;
+							alpha = alphaMix;
+							break;
+						case HOLD_SUBSEQUENT:
+							timelineBlend = blend;
+							alpha = alphaHold;
+							break;
+						case HOLD_FIRST:
+							timelineBlend = 0 /* setup */;
+							alpha = alphaHold;
+							break;
+						default:
+							timelineBlend = 0 /* setup */;
+							let holdMix = timelineHoldMix[i];
+							alpha = alphaHold * Math.max(0, 1 - holdMix.mixTime / holdMix.mixDuration);
+							break;
+					}
+					from.totalAlpha += alpha;
+					if (!shortestRotation && timeline instanceof RotateTimeline)
+						this.applyRotateTimeline(timeline, skeleton, applyTime, alpha, timelineBlend, from.timelinesRotation, i << 1, firstFrame);
+					else if (timeline instanceof AttachmentTimeline)
+						this.applyAttachmentTimeline(timeline, skeleton, applyTime, timelineBlend, attachments);
+					else {
+						Utils.webkit602BugfixHelper(alpha, blend);
+						if (drawOrder && timeline instanceof DrawOrderTimeline && timelineBlend == 0 /* setup */)
+							direction = 0 /* mixIn */;
+						timeline.apply(skeleton, animationLast, applyTime, events, alpha, timelineBlend, direction);
+					}
+				}
+			}
+			if (to.mixDuration > 0)
+				this.queueEvents(from, animationTime);
+			this.events.length = 0;
+			from.nextAnimationLast = animationTime;
+			from.nextTrackLast = from.trackTime;
+			return mix;
+		}
+		applyAttachmentTimeline(timeline, skeleton, time, blend, attachments) {
+			var slot = skeleton.slots[timeline.slotIndex];
+			if (!slot.bone.active)
+				return;
+			if (time < timeline.frames[0]) {
+				if (blend == 0 /* setup */ || blend == 1 /* first */)
+					this.setAttachment(skeleton, slot, slot.data.attachmentName, attachments);
+			} else
+				this.setAttachment(skeleton, slot, timeline.attachmentNames[Timeline.search1(timeline.frames, time)], attachments);
+			if (slot.attachmentState <= this.unkeyedState)
+				slot.attachmentState = this.unkeyedState + SETUP;
+		}
+		setAttachment(skeleton, slot, attachmentName, attachments) {
+			slot.setAttachment(!attachmentName ? null : skeleton.getAttachment(slot.data.index, attachmentName));
+			if (attachments)
+				slot.attachmentState = this.unkeyedState + CURRENT;
+		}
+		applyRotateTimeline(timeline, skeleton, time, alpha, blend, timelinesRotation, i, firstFrame) {
+			if (firstFrame)
+				timelinesRotation[i] = 0;
+			if (alpha == 1) {
+				timeline.apply(skeleton, 0, time, null, 1, blend, 0 /* mixIn */);
+				return;
+			}
+			let bone = skeleton.bones[timeline.boneIndex];
+			if (!bone.active)
+				return;
+			let frames = timeline.frames;
+			let r1 = 0, r2 = 0;
+			if (time < frames[0]) {
+				switch (blend) {
+					case 0 /* setup */:
+						bone.rotation = bone.data.rotation;
+					default:
+						return;
+					case 1 /* first */:
+						r1 = bone.rotation;
+						r2 = bone.data.rotation;
+				}
+			} else {
+				r1 = blend == 0 /* setup */ ? bone.data.rotation : bone.rotation;
+				r2 = bone.data.rotation + timeline.getCurveValue(time);
+			}
+			let total = 0, diff = r2 - r1;
+			diff -= (16384 - (16384.499999999996 - diff / 360 | 0)) * 360;
+			if (diff == 0) {
+				total = timelinesRotation[i];
+			} else {
+				let lastTotal = 0, lastDiff = 0;
+				if (firstFrame) {
+					lastTotal = 0;
+					lastDiff = diff;
+				} else {
+					lastTotal = timelinesRotation[i];
+					lastDiff = timelinesRotation[i + 1];
+				}
+				let current = diff > 0, dir = lastTotal >= 0;
+				if (MathUtils.signum(lastDiff) != MathUtils.signum(diff) && Math.abs(lastDiff) <= 90) {
+					if (Math.abs(lastTotal) > 180)
+						lastTotal += 360 * MathUtils.signum(lastTotal);
+					dir = current;
+				}
+				total = diff + lastTotal - lastTotal % 360;
+				if (dir != current)
+					total += 360 * MathUtils.signum(lastTotal);
+				timelinesRotation[i] = total;
+			}
+			timelinesRotation[i + 1] = diff;
+			bone.rotation = r1 + total * alpha;
+		}
+		queueEvents(entry, animationTime) {
+			let animationStart = entry.animationStart, animationEnd = entry.animationEnd;
+			let duration = animationEnd - animationStart;
+			let trackLastWrapped = entry.trackLast % duration;
+			let events = this.events;
+			let i = 0, n = events.length;
+			for (; i < n; i++) {
+				let event = events[i];
+				if (event.time < trackLastWrapped)
+					break;
+				if (event.time > animationEnd)
+					continue;
+				this.queue.event(entry, event);
+			}
+			let complete = false;
+			if (entry.loop)
+				complete = duration == 0 || trackLastWrapped > entry.trackTime % duration;
+			else
+				complete = animationTime >= animationEnd && entry.animationLast < animationEnd;
+			if (complete)
+				this.queue.complete(entry);
+			for (; i < n; i++) {
+				let event = events[i];
+				if (event.time < animationStart)
+					continue;
+				this.queue.event(entry, event);
+			}
+		}
+		/** Removes all animations from all tracks, leaving skeletons in their current pose.
+		 *
+		 * It may be desired to use {@link AnimationState#setEmptyAnimation()} to mix the skeletons back to the setup pose,
+		 * rather than leaving them in their current pose. */
+		clearTracks() {
+			let oldDrainDisabled = this.queue.drainDisabled;
+			this.queue.drainDisabled = true;
+			for (let i = 0, n = this.tracks.length; i < n; i++)
+				this.clearTrack(i);
+			this.tracks.length = 0;
+			this.queue.drainDisabled = oldDrainDisabled;
+			this.queue.drain();
+		}
+		/** Removes all animations from the track, leaving skeletons in their current pose.
+		 *
+		 * It may be desired to use {@link AnimationState#setEmptyAnimation()} to mix the skeletons back to the setup pose,
+		 * rather than leaving them in their current pose. */
+		clearTrack(trackIndex) {
+			if (trackIndex >= this.tracks.length)
+				return;
+			let current = this.tracks[trackIndex];
+			if (!current)
+				return;
+			this.queue.end(current);
+			this.clearNext(current);
+			let entry = current;
+			while (true) {
+				let from = entry.mixingFrom;
+				if (!from)
+					break;
+				this.queue.end(from);
+				entry.mixingFrom = null;
+				entry.mixingTo = null;
+				entry = from;
+			}
+			this.tracks[current.trackIndex] = null;
+			this.queue.drain();
+		}
+		setCurrent(index, current, interrupt) {
+			let from = this.expandToIndex(index);
+			this.tracks[index] = current;
+			current.previous = null;
+			if (from) {
+				if (interrupt)
+					this.queue.interrupt(from);
+				current.mixingFrom = from;
+				from.mixingTo = current;
+				current.mixTime = 0;
+				if (from.mixingFrom && from.mixDuration > 0)
+					current.interruptAlpha *= Math.min(1, from.mixTime / from.mixDuration);
+				from.timelinesRotation.length = 0;
+			}
+			this.queue.start(current);
+		}
+		/** Sets an animation by name.
+			*
+			* See {@link #setAnimationWith()}. */
+		setAnimation(trackIndex, animationName, loop = false) {
+			let animation = this.data.skeletonData.findAnimation(animationName);
+			if (!animation)
+				throw new Error("Animation not found: " + animationName);
+			return this.setAnimationWith(trackIndex, animation, loop);
+		}
+		/** Sets the current animation for a track, discarding any queued animations. If the formerly current track entry was never
+		 * applied to a skeleton, it is replaced (not mixed from).
+		 * @param loop If true, the animation will repeat. If false it will not, instead its last frame is applied if played beyond its
+		 *           duration. In either case {@link TrackEntry#trackEnd} determines when the track is cleared.
+		 * @returns A track entry to allow further customization of animation playback. References to the track entry must not be kept
+		 *         after the {@link AnimationStateListener#dispose()} event occurs. */
+		setAnimationWith(trackIndex, animation, loop = false) {
+			if (!animation)
+				throw new Error("animation cannot be null.");
+			let interrupt = true;
+			let current = this.expandToIndex(trackIndex);
+			if (current) {
+				if (current.nextTrackLast == -1) {
+					this.tracks[trackIndex] = current.mixingFrom;
+					this.queue.interrupt(current);
+					this.queue.end(current);
+					this.clearNext(current);
+					current = current.mixingFrom;
+					interrupt = false;
+				} else
+					this.clearNext(current);
+			}
+			let entry = this.trackEntry(trackIndex, animation, loop, current);
+			this.setCurrent(trackIndex, entry, interrupt);
+			this.queue.drain();
+			return entry;
+		}
+		/** Queues an animation by name.
+		 *
+		 * See {@link #addAnimationWith()}. */
+		addAnimation(trackIndex, animationName, loop = false, delay = 0) {
+			let animation = this.data.skeletonData.findAnimation(animationName);
+			if (!animation)
+				throw new Error("Animation not found: " + animationName);
+			return this.addAnimationWith(trackIndex, animation, loop, delay);
+		}
+		/** Adds an animation to be played after the current or last queued animation for a track. If the track is empty, it is
+		 * equivalent to calling {@link #setAnimationWith()}.
+		 * @param delay If > 0, sets {@link TrackEntry#delay}. If <= 0, the delay set is the duration of the previous track entry
+		 *           minus any mix duration (from the {@link AnimationStateData}) plus the specified `delay` (ie the mix
+		 *           ends at (`delay` = 0) or before (`delay` < 0) the previous track entry duration). If the
+		 *           previous entry is looping, its next loop completion is used instead of its duration.
+		 * @returns A track entry to allow further customization of animation playback. References to the track entry must not be kept
+		 *         after the {@link AnimationStateListener#dispose()} event occurs. */
+		addAnimationWith(trackIndex, animation, loop = false, delay = 0) {
+			if (!animation)
+				throw new Error("animation cannot be null.");
+			let last = this.expandToIndex(trackIndex);
+			if (last) {
+				while (last.next)
+					last = last.next;
+			}
+			let entry = this.trackEntry(trackIndex, animation, loop, last);
+			if (!last) {
+				this.setCurrent(trackIndex, entry, true);
+				this.queue.drain();
+			} else {
+				last.next = entry;
+				entry.previous = last;
+				if (delay <= 0)
+					delay += last.getTrackComplete() - entry.mixDuration;
+			}
+			entry.delay = delay;
+			return entry;
+		}
+		/** Sets an empty animation for a track, discarding any queued animations, and sets the track entry's
+		 * {@link TrackEntry#mixduration}. An empty animation has no timelines and serves as a placeholder for mixing in or out.
+		 *
+		 * Mixing out is done by setting an empty animation with a mix duration using either {@link #setEmptyAnimation()},
+		 * {@link #setEmptyAnimations()}, or {@link #addEmptyAnimation()}. Mixing to an empty animation causes
+		 * the previous animation to be applied less and less over the mix duration. Properties keyed in the previous animation
+		 * transition to the value from lower tracks or to the setup pose value if no lower tracks key the property. A mix duration of
+		 * 0 still mixes out over one frame.
+		 *
+		 * Mixing in is done by first setting an empty animation, then adding an animation using
+		 * {@link #addAnimation()} and on the returned track entry, set the
+		 * {@link TrackEntry#setMixDuration()}. Mixing from an empty animation causes the new animation to be applied more and
+		 * more over the mix duration. Properties keyed in the new animation transition from the value from lower tracks or from the
+		 * setup pose value if no lower tracks key the property to the value keyed in the new animation. */
+		setEmptyAnimation(trackIndex, mixDuration = 0) {
+			let entry = this.setAnimationWith(trackIndex, _AnimationState.emptyAnimation(), false);
+			entry.mixDuration = mixDuration;
+			entry.trackEnd = mixDuration;
+			return entry;
+		}
+		/** Adds an empty animation to be played after the current or last queued animation for a track, and sets the track entry's
+		 * {@link TrackEntry#mixDuration}. If the track is empty, it is equivalent to calling
+		 * {@link #setEmptyAnimation()}.
+		 *
+		 * See {@link #setEmptyAnimation()}.
+		 * @param delay If > 0, sets {@link TrackEntry#delay}. If <= 0, the delay set is the duration of the previous track entry
+		 *           minus any mix duration plus the specified `delay` (ie the mix ends at (`delay` = 0) or
+		 *           before (`delay` < 0) the previous track entry duration). If the previous entry is looping, its next
+		 *           loop completion is used instead of its duration.
+		 * @return A track entry to allow further customization of animation playback. References to the track entry must not be kept
+		 *         after the {@link AnimationStateListener#dispose()} event occurs. */
+		addEmptyAnimation(trackIndex, mixDuration = 0, delay = 0) {
+			let entry = this.addAnimationWith(trackIndex, _AnimationState.emptyAnimation(), false, delay);
+			if (delay <= 0)
+				entry.delay += entry.mixDuration - mixDuration;
+			entry.mixDuration = mixDuration;
+			entry.trackEnd = mixDuration;
+			return entry;
+		}
+		/** Sets an empty animation for every track, discarding any queued animations, and mixes to it over the specified mix
+			* duration. */
+		setEmptyAnimations(mixDuration = 0) {
+			let oldDrainDisabled = this.queue.drainDisabled;
+			this.queue.drainDisabled = true;
+			for (let i = 0, n = this.tracks.length; i < n; i++) {
+				let current = this.tracks[i];
+				if (current)
+					this.setEmptyAnimation(current.trackIndex, mixDuration);
+			}
+			this.queue.drainDisabled = oldDrainDisabled;
+			this.queue.drain();
+		}
+		expandToIndex(index) {
+			if (index < this.tracks.length)
+				return this.tracks[index];
+			Utils.ensureArrayCapacity(this.tracks, index + 1, null);
+			this.tracks.length = index + 1;
+			return null;
+		}
+		/** @param last May be null. */
+		trackEntry(trackIndex, animation, loop, last) {
+			let entry = this.trackEntryPool.obtain();
+			entry.reset();
+			entry.trackIndex = trackIndex;
+			entry.animation = animation;
+			entry.loop = loop;
+			entry.holdPrevious = false;
+			entry.reverse = false;
+			entry.shortestRotation = false;
+			entry.eventThreshold = 0;
+			entry.attachmentThreshold = 0;
+			entry.drawOrderThreshold = 0;
+			entry.animationStart = 0;
+			entry.animationEnd = animation.duration;
+			entry.animationLast = -1;
+			entry.nextAnimationLast = -1;
+			entry.delay = 0;
+			entry.trackTime = 0;
+			entry.trackLast = -1;
+			entry.nextTrackLast = -1;
+			entry.trackEnd = Number.MAX_VALUE;
+			entry.timeScale = 1;
+			entry.alpha = 1;
+			entry.mixTime = 0;
+			entry.mixDuration = !last ? 0 : this.data.getMix(last.animation, animation);
+			entry.interruptAlpha = 1;
+			entry.totalAlpha = 0;
+			entry.mixBlend = 2 /* replace */;
+			return entry;
+		}
+		/** Removes the {@link TrackEntry#getNext() next entry} and all entries after it for the specified entry. */
+		clearNext(entry) {
+			let next = entry.next;
+			while (next) {
+				this.queue.dispose(next);
+				next = next.next;
+			}
+			entry.next = null;
+		}
+		_animationsChanged() {
+			this.animationsChanged = false;
+			this.propertyIDs.clear();
+			let tracks = this.tracks;
+			for (let i = 0, n = tracks.length; i < n; i++) {
+				let entry = tracks[i];
+				if (!entry)
+					continue;
+				while (entry.mixingFrom)
+					entry = entry.mixingFrom;
+				do {
+					if (!entry.mixingTo || entry.mixBlend != 3 /* add */)
+						this.computeHold(entry);
+					entry = entry.mixingTo;
+				} while (entry);
+			}
+		}
+		computeHold(entry) {
+			let to = entry.mixingTo;
+			let timelines = entry.animation.timelines;
+			let timelinesCount = entry.animation.timelines.length;
+			let timelineMode = entry.timelineMode;
+			timelineMode.length = timelinesCount;
+			let timelineHoldMix = entry.timelineHoldMix;
+			timelineHoldMix.length = 0;
+			let propertyIDs = this.propertyIDs;
+			if (to && to.holdPrevious) {
+				for (let i = 0; i < timelinesCount; i++)
+					timelineMode[i] = propertyIDs.addAll(timelines[i].getPropertyIds()) ? HOLD_FIRST : HOLD_SUBSEQUENT;
+				return;
+			}
+			outer:
+			for (let i = 0; i < timelinesCount; i++) {
+				let timeline = timelines[i];
+				let ids = timeline.getPropertyIds();
+				if (!propertyIDs.addAll(ids))
+					timelineMode[i] = SUBSEQUENT;
+				else if (!to || timeline instanceof AttachmentTimeline || timeline instanceof DrawOrderTimeline || timeline instanceof EventTimeline || !to.animation.hasTimeline(ids)) {
+					timelineMode[i] = FIRST;
+				} else {
+					for (let next = to.mixingTo; next; next = next.mixingTo) {
+						if (next.animation.hasTimeline(ids))
+							continue;
+						if (entry.mixDuration > 0) {
+							timelineMode[i] = HOLD_MIX;
+							timelineHoldMix[i] = next;
+							continue outer;
+						}
+						break;
+					}
+					timelineMode[i] = HOLD_FIRST;
+				}
+			}
+		}
+		/** Returns the track entry for the animation currently playing on the track, or null if no animation is currently playing. */
+		getCurrent(trackIndex) {
+			if (trackIndex >= this.tracks.length)
+				return null;
+			return this.tracks[trackIndex];
+		}
+		/** Adds a listener to receive events for all track entries. */
+		addListener(listener) {
+			if (!listener)
+				throw new Error("listener cannot be null.");
+			this.listeners.push(listener);
+		}
+		/** Removes the listener added with {@link #addListener()}. */
+		removeListener(listener) {
+			let index = this.listeners.indexOf(listener);
+			if (index >= 0)
+				this.listeners.splice(index, 1);
+		}
+		/** Removes all listeners added with {@link #addListener()}. */
+		clearListeners() {
+			this.listeners.length = 0;
+		}
+		/** Discards all listener notifications that have not yet been delivered. This can be useful to call from an
+		 * {@link AnimationStateListener} when it is known that further notifications that may have been already queued for delivery
+		 * are not wanted because new animations are being set. */
+		clearListenerNotifications() {
+			this.queue.clear();
+		}
+	};
+	var AnimationState = _AnimationState;
+	AnimationState._emptyAnimation = new Animation("<empty>", [], 0);
+	var TrackEntry = class {
+		constructor() {
+			/** The animation to apply for this track entry. */
+			this.animation = null;
+			this.previous = null;
+			/** The animation queued to start after this animation, or null. `next` makes up a linked list. */
+			this.next = null;
+			/** The track entry for the previous animation when mixing from the previous animation to this animation, or null if no
+			 * mixing is currently occuring. When mixing from multiple animations, `mixingFrom` makes up a linked list. */
+			this.mixingFrom = null;
+			/** The track entry for the next animation when mixing from this animation to the next animation, or null if no mixing is
+			 * currently occuring. When mixing to multiple animations, `mixingTo` makes up a linked list. */
+			this.mixingTo = null;
+			/** The listener for events generated by this track entry, or null.
+			 *
+			 * A track entry returned from {@link AnimationState#setAnimation()} is already the current animation
+			 * for the track, so the track entry listener {@link AnimationStateListener#start()} will not be called. */
+			this.listener = null;
+			/** The index of the track where this track entry is either current or queued.
+			 *
+			 * See {@link AnimationState#getCurrent()}. */
+			this.trackIndex = 0;
+			/** If true, the animation will repeat. If false it will not, instead its last frame is applied if played beyond its
+			 * duration. */
+			this.loop = false;
+			/** If true, when mixing from the previous animation to this animation, the previous animation is applied as normal instead
+			 * of being mixed out.
+			 *
+			 * When mixing between animations that key the same property, if a lower track also keys that property then the value will
+			 * briefly dip toward the lower track value during the mix. This happens because the first animation mixes from 100% to 0%
+			 * while the second animation mixes from 0% to 100%. Setting `holdPrevious` to true applies the first animation
+			 * at 100% during the mix so the lower track value is overwritten. Such dipping does not occur on the lowest track which
+			 * keys the property, only when a higher track also keys the property.
+			 *
+			 * Snapping will occur if `holdPrevious` is true and this animation does not key all the same properties as the
+			 * previous animation. */
+			this.holdPrevious = false;
+			this.reverse = false;
+			this.shortestRotation = false;
+			/** When the mix percentage ({@link #mixTime} / {@link #mixDuration}) is less than the
+			 * `eventThreshold`, event timelines are applied while this animation is being mixed out. Defaults to 0, so event
+			 * timelines are not applied while this animation is being mixed out. */
+			this.eventThreshold = 0;
+			/** When the mix percentage ({@link #mixtime} / {@link #mixDuration}) is less than the
+			 * `attachmentThreshold`, attachment timelines are applied while this animation is being mixed out. Defaults to
+			 * 0, so attachment timelines are not applied while this animation is being mixed out. */
+			this.attachmentThreshold = 0;
+			/** When the mix percentage ({@link #mixTime} / {@link #mixDuration}) is less than the
+			 * `drawOrderThreshold`, draw order timelines are applied while this animation is being mixed out. Defaults to 0,
+			 * so draw order timelines are not applied while this animation is being mixed out. */
+			this.drawOrderThreshold = 0;
+			/** Seconds when this animation starts, both initially and after looping. Defaults to 0.
+			 *
+			 * When changing the `animationStart` time, it often makes sense to set {@link #animationLast} to the same
+			 * value to prevent timeline keys before the start time from triggering. */
+			this.animationStart = 0;
+			/** Seconds for the last frame of this animation. Non-looping animations won't play past this time. Looping animations will
+			 * loop back to {@link #animationStart} at this time. Defaults to the animation {@link Animation#duration}. */
+			this.animationEnd = 0;
+			/** The time in seconds this animation was last applied. Some timelines use this for one-time triggers. Eg, when this
+			 * animation is applied, event timelines will fire all events between the `animationLast` time (exclusive) and
+			 * `animationTime` (inclusive). Defaults to -1 to ensure triggers on frame 0 happen the first time this animation
+			 * is applied. */
+			this.animationLast = 0;
+			this.nextAnimationLast = 0;
+			/** Seconds to postpone playing the animation. When this track entry is the current track entry, `delay`
+			 * postpones incrementing the {@link #trackTime}. When this track entry is queued, `delay` is the time from
+			 * the start of the previous animation to when this track entry will become the current track entry (ie when the previous
+			 * track entry {@link TrackEntry#trackTime} >= this track entry's `delay`).
+			 *
+			 * {@link #timeScale} affects the delay. */
+			this.delay = 0;
+			/** Current time in seconds this track entry has been the current track entry. The track time determines
+			 * {@link #animationTime}. The track time can be set to start the animation at a time other than 0, without affecting
+			 * looping. */
+			this.trackTime = 0;
+			this.trackLast = 0;
+			this.nextTrackLast = 0;
+			/** The track time in seconds when this animation will be removed from the track. Defaults to the highest possible float
+			 * value, meaning the animation will be applied until a new animation is set or the track is cleared. If the track end time
+			 * is reached, no other animations are queued for playback, and mixing from any previous animations is complete, then the
+			 * properties keyed by the animation are set to the setup pose and the track is cleared.
+			 *
+			 * It may be desired to use {@link AnimationState#addEmptyAnimation()} rather than have the animation
+			 * abruptly cease being applied. */
+			this.trackEnd = 0;
+			/** Multiplier for the delta time when this track entry is updated, causing time for this animation to pass slower or
+			 * faster. Defaults to 1.
+			 *
+			 * {@link #mixTime} is not affected by track entry time scale, so {@link #mixDuration} may need to be adjusted to
+			 * match the animation speed.
+			 *
+			 * When using {@link AnimationState#addAnimation()} with a `delay` <= 0, note the
+			 * {@link #delay} is set using the mix duration from the {@link AnimationStateData}, assuming time scale to be 1. If
+			 * the time scale is not 1, the delay may need to be adjusted.
+			 *
+			 * See AnimationState {@link AnimationState#timeScale} for affecting all animations. */
+			this.timeScale = 0;
+			/** Values < 1 mix this animation with the skeleton's current pose (usually the pose resulting from lower tracks). Defaults
+			 * to 1, which overwrites the skeleton's current pose with this animation.
+			 *
+			 * Typically track 0 is used to completely pose the skeleton, then alpha is used on higher tracks. It doesn't make sense to
+			 * use alpha on track 0 if the skeleton pose is from the last frame render. */
+			this.alpha = 0;
+			/** Seconds from 0 to the {@link #getMixDuration()} when mixing from the previous animation to this animation. May be
+			 * slightly more than `mixDuration` when the mix is complete. */
+			this.mixTime = 0;
+			/** Seconds for mixing from the previous animation to this animation. Defaults to the value provided by AnimationStateData
+			 * {@link AnimationStateData#getMix()} based on the animation before this animation (if any).
+			 *
+			 * A mix duration of 0 still mixes out over one frame to provide the track entry being mixed out a chance to revert the
+			 * properties it was animating.
+			 *
+			 * The `mixDuration` can be set manually rather than use the value from
+			 * {@link AnimationStateData#getMix()}. In that case, the `mixDuration` can be set for a new
+			 * track entry only before {@link AnimationState#update(float)} is first called.
+			 *
+			 * When using {@link AnimationState#addAnimation()} with a `delay` <= 0, note the
+			 * {@link #delay} is set using the mix duration from the {@link AnimationStateData}, not a mix duration set
+			 * afterward. */
+			this.mixDuration = 0;
+			this.interruptAlpha = 0;
+			this.totalAlpha = 0;
+			/** Controls how properties keyed in the animation are mixed with lower tracks. Defaults to {@link MixBlend#replace}, which
+			 * replaces the values from the lower tracks with the animation values. {@link MixBlend#add} adds the animation values to
+			 * the values from the lower tracks.
+			 *
+			 * The `mixBlend` can be set for a new track entry only before {@link AnimationState#apply()} is first
+			 * called. */
+			this.mixBlend = 2 /* replace */;
+			this.timelineMode = new Array();
+			this.timelineHoldMix = new Array();
+			this.timelinesRotation = new Array();
+		}
+		reset() {
+			this.next = null;
+			this.previous = null;
+			this.mixingFrom = null;
+			this.mixingTo = null;
+			this.animation = null;
+			this.listener = null;
+			this.timelineMode.length = 0;
+			this.timelineHoldMix.length = 0;
+			this.timelinesRotation.length = 0;
+		}
+		/** Uses {@link #trackTime} to compute the `animationTime`, which is between {@link #animationStart}
+		 * and {@link #animationEnd}. When the `trackTime` is 0, the `animationTime` is equal to the
+		 * `animationStart` time. */
+		getAnimationTime() {
+			if (this.loop) {
+				let duration = this.animationEnd - this.animationStart;
+				if (duration == 0)
+					return this.animationStart;
+				return this.trackTime % duration + this.animationStart;
+			}
+			return Math.min(this.trackTime + this.animationStart, this.animationEnd);
+		}
+		setAnimationLast(animationLast) {
+			this.animationLast = animationLast;
+			this.nextAnimationLast = animationLast;
+		}
+		/** Returns true if at least one loop has been completed.
+		 *
+		 * See {@link AnimationStateListener#complete()}. */
+		isComplete() {
+			return this.trackTime >= this.animationEnd - this.animationStart;
+		}
+		/** Resets the rotation directions for mixing this entry's rotate timelines. This can be useful to avoid bones rotating the
+		 * long way around when using {@link #alpha} and starting animations on other tracks.
+		 *
+		 * Mixing with {@link MixBlend#replace} involves finding a rotation between two others, which has two possible solutions:
+		 * the short way or the long way around. The two rotations likely change over time, so which direction is the short or long
+		 * way also changes. If the short way was always chosen, bones would flip to the other side when that direction became the
+		 * long way. TrackEntry chooses the short way the first time it is applied and remembers that direction. */
+		resetRotationDirections() {
+			this.timelinesRotation.length = 0;
+		}
+		getTrackComplete() {
+			let duration = this.animationEnd - this.animationStart;
+			if (duration != 0) {
+				if (this.loop)
+					return duration * (1 + (this.trackTime / duration | 0));
+				if (this.trackTime < duration)
+					return duration;
+			}
+			return this.trackTime;
+		}
+	};
+	var EventQueue = class {
+		constructor(animState) {
+			this.objects = [];
+			this.drainDisabled = false;
+			this.animState = animState;
+		}
+		start(entry) {
+			this.objects.push(EventType.start);
+			this.objects.push(entry);
+			this.animState.animationsChanged = true;
+		}
+		interrupt(entry) {
+			this.objects.push(EventType.interrupt);
+			this.objects.push(entry);
+		}
+		end(entry) {
+			this.objects.push(EventType.end);
+			this.objects.push(entry);
+			this.animState.animationsChanged = true;
+		}
+		dispose(entry) {
+			this.objects.push(EventType.dispose);
+			this.objects.push(entry);
+		}
+		complete(entry) {
+			this.objects.push(EventType.complete);
+			this.objects.push(entry);
+		}
+		event(entry, event) {
+			this.objects.push(EventType.event);
+			this.objects.push(entry);
+			this.objects.push(event);
+		}
+		drain() {
+			if (this.drainDisabled)
+				return;
+			this.drainDisabled = true;
+			let objects = this.objects;
+			let listeners = this.animState.listeners;
+			for (let i = 0; i < objects.length; i += 2) {
+				let type = objects[i];
+				let entry = objects[i + 1];
+				switch (type) {
+					case EventType.start:
+						if (entry.listener && entry.listener.start)
+							entry.listener.start(entry);
+						for (let ii = 0; ii < listeners.length; ii++) {
+							let listener = listeners[ii];
+							if (listener.start)
+								listener.start(entry);
+						}
+						break;
+					case EventType.interrupt:
+						if (entry.listener && entry.listener.interrupt)
+							entry.listener.interrupt(entry);
+						for (let ii = 0; ii < listeners.length; ii++) {
+							let listener = listeners[ii];
+							if (listener.interrupt)
+								listener.interrupt(entry);
+						}
+						break;
+					case EventType.end:
+						if (entry.listener && entry.listener.end)
+							entry.listener.end(entry);
+						for (let ii = 0; ii < listeners.length; ii++) {
+							let listener = listeners[ii];
+							if (listener.end)
+								listener.end(entry);
+						}
+					case EventType.dispose:
+						if (entry.listener && entry.listener.dispose)
+							entry.listener.dispose(entry);
+						for (let ii = 0; ii < listeners.length; ii++) {
+							let listener = listeners[ii];
+							if (listener.dispose)
+								listener.dispose(entry);
+						}
+						this.animState.trackEntryPool.free(entry);
+						break;
+					case EventType.complete:
+						if (entry.listener && entry.listener.complete)
+							entry.listener.complete(entry);
+						for (let ii = 0; ii < listeners.length; ii++) {
+							let listener = listeners[ii];
+							if (listener.complete)
+								listener.complete(entry);
+						}
+						break;
+					case EventType.event:
+						let event = objects[i++ + 2];
+						if (entry.listener && entry.listener.event)
+							entry.listener.event(entry, event);
+						for (let ii = 0; ii < listeners.length; ii++) {
+							let listener = listeners[ii];
+							if (listener.event)
+								listener.event(entry, event);
+						}
+						break;
+				}
+			}
+			this.clear();
+			this.drainDisabled = false;
+		}
+		clear() {
+			this.objects.length = 0;
+		}
+	};
+	var EventType = /* @__PURE__ */ ((EventType2) => {
+		EventType2[EventType2["start"] = 0] = "start";
+		EventType2[EventType2["interrupt"] = 1] = "interrupt";
+		EventType2[EventType2["end"] = 2] = "end";
+		EventType2[EventType2["dispose"] = 3] = "dispose";
+		EventType2[EventType2["complete"] = 4] = "complete";
+		EventType2[EventType2["event"] = 5] = "event";
+		return EventType2;
+	})(EventType || {});
+	var AnimationStateAdapter = class {
+		start(entry) {
+		}
+		interrupt(entry) {
+		}
+		end(entry) {
+		}
+		dispose(entry) {
+		}
+		complete(entry) {
+		}
+		event(entry, event) {
+		}
+	};
+	var SUBSEQUENT = 0;
+	var FIRST = 1;
+	var HOLD_SUBSEQUENT = 2;
+	var HOLD_FIRST = 3;
+	var HOLD_MIX = 4;
+	var SETUP = 1;
+	var CURRENT = 2;
+
+	// spine-core/src/AnimationStateData.ts
+	var AnimationStateData = class {
+		constructor(skeletonData) {
+			this.animationToMixTime = {};
+			/** The mix duration to use when no mix duration has been defined between two animations. */
+			this.defaultMix = 0;
+			if (!skeletonData)
+				throw new Error("skeletonData cannot be null.");
+			this.skeletonData = skeletonData;
+		}
+		/** Sets a mix duration by animation name.
+		 *
+		 * See {@link #setMixWith()}. */
+		setMix(fromName, toName, duration) {
+			let from = this.skeletonData.findAnimation(fromName);
+			if (!from)
+				throw new Error("Animation not found: " + fromName);
+			let to = this.skeletonData.findAnimation(toName);
+			if (!to)
+				throw new Error("Animation not found: " + toName);
+			this.setMixWith(from, to, duration);
+		}
+		/** Sets the mix duration when changing from the specified animation to the other.
+		 *
+		 * See {@link TrackEntry#mixDuration}. */
+		setMixWith(from, to, duration) {
+			if (!from)
+				throw new Error("from cannot be null.");
+			if (!to)
+				throw new Error("to cannot be null.");
+			let key = from.name + "." + to.name;
+			this.animationToMixTime[key] = duration;
+		}
+		/** Returns the mix duration to use when changing from the specified animation to the other, or the {@link #defaultMix} if
+			* no mix duration has been set. */
+		getMix(from, to) {
+			let key = from.name + "." + to.name;
+			let value = this.animationToMixTime[key];
+			return value === void 0 ? this.defaultMix : value;
+		}
+	};
+
+	// spine-core/src/attachments/BoundingBoxAttachment.ts
+	var BoundingBoxAttachment = class extends VertexAttachment {
+		constructor(name) {
+			super(name);
+			this.color = new Color(1, 1, 1, 1);
+		}
+		copy() {
+			let copy = new BoundingBoxAttachment(this.name);
+			this.copyTo(copy);
+			copy.color.setFromColor(this.color);
+			return copy;
+		}
+	};
+
+	// spine-core/src/attachments/ClippingAttachment.ts
+	var ClippingAttachment = class extends VertexAttachment {
+		// ce3a3aff
+		constructor(name) {
+			super(name);
+			/** Clipping is performed between the clipping polygon's slot and the end slot. Returns null if clipping is done until the end of
+			 * the skeleton's rendering. */
+			this.endSlot = null;
+			// Nonessential.
+			/** The color of the clipping polygon as it was in Spine. Available only when nonessential data was exported. Clipping polygons
+			 * are not usually rendered at runtime. */
+			this.color = new Color(0.2275, 0.2275, 0.8078, 1);
+		}
+		copy() {
+			let copy = new ClippingAttachment(this.name);
+			this.copyTo(copy);
+			copy.endSlot = this.endSlot;
+			copy.color.setFromColor(this.color);
+			return copy;
+		}
+	};
+
+	// spine-core/src/Texture.ts
+	var Texture = class {
+		constructor(image) {
+			this._image = image;
+		}
+		getImage() {
+			return this._image;
+		}
+	};
+	var TextureFilter = /* @__PURE__ */ ((TextureFilter2) => {
+		TextureFilter2[TextureFilter2["Nearest"] = 9728] = "Nearest";
+		TextureFilter2[TextureFilter2["Linear"] = 9729] = "Linear";
+		TextureFilter2[TextureFilter2["MipMap"] = 9987] = "MipMap";
+		TextureFilter2[TextureFilter2["MipMapNearestNearest"] = 9984] = "MipMapNearestNearest";
+		TextureFilter2[TextureFilter2["MipMapLinearNearest"] = 9985] = "MipMapLinearNearest";
+		TextureFilter2[TextureFilter2["MipMapNearestLinear"] = 9986] = "MipMapNearestLinear";
+		TextureFilter2[TextureFilter2["MipMapLinearLinear"] = 9987] = "MipMapLinearLinear";
+		return TextureFilter2;
+	})(TextureFilter || {});
+	var TextureWrap = /* @__PURE__ */ ((TextureWrap3) => {
+		TextureWrap3[TextureWrap3["MirroredRepeat"] = 33648] = "MirroredRepeat";
+		TextureWrap3[TextureWrap3["ClampToEdge"] = 33071] = "ClampToEdge";
+		TextureWrap3[TextureWrap3["Repeat"] = 10497] = "Repeat";
+		return TextureWrap3;
+	})(TextureWrap || {});
+	var TextureRegion = class {
+		constructor() {
+			this.u = 0;
+			this.v = 0;
+			this.u2 = 0;
+			this.v2 = 0;
+			this.width = 0;
+			this.height = 0;
+			this.degrees = 0;
+			this.offsetX = 0;
+			this.offsetY = 0;
+			this.originalWidth = 0;
+			this.originalHeight = 0;
+		}
+	};
+	var FakeTexture = class extends Texture {
+		setFilters(minFilter, magFilter) {
+		}
+		setWraps(uWrap, vWrap) {
+		}
+		dispose() {
+		}
+	};
+
+	// spine-core/src/TextureAtlas.ts
+	var TextureAtlas = class {
+		constructor(atlasText) {
+			this.pages = new Array();
+			this.regions = new Array();
+			let reader = new TextureAtlasReader(atlasText);
+			let entry = new Array(4);
+			let pageFields = {};
+			pageFields["size"] = (page2) => {
+				page2.width = parseInt(entry[1]);
+				page2.height = parseInt(entry[2]);
+			};
+			pageFields["format"] = () => {
+			};
+			pageFields["filter"] = (page2) => {
+				page2.minFilter = Utils.enumValue(TextureFilter, entry[1]);
+				page2.magFilter = Utils.enumValue(TextureFilter, entry[2]);
+			};
+			pageFields["repeat"] = (page2) => {
+				if (entry[1].indexOf("x") != -1)
+					page2.uWrap = 10497 /* Repeat */;
+				if (entry[1].indexOf("y") != -1)
+					page2.vWrap = 10497 /* Repeat */;
+			};
+			pageFields["pma"] = (page2) => {
+				page2.pma = entry[1] == "true";
+			};
+			var regionFields = {};
+			regionFields["xy"] = (region) => {
+				region.x = parseInt(entry[1]);
+				region.y = parseInt(entry[2]);
+			};
+			regionFields["size"] = (region) => {
+				region.width = parseInt(entry[1]);
+				region.height = parseInt(entry[2]);
+			};
+			regionFields["bounds"] = (region) => {
+				region.x = parseInt(entry[1]);
+				region.y = parseInt(entry[2]);
+				region.width = parseInt(entry[3]);
+				region.height = parseInt(entry[4]);
+			};
+			regionFields["offset"] = (region) => {
+				region.offsetX = parseInt(entry[1]);
+				region.offsetY = parseInt(entry[2]);
+			};
+			regionFields["orig"] = (region) => {
+				region.originalWidth = parseInt(entry[1]);
+				region.originalHeight = parseInt(entry[2]);
+			};
+			regionFields["offsets"] = (region) => {
+				region.offsetX = parseInt(entry[1]);
+				region.offsetY = parseInt(entry[2]);
+				region.originalWidth = parseInt(entry[3]);
+				region.originalHeight = parseInt(entry[4]);
+			};
+			regionFields["rotate"] = (region) => {
+				let value = entry[1];
+				if (value == "true")
+					region.degrees = 90;
+				else if (value != "false")
+					region.degrees = parseInt(value);
+			};
+			regionFields["index"] = (region) => {
+				region.index = parseInt(entry[1]);
+			};
+			let line = reader.readLine();
+			while (line && line.trim().length == 0)
+				line = reader.readLine();
+			while (true) {
+				if (!line || line.trim().length == 0)
+					break;
+				if (reader.readEntry(entry, line) == 0)
+					break;
+				line = reader.readLine();
+			}
+			let page = null;
+			let names = null;
+			let values = null;
+			while (true) {
+				if (line === null)
+					break;
+				if (line.trim().length == 0) {
+					page = null;
+					line = reader.readLine();
+				} else if (!page) {
+					page = new TextureAtlasPage(line.trim());
+					while (true) {
+						if (reader.readEntry(entry, line = reader.readLine()) == 0)
+							break;
+						let field = pageFields[entry[0]];
+						if (field)
+							field(page);
+					}
+					this.pages.push(page);
+				} else {
+					let region = new TextureAtlasRegion(page, line);
+					while (true) {
+						let count = reader.readEntry(entry, line = reader.readLine());
+						if (count == 0)
+							break;
+						let field = regionFields[entry[0]];
+						if (field)
+							field(region);
+						else {
+							if (!names)
+								names = [];
+							if (!values)
+								values = [];
+							names.push(entry[0]);
+							let entryValues = [];
+							for (let i = 0; i < count; i++)
+								entryValues.push(parseInt(entry[i + 1]));
+							values.push(entryValues);
+						}
+					}
+					if (region.originalWidth == 0 && region.originalHeight == 0) {
+						region.originalWidth = region.width;
+						region.originalHeight = region.height;
+					}
+					if (names && names.length > 0 && values && values.length > 0) {
+						region.names = names;
+						region.values = values;
+						names = null;
+						values = null;
+					}
+					region.u = region.x / page.width;
+					region.v = region.y / page.height;
+					if (region.degrees == 90) {
+						region.u2 = (region.x + region.height) / page.width;
+						region.v2 = (region.y + region.width) / page.height;
+					} else {
+						region.u2 = (region.x + region.width) / page.width;
+						region.v2 = (region.y + region.height) / page.height;
+					}
+					this.regions.push(region);
+				}
+			}
+		}
+		findRegion(name) {
+			for (let i = 0; i < this.regions.length; i++) {
+				if (this.regions[i].name == name) {
+					return this.regions[i];
+				}
+			}
+			return null;
+		}
+		setTextures(assetManager, pathPrefix = "") {
+			for (let page of this.pages)
+				page.setTexture(assetManager.get(pathPrefix + page.name));
+		}
+		dispose() {
+			var _a;
+			for (let i = 0; i < this.pages.length; i++) {
+				(_a = this.pages[i].texture) == null ? void 0 : _a.dispose();
+			}
+		}
+	};
+	var TextureAtlasReader = class {
+		constructor(text) {
+			this.index = 0;
+			this.lines = text.split(/\r\n|\r|\n/);
+		}
+		readLine() {
+			if (this.index >= this.lines.length)
+				return null;
+			return this.lines[this.index++];
+		}
+		readEntry(entry, line) {
+			if (!line)
+				return 0;
+			line = line.trim();
+			if (line.length == 0)
+				return 0;
+			let colon = line.indexOf(":");
+			if (colon == -1)
+				return 0;
+			entry[0] = line.substr(0, colon).trim();
+			for (let i = 1, lastMatch = colon + 1; ; i++) {
+				let comma = line.indexOf(",", lastMatch);
+				if (comma == -1) {
+					entry[i] = line.substr(lastMatch).trim();
+					return i;
+				}
+				entry[i] = line.substr(lastMatch, comma - lastMatch).trim();
+				lastMatch = comma + 1;
+				if (i == 4)
+					return 4;
+			}
+		}
+	};
+	var TextureAtlasPage = class {
+		constructor(name) {
+			this.minFilter = 9728 /* Nearest */;
+			this.magFilter = 9728 /* Nearest */;
+			this.uWrap = 33071 /* ClampToEdge */;
+			this.vWrap = 33071 /* ClampToEdge */;
+			this.texture = null;
+			this.width = 0;
+			this.height = 0;
+			this.pma = false;
+			this.regions = new Array();
+			this.name = name;
+		}
+		setTexture(texture) {
+			this.texture = texture;
+			texture.setFilters(this.minFilter, this.magFilter);
+			texture.setWraps(this.uWrap, this.vWrap);
+			for (let region of this.regions)
+				region.texture = texture;
+		}
+	};
+	var TextureAtlasRegion = class extends TextureRegion {
+		constructor(page, name) {
+			super();
+			this.x = 0;
+			this.y = 0;
+			this.offsetX = 0;
+			this.offsetY = 0;
+			this.originalWidth = 0;
+			this.originalHeight = 0;
+			this.index = 0;
+			this.degrees = 0;
+			this.names = null;
+			this.values = null;
+			this.page = page;
+			this.name = name;
+			page.regions.push(this);
+		}
+	};
+
+	// spine-core/src/attachments/MeshAttachment.ts
+	var MeshAttachment = class extends VertexAttachment {
+		constructor(name, path) {
+			super(name);
+			this.region = null;
+			/** The UV pair for each vertex, normalized within the texture region. */
+			this.regionUVs = [];
+			/** The UV pair for each vertex, normalized within the entire texture.
+			 *
+			 * See {@link #updateUVs}. */
+			this.uvs = [];
+			/** Triplets of vertex indices which describe the mesh's triangulation. */
+			this.triangles = [];
+			/** The color to tint the mesh. */
+			this.color = new Color(1, 1, 1, 1);
+			/** The width of the mesh's image. Available only when nonessential data was exported. */
+			this.width = 0;
+			/** The height of the mesh's image. Available only when nonessential data was exported. */
+			this.height = 0;
+			/** The number of entries at the beginning of {@link #vertices} that make up the mesh hull. */
+			this.hullLength = 0;
+			/** Vertex index pairs describing edges for controling triangulation. Mesh triangles will never cross edges. Only available if
+			 * nonessential data was exported. Triangulation is not performed at runtime. */
+			this.edges = [];
+			this.parentMesh = null;
+			this.sequence = null;
+			this.tempColor = new Color(0, 0, 0, 0);
+			this.path = path;
+		}
+		/** Calculates {@link #uvs} using the {@link #regionUVs} and region. Must be called if the region, the region's properties, or
+		 * the {@link #regionUVs} are changed. */
+		updateRegion() {
+			if (!this.region)
+				throw new Error("Region not set.");
+			let regionUVs = this.regionUVs;
+			if (!this.uvs || this.uvs.length != regionUVs.length)
+				this.uvs = Utils.newFloatArray(regionUVs.length);
+			let uvs = this.uvs;
+			let n = this.uvs.length;
+			let u = this.region.u, v = this.region.v, width = 0, height = 0;
+			if (this.region instanceof TextureAtlasRegion) {
+				let region = this.region, image = region.page.texture.getImage();
+				let textureWidth = image.width, textureHeight = image.height;
+				switch (region.degrees) {
+					case 90:
+						u -= (region.originalHeight - region.offsetY - region.height) / textureWidth;
+						v -= (region.originalWidth - region.offsetX - region.width) / textureHeight;
+						width = region.originalHeight / textureWidth;
+						height = region.originalWidth / textureHeight;
+						for (let i = 0; i < n; i += 2) {
+							uvs[i] = u + regionUVs[i + 1] * width;
+							uvs[i + 1] = v + (1 - regionUVs[i]) * height;
+						}
+						return;
+					case 180:
+						u -= (region.originalWidth - region.offsetX - region.width) / textureWidth;
+						v -= region.offsetY / textureHeight;
+						width = region.originalWidth / textureWidth;
+						height = region.originalHeight / textureHeight;
+						for (let i = 0; i < n; i += 2) {
+							uvs[i] = u + (1 - regionUVs[i]) * width;
+							uvs[i + 1] = v + (1 - regionUVs[i + 1]) * height;
+						}
+						return;
+					case 270:
+						u -= region.offsetY / textureWidth;
+						v -= region.offsetX / textureHeight;
+						width = region.originalHeight / textureWidth;
+						height = region.originalWidth / textureHeight;
+						for (let i = 0; i < n; i += 2) {
+							uvs[i] = u + (1 - regionUVs[i + 1]) * width;
+							uvs[i + 1] = v + regionUVs[i] * height;
+						}
+						return;
+				}
+				u -= region.offsetX / textureWidth;
+				v -= (region.originalHeight - region.offsetY - region.height) / textureHeight;
+				width = region.originalWidth / textureWidth;
+				height = region.originalHeight / textureHeight;
+			} else if (!this.region) {
+				u = v = 0;
+				width = height = 1;
+			} else {
+				width = this.region.u2 - u;
+				height = this.region.v2 - v;
+			}
+			for (let i = 0; i < n; i += 2) {
+				uvs[i] = u + regionUVs[i] * width;
+				uvs[i + 1] = v + regionUVs[i + 1] * height;
+			}
+		}
+		/** The parent mesh if this is a linked mesh, else null. A linked mesh shares the {@link #bones}, {@link #vertices},
+		 * {@link #regionUVs}, {@link #triangles}, {@link #hullLength}, {@link #edges}, {@link #width}, and {@link #height} with the
+		 * parent mesh, but may have a different {@link #name} or {@link #path} (and therefore a different texture). */
+		getParentMesh() {
+			return this.parentMesh;
+		}
+		/** @param parentMesh May be null. */
+		setParentMesh(parentMesh) {
+			this.parentMesh = parentMesh;
+			if (parentMesh) {
+				this.bones = parentMesh.bones;
+				this.vertices = parentMesh.vertices;
+				this.worldVerticesLength = parentMesh.worldVerticesLength;
+				this.regionUVs = parentMesh.regionUVs;
+				this.triangles = parentMesh.triangles;
+				this.hullLength = parentMesh.hullLength;
+				this.worldVerticesLength = parentMesh.worldVerticesLength;
+			}
+		}
+		copy() {
+			if (this.parentMesh)
+				return this.newLinkedMesh();
+			let copy = new MeshAttachment(this.name, this.path);
+			copy.region = this.region;
+			copy.color.setFromColor(this.color);
+			this.copyTo(copy);
+			copy.regionUVs = new Array(this.regionUVs.length);
+			Utils.arrayCopy(this.regionUVs, 0, copy.regionUVs, 0, this.regionUVs.length);
+			copy.uvs = new Array(this.uvs.length);
+			Utils.arrayCopy(this.uvs, 0, copy.uvs, 0, this.uvs.length);
+			copy.triangles = new Array(this.triangles.length);
+			Utils.arrayCopy(this.triangles, 0, copy.triangles, 0, this.triangles.length);
+			copy.hullLength = this.hullLength;
+			copy.sequence = this.sequence != null ? this.sequence.copy() : null;
+			if (this.edges) {
+				copy.edges = new Array(this.edges.length);
+				Utils.arrayCopy(this.edges, 0, copy.edges, 0, this.edges.length);
+			}
+			copy.width = this.width;
+			copy.height = this.height;
+			return copy;
+		}
+		computeWorldVertices(slot, start, count, worldVertices, offset, stride) {
+			if (this.sequence != null)
+				this.sequence.apply(slot, this);
+			super.computeWorldVertices(slot, start, count, worldVertices, offset, stride);
+		}
+		/** Returns a new mesh with the {@link #parentMesh} set to this mesh's parent mesh, if any, else to this mesh. **/
+		newLinkedMesh() {
+			let copy = new MeshAttachment(this.name, this.path);
+			copy.region = this.region;
+			copy.color.setFromColor(this.color);
+			copy.timelineAttachment = this.timelineAttachment;
+			copy.setParentMesh(this.parentMesh ? this.parentMesh : this);
+			if (copy.region != null)
+				copy.updateRegion();
+			return copy;
+		}
+	};
+
+	// spine-core/src/attachments/PathAttachment.ts
+	var PathAttachment = class extends VertexAttachment {
+		constructor(name) {
+			super(name);
+			/** The lengths along the path in the setup pose from the start of the path to the end of each Bezier curve. */
+			this.lengths = [];
+			/** If true, the start and end knots are connected. */
+			this.closed = false;
+			/** If true, additional calculations are performed to make calculating positions along the path more accurate. If false, fewer
+			 * calculations are performed but calculating positions along the path is less accurate. */
+			this.constantSpeed = false;
+			/** The color of the path as it was in Spine. Available only when nonessential data was exported. Paths are not usually
+			 * rendered at runtime. */
+			this.color = new Color(1, 1, 1, 1);
+		}
+		copy() {
+			let copy = new PathAttachment(this.name);
+			this.copyTo(copy);
+			copy.lengths = new Array(this.lengths.length);
+			Utils.arrayCopy(this.lengths, 0, copy.lengths, 0, this.lengths.length);
+			copy.closed = closed;
+			copy.constantSpeed = this.constantSpeed;
+			copy.color.setFromColor(this.color);
+			return copy;
+		}
+	};
+
+	// spine-core/src/attachments/PointAttachment.ts
+	var PointAttachment = class extends VertexAttachment {
+		constructor(name) {
+			super(name);
+			this.x = 0;
+			this.y = 0;
+			this.rotation = 0;
+			/** The color of the point attachment as it was in Spine. Available only when nonessential data was exported. Point attachments
+			 * are not usually rendered at runtime. */
+			this.color = new Color(0.38, 0.94, 0, 1);
+		}
+		computeWorldPosition(bone, point) {
+			point.x = this.x * bone.a + this.y * bone.b + bone.worldX;
+			point.y = this.x * bone.c + this.y * bone.d + bone.worldY;
+			return point;
+		}
+		computeWorldRotation(bone) {
+			let cos = MathUtils.cosDeg(this.rotation), sin = MathUtils.sinDeg(this.rotation);
+			let x = cos * bone.a + sin * bone.b;
+			let y = cos * bone.c + sin * bone.d;
+			return Math.atan2(y, x) * MathUtils.radDeg;
+		}
+		copy() {
+			let copy = new PointAttachment(this.name);
+			copy.x = this.x;
+			copy.y = this.y;
+			copy.rotation = this.rotation;
+			copy.color.setFromColor(this.color);
+			return copy;
+		}
+	};
+
+	// spine-core/src/attachments/RegionAttachment.ts
+	var _RegionAttachment = class extends Attachment {
+		constructor(name, path) {
+			super(name);
+			/** The local x translation. */
+			this.x = 0;
+			/** The local y translation. */
+			this.y = 0;
+			/** The local scaleX. */
+			this.scaleX = 1;
+			/** The local scaleY. */
+			this.scaleY = 1;
+			/** The local rotation. */
+			this.rotation = 0;
+			/** The width of the region attachment in Spine. */
+			this.width = 0;
+			/** The height of the region attachment in Spine. */
+			this.height = 0;
+			/** The color to tint the region attachment. */
+			this.color = new Color(1, 1, 1, 1);
+			this.region = null;
+			this.sequence = null;
+			/** For each of the 4 vertices, a pair of <code>x,y</code> values that is the local position of the vertex.
+			 *
+			 * See {@link #updateOffset()}. */
+			this.offset = Utils.newFloatArray(8);
+			this.uvs = Utils.newFloatArray(8);
+			this.tempColor = new Color(1, 1, 1, 1);
+			this.path = path;
+		}
+		/** Calculates the {@link #offset} using the region settings. Must be called after changing region settings. */
+		updateRegion() {
+			if (!this.region)
+				throw new Error("Region not set.");
+			let region = this.region;
+			let uvs = this.uvs;
+			if (region == null) {
+				uvs[0] = 0;
+				uvs[1] = 0;
+				uvs[2] = 0;
+				uvs[3] = 1;
+				uvs[4] = 1;
+				uvs[5] = 1;
+				uvs[6] = 1;
+				uvs[7] = 0;
+				return;
+			}
+			let regionScaleX = this.width / this.region.originalWidth * this.scaleX;
+			let regionScaleY = this.height / this.region.originalHeight * this.scaleY;
+			let localX = -this.width / 2 * this.scaleX + this.region.offsetX * regionScaleX;
+			let localY = -this.height / 2 * this.scaleY + this.region.offsetY * regionScaleY;
+			let localX2 = localX + this.region.width * regionScaleX;
+			let localY2 = localY + this.region.height * regionScaleY;
+			let radians = this.rotation * Math.PI / 180;
+			let cos = Math.cos(radians);
+			let sin = Math.sin(radians);
+			let x = this.x, y = this.y;
+			let localXCos = localX * cos + x;
+			let localXSin = localX * sin;
+			let localYCos = localY * cos + y;
+			let localYSin = localY * sin;
+			let localX2Cos = localX2 * cos + x;
+			let localX2Sin = localX2 * sin;
+			let localY2Cos = localY2 * cos + y;
+			let localY2Sin = localY2 * sin;
+			let offset = this.offset;
+			offset[0] = localXCos - localYSin;
+			offset[1] = localYCos + localXSin;
+			offset[2] = localXCos - localY2Sin;
+			offset[3] = localY2Cos + localXSin;
+			offset[4] = localX2Cos - localY2Sin;
+			offset[5] = localY2Cos + localX2Sin;
+			offset[6] = localX2Cos - localYSin;
+			offset[7] = localYCos + localX2Sin;
+			if (region.degrees == 90) {
+				uvs[0] = region.u2;
+				uvs[1] = region.v2;
+				uvs[2] = region.u;
+				uvs[3] = region.v2;
+				uvs[4] = region.u;
+				uvs[5] = region.v;
+				uvs[6] = region.u2;
+				uvs[7] = region.v;
+			} else {
+				uvs[0] = region.u;
+				uvs[1] = region.v2;
+				uvs[2] = region.u;
+				uvs[3] = region.v;
+				uvs[4] = region.u2;
+				uvs[5] = region.v;
+				uvs[6] = region.u2;
+				uvs[7] = region.v2;
+			}
+		}
+		/** Transforms the attachment's four vertices to world coordinates. If the attachment has a {@link #sequence}, the region may
+		 * be changed.
+		 * <p>
+		 * See <a href="http://esotericsoftware.com/spine-runtime-skeletons#World-transforms">World transforms</a> in the Spine
+		 * Runtimes Guide.
+		 * @param worldVertices The output world vertices. Must have a length >= <code>offset</code> + 8.
+		 * @param offset The <code>worldVertices</code> index to begin writing values.
+		 * @param stride The number of <code>worldVertices</code> entries between the value pairs written. */
+		computeWorldVertices(slot, worldVertices, offset, stride) {
+			if (this.sequence != null)
+				this.sequence.apply(slot, this);
+			let bone = slot.bone;
+			let vertexOffset = this.offset;
+			let x = bone.worldX, y = bone.worldY;
+			let a = bone.a, b = bone.b, c = bone.c, d = bone.d;
+			let offsetX = 0, offsetY = 0;
+			offsetX = vertexOffset[0];
+			offsetY = vertexOffset[1];
+			worldVertices[offset] = offsetX * a + offsetY * b + x;
+			worldVertices[offset + 1] = offsetX * c + offsetY * d + y;
+			offset += stride;
+			offsetX = vertexOffset[2];
+			offsetY = vertexOffset[3];
+			worldVertices[offset] = offsetX * a + offsetY * b + x;
+			worldVertices[offset + 1] = offsetX * c + offsetY * d + y;
+			offset += stride;
+			offsetX = vertexOffset[4];
+			offsetY = vertexOffset[5];
+			worldVertices[offset] = offsetX * a + offsetY * b + x;
+			worldVertices[offset + 1] = offsetX * c + offsetY * d + y;
+			offset += stride;
+			offsetX = vertexOffset[6];
+			offsetY = vertexOffset[7];
+			worldVertices[offset] = offsetX * a + offsetY * b + x;
+			worldVertices[offset + 1] = offsetX * c + offsetY * d + y;
+		}
+		copy() {
+			let copy = new _RegionAttachment(this.name, this.path);
+			copy.region = this.region;
+			copy.x = this.x;
+			copy.y = this.y;
+			copy.scaleX = this.scaleX;
+			copy.scaleY = this.scaleY;
+			copy.rotation = this.rotation;
+			copy.width = this.width;
+			copy.height = this.height;
+			Utils.arrayCopy(this.uvs, 0, copy.uvs, 0, 8);
+			Utils.arrayCopy(this.offset, 0, copy.offset, 0, 8);
+			copy.color.setFromColor(this.color);
+			copy.sequence = this.sequence != null ? this.sequence.copy() : null;
+			return copy;
+		}
+	};
+	var RegionAttachment = _RegionAttachment;
+	RegionAttachment.X1 = 0;
+	RegionAttachment.Y1 = 1;
+	RegionAttachment.C1R = 2;
+	RegionAttachment.C1G = 3;
+	RegionAttachment.C1B = 4;
+	RegionAttachment.C1A = 5;
+	RegionAttachment.U1 = 6;
+	RegionAttachment.V1 = 7;
+	RegionAttachment.X2 = 8;
+	RegionAttachment.Y2 = 9;
+	RegionAttachment.C2R = 10;
+	RegionAttachment.C2G = 11;
+	RegionAttachment.C2B = 12;
+	RegionAttachment.C2A = 13;
+	RegionAttachment.U2 = 14;
+	RegionAttachment.V2 = 15;
+	RegionAttachment.X3 = 16;
+	RegionAttachment.Y3 = 17;
+	RegionAttachment.C3R = 18;
+	RegionAttachment.C3G = 19;
+	RegionAttachment.C3B = 20;
+	RegionAttachment.C3A = 21;
+	RegionAttachment.U3 = 22;
+	RegionAttachment.V3 = 23;
+	RegionAttachment.X4 = 24;
+	RegionAttachment.Y4 = 25;
+	RegionAttachment.C4R = 26;
+	RegionAttachment.C4G = 27;
+	RegionAttachment.C4B = 28;
+	RegionAttachment.C4A = 29;
+	RegionAttachment.U4 = 30;
+	RegionAttachment.V4 = 31;
+
+	// spine-core/src/AtlasAttachmentLoader.ts
+	var AtlasAttachmentLoader = class {
+		constructor(atlas) {
+			this.atlas = atlas;
+		}
+		loadSequence(name, basePath, sequence) {
+			let regions = sequence.regions;
+			for (let i = 0, n = regions.length; i < n; i++) {
+				let path = sequence.getPath(basePath, i);
+				let region = this.atlas.findRegion(path);
+				if (region == null)
+					throw new Error("Region not found in atlas: " + path + " (sequence: " + name + ")");
+				regions[i] = region;
+			}
+		}
+		newRegionAttachment(skin, name, path, sequence) {
+			let attachment = new RegionAttachment(name, path);
+			if (sequence != null) {
+				this.loadSequence(name, path, sequence);
+			} else {
+				let region = this.atlas.findRegion(path);
+				if (!region)
+					throw new Error("Region not found in atlas: " + path + " (region attachment: " + name + ")");
+				attachment.region = region;
+			}
+			return attachment;
+		}
+		newMeshAttachment(skin, name, path, sequence) {
+			let attachment = new MeshAttachment(name, path);
+			if (sequence != null) {
+				this.loadSequence(name, path, sequence);
+			} else {
+				let region = this.atlas.findRegion(path);
+				if (!region)
+					throw new Error("Region not found in atlas: " + path + " (mesh attachment: " + name + ")");
+				attachment.region = region;
+			}
+			return attachment;
+		}
+		newBoundingBoxAttachment(skin, name) {
+			return new BoundingBoxAttachment(name);
+		}
+		newPathAttachment(skin, name) {
+			return new PathAttachment(name);
+		}
+		newPointAttachment(skin, name) {
+			return new PointAttachment(name);
+		}
+		newClippingAttachment(skin, name) {
+			return new ClippingAttachment(name);
+		}
+	};
+
+	// spine-core/src/BoneData.ts
+	var BoneData = class {
+		constructor(index, name, parent) {
+			/** The index of the bone in {@link Skeleton#getBones()}. */
+			this.index = 0;
+			/** @returns May be null. */
+			this.parent = null;
+			/** The bone's length. */
+			this.length = 0;
+			/** The local x translation. */
+			this.x = 0;
+			/** The local y translation. */
+			this.y = 0;
+			/** The local rotation. */
+			this.rotation = 0;
+			/** The local scaleX. */
+			this.scaleX = 1;
+			/** The local scaleY. */
+			this.scaleY = 1;
+			/** The local shearX. */
+			this.shearX = 0;
+			/** The local shearX. */
+			this.shearY = 0;
+			/** The transform mode for how parent world transforms affect this bone. */
+			this.transformMode = TransformMode.Normal;
+			/** When true, {@link Skeleton#updateWorldTransform()} only updates this bone if the {@link Skeleton#skin} contains this
+				* bone.
+				* @see Skin#bones */
+			this.skinRequired = false;
+			/** The color of the bone as it was in Spine. Available only when nonessential data was exported. Bones are not usually
+			 * rendered at runtime. */
+			this.color = new Color();
+			if (index < 0)
+				throw new Error("index must be >= 0.");
+			if (!name)
+				throw new Error("name cannot be null.");
+			this.index = index;
+			this.name = name;
+			this.parent = parent;
+		}
+	};
+	var TransformMode = /* @__PURE__ */ ((TransformMode2) => {
+		TransformMode2[TransformMode2["Normal"] = 0] = "Normal";
+		TransformMode2[TransformMode2["OnlyTranslation"] = 1] = "OnlyTranslation";
+		TransformMode2[TransformMode2["NoRotationOrReflection"] = 2] = "NoRotationOrReflection";
+		TransformMode2[TransformMode2["NoScale"] = 3] = "NoScale";
+		TransformMode2[TransformMode2["NoScaleOrReflection"] = 4] = "NoScaleOrReflection";
+		return TransformMode2;
+	})(TransformMode || {});
+
+	// spine-core/src/Bone.ts
+	var Bone = class {
+		/** @param parent May be null. */
+		constructor(data, skeleton, parent) {
+			/** The parent bone, or null if this is the root bone. */
+			this.parent = null;
+			/** The immediate children of this bone. */
+			this.children = new Array();
+			/** The local x translation. */
+			this.x = 0;
+			/** The local y translation. */
+			this.y = 0;
+			/** The local rotation in degrees, counter clockwise. */
+			this.rotation = 0;
+			/** The local scaleX. */
+			this.scaleX = 0;
+			/** The local scaleY. */
+			this.scaleY = 0;
+			/** The local shearX. */
+			this.shearX = 0;
+			/** The local shearY. */
+			this.shearY = 0;
+			/** The applied local x translation. */
+			this.ax = 0;
+			/** The applied local y translation. */
+			this.ay = 0;
+			/** The applied local rotation in degrees, counter clockwise. */
+			this.arotation = 0;
+			/** The applied local scaleX. */
+			this.ascaleX = 0;
+			/** The applied local scaleY. */
+			this.ascaleY = 0;
+			/** The applied local shearX. */
+			this.ashearX = 0;
+			/** The applied local shearY. */
+			this.ashearY = 0;
+			/** Part of the world transform matrix for the X axis. If changed, {@link #updateAppliedTransform()} should be called. */
+			this.a = 0;
+			/** Part of the world transform matrix for the Y axis. If changed, {@link #updateAppliedTransform()} should be called. */
+			this.b = 0;
+			/** Part of the world transform matrix for the X axis. If changed, {@link #updateAppliedTransform()} should be called. */
+			this.c = 0;
+			/** Part of the world transform matrix for the Y axis. If changed, {@link #updateAppliedTransform()} should be called. */
+			this.d = 0;
+			/** The world X position. If changed, {@link #updateAppliedTransform()} should be called. */
+			this.worldY = 0;
+			/** The world Y position. If changed, {@link #updateAppliedTransform()} should be called. */
+			this.worldX = 0;
+			this.sorted = false;
+			this.active = false;
+			if (!data)
+				throw new Error("data cannot be null.");
+			if (!skeleton)
+				throw new Error("skeleton cannot be null.");
+			this.data = data;
+			this.skeleton = skeleton;
+			this.parent = parent;
+			this.setToSetupPose();
+		}
+		/** Returns false when the bone has not been computed because {@link BoneData#skinRequired} is true and the
+			* {@link Skeleton#skin active skin} does not {@link Skin#bones contain} this bone. */
+		isActive() {
+			return this.active;
+		}
+		/** Computes the world transform using the parent bone and this bone's local applied transform. */
+		update() {
+			this.updateWorldTransformWith(this.ax, this.ay, this.arotation, this.ascaleX, this.ascaleY, this.ashearX, this.ashearY);
+		}
+		/** Computes the world transform using the parent bone and this bone's local transform.
+		 *
+		 * See {@link #updateWorldTransformWith()}. */
+		updateWorldTransform() {
+			this.updateWorldTransformWith(this.x, this.y, this.rotation, this.scaleX, this.scaleY, this.shearX, this.shearY);
+		}
+		/** Computes the world transform using the parent bone and the specified local transform. The applied transform is set to the
+		 * specified local transform. Child bones are not updated.
+		 *
+		 * See [World transforms](http://esotericsoftware.com/spine-runtime-skeletons#World-transforms) in the Spine
+		 * Runtimes Guide. */
+		updateWorldTransformWith(x, y, rotation, scaleX, scaleY, shearX, shearY) {
+			this.ax = x;
+			this.ay = y;
+			this.arotation = rotation;
+			this.ascaleX = scaleX;
+			this.ascaleY = scaleY;
+			this.ashearX = shearX;
+			this.ashearY = shearY;
+			let parent = this.parent;
+			if (!parent) {
+				let skeleton = this.skeleton;
+				let rotationY = rotation + 90 + shearY;
+				let sx = skeleton.scaleX;
+				let sy = skeleton.scaleY;
+				this.a = MathUtils.cosDeg(rotation + shearX) * scaleX * sx;
+				this.b = MathUtils.cosDeg(rotationY) * scaleY * sx;
+				this.c = MathUtils.sinDeg(rotation + shearX) * scaleX * sy;
+				this.d = MathUtils.sinDeg(rotationY) * scaleY * sy;
+				this.worldX = x * sx + skeleton.x;
+				this.worldY = y * sy + skeleton.y;
+				return;
+			}
+			let pa = parent.a, pb = parent.b, pc = parent.c, pd = parent.d;
+			this.worldX = pa * x + pb * y + parent.worldX;
+			this.worldY = pc * x + pd * y + parent.worldY;
+			switch (this.data.transformMode) {
+				case 0 /* Normal */: {
+					let rotationY = rotation + 90 + shearY;
+					let la = MathUtils.cosDeg(rotation + shearX) * scaleX;
+					let lb = MathUtils.cosDeg(rotationY) * scaleY;
+					let lc = MathUtils.sinDeg(rotation + shearX) * scaleX;
+					let ld = MathUtils.sinDeg(rotationY) * scaleY;
+					this.a = pa * la + pb * lc;
+					this.b = pa * lb + pb * ld;
+					this.c = pc * la + pd * lc;
+					this.d = pc * lb + pd * ld;
+					return;
+				}
+				case 1 /* OnlyTranslation */: {
+					let rotationY = rotation + 90 + shearY;
+					this.a = MathUtils.cosDeg(rotation + shearX) * scaleX;
+					this.b = MathUtils.cosDeg(rotationY) * scaleY;
+					this.c = MathUtils.sinDeg(rotation + shearX) * scaleX;
+					this.d = MathUtils.sinDeg(rotationY) * scaleY;
+					break;
+				}
+				case 2 /* NoRotationOrReflection */: {
+					let s = pa * pa + pc * pc;
+					let prx = 0;
+					if (s > 1e-4) {
+						s = Math.abs(pa * pd - pb * pc) / s;
+						pa /= this.skeleton.scaleX;
+						pc /= this.skeleton.scaleY;
+						pb = pc * s;
+						pd = pa * s;
+						prx = Math.atan2(pc, pa) * MathUtils.radDeg;
+					} else {
+						pa = 0;
+						pc = 0;
+						prx = 90 - Math.atan2(pd, pb) * MathUtils.radDeg;
+					}
+					let rx = rotation + shearX - prx;
+					let ry = rotation + shearY - prx + 90;
+					let la = MathUtils.cosDeg(rx) * scaleX;
+					let lb = MathUtils.cosDeg(ry) * scaleY;
+					let lc = MathUtils.sinDeg(rx) * scaleX;
+					let ld = MathUtils.sinDeg(ry) * scaleY;
+					this.a = pa * la - pb * lc;
+					this.b = pa * lb - pb * ld;
+					this.c = pc * la + pd * lc;
+					this.d = pc * lb + pd * ld;
+					break;
+				}
+				case 3 /* NoScale */:
+				case 4 /* NoScaleOrReflection */: {
+					let cos = MathUtils.cosDeg(rotation);
+					let sin = MathUtils.sinDeg(rotation);
+					let za = (pa * cos + pb * sin) / this.skeleton.scaleX;
+					let zc = (pc * cos + pd * sin) / this.skeleton.scaleY;
+					let s = Math.sqrt(za * za + zc * zc);
+					if (s > 1e-5)
+						s = 1 / s;
+					za *= s;
+					zc *= s;
+					s = Math.sqrt(za * za + zc * zc);
+					if (this.data.transformMode == 3 /* NoScale */ && pa * pd - pb * pc < 0 != (this.skeleton.scaleX < 0 != this.skeleton.scaleY < 0))
+						s = -s;
+					let r = Math.PI / 2 + Math.atan2(zc, za);
+					let zb = Math.cos(r) * s;
+					let zd = Math.sin(r) * s;
+					let la = MathUtils.cosDeg(shearX) * scaleX;
+					let lb = MathUtils.cosDeg(90 + shearY) * scaleY;
+					let lc = MathUtils.sinDeg(shearX) * scaleX;
+					let ld = MathUtils.sinDeg(90 + shearY) * scaleY;
+					this.a = za * la + zb * lc;
+					this.b = za * lb + zb * ld;
+					this.c = zc * la + zd * lc;
+					this.d = zc * lb + zd * ld;
+					break;
+				}
+			}
+			this.a *= this.skeleton.scaleX;
+			this.b *= this.skeleton.scaleX;
+			this.c *= this.skeleton.scaleY;
+			this.d *= this.skeleton.scaleY;
+		}
+		/** Sets this bone's local transform to the setup pose. */
+		setToSetupPose() {
+			let data = this.data;
+			this.x = data.x;
+			this.y = data.y;
+			this.rotation = data.rotation;
+			this.scaleX = data.scaleX;
+			this.scaleY = data.scaleY;
+			this.shearX = data.shearX;
+			this.shearY = data.shearY;
+		}
+		/** The world rotation for the X axis, calculated using {@link #a} and {@link #c}. */
+		getWorldRotationX() {
+			return Math.atan2(this.c, this.a) * MathUtils.radDeg;
+		}
+		/** The world rotation for the Y axis, calculated using {@link #b} and {@link #d}. */
+		getWorldRotationY() {
+			return Math.atan2(this.d, this.b) * MathUtils.radDeg;
+		}
+		/** The magnitude (always positive) of the world scale X, calculated using {@link #a} and {@link #c}. */
+		getWorldScaleX() {
+			return Math.sqrt(this.a * this.a + this.c * this.c);
+		}
+		/** The magnitude (always positive) of the world scale Y, calculated using {@link #b} and {@link #d}. */
+		getWorldScaleY() {
+			return Math.sqrt(this.b * this.b + this.d * this.d);
+		}
+		/** Computes the applied transform values from the world transform.
+		 *
+		 * If the world transform is modified (by a constraint, {@link #rotateWorld(float)}, etc) then this method should be called so
+		 * the applied transform matches the world transform. The applied transform may be needed by other code (eg to apply other
+		 * constraints).
+		 *
+		 * Some information is ambiguous in the world transform, such as -1,-1 scale versus 180 rotation. The applied transform after
+		 * calling this method is equivalent to the local transform used to compute the world transform, but may not be identical. */
+		updateAppliedTransform() {
+			let parent = this.parent;
+			if (!parent) {
+				this.ax = this.worldX - this.skeleton.x;
+				this.ay = this.worldY - this.skeleton.y;
+				this.arotation = Math.atan2(this.c, this.a) * MathUtils.radDeg;
+				this.ascaleX = Math.sqrt(this.a * this.a + this.c * this.c);
+				this.ascaleY = Math.sqrt(this.b * this.b + this.d * this.d);
+				this.ashearX = 0;
+				this.ashearY = Math.atan2(this.a * this.b + this.c * this.d, this.a * this.d - this.b * this.c) * MathUtils.radDeg;
+				return;
+			}
+			let pa = parent.a, pb = parent.b, pc = parent.c, pd = parent.d;
+			let pid = 1 / (pa * pd - pb * pc);
+			let dx = this.worldX - parent.worldX, dy = this.worldY - parent.worldY;
+			this.ax = dx * pd * pid - dy * pb * pid;
+			this.ay = dy * pa * pid - dx * pc * pid;
+			let ia = pid * pd;
+			let id = pid * pa;
+			let ib = pid * pb;
+			let ic = pid * pc;
+			let ra = ia * this.a - ib * this.c;
+			let rb = ia * this.b - ib * this.d;
+			let rc = id * this.c - ic * this.a;
+			let rd = id * this.d - ic * this.b;
+			this.ashearX = 0;
+			this.ascaleX = Math.sqrt(ra * ra + rc * rc);
+			if (this.ascaleX > 1e-4) {
+				let det = ra * rd - rb * rc;
+				this.ascaleY = det / this.ascaleX;
+				this.ashearY = Math.atan2(ra * rb + rc * rd, det) * MathUtils.radDeg;
+				this.arotation = Math.atan2(rc, ra) * MathUtils.radDeg;
+			} else {
+				this.ascaleX = 0;
+				this.ascaleY = Math.sqrt(rb * rb + rd * rd);
+				this.ashearY = 0;
+				this.arotation = 90 - Math.atan2(rd, rb) * MathUtils.radDeg;
+			}
+		}
+		/** Transforms a point from world coordinates to the bone's local coordinates. */
+		worldToLocal(world) {
+			let invDet = 1 / (this.a * this.d - this.b * this.c);
+			let x = world.x - this.worldX, y = world.y - this.worldY;
+			world.x = x * this.d * invDet - y * this.b * invDet;
+			world.y = y * this.a * invDet - x * this.c * invDet;
+			return world;
+		}
+		/** Transforms a point from the bone's local coordinates to world coordinates. */
+		localToWorld(local) {
+			let x = local.x, y = local.y;
+			local.x = x * this.a + y * this.b + this.worldX;
+			local.y = x * this.c + y * this.d + this.worldY;
+			return local;
+		}
+		/** Transforms a world rotation to a local rotation. */
+		worldToLocalRotation(worldRotation) {
+			let sin = MathUtils.sinDeg(worldRotation), cos = MathUtils.cosDeg(worldRotation);
+			return Math.atan2(this.a * sin - this.c * cos, this.d * cos - this.b * sin) * MathUtils.radDeg + this.rotation - this.shearX;
+		}
+		/** Transforms a local rotation to a world rotation. */
+		localToWorldRotation(localRotation) {
+			localRotation -= this.rotation - this.shearX;
+			let sin = MathUtils.sinDeg(localRotation), cos = MathUtils.cosDeg(localRotation);
+			return Math.atan2(cos * this.c + sin * this.d, cos * this.a + sin * this.b) * MathUtils.radDeg;
+		}
+		/** Rotates the world transform the specified amount.
+		 * <p>
+		 * After changes are made to the world transform, {@link #updateAppliedTransform()} should be called and {@link #update()} will
+		 * need to be called on any child bones, recursively. */
+		rotateWorld(degrees) {
+			let a = this.a, b = this.b, c = this.c, d = this.d;
+			let cos = MathUtils.cosDeg(degrees), sin = MathUtils.sinDeg(degrees);
+			this.a = cos * a - sin * c;
+			this.b = cos * b - sin * d;
+			this.c = sin * a + cos * c;
+			this.d = sin * b + cos * d;
+		}
+	};
+
+	// spine-core/src/ConstraintData.ts
+	var ConstraintData = class {
+		constructor(name, order, skinRequired) {
+			this.name = name;
+			this.order = order;
+			this.skinRequired = skinRequired;
+		}
+	};
+
+	// spine-core/src/AssetManagerBase.ts
+	var AssetManagerBase = class {
+		constructor(textureLoader, pathPrefix = "", downloader = new Downloader()) {
+			this.pathPrefix = "";
+			this.assets = {};
+			this.errors = {};
+			this.toLoad = 0;
+			this.loaded = 0;
+			this.textureLoader = textureLoader;
+			this.pathPrefix = pathPrefix;
+			this.downloader = downloader;
+		}
+		start(path) {
+			this.toLoad++;
+			return this.pathPrefix + path;
+		}
+		success(callback, path, asset) {
+			this.toLoad--;
+			this.loaded++;
+			this.assets[path] = asset;
+			if (callback)
+				callback(path, asset);
+		}
+		error(callback, path, message) {
+			this.toLoad--;
+			this.loaded++;
+			this.errors[path] = message;
+			if (callback)
+				callback(path, message);
+		}
+		loadAll() {
+			let promise = new Promise((resolve, reject) => {
+				let check = () => {
+					if (this.isLoadingComplete()) {
+						if (this.hasErrors())
+							reject(this.errors);
+						else
+							resolve(this);
+						return;
+					}
+					requestAnimationFrame(check);
+				};
+				requestAnimationFrame(check);
+			});
+			return promise;
+		}
+		setRawDataURI(path, data) {
+			this.downloader.rawDataUris[this.pathPrefix + path] = data;
+		}
+		loadBinary(path, success = () => {
+		}, error = () => {
+		}) {
+			path = this.start(path);
+			this.downloader.downloadBinary(path, (data) => {
+				this.success(success, path, data);
+			}, (status, responseText) => {
+				this.error(error, path, `Couldn't load binary ${path}: status ${status}, ${responseText}`);
+			});
+		}
+		loadText(path, success = () => {
+		}, error = () => {
+		}) {
+			path = this.start(path);
+			this.downloader.downloadText(path, (data) => {
+				this.success(success, path, data);
+			}, (status, responseText) => {
+				this.error(error, path, `Couldn't load text ${path}: status ${status}, ${responseText}`);
+			});
+		}
+		loadJson(path, success = () => {
+		}, error = () => {
+		}) {
+			path = this.start(path);
+			this.downloader.downloadJson(path, (data) => {
+				this.success(success, path, data);
+			}, (status, responseText) => {
+				this.error(error, path, `Couldn't load JSON ${path}: status ${status}, ${responseText}`);
+			});
+		}
+		loadTexture(path, success = () => {
+		}, error = () => {
+		}) {
+			path = this.start(path);
+			let isBrowser = !!(typeof window !== "undefined" && typeof navigator !== "undefined" && window.document);
+			let isWebWorker = !isBrowser;
+			if (isWebWorker) {
+				fetch(path, { mode: "cors" }).then((response) => {
+					if (response.ok)
+						return response.blob();
+					this.error(error, path, `Couldn't load image: ${path}`);
+					return null;
+				}).then((blob) => {
+					return blob ? createImageBitmap(blob, { premultiplyAlpha: "none", colorSpaceConversion: "none" }) : null;
+				}).then((bitmap) => {
+					if (bitmap)
+						this.success(success, path, this.textureLoader(bitmap));
+				});
+			} else {
+				let image = new Image();
+				image.crossOrigin = "anonymous";
+				image.onload = () => {
+					this.success(success, path, this.textureLoader(image));
+				};
+				image.onerror = () => {
+					this.error(error, path, `Couldn't load image: ${path}`);
+				};
+				if (this.downloader.rawDataUris[path])
+					path = this.downloader.rawDataUris[path];
+				image.src = path;
+			}
+		}
+		loadTextureAtlas(path, success = () => {
+		}, error = () => {
+		}, fileAlias) {
+			let index = path.lastIndexOf("/");
+			let parent = index >= 0 ? path.substring(0, index + 1) : "";
+			path = this.start(path);
+			this.downloader.downloadText(path, (atlasText) => {
+				try {
+					let atlas = new TextureAtlas(atlasText);
+					let toLoad = atlas.pages.length, abort = false;
+					for (let page of atlas.pages) {
+						this.loadTexture(
+							!fileAlias ? parent + page.name : fileAlias[page.name],
+							(imagePath, texture) => {
+								if (!abort) {
+									page.setTexture(texture);
+									if (--toLoad == 0)
+										this.success(success, path, atlas);
+								}
+							},
+							(imagePath, message) => {
+								if (!abort)
+									this.error(error, path, `Couldn't load texture atlas ${path} page image: ${imagePath}`);
+								abort = true;
+							}
+						);
+					}
+				} catch (e) {
+					this.error(error, path, `Couldn't parse texture atlas ${path}: ${e.message}`);
+				}
+			}, (status, responseText) => {
+				this.error(error, path, `Couldn't load texture atlas ${path}: status ${status}, ${responseText}`);
+			});
+		}
+		get(path) {
+			return this.assets[this.pathPrefix + path];
+		}
+		require(path) {
+			path = this.pathPrefix + path;
+			let asset = this.assets[path];
+			if (asset)
+				return asset;
+			let error = this.errors[path];
+			throw Error("Asset not found: " + path + (error ? "\n" + error : ""));
+		}
+		remove(path) {
+			path = this.pathPrefix + path;
+			let asset = this.assets[path];
+			if (asset.dispose)
+				asset.dispose();
+			delete this.assets[path];
+			return asset;
+		}
+		removeAll() {
+			for (let key in this.assets) {
+				let asset = this.assets[key];
+				if (asset.dispose)
+					asset.dispose();
+			}
+			this.assets = {};
+		}
+		isLoadingComplete() {
+			return this.toLoad == 0;
+		}
+		getToLoad() {
+			return this.toLoad;
+		}
+		getLoaded() {
+			return this.loaded;
+		}
+		dispose() {
+			this.removeAll();
+		}
+		hasErrors() {
+			return Object.keys(this.errors).length > 0;
+		}
+		getErrors() {
+			return this.errors;
+		}
+	};
+	var Downloader = class {
+		constructor() {
+			this.callbacks = {};
+			this.rawDataUris = {};
+		}
+		dataUriToString(dataUri) {
+			if (!dataUri.startsWith("data:")) {
+				throw new Error("Not a data URI.");
+			}
+			let base64Idx = dataUri.indexOf("base64,");
+			if (base64Idx != -1) {
+				base64Idx += "base64,".length;
+				return atob(dataUri.substr(base64Idx));
+			} else {
+				return dataUri.substr(dataUri.indexOf(",") + 1);
+			}
+		}
+		base64ToUint8Array(base64) {
+			var binary_string = window.atob(base64);
+			var len = binary_string.length;
+			var bytes = new Uint8Array(len);
+			for (var i = 0; i < len; i++) {
+				bytes[i] = binary_string.charCodeAt(i);
+			}
+			return bytes;
+		}
+		dataUriToUint8Array(dataUri) {
+			if (!dataUri.startsWith("data:")) {
+				throw new Error("Not a data URI.");
+			}
+			let base64Idx = dataUri.indexOf("base64,");
+			if (base64Idx == -1)
+				throw new Error("Not a binary data URI.");
+			base64Idx += "base64,".length;
+			return this.base64ToUint8Array(dataUri.substr(base64Idx));
+		}
+		downloadText(url, success, error) {
+			if (this.start(url, success, error))
+				return;
+			if (this.rawDataUris[url]) {
+				try {
+					let dataUri = this.rawDataUris[url];
+					this.finish(url, 200, this.dataUriToString(dataUri));
+				} catch (e) {
+					this.finish(url, 400, JSON.stringify(e));
+				}
+				return;
+			}
+			let request = new XMLHttpRequest();
+			request.overrideMimeType("text/html");
+			request.open("GET", url, true);
+			let done = () => {
+				this.finish(url, request.status, request.responseText);
+			};
+			request.onload = done;
+			request.onerror = done;
+			request.send();
+		}
+		downloadJson(url, success, error) {
+			this.downloadText(url, (data) => {
+				success(JSON.parse(data));
+			}, error);
+		}
+		downloadBinary(url, success, error) {
+			if (this.start(url, success, error))
+				return;
+			if (this.rawDataUris[url]) {
+				try {
+					let dataUri = this.rawDataUris[url];
+					this.finish(url, 200, this.dataUriToUint8Array(dataUri));
+				} catch (e) {
+					this.finish(url, 400, JSON.stringify(e));
+				}
+				return;
+			}
+			let request = new XMLHttpRequest();
+			request.open("GET", url, true);
+			request.responseType = "arraybuffer";
+			let onerror = () => {
+				this.finish(url, request.status, request.response);
+			};
+			request.onload = () => {
+				if (request.status == 200 || request.status == 0)
+					this.finish(url, 200, new Uint8Array(request.response));
+				else
+					onerror();
+			};
+			request.onerror = onerror;
+			request.send();
+		}
+		start(url, success, error) {
+			let callbacks = this.callbacks[url];
+			try {
+				if (callbacks)
+					return true;
+				this.callbacks[url] = callbacks = [];
+			} finally {
+				callbacks.push(success, error);
+			}
+		}
+		finish(url, status, data) {
+			let callbacks = this.callbacks[url];
+			delete this.callbacks[url];
+			let args = status == 200 || status == 0 ? [data] : [status, data];
+			for (let i = args.length - 1, n = callbacks.length; i < n; i += 2)
+				callbacks[i].apply(null, args);
+		}
+	};
+
+	// spine-core/src/Event.ts
+	var Event = class {
+		constructor(time, data) {
+			this.intValue = 0;
+			this.floatValue = 0;
+			this.stringValue = null;
+			this.time = 0;
+			this.volume = 0;
+			this.balance = 0;
+			if (!data)
+				throw new Error("data cannot be null.");
+			this.time = time;
+			this.data = data;
+		}
+	};
+
+	// spine-core/src/EventData.ts
+	var EventData = class {
+		constructor(name) {
+			this.intValue = 0;
+			this.floatValue = 0;
+			this.stringValue = null;
+			this.audioPath = null;
+			this.volume = 0;
+			this.balance = 0;
+			this.name = name;
+		}
+	};
+
+	// spine-core/src/IkConstraint.ts
+	var IkConstraint = class {
+		constructor(data, skeleton) {
+			/** Controls the bend direction of the IK bones, either 1 or -1. */
+			this.bendDirection = 0;
+			/** When true and only a single bone is being constrained, if the target is too close, the bone is scaled to reach it. */
+			this.compress = false;
+			/** When true, if the target is out of range, the parent bone is scaled to reach it. If more than one bone is being constrained
+			 * and the parent bone has local nonuniform scale, stretch is not applied. */
+			this.stretch = false;
+			/** A percentage (0-1) that controls the mix between the constrained and unconstrained rotations. */
+			this.mix = 1;
+			/** For two bone IK, the distance from the maximum reach of the bones that rotation will slow. */
+			this.softness = 0;
+			this.active = false;
+			if (!data)
+				throw new Error("data cannot be null.");
+			if (!skeleton)
+				throw new Error("skeleton cannot be null.");
+			this.data = data;
+			this.mix = data.mix;
+			this.softness = data.softness;
+			this.bendDirection = data.bendDirection;
+			this.compress = data.compress;
+			this.stretch = data.stretch;
+			this.bones = new Array();
+			for (let i = 0; i < data.bones.length; i++) {
+				let bone = skeleton.findBone(data.bones[i].name);
+				if (!bone)
+					throw new Error(`Couldn't find bone ${data.bones[i].name}`);
+				this.bones.push(bone);
+			}
+			let target = skeleton.findBone(data.target.name);
+			if (!target)
+				throw new Error(`Couldn't find bone ${data.target.name}`);
+			this.target = target;
+		}
+		isActive() {
+			return this.active;
+		}
+		update() {
+			if (this.mix == 0)
+				return;
+			let target = this.target;
+			let bones = this.bones;
+			switch (bones.length) {
+				case 1:
+					this.apply1(bones[0], target.worldX, target.worldY, this.compress, this.stretch, this.data.uniform, this.mix);
+					break;
+				case 2:
+					this.apply2(bones[0], bones[1], target.worldX, target.worldY, this.bendDirection, this.stretch, this.data.uniform, this.softness, this.mix);
+					break;
+			}
+		}
+		/** Applies 1 bone IK. The target is specified in the world coordinate system. */
+		apply1(bone, targetX, targetY, compress, stretch, uniform, alpha) {
+			let p = bone.parent;
+			if (!p)
+				throw new Error("IK bone must have parent.");
+			let pa = p.a, pb = p.b, pc = p.c, pd = p.d;
+			let rotationIK = -bone.ashearX - bone.arotation, tx = 0, ty = 0;
+			switch (bone.data.transformMode) {
+				case 1 /* OnlyTranslation */:
+					tx = targetX - bone.worldX;
+					ty = targetY - bone.worldY;
+					break;
+				case 2 /* NoRotationOrReflection */:
+					let s = Math.abs(pa * pd - pb * pc) / Math.max(1e-4, pa * pa + pc * pc);
+					let sa = pa / bone.skeleton.scaleX;
+					let sc = pc / bone.skeleton.scaleY;
+					pb = -sc * s * bone.skeleton.scaleX;
+					pd = sa * s * bone.skeleton.scaleY;
+					rotationIK += Math.atan2(sc, sa) * MathUtils.radDeg;
+				default:
+					let x = targetX - p.worldX, y = targetY - p.worldY;
+					let d = pa * pd - pb * pc;
+					if (Math.abs(d) <= 1e-4) {
+						tx = 0;
+						ty = 0;
+					} else {
+						tx = (x * pd - y * pb) / d - bone.ax;
+						ty = (y * pa - x * pc) / d - bone.ay;
+					}
+			}
+			rotationIK += Math.atan2(ty, tx) * MathUtils.radDeg;
+			if (bone.ascaleX < 0)
+				rotationIK += 180;
+			if (rotationIK > 180)
+				rotationIK -= 360;
+			else if (rotationIK < -180)
+				rotationIK += 360;
+			let sx = bone.ascaleX, sy = bone.ascaleY;
+			if (compress || stretch) {
+				switch (bone.data.transformMode) {
+					case 3 /* NoScale */:
+					case 4 /* NoScaleOrReflection */:
+						tx = targetX - bone.worldX;
+						ty = targetY - bone.worldY;
+				}
+				let b = bone.data.length * sx, dd = Math.sqrt(tx * tx + ty * ty);
+				if (compress && dd < b || stretch && dd > b && b > 1e-4) {
+					let s = (dd / b - 1) * alpha + 1;
+					sx *= s;
+					if (uniform)
+						sy *= s;
+				}
+			}
+			bone.updateWorldTransformWith(
+				bone.ax,
+				bone.ay,
+				bone.arotation + rotationIK * alpha,
+				sx,
+				sy,
+				bone.ashearX,
+				bone.ashearY
+			);
+		}
+		/** Applies 2 bone IK. The target is specified in the world coordinate system.
+		 * @param child A direct descendant of the parent bone. */
+		apply2(parent, child, targetX, targetY, bendDir, stretch, uniform, softness, alpha) {
+			let px = parent.ax, py = parent.ay, psx = parent.ascaleX, psy = parent.ascaleY, sx = psx, sy = psy, csx = child.ascaleX;
+			let os1 = 0, os2 = 0, s2 = 0;
+			if (psx < 0) {
+				psx = -psx;
+				os1 = 180;
+				s2 = -1;
+			} else {
+				os1 = 0;
+				s2 = 1;
+			}
+			if (psy < 0) {
+				psy = -psy;
+				s2 = -s2;
+			}
+			if (csx < 0) {
+				csx = -csx;
+				os2 = 180;
+			} else
+				os2 = 0;
+			let cx = child.ax, cy = 0, cwx = 0, cwy = 0, a = parent.a, b = parent.b, c = parent.c, d = parent.d;
+			let u = Math.abs(psx - psy) <= 1e-4;
+			if (!u || stretch) {
+				cy = 0;
+				cwx = a * cx + parent.worldX;
+				cwy = c * cx + parent.worldY;
+			} else {
+				cy = child.ay;
+				cwx = a * cx + b * cy + parent.worldX;
+				cwy = c * cx + d * cy + parent.worldY;
+			}
+			let pp = parent.parent;
+			if (!pp)
+				throw new Error("IK parent must itself have a parent.");
+			a = pp.a;
+			b = pp.b;
+			c = pp.c;
+			d = pp.d;
+			let id = a * d - b * c, x = cwx - pp.worldX, y = cwy - pp.worldY;
+			id = Math.abs(id) <= 1e-4 ? 0 : 1 / id;
+			let dx = (x * d - y * b) * id - px, dy = (y * a - x * c) * id - py;
+			let l1 = Math.sqrt(dx * dx + dy * dy), l2 = child.data.length * csx, a1, a2;
+			if (l1 < 1e-4) {
+				this.apply1(parent, targetX, targetY, false, stretch, false, alpha);
+				child.updateWorldTransformWith(cx, cy, 0, child.ascaleX, child.ascaleY, child.ashearX, child.ashearY);
+				return;
+			}
+			x = targetX - pp.worldX;
+			y = targetY - pp.worldY;
+			let tx = (x * d - y * b) * id - px, ty = (y * a - x * c) * id - py;
+			let dd = tx * tx + ty * ty;
+			if (softness != 0) {
+				softness *= psx * (csx + 1) * 0.5;
+				let td = Math.sqrt(dd), sd = td - l1 - l2 * psx + softness;
+				if (sd > 0) {
+					let p = Math.min(1, sd / (softness * 2)) - 1;
+					p = (sd - softness * (1 - p * p)) / td;
+					tx -= p * tx;
+					ty -= p * ty;
+					dd = tx * tx + ty * ty;
+				}
+			}
+			outer:
+			if (u) {
+				l2 *= psx;
+				let cos = (dd - l1 * l1 - l2 * l2) / (2 * l1 * l2);
+				if (cos < -1) {
+					cos = -1;
+					a2 = Math.PI * bendDir;
+				} else if (cos > 1) {
+					cos = 1;
+					a2 = 0;
+					if (stretch) {
+						a = (Math.sqrt(dd) / (l1 + l2) - 1) * alpha + 1;
+						sx *= a;
+						if (uniform)
+							sy *= a;
+					}
+				} else
+					a2 = Math.acos(cos) * bendDir;
+				a = l1 + l2 * cos;
+				b = l2 * Math.sin(a2);
+				a1 = Math.atan2(ty * a - tx * b, tx * a + ty * b);
+			} else {
+				a = psx * l2;
+				b = psy * l2;
+				let aa = a * a, bb = b * b, ta = Math.atan2(ty, tx);
+				c = bb * l1 * l1 + aa * dd - aa * bb;
+				let c1 = -2 * bb * l1, c2 = bb - aa;
+				d = c1 * c1 - 4 * c2 * c;
+				if (d >= 0) {
+					let q = Math.sqrt(d);
+					if (c1 < 0)
+						q = -q;
+					q = -(c1 + q) * 0.5;
+					let r0 = q / c2, r1 = c / q;
+					let r = Math.abs(r0) < Math.abs(r1) ? r0 : r1;
+					if (r * r <= dd) {
+						y = Math.sqrt(dd - r * r) * bendDir;
+						a1 = ta - Math.atan2(y, r);
+						a2 = Math.atan2(y / psy, (r - l1) / psx);
+						break outer;
+					}
+				}
+				let minAngle = MathUtils.PI, minX = l1 - a, minDist = minX * minX, minY = 0;
+				let maxAngle = 0, maxX = l1 + a, maxDist = maxX * maxX, maxY = 0;
+				c = -a * l1 / (aa - bb);
+				if (c >= -1 && c <= 1) {
+					c = Math.acos(c);
+					x = a * Math.cos(c) + l1;
+					y = b * Math.sin(c);
+					d = x * x + y * y;
+					if (d < minDist) {
+						minAngle = c;
+						minDist = d;
+						minX = x;
+						minY = y;
+					}
+					if (d > maxDist) {
+						maxAngle = c;
+						maxDist = d;
+						maxX = x;
+						maxY = y;
+					}
+				}
+				if (dd <= (minDist + maxDist) * 0.5) {
+					a1 = ta - Math.atan2(minY * bendDir, minX);
+					a2 = minAngle * bendDir;
+				} else {
+					a1 = ta - Math.atan2(maxY * bendDir, maxX);
+					a2 = maxAngle * bendDir;
+				}
+			}
+			let os = Math.atan2(cy, cx) * s2;
+			let rotation = parent.arotation;
+			a1 = (a1 - os) * MathUtils.radDeg + os1 - rotation;
+			if (a1 > 180)
+				a1 -= 360;
+			else if (a1 < -180)
+				a1 += 360;
+			parent.updateWorldTransformWith(px, py, rotation + a1 * alpha, sx, sy, 0, 0);
+			rotation = child.arotation;
+			a2 = ((a2 + os) * MathUtils.radDeg - child.ashearX) * s2 + os2 - rotation;
+			if (a2 > 180)
+				a2 -= 360;
+			else if (a2 < -180)
+				a2 += 360;
+			child.updateWorldTransformWith(cx, cy, rotation + a2 * alpha, child.ascaleX, child.ascaleY, child.ashearX, child.ashearY);
+		}
+	};
+
+	// spine-core/src/IkConstraintData.ts
+	var IkConstraintData = class extends ConstraintData {
+		constructor(name) {
+			super(name, 0, false);
+			/** The bones that are constrained by this IK constraint. */
+			this.bones = new Array();
+			/** The bone that is the IK target. */
+			this._target = null;
+			/** Controls the bend direction of the IK bones, either 1 or -1. */
+			this.bendDirection = 1;
+			/** When true and only a single bone is being constrained, if the target is too close, the bone is scaled to reach it. */
+			this.compress = false;
+			/** When true, if the target is out of range, the parent bone is scaled to reach it. If more than one bone is being constrained
+			 * and the parent bone has local nonuniform scale, stretch is not applied. */
+			this.stretch = false;
+			/** When true, only a single bone is being constrained, and {@link #getCompress()} or {@link #getStretch()} is used, the bone
+			 * is scaled on both the X and Y axes. */
+			this.uniform = false;
+			/** A percentage (0-1) that controls the mix between the constrained and unconstrained rotations. */
+			this.mix = 1;
+			/** For two bone IK, the distance from the maximum reach of the bones that rotation will slow. */
+			this.softness = 0;
+		}
+		set target(boneData) {
+			this._target = boneData;
+		}
+		get target() {
+			if (!this._target)
+				throw new Error("BoneData not set.");
+			else
+				return this._target;
+		}
+	};
+
+	// spine-core/src/PathConstraintData.ts
+	var PathConstraintData = class extends ConstraintData {
+		constructor(name) {
+			super(name, 0, false);
+			/** The bones that will be modified by this path constraint. */
+			this.bones = new Array();
+			/** The slot whose path attachment will be used to constrained the bones. */
+			this._target = null;
+			/** The mode for positioning the first bone on the path. */
+			this.positionMode = PositionMode.Fixed;
+			/** The mode for positioning the bones after the first bone on the path. */
+			this.spacingMode = SpacingMode.Fixed;
+			/** The mode for adjusting the rotation of the bones. */
+			this.rotateMode = RotateMode.Chain;
+			/** An offset added to the constrained bone rotation. */
+			this.offsetRotation = 0;
+			/** The position along the path. */
+			this.position = 0;
+			/** The spacing between bones. */
+			this.spacing = 0;
+			this.mixRotate = 0;
+			this.mixX = 0;
+			this.mixY = 0;
+		}
+		set target(slotData) {
+			this._target = slotData;
+		}
+		get target() {
+			if (!this._target)
+				throw new Error("SlotData not set.");
+			else
+				return this._target;
+		}
+	};
+	var PositionMode = /* @__PURE__ */ ((PositionMode2) => {
+		PositionMode2[PositionMode2["Fixed"] = 0] = "Fixed";
+		PositionMode2[PositionMode2["Percent"] = 1] = "Percent";
+		return PositionMode2;
+	})(PositionMode || {});
+	var SpacingMode = /* @__PURE__ */ ((SpacingMode2) => {
+		SpacingMode2[SpacingMode2["Length"] = 0] = "Length";
+		SpacingMode2[SpacingMode2["Fixed"] = 1] = "Fixed";
+		SpacingMode2[SpacingMode2["Percent"] = 2] = "Percent";
+		SpacingMode2[SpacingMode2["Proportional"] = 3] = "Proportional";
+		return SpacingMode2;
+	})(SpacingMode || {});
+	var RotateMode = /* @__PURE__ */ ((RotateMode2) => {
+		RotateMode2[RotateMode2["Tangent"] = 0] = "Tangent";
+		RotateMode2[RotateMode2["Chain"] = 1] = "Chain";
+		RotateMode2[RotateMode2["ChainScale"] = 2] = "ChainScale";
+		return RotateMode2;
+	})(RotateMode || {});
+
+	// spine-core/src/PathConstraint.ts
+	var _PathConstraint = class {
+		constructor(data, skeleton) {
+			/** The position along the path. */
+			this.position = 0;
+			/** The spacing between bones. */
+			this.spacing = 0;
+			this.mixRotate = 0;
+			this.mixX = 0;
+			this.mixY = 0;
+			this.spaces = new Array();
+			this.positions = new Array();
+			this.world = new Array();
+			this.curves = new Array();
+			this.lengths = new Array();
+			this.segments = new Array();
+			this.active = false;
+			if (!data)
+				throw new Error("data cannot be null.");
+			if (!skeleton)
+				throw new Error("skeleton cannot be null.");
+			this.data = data;
+			this.bones = new Array();
+			for (let i = 0, n = data.bones.length; i < n; i++) {
+				let bone = skeleton.findBone(data.bones[i].name);
+				if (!bone)
+					throw new Error(`Couldn't find bone ${data.bones[i].name}.`);
+				this.bones.push(bone);
+			}
+			let target = skeleton.findSlot(data.target.name);
+			if (!target)
+				throw new Error(`Couldn't find target bone ${data.target.name}`);
+			this.target = target;
+			this.position = data.position;
+			this.spacing = data.spacing;
+			this.mixRotate = data.mixRotate;
+			this.mixX = data.mixX;
+			this.mixY = data.mixY;
+		}
+		isActive() {
+			return this.active;
+		}
+		update() {
+			let attachment = this.target.getAttachment();
+			if (!(attachment instanceof PathAttachment))
+				return;
+			let mixRotate = this.mixRotate, mixX = this.mixX, mixY = this.mixY;
+			if (mixRotate == 0 && mixX == 0 && mixY == 0)
+				return;
+			let data = this.data;
+			let tangents = data.rotateMode == 0 /* Tangent */, scale = data.rotateMode == 2 /* ChainScale */;
+			let bones = this.bones;
+			let boneCount = bones.length, spacesCount = tangents ? boneCount : boneCount + 1;
+			let spaces = Utils.setArraySize(this.spaces, spacesCount), lengths = scale ? this.lengths = Utils.setArraySize(this.lengths, boneCount) : [];
+			let spacing = this.spacing;
+			switch (data.spacingMode) {
+				case 2 /* Percent */:
+					if (scale) {
+						for (let i = 0, n = spacesCount - 1; i < n; i++) {
+							let bone = bones[i];
+							let setupLength = bone.data.length;
+							if (setupLength < _PathConstraint.epsilon)
+								lengths[i] = 0;
+							else {
+								let x = setupLength * bone.a, y = setupLength * bone.c;
+								lengths[i] = Math.sqrt(x * x + y * y);
+							}
+						}
+					}
+					Utils.arrayFill(spaces, 1, spacesCount, spacing);
+					break;
+				case 3 /* Proportional */:
+					let sum = 0;
+					for (let i = 0, n = spacesCount - 1; i < n;) {
+						let bone = bones[i];
+						let setupLength = bone.data.length;
+						if (setupLength < _PathConstraint.epsilon) {
+							if (scale)
+								lengths[i] = 0;
+							spaces[++i] = spacing;
+						} else {
+							let x = setupLength * bone.a, y = setupLength * bone.c;
+							let length = Math.sqrt(x * x + y * y);
+							if (scale)
+								lengths[i] = length;
+							spaces[++i] = length;
+							sum += length;
+						}
+					}
+					if (sum > 0) {
+						sum = spacesCount / sum * spacing;
+						for (let i = 1; i < spacesCount; i++)
+							spaces[i] *= sum;
+					}
+					break;
+				default:
+					let lengthSpacing = data.spacingMode == 0 /* Length */;
+					for (let i = 0, n = spacesCount - 1; i < n;) {
+						let bone = bones[i];
+						let setupLength = bone.data.length;
+						if (setupLength < _PathConstraint.epsilon) {
+							if (scale)
+								lengths[i] = 0;
+							spaces[++i] = spacing;
+						} else {
+							let x = setupLength * bone.a, y = setupLength * bone.c;
+							let length = Math.sqrt(x * x + y * y);
+							if (scale)
+								lengths[i] = length;
+							spaces[++i] = (lengthSpacing ? setupLength + spacing : spacing) * length / setupLength;
+						}
+					}
+			}
+			let positions = this.computeWorldPositions(attachment, spacesCount, tangents);
+			let boneX = positions[0], boneY = positions[1], offsetRotation = data.offsetRotation;
+			let tip = false;
+			if (offsetRotation == 0)
+				tip = data.rotateMode == 1 /* Chain */;
+			else {
+				tip = false;
+				let p = this.target.bone;
+				offsetRotation *= p.a * p.d - p.b * p.c > 0 ? MathUtils.degRad : -MathUtils.degRad;
+			}
+			for (let i = 0, p = 3; i < boneCount; i++, p += 3) {
+				let bone = bones[i];
+				bone.worldX += (boneX - bone.worldX) * mixX;
+				bone.worldY += (boneY - bone.worldY) * mixY;
+				let x = positions[p], y = positions[p + 1], dx = x - boneX, dy = y - boneY;
+				if (scale) {
+					let length = lengths[i];
+					if (length != 0) {
+						let s = (Math.sqrt(dx * dx + dy * dy) / length - 1) * mixRotate + 1;
+						bone.a *= s;
+						bone.c *= s;
+					}
+				}
+				boneX = x;
+				boneY = y;
+				if (mixRotate > 0) {
+					let a = bone.a, b = bone.b, c = bone.c, d = bone.d, r = 0, cos = 0, sin = 0;
+					if (tangents)
+						r = positions[p - 1];
+					else if (spaces[i + 1] == 0)
+						r = positions[p + 2];
+					else
+						r = Math.atan2(dy, dx);
+					r -= Math.atan2(c, a);
+					if (tip) {
+						cos = Math.cos(r);
+						sin = Math.sin(r);
+						let length = bone.data.length;
+						boneX += (length * (cos * a - sin * c) - dx) * mixRotate;
+						boneY += (length * (sin * a + cos * c) - dy) * mixRotate;
+					} else {
+						r += offsetRotation;
+					}
+					if (r > MathUtils.PI)
+						r -= MathUtils.PI2;
+					else if (r < -MathUtils.PI)
+						r += MathUtils.PI2;
+					r *= mixRotate;
+					cos = Math.cos(r);
+					sin = Math.sin(r);
+					bone.a = cos * a - sin * c;
+					bone.b = cos * b - sin * d;
+					bone.c = sin * a + cos * c;
+					bone.d = sin * b + cos * d;
+				}
+				bone.updateAppliedTransform();
+			}
+		}
+		computeWorldPositions(path, spacesCount, tangents) {
+			let target = this.target;
+			let position = this.position;
+			let spaces = this.spaces, out = Utils.setArraySize(this.positions, spacesCount * 3 + 2), world = this.world;
+			let closed2 = path.closed;
+			let verticesLength = path.worldVerticesLength, curveCount = verticesLength / 6, prevCurve = _PathConstraint.NONE;
+			if (!path.constantSpeed) {
+				let lengths = path.lengths;
+				curveCount -= closed2 ? 1 : 2;
+				let pathLength2 = lengths[curveCount];
+				if (this.data.positionMode == 1 /* Percent */)
+					position *= pathLength2;
+				let multiplier2;
+				switch (this.data.spacingMode) {
+					case 2 /* Percent */:
+						multiplier2 = pathLength2;
+						break;
+					case 3 /* Proportional */:
+						multiplier2 = pathLength2 / spacesCount;
+						break;
+					default:
+						multiplier2 = 1;
+				}
+				world = Utils.setArraySize(this.world, 8);
+				for (let i = 0, o = 0, curve = 0; i < spacesCount; i++, o += 3) {
+					let space = spaces[i] * multiplier2;
+					position += space;
+					let p = position;
+					if (closed2) {
+						p %= pathLength2;
+						if (p < 0)
+							p += pathLength2;
+						curve = 0;
+					} else if (p < 0) {
+						if (prevCurve != _PathConstraint.BEFORE) {
+							prevCurve = _PathConstraint.BEFORE;
+							path.computeWorldVertices(target, 2, 4, world, 0, 2);
+						}
+						this.addBeforePosition(p, world, 0, out, o);
+						continue;
+					} else if (p > pathLength2) {
+						if (prevCurve != _PathConstraint.AFTER) {
+							prevCurve = _PathConstraint.AFTER;
+							path.computeWorldVertices(target, verticesLength - 6, 4, world, 0, 2);
+						}
+						this.addAfterPosition(p - pathLength2, world, 0, out, o);
+						continue;
+					}
+					for (; ; curve++) {
+						let length = lengths[curve];
+						if (p > length)
+							continue;
+						if (curve == 0)
+							p /= length;
+						else {
+							let prev = lengths[curve - 1];
+							p = (p - prev) / (length - prev);
+						}
+						break;
+					}
+					if (curve != prevCurve) {
+						prevCurve = curve;
+						if (closed2 && curve == curveCount) {
+							path.computeWorldVertices(target, verticesLength - 4, 4, world, 0, 2);
+							path.computeWorldVertices(target, 0, 4, world, 4, 2);
+						} else
+							path.computeWorldVertices(target, curve * 6 + 2, 8, world, 0, 2);
+					}
+					this.addCurvePosition(
+						p,
+						world[0],
+						world[1],
+						world[2],
+						world[3],
+						world[4],
+						world[5],
+						world[6],
+						world[7],
+						out,
+						o,
+						tangents || i > 0 && space == 0
+					);
+				}
+				return out;
+			}
+			if (closed2) {
+				verticesLength += 2;
+				world = Utils.setArraySize(this.world, verticesLength);
+				path.computeWorldVertices(target, 2, verticesLength - 4, world, 0, 2);
+				path.computeWorldVertices(target, 0, 2, world, verticesLength - 4, 2);
+				world[verticesLength - 2] = world[0];
+				world[verticesLength - 1] = world[1];
+			} else {
+				curveCount--;
+				verticesLength -= 4;
+				world = Utils.setArraySize(this.world, verticesLength);
+				path.computeWorldVertices(target, 2, verticesLength, world, 0, 2);
+			}
+			let curves = Utils.setArraySize(this.curves, curveCount);
+			let pathLength = 0;
+			let x1 = world[0], y1 = world[1], cx1 = 0, cy1 = 0, cx2 = 0, cy2 = 0, x2 = 0, y2 = 0;
+			let tmpx = 0, tmpy = 0, dddfx = 0, dddfy = 0, ddfx = 0, ddfy = 0, dfx = 0, dfy = 0;
+			for (let i = 0, w = 2; i < curveCount; i++, w += 6) {
+				cx1 = world[w];
+				cy1 = world[w + 1];
+				cx2 = world[w + 2];
+				cy2 = world[w + 3];
+				x2 = world[w + 4];
+				y2 = world[w + 5];
+				tmpx = (x1 - cx1 * 2 + cx2) * 0.1875;
+				tmpy = (y1 - cy1 * 2 + cy2) * 0.1875;
+				dddfx = ((cx1 - cx2) * 3 - x1 + x2) * 0.09375;
+				dddfy = ((cy1 - cy2) * 3 - y1 + y2) * 0.09375;
+				ddfx = tmpx * 2 + dddfx;
+				ddfy = tmpy * 2 + dddfy;
+				dfx = (cx1 - x1) * 0.75 + tmpx + dddfx * 0.16666667;
+				dfy = (cy1 - y1) * 0.75 + tmpy + dddfy * 0.16666667;
+				pathLength += Math.sqrt(dfx * dfx + dfy * dfy);
+				dfx += ddfx;
+				dfy += ddfy;
+				ddfx += dddfx;
+				ddfy += dddfy;
+				pathLength += Math.sqrt(dfx * dfx + dfy * dfy);
+				dfx += ddfx;
+				dfy += ddfy;
+				pathLength += Math.sqrt(dfx * dfx + dfy * dfy);
+				dfx += ddfx + dddfx;
+				dfy += ddfy + dddfy;
+				pathLength += Math.sqrt(dfx * dfx + dfy * dfy);
+				curves[i] = pathLength;
+				x1 = x2;
+				y1 = y2;
+			}
+			if (this.data.positionMode == 1 /* Percent */)
+				position *= pathLength;
+			let multiplier;
+			switch (this.data.spacingMode) {
+				case 2 /* Percent */:
+					multiplier = pathLength;
+					break;
+				case 3 /* Proportional */:
+					multiplier = pathLength / spacesCount;
+					break;
+				default:
+					multiplier = 1;
+			}
+			let segments = this.segments;
+			let curveLength = 0;
+			for (let i = 0, o = 0, curve = 0, segment = 0; i < spacesCount; i++, o += 3) {
+				let space = spaces[i] * multiplier;
+				position += space;
+				let p = position;
+				if (closed2) {
+					p %= pathLength;
+					if (p < 0)
+						p += pathLength;
+					curve = 0;
+				} else if (p < 0) {
+					this.addBeforePosition(p, world, 0, out, o);
+					continue;
+				} else if (p > pathLength) {
+					this.addAfterPosition(p - pathLength, world, verticesLength - 4, out, o);
+					continue;
+				}
+				for (; ; curve++) {
+					let length = curves[curve];
+					if (p > length)
+						continue;
+					if (curve == 0)
+						p /= length;
+					else {
+						let prev = curves[curve - 1];
+						p = (p - prev) / (length - prev);
+					}
+					break;
+				}
+				if (curve != prevCurve) {
+					prevCurve = curve;
+					let ii = curve * 6;
+					x1 = world[ii];
+					y1 = world[ii + 1];
+					cx1 = world[ii + 2];
+					cy1 = world[ii + 3];
+					cx2 = world[ii + 4];
+					cy2 = world[ii + 5];
+					x2 = world[ii + 6];
+					y2 = world[ii + 7];
+					tmpx = (x1 - cx1 * 2 + cx2) * 0.03;
+					tmpy = (y1 - cy1 * 2 + cy2) * 0.03;
+					dddfx = ((cx1 - cx2) * 3 - x1 + x2) * 6e-3;
+					dddfy = ((cy1 - cy2) * 3 - y1 + y2) * 6e-3;
+					ddfx = tmpx * 2 + dddfx;
+					ddfy = tmpy * 2 + dddfy;
+					dfx = (cx1 - x1) * 0.3 + tmpx + dddfx * 0.16666667;
+					dfy = (cy1 - y1) * 0.3 + tmpy + dddfy * 0.16666667;
+					curveLength = Math.sqrt(dfx * dfx + dfy * dfy);
+					segments[0] = curveLength;
+					for (ii = 1; ii < 8; ii++) {
+						dfx += ddfx;
+						dfy += ddfy;
+						ddfx += dddfx;
+						ddfy += dddfy;
+						curveLength += Math.sqrt(dfx * dfx + dfy * dfy);
+						segments[ii] = curveLength;
+					}
+					dfx += ddfx;
+					dfy += ddfy;
+					curveLength += Math.sqrt(dfx * dfx + dfy * dfy);
+					segments[8] = curveLength;
+					dfx += ddfx + dddfx;
+					dfy += ddfy + dddfy;
+					curveLength += Math.sqrt(dfx * dfx + dfy * dfy);
+					segments[9] = curveLength;
+					segment = 0;
+				}
+				p *= curveLength;
+				for (; ; segment++) {
+					let length = segments[segment];
+					if (p > length)
+						continue;
+					if (segment == 0)
+						p /= length;
+					else {
+						let prev = segments[segment - 1];
+						p = segment + (p - prev) / (length - prev);
+					}
+					break;
+				}
+				this.addCurvePosition(p * 0.1, x1, y1, cx1, cy1, cx2, cy2, x2, y2, out, o, tangents || i > 0 && space == 0);
+			}
+			return out;
+		}
+		addBeforePosition(p, temp, i, out, o) {
+			let x1 = temp[i], y1 = temp[i + 1], dx = temp[i + 2] - x1, dy = temp[i + 3] - y1, r = Math.atan2(dy, dx);
+			out[o] = x1 + p * Math.cos(r);
+			out[o + 1] = y1 + p * Math.sin(r);
+			out[o + 2] = r;
+		}
+		addAfterPosition(p, temp, i, out, o) {
+			let x1 = temp[i + 2], y1 = temp[i + 3], dx = x1 - temp[i], dy = y1 - temp[i + 1], r = Math.atan2(dy, dx);
+			out[o] = x1 + p * Math.cos(r);
+			out[o + 1] = y1 + p * Math.sin(r);
+			out[o + 2] = r;
+		}
+		addCurvePosition(p, x1, y1, cx1, cy1, cx2, cy2, x2, y2, out, o, tangents) {
+			if (p == 0 || isNaN(p)) {
+				out[o] = x1;
+				out[o + 1] = y1;
+				out[o + 2] = Math.atan2(cy1 - y1, cx1 - x1);
+				return;
+			}
+			let tt = p * p, ttt = tt * p, u = 1 - p, uu = u * u, uuu = uu * u;
+			let ut = u * p, ut3 = ut * 3, uut3 = u * ut3, utt3 = ut3 * p;
+			let x = x1 * uuu + cx1 * uut3 + cx2 * utt3 + x2 * ttt, y = y1 * uuu + cy1 * uut3 + cy2 * utt3 + y2 * ttt;
+			out[o] = x;
+			out[o + 1] = y;
+			if (tangents) {
+				if (p < 1e-3)
+					out[o + 2] = Math.atan2(cy1 - y1, cx1 - x1);
+				else
+					out[o + 2] = Math.atan2(y - (y1 * uu + cy1 * ut * 2 + cy2 * tt), x - (x1 * uu + cx1 * ut * 2 + cx2 * tt));
+			}
+		}
+	};
+	var PathConstraint = _PathConstraint;
+	PathConstraint.NONE = -1;
+	PathConstraint.BEFORE = -2;
+	PathConstraint.AFTER = -3;
+	PathConstraint.epsilon = 1e-5;
+
+	// spine-core/src/Slot.ts
+	var Slot = class {
+		constructor(data, bone) {
+			/** The dark color used to tint the slot's attachment for two color tinting, or null if two color tinting is not used. The dark
+			 * color's alpha is not used. */
+			this.darkColor = null;
+			this.attachment = null;
+			this.attachmentState = 0;
+			/** The index of the texture region to display when the slot's attachment has a {@link Sequence}. -1 represents the
+			 * {@link Sequence#getSetupIndex()}. */
+			this.sequenceIndex = -1;
+			/** Values to deform the slot's attachment. For an unweighted mesh, the entries are local positions for each vertex. For a
+			 * weighted mesh, the entries are an offset for each vertex which will be added to the mesh's local vertex positions.
+			 *
+			 * See {@link VertexAttachment#computeWorldVertices()} and {@link DeformTimeline}. */
+			this.deform = new Array();
+			if (!data)
+				throw new Error("data cannot be null.");
+			if (!bone)
+				throw new Error("bone cannot be null.");
+			this.data = data;
+			this.bone = bone;
+			this.color = new Color();
+			this.darkColor = !data.darkColor ? null : new Color();
+			this.setToSetupPose();
+		}
+		/** The skeleton this slot belongs to. */
+		getSkeleton() {
+			return this.bone.skeleton;
+		}
+		/** The current attachment for the slot, or null if the slot has no attachment. */
+		getAttachment() {
+			return this.attachment;
+		}
+		/** Sets the slot's attachment and, if the attachment changed, resets {@link #sequenceIndex} and clears the {@link #deform}.
+		 * The deform is not cleared if the old attachment has the same {@link VertexAttachment#getTimelineAttachment()} as the
+		 * specified attachment. */
+		setAttachment(attachment) {
+			if (this.attachment == attachment)
+				return;
+			if (!(attachment instanceof VertexAttachment) || !(this.attachment instanceof VertexAttachment) || attachment.timelineAttachment != this.attachment.timelineAttachment) {
+				this.deform.length = 0;
+			}
+			this.attachment = attachment;
+			this.sequenceIndex = -1;
+		}
+		/** Sets this slot to the setup pose. */
+		setToSetupPose() {
+			this.color.setFromColor(this.data.color);
+			if (this.darkColor)
+				this.darkColor.setFromColor(this.data.darkColor);
+			if (!this.data.attachmentName)
+				this.attachment = null;
+			else {
+				this.attachment = null;
+				this.setAttachment(this.bone.skeleton.getAttachment(this.data.index, this.data.attachmentName));
+			}
+		}
+	};
+
+	// spine-core/src/TransformConstraint.ts
+	var TransformConstraint = class {
+		constructor(data, skeleton) {
+			this.mixRotate = 0;
+			this.mixX = 0;
+			this.mixY = 0;
+			this.mixScaleX = 0;
+			this.mixScaleY = 0;
+			this.mixShearY = 0;
+			this.temp = new Vector2();
+			this.active = false;
+			if (!data)
+				throw new Error("data cannot be null.");
+			if (!skeleton)
+				throw new Error("skeleton cannot be null.");
+			this.data = data;
+			this.mixRotate = data.mixRotate;
+			this.mixX = data.mixX;
+			this.mixY = data.mixY;
+			this.mixScaleX = data.mixScaleX;
+			this.mixScaleY = data.mixScaleY;
+			this.mixShearY = data.mixShearY;
+			this.bones = new Array();
+			for (let i = 0; i < data.bones.length; i++) {
+				let bone = skeleton.findBone(data.bones[i].name);
+				if (!bone)
+					throw new Error(`Couldn't find bone ${data.bones[i].name}.`);
+				this.bones.push(bone);
+			}
+			let target = skeleton.findBone(data.target.name);
+			if (!target)
+				throw new Error(`Couldn't find target bone ${data.target.name}.`);
+			this.target = target;
+		}
+		isActive() {
+			return this.active;
+		}
+		update() {
+			if (this.mixRotate == 0 && this.mixX == 0 && this.mixY == 0 && this.mixScaleX == 0 && this.mixScaleY == 0 && this.mixShearY == 0)
+				return;
+			if (this.data.local) {
+				if (this.data.relative)
+					this.applyRelativeLocal();
+				else
+					this.applyAbsoluteLocal();
+			} else {
+				if (this.data.relative)
+					this.applyRelativeWorld();
+				else
+					this.applyAbsoluteWorld();
+			}
+		}
+		applyAbsoluteWorld() {
+			let mixRotate = this.mixRotate, mixX = this.mixX, mixY = this.mixY, mixScaleX = this.mixScaleX, mixScaleY = this.mixScaleY, mixShearY = this.mixShearY;
+			let translate = mixX != 0 || mixY != 0;
+			let target = this.target;
+			let ta = target.a, tb = target.b, tc = target.c, td = target.d;
+			let degRadReflect = ta * td - tb * tc > 0 ? MathUtils.degRad : -MathUtils.degRad;
+			let offsetRotation = this.data.offsetRotation * degRadReflect;
+			let offsetShearY = this.data.offsetShearY * degRadReflect;
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				if (mixRotate != 0) {
+					let a = bone.a, b = bone.b, c = bone.c, d = bone.d;
+					let r = Math.atan2(tc, ta) - Math.atan2(c, a) + offsetRotation;
+					if (r > MathUtils.PI)
+						r -= MathUtils.PI2;
+					else if (r < -MathUtils.PI)
+						r += MathUtils.PI2;
+					r *= mixRotate;
+					let cos = Math.cos(r), sin = Math.sin(r);
+					bone.a = cos * a - sin * c;
+					bone.b = cos * b - sin * d;
+					bone.c = sin * a + cos * c;
+					bone.d = sin * b + cos * d;
+				}
+				if (translate) {
+					let temp = this.temp;
+					target.localToWorld(temp.set(this.data.offsetX, this.data.offsetY));
+					bone.worldX += (temp.x - bone.worldX) * mixX;
+					bone.worldY += (temp.y - bone.worldY) * mixY;
+				}
+				if (mixScaleX != 0) {
+					let s = Math.sqrt(bone.a * bone.a + bone.c * bone.c);
+					if (s != 0)
+						s = (s + (Math.sqrt(ta * ta + tc * tc) - s + this.data.offsetScaleX) * mixScaleX) / s;
+					bone.a *= s;
+					bone.c *= s;
+				}
+				if (mixScaleY != 0) {
+					let s = Math.sqrt(bone.b * bone.b + bone.d * bone.d);
+					if (s != 0)
+						s = (s + (Math.sqrt(tb * tb + td * td) - s + this.data.offsetScaleY) * mixScaleY) / s;
+					bone.b *= s;
+					bone.d *= s;
+				}
+				if (mixShearY > 0) {
+					let b = bone.b, d = bone.d;
+					let by = Math.atan2(d, b);
+					let r = Math.atan2(td, tb) - Math.atan2(tc, ta) - (by - Math.atan2(bone.c, bone.a));
+					if (r > MathUtils.PI)
+						r -= MathUtils.PI2;
+					else if (r < -MathUtils.PI)
+						r += MathUtils.PI2;
+					r = by + (r + offsetShearY) * mixShearY;
+					let s = Math.sqrt(b * b + d * d);
+					bone.b = Math.cos(r) * s;
+					bone.d = Math.sin(r) * s;
+				}
+				bone.updateAppliedTransform();
+			}
+		}
+		applyRelativeWorld() {
+			let mixRotate = this.mixRotate, mixX = this.mixX, mixY = this.mixY, mixScaleX = this.mixScaleX, mixScaleY = this.mixScaleY, mixShearY = this.mixShearY;
+			let translate = mixX != 0 || mixY != 0;
+			let target = this.target;
+			let ta = target.a, tb = target.b, tc = target.c, td = target.d;
+			let degRadReflect = ta * td - tb * tc > 0 ? MathUtils.degRad : -MathUtils.degRad;
+			let offsetRotation = this.data.offsetRotation * degRadReflect, offsetShearY = this.data.offsetShearY * degRadReflect;
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				if (mixRotate != 0) {
+					let a = bone.a, b = bone.b, c = bone.c, d = bone.d;
+					let r = Math.atan2(tc, ta) + offsetRotation;
+					if (r > MathUtils.PI)
+						r -= MathUtils.PI2;
+					else if (r < -MathUtils.PI)
+						r += MathUtils.PI2;
+					r *= mixRotate;
+					let cos = Math.cos(r), sin = Math.sin(r);
+					bone.a = cos * a - sin * c;
+					bone.b = cos * b - sin * d;
+					bone.c = sin * a + cos * c;
+					bone.d = sin * b + cos * d;
+				}
+				if (translate) {
+					let temp = this.temp;
+					target.localToWorld(temp.set(this.data.offsetX, this.data.offsetY));
+					bone.worldX += temp.x * mixX;
+					bone.worldY += temp.y * mixY;
+				}
+				if (mixScaleX != 0) {
+					let s = (Math.sqrt(ta * ta + tc * tc) - 1 + this.data.offsetScaleX) * mixScaleX + 1;
+					bone.a *= s;
+					bone.c *= s;
+				}
+				if (mixScaleY != 0) {
+					let s = (Math.sqrt(tb * tb + td * td) - 1 + this.data.offsetScaleY) * mixScaleY + 1;
+					bone.b *= s;
+					bone.d *= s;
+				}
+				if (mixShearY > 0) {
+					let r = Math.atan2(td, tb) - Math.atan2(tc, ta);
+					if (r > MathUtils.PI)
+						r -= MathUtils.PI2;
+					else if (r < -MathUtils.PI)
+						r += MathUtils.PI2;
+					let b = bone.b, d = bone.d;
+					r = Math.atan2(d, b) + (r - MathUtils.PI / 2 + offsetShearY) * mixShearY;
+					let s = Math.sqrt(b * b + d * d);
+					bone.b = Math.cos(r) * s;
+					bone.d = Math.sin(r) * s;
+				}
+				bone.updateAppliedTransform();
+			}
+		}
+		applyAbsoluteLocal() {
+			let mixRotate = this.mixRotate, mixX = this.mixX, mixY = this.mixY, mixScaleX = this.mixScaleX, mixScaleY = this.mixScaleY, mixShearY = this.mixShearY;
+			let target = this.target;
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				let rotation = bone.arotation;
+				if (mixRotate != 0) {
+					let r = target.arotation - rotation + this.data.offsetRotation;
+					r -= (16384 - (16384.499999999996 - r / 360 | 0)) * 360;
+					rotation += r * mixRotate;
+				}
+				let x = bone.ax, y = bone.ay;
+				x += (target.ax - x + this.data.offsetX) * mixX;
+				y += (target.ay - y + this.data.offsetY) * mixY;
+				let scaleX = bone.ascaleX, scaleY = bone.ascaleY;
+				if (mixScaleX != 0 && scaleX != 0)
+					scaleX = (scaleX + (target.ascaleX - scaleX + this.data.offsetScaleX) * mixScaleX) / scaleX;
+				if (mixScaleY != 0 && scaleY != 0)
+					scaleY = (scaleY + (target.ascaleY - scaleY + this.data.offsetScaleY) * mixScaleY) / scaleY;
+				let shearY = bone.ashearY;
+				if (mixShearY != 0) {
+					let r = target.ashearY - shearY + this.data.offsetShearY;
+					r -= (16384 - (16384.499999999996 - r / 360 | 0)) * 360;
+					shearY += r * mixShearY;
+				}
+				bone.updateWorldTransformWith(x, y, rotation, scaleX, scaleY, bone.ashearX, shearY);
+			}
+		}
+		applyRelativeLocal() {
+			let mixRotate = this.mixRotate, mixX = this.mixX, mixY = this.mixY, mixScaleX = this.mixScaleX, mixScaleY = this.mixScaleY, mixShearY = this.mixShearY;
+			let target = this.target;
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				let rotation = bone.arotation + (target.arotation + this.data.offsetRotation) * mixRotate;
+				let x = bone.ax + (target.ax + this.data.offsetX) * mixX;
+				let y = bone.ay + (target.ay + this.data.offsetY) * mixY;
+				let scaleX = bone.ascaleX * ((target.ascaleX - 1 + this.data.offsetScaleX) * mixScaleX + 1);
+				let scaleY = bone.ascaleY * ((target.ascaleY - 1 + this.data.offsetScaleY) * mixScaleY + 1);
+				let shearY = bone.ashearY + (target.ashearY + this.data.offsetShearY) * mixShearY;
+				bone.updateWorldTransformWith(x, y, rotation, scaleX, scaleY, bone.ashearX, shearY);
+			}
+		}
+	};
+
+	// spine-core/src/Skeleton.ts
+	var _Skeleton = class {
+		constructor(data) {
+			/** The list of bones and constraints, sorted in the order they should be updated, as computed by {@link #updateCache()}. */
+			this._updateCache = new Array();
+			/** The skeleton's current skin. May be null. */
+			this.skin = null;
+			/** Scales the entire skeleton on the X axis. This affects all bones, even if the bone's transform mode disallows scale
+				* inheritance. */
+			this.scaleX = 1;
+			/** Scales the entire skeleton on the Y axis. This affects all bones, even if the bone's transform mode disallows scale
+				* inheritance. */
+			this._scaleY = 1;
+			/** Sets the skeleton X position, which is added to the root bone worldX position. */
+			this.x = 0;
+			/** Sets the skeleton Y position, which is added to the root bone worldY position. */
+			this.y = 0;
+			if (!data)
+				throw new Error("data cannot be null.");
+			this.data = data;
+			this.bones = new Array();
+			for (let i = 0; i < data.bones.length; i++) {
+				let boneData = data.bones[i];
+				let bone;
+				if (!boneData.parent)
+					bone = new Bone(boneData, this, null);
+				else {
+					let parent = this.bones[boneData.parent.index];
+					bone = new Bone(boneData, this, parent);
+					parent.children.push(bone);
+				}
+				this.bones.push(bone);
+			}
+			this.slots = new Array();
+			this.drawOrder = new Array();
+			for (let i = 0; i < data.slots.length; i++) {
+				let slotData = data.slots[i];
+				let bone = this.bones[slotData.boneData.index];
+				let slot = new Slot(slotData, bone);
+				this.slots.push(slot);
+				this.drawOrder.push(slot);
+			}
+			this.ikConstraints = new Array();
+			for (let i = 0; i < data.ikConstraints.length; i++) {
+				let ikConstraintData = data.ikConstraints[i];
+				this.ikConstraints.push(new IkConstraint(ikConstraintData, this));
+			}
+			this.transformConstraints = new Array();
+			for (let i = 0; i < data.transformConstraints.length; i++) {
+				let transformConstraintData = data.transformConstraints[i];
+				this.transformConstraints.push(new TransformConstraint(transformConstraintData, this));
+			}
+			this.pathConstraints = new Array();
+			for (let i = 0; i < data.pathConstraints.length; i++) {
+				let pathConstraintData = data.pathConstraints[i];
+				this.pathConstraints.push(new PathConstraint(pathConstraintData, this));
+			}
+			this.color = new Color(1, 1, 1, 1);
+			this.updateCache();
+		}
+		get scaleY() {
+			return _Skeleton.yDown ? -this._scaleY : this._scaleY;
+		}
+		set scaleY(scaleY) {
+			this._scaleY = scaleY;
+		}
+		/** Caches information about bones and constraints. Must be called if the {@link #getSkin()} is modified or if bones,
+		 * constraints, or weighted path attachments are added or removed. */
+		updateCache() {
+			let updateCache = this._updateCache;
+			updateCache.length = 0;
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				bone.sorted = bone.data.skinRequired;
+				bone.active = !bone.sorted;
+			}
+			if (this.skin) {
+				let skinBones = this.skin.bones;
+				for (let i = 0, n = this.skin.bones.length; i < n; i++) {
+					let bone = this.bones[skinBones[i].index];
+					do {
+						bone.sorted = false;
+						bone.active = true;
+						bone = bone.parent;
+					} while (bone);
+				}
+			}
+			let ikConstraints = this.ikConstraints;
+			let transformConstraints = this.transformConstraints;
+			let pathConstraints = this.pathConstraints;
+			let ikCount = ikConstraints.length, transformCount = transformConstraints.length, pathCount = pathConstraints.length;
+			let constraintCount = ikCount + transformCount + pathCount;
+			outer:
+			for (let i = 0; i < constraintCount; i++) {
+				for (let ii = 0; ii < ikCount; ii++) {
+					let constraint = ikConstraints[ii];
+					if (constraint.data.order == i) {
+						this.sortIkConstraint(constraint);
+						continue outer;
+					}
+				}
+				for (let ii = 0; ii < transformCount; ii++) {
+					let constraint = transformConstraints[ii];
+					if (constraint.data.order == i) {
+						this.sortTransformConstraint(constraint);
+						continue outer;
+					}
+				}
+				for (let ii = 0; ii < pathCount; ii++) {
+					let constraint = pathConstraints[ii];
+					if (constraint.data.order == i) {
+						this.sortPathConstraint(constraint);
+						continue outer;
+					}
+				}
+			}
+			for (let i = 0, n = bones.length; i < n; i++)
+				this.sortBone(bones[i]);
+		}
+		sortIkConstraint(constraint) {
+			constraint.active = constraint.target.isActive() && (!constraint.data.skinRequired || this.skin && Utils.contains(this.skin.constraints, constraint.data, true));
+			if (!constraint.active)
+				return;
+			let target = constraint.target;
+			this.sortBone(target);
+			let constrained = constraint.bones;
+			let parent = constrained[0];
+			this.sortBone(parent);
+			if (constrained.length == 1) {
+				this._updateCache.push(constraint);
+				this.sortReset(parent.children);
+			} else {
+				let child = constrained[constrained.length - 1];
+				this.sortBone(child);
+				this._updateCache.push(constraint);
+				this.sortReset(parent.children);
+				child.sorted = true;
+			}
+		}
+		sortPathConstraint(constraint) {
+			constraint.active = constraint.target.bone.isActive() && (!constraint.data.skinRequired || this.skin && Utils.contains(this.skin.constraints, constraint.data, true));
+			if (!constraint.active)
+				return;
+			let slot = constraint.target;
+			let slotIndex = slot.data.index;
+			let slotBone = slot.bone;
+			if (this.skin)
+				this.sortPathConstraintAttachment(this.skin, slotIndex, slotBone);
+			if (this.data.defaultSkin && this.data.defaultSkin != this.skin)
+				this.sortPathConstraintAttachment(this.data.defaultSkin, slotIndex, slotBone);
+			for (let i = 0, n = this.data.skins.length; i < n; i++)
+				this.sortPathConstraintAttachment(this.data.skins[i], slotIndex, slotBone);
+			let attachment = slot.getAttachment();
+			if (attachment instanceof PathAttachment)
+				this.sortPathConstraintAttachmentWith(attachment, slotBone);
+			let constrained = constraint.bones;
+			let boneCount = constrained.length;
+			for (let i = 0; i < boneCount; i++)
+				this.sortBone(constrained[i]);
+			this._updateCache.push(constraint);
+			for (let i = 0; i < boneCount; i++)
+				this.sortReset(constrained[i].children);
+			for (let i = 0; i < boneCount; i++)
+				constrained[i].sorted = true;
+		}
+		sortTransformConstraint(constraint) {
+			constraint.active = constraint.target.isActive() && (!constraint.data.skinRequired || this.skin && Utils.contains(this.skin.constraints, constraint.data, true));
+			if (!constraint.active)
+				return;
+			this.sortBone(constraint.target);
+			let constrained = constraint.bones;
+			let boneCount = constrained.length;
+			if (constraint.data.local) {
+				for (let i = 0; i < boneCount; i++) {
+					let child = constrained[i];
+					this.sortBone(child.parent);
+					this.sortBone(child);
+				}
+			} else {
+				for (let i = 0; i < boneCount; i++) {
+					this.sortBone(constrained[i]);
+				}
+			}
+			this._updateCache.push(constraint);
+			for (let i = 0; i < boneCount; i++)
+				this.sortReset(constrained[i].children);
+			for (let i = 0; i < boneCount; i++)
+				constrained[i].sorted = true;
+		}
+		sortPathConstraintAttachment(skin, slotIndex, slotBone) {
+			let attachments = skin.attachments[slotIndex];
+			if (!attachments)
+				return;
+			for (let key in attachments) {
+				this.sortPathConstraintAttachmentWith(attachments[key], slotBone);
+			}
+		}
+		sortPathConstraintAttachmentWith(attachment, slotBone) {
+			if (!(attachment instanceof PathAttachment))
+				return;
+			let pathBones = attachment.bones;
+			if (!pathBones)
+				this.sortBone(slotBone);
+			else {
+				let bones = this.bones;
+				for (let i = 0, n = pathBones.length; i < n;) {
+					let nn = pathBones[i++];
+					nn += i;
+					while (i < nn)
+						this.sortBone(bones[pathBones[i++]]);
+				}
+			}
+		}
+		sortBone(bone) {
+			if (!bone)
+				return;
+			if (bone.sorted)
+				return;
+			let parent = bone.parent;
+			if (parent)
+				this.sortBone(parent);
+			bone.sorted = true;
+			this._updateCache.push(bone);
+		}
+		sortReset(bones) {
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				if (!bone.active)
+					continue;
+				if (bone.sorted)
+					this.sortReset(bone.children);
+				bone.sorted = false;
+			}
+		}
+		/** Updates the world transform for each bone and applies all constraints.
+		 *
+		 * See [World transforms](http://esotericsoftware.com/spine-runtime-skeletons#World-transforms) in the Spine
+		 * Runtimes Guide. */
+		updateWorldTransform() {
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				bone.ax = bone.x;
+				bone.ay = bone.y;
+				bone.arotation = bone.rotation;
+				bone.ascaleX = bone.scaleX;
+				bone.ascaleY = bone.scaleY;
+				bone.ashearX = bone.shearX;
+				bone.ashearY = bone.shearY;
+			}
+			let updateCache = this._updateCache;
+			for (let i = 0, n = updateCache.length; i < n; i++)
+				updateCache[i].update();
+		}
+		updateWorldTransformWith(parent) {
+			let rootBone = this.getRootBone();
+			if (!rootBone)
+				throw new Error("Root bone must not be null.");
+			let pa = parent.a, pb = parent.b, pc = parent.c, pd = parent.d;
+			rootBone.worldX = pa * this.x + pb * this.y + parent.worldX;
+			rootBone.worldY = pc * this.x + pd * this.y + parent.worldY;
+			let rotationY = rootBone.rotation + 90 + rootBone.shearY;
+			let la = MathUtils.cosDeg(rootBone.rotation + rootBone.shearX) * rootBone.scaleX;
+			let lb = MathUtils.cosDeg(rotationY) * rootBone.scaleY;
+			let lc = MathUtils.sinDeg(rootBone.rotation + rootBone.shearX) * rootBone.scaleX;
+			let ld = MathUtils.sinDeg(rotationY) * rootBone.scaleY;
+			rootBone.a = (pa * la + pb * lc) * this.scaleX;
+			rootBone.b = (pa * lb + pb * ld) * this.scaleX;
+			rootBone.c = (pc * la + pd * lc) * this.scaleY;
+			rootBone.d = (pc * lb + pd * ld) * this.scaleY;
+			let updateCache = this._updateCache;
+			for (let i = 0, n = updateCache.length; i < n; i++) {
+				let updatable = updateCache[i];
+				if (updatable != rootBone)
+					updatable.update();
+			}
+		}
+		/** Sets the bones, constraints, and slots to their setup pose values. */
+		setToSetupPose() {
+			this.setBonesToSetupPose();
+			this.setSlotsToSetupPose();
+		}
+		/** Sets the bones and constraints to their setup pose values. */
+		setBonesToSetupPose() {
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++)
+				bones[i].setToSetupPose();
+			let ikConstraints = this.ikConstraints;
+			for (let i = 0, n = ikConstraints.length; i < n; i++) {
+				let constraint = ikConstraints[i];
+				constraint.mix = constraint.data.mix;
+				constraint.softness = constraint.data.softness;
+				constraint.bendDirection = constraint.data.bendDirection;
+				constraint.compress = constraint.data.compress;
+				constraint.stretch = constraint.data.stretch;
+			}
+			let transformConstraints = this.transformConstraints;
+			for (let i = 0, n = transformConstraints.length; i < n; i++) {
+				let constraint = transformConstraints[i];
+				let data = constraint.data;
+				constraint.mixRotate = data.mixRotate;
+				constraint.mixX = data.mixX;
+				constraint.mixY = data.mixY;
+				constraint.mixScaleX = data.mixScaleX;
+				constraint.mixScaleY = data.mixScaleY;
+				constraint.mixShearY = data.mixShearY;
+			}
+			let pathConstraints = this.pathConstraints;
+			for (let i = 0, n = pathConstraints.length; i < n; i++) {
+				let constraint = pathConstraints[i];
+				let data = constraint.data;
+				constraint.position = data.position;
+				constraint.spacing = data.spacing;
+				constraint.mixRotate = data.mixRotate;
+				constraint.mixX = data.mixX;
+				constraint.mixY = data.mixY;
+			}
+		}
+		/** Sets the slots and draw order to their setup pose values. */
+		setSlotsToSetupPose() {
+			let slots = this.slots;
+			Utils.arrayCopy(slots, 0, this.drawOrder, 0, slots.length);
+			for (let i = 0, n = slots.length; i < n; i++)
+				slots[i].setToSetupPose();
+		}
+		/** @returns May return null. */
+		getRootBone() {
+			if (this.bones.length == 0)
+				return null;
+			return this.bones[0];
+		}
+		/** @returns May be null. */
+		findBone(boneName) {
+			if (!boneName)
+				throw new Error("boneName cannot be null.");
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				if (bone.data.name == boneName)
+					return bone;
+			}
+			return null;
+		}
+		/** Finds a slot by comparing each slot's name. It is more efficient to cache the results of this method than to call it
+		 * repeatedly.
+		 * @returns May be null. */
+		findSlot(slotName) {
+			if (!slotName)
+				throw new Error("slotName cannot be null.");
+			let slots = this.slots;
+			for (let i = 0, n = slots.length; i < n; i++) {
+				let slot = slots[i];
+				if (slot.data.name == slotName)
+					return slot;
+			}
+			return null;
+		}
+		/** Sets a skin by name.
+		 *
+		 * See {@link #setSkin()}. */
+		setSkinByName(skinName) {
+			let skin = this.data.findSkin(skinName);
+			if (!skin)
+				throw new Error("Skin not found: " + skinName);
+			this.setSkin(skin);
+		}
+		/** Sets the skin used to look up attachments before looking in the {@link SkeletonData#defaultSkin default skin}. If the
+		 * skin is changed, {@link #updateCache()} is called.
+		 *
+		 * Attachments from the new skin are attached if the corresponding attachment from the old skin was attached. If there was no
+		 * old skin, each slot's setup mode attachment is attached from the new skin.
+		 *
+		 * After changing the skin, the visible attachments can be reset to those attached in the setup pose by calling
+		 * {@link #setSlotsToSetupPose()}. Also, often {@link AnimationState#apply()} is called before the next time the
+		 * skeleton is rendered to allow any attachment keys in the current animation(s) to hide or show attachments from the new skin.
+		 * @param newSkin May be null. */
+		setSkin(newSkin) {
+			if (newSkin == this.skin)
+				return;
+			if (newSkin) {
+				if (this.skin)
+					newSkin.attachAll(this, this.skin);
+				else {
+					let slots = this.slots;
+					for (let i = 0, n = slots.length; i < n; i++) {
+						let slot = slots[i];
+						let name = slot.data.attachmentName;
+						if (name) {
+							let attachment = newSkin.getAttachment(i, name);
+							if (attachment)
+								slot.setAttachment(attachment);
+						}
+					}
+				}
+			}
+			this.skin = newSkin;
+			this.updateCache();
+		}
+		/** Finds an attachment by looking in the {@link #skin} and {@link SkeletonData#defaultSkin} using the slot name and attachment
+		 * name.
+		 *
+		 * See {@link #getAttachment()}.
+		 * @returns May be null. */
+		getAttachmentByName(slotName, attachmentName) {
+			let slot = this.data.findSlot(slotName);
+			if (!slot)
+				throw new Error(`Can't find slot with name ${slotName}`);
+			return this.getAttachment(slot.index, attachmentName);
+		}
+		/** Finds an attachment by looking in the {@link #skin} and {@link SkeletonData#defaultSkin} using the slot index and
+		 * attachment name. First the skin is checked and if the attachment was not found, the default skin is checked.
+		 *
+		 * See [Runtime skins](http://esotericsoftware.com/spine-runtime-skins) in the Spine Runtimes Guide.
+		 * @returns May be null. */
+		getAttachment(slotIndex, attachmentName) {
+			if (!attachmentName)
+				throw new Error("attachmentName cannot be null.");
+			if (this.skin) {
+				let attachment = this.skin.getAttachment(slotIndex, attachmentName);
+				if (attachment)
+					return attachment;
+			}
+			if (this.data.defaultSkin)
+				return this.data.defaultSkin.getAttachment(slotIndex, attachmentName);
+			return null;
+		}
+		/** A convenience method to set an attachment by finding the slot with {@link #findSlot()}, finding the attachment with
+		 * {@link #getAttachment()}, then setting the slot's {@link Slot#attachment}.
+		 * @param attachmentName May be null to clear the slot's attachment. */
+		setAttachment(slotName, attachmentName) {
+			if (!slotName)
+				throw new Error("slotName cannot be null.");
+			let slots = this.slots;
+			for (let i = 0, n = slots.length; i < n; i++) {
+				let slot = slots[i];
+				if (slot.data.name == slotName) {
+					let attachment = null;
+					if (attachmentName) {
+						attachment = this.getAttachment(i, attachmentName);
+						if (!attachment)
+							throw new Error("Attachment not found: " + attachmentName + ", for slot: " + slotName);
+					}
+					slot.setAttachment(attachment);
+					return;
+				}
+			}
+			throw new Error("Slot not found: " + slotName);
+		}
+		/** Finds an IK constraint by comparing each IK constraint's name. It is more efficient to cache the results of this method
+		 * than to call it repeatedly.
+		 * @return May be null. */
+		findIkConstraint(constraintName) {
+			if (!constraintName)
+				throw new Error("constraintName cannot be null.");
+			let ikConstraints = this.ikConstraints;
+			for (let i = 0, n = ikConstraints.length; i < n; i++) {
+				let ikConstraint = ikConstraints[i];
+				if (ikConstraint.data.name == constraintName)
+					return ikConstraint;
+			}
+			return null;
+		}
+		/** Finds a transform constraint by comparing each transform constraint's name. It is more efficient to cache the results of
+		 * this method than to call it repeatedly.
+		 * @return May be null. */
+		findTransformConstraint(constraintName) {
+			if (!constraintName)
+				throw new Error("constraintName cannot be null.");
+			let transformConstraints = this.transformConstraints;
+			for (let i = 0, n = transformConstraints.length; i < n; i++) {
+				let constraint = transformConstraints[i];
+				if (constraint.data.name == constraintName)
+					return constraint;
+			}
+			return null;
+		}
+		/** Finds a path constraint by comparing each path constraint's name. It is more efficient to cache the results of this method
+		 * than to call it repeatedly.
+		 * @return May be null. */
+		findPathConstraint(constraintName) {
+			if (!constraintName)
+				throw new Error("constraintName cannot be null.");
+			let pathConstraints = this.pathConstraints;
+			for (let i = 0, n = pathConstraints.length; i < n; i++) {
+				let constraint = pathConstraints[i];
+				if (constraint.data.name == constraintName)
+					return constraint;
+			}
+			return null;
+		}
+		/** Returns the axis aligned bounding box (AABB) of the region and mesh attachments for the current pose as `{ x: number, y: number, width: number, height: number }`.
+		 * Note that this method will create temporary objects which can add to garbage collection pressure. Use `getBounds()` if garbage collection is a concern. */
+		getBoundsRect() {
+			let offset = new Vector2();
+			let size = new Vector2();
+			this.getBounds(offset, size);
+			return { x: offset.x, y: offset.y, width: size.x, height: size.y };
+		}
+		/** Returns the axis aligned bounding box (AABB) of the region and mesh attachments for the current pose.
+		 * @param offset An output value, the distance from the skeleton origin to the bottom left corner of the AABB.
+		 * @param size An output value, the width and height of the AABB.
+		 * @param temp Working memory to temporarily store attachments' computed world vertices. */
+		getBounds(offset, size, temp = new Array(2)) {
+			if (!offset)
+				throw new Error("offset cannot be null.");
+			if (!size)
+				throw new Error("size cannot be null.");
+			let drawOrder = this.drawOrder;
+			let minX = Number.POSITIVE_INFINITY, minY = Number.POSITIVE_INFINITY, maxX = Number.NEGATIVE_INFINITY, maxY = Number.NEGATIVE_INFINITY;
+			for (let i = 0, n = drawOrder.length; i < n; i++) {
+				let slot = drawOrder[i];
+				if (!slot.bone.active)
+					continue;
+				let verticesLength = 0;
+				let vertices = null;
+				let attachment = slot.getAttachment();
+				if (attachment instanceof RegionAttachment) {
+					verticesLength = 8;
+					vertices = Utils.setArraySize(temp, verticesLength, 0);
+					attachment.computeWorldVertices(slot, vertices, 0, 2);
+				} else if (attachment instanceof MeshAttachment) {
+					let mesh = attachment;
+					verticesLength = mesh.worldVerticesLength;
+					vertices = Utils.setArraySize(temp, verticesLength, 0);
+					mesh.computeWorldVertices(slot, 0, verticesLength, vertices, 0, 2);
+				}
+				if (vertices) {
+					for (let ii = 0, nn = vertices.length; ii < nn; ii += 2) {
+						let x = vertices[ii], y = vertices[ii + 1];
+						minX = Math.min(minX, x);
+						minY = Math.min(minY, y);
+						maxX = Math.max(maxX, x);
+						maxY = Math.max(maxY, y);
+					}
+				}
+			}
+			offset.set(minX, minY);
+			size.set(maxX - minX, maxY - minY);
+		}
+	};
+	var Skeleton = _Skeleton;
+	Skeleton.yDown = false;
+
+	// spine-core/src/SkeletonData.ts
+	var SkeletonData = class {
+		constructor() {
+			/** The skeleton's name, which by default is the name of the skeleton data file, if possible. May be null. */
+			this.name = null;
+			/** The skeleton's bones, sorted parent first. The root bone is always the first bone. */
+			this.bones = new Array();
+			// Ordered parents first.
+			/** The skeleton's slots. */
+			this.slots = new Array();
+			// Setup pose draw order.
+			this.skins = new Array();
+			/** The skeleton's default skin. By default this skin contains all attachments that were not in a skin in Spine.
+			 *
+			 * See {@link Skeleton#getAttachmentByName()}.
+			 * May be null. */
+			this.defaultSkin = null;
+			/** The skeleton's events. */
+			this.events = new Array();
+			/** The skeleton's animations. */
+			this.animations = new Array();
+			/** The skeleton's IK constraints. */
+			this.ikConstraints = new Array();
+			/** The skeleton's transform constraints. */
+			this.transformConstraints = new Array();
+			/** The skeleton's path constraints. */
+			this.pathConstraints = new Array();
+			/** The X coordinate of the skeleton's axis aligned bounding box in the setup pose. */
+			this.x = 0;
+			/** The Y coordinate of the skeleton's axis aligned bounding box in the setup pose. */
+			this.y = 0;
+			/** The width of the skeleton's axis aligned bounding box in the setup pose. */
+			this.width = 0;
+			/** The height of the skeleton's axis aligned bounding box in the setup pose. */
+			this.height = 0;
+			/** The Spine version used to export the skeleton data, or null. */
+			this.version = null;
+			/** The skeleton data hash. This value will change if any of the skeleton data has changed. May be null. */
+			this.hash = null;
+			// Nonessential
+			/** The dopesheet FPS in Spine. Available only when nonessential data was exported. */
+			this.fps = 0;
+			/** The path to the images directory as defined in Spine. Available only when nonessential data was exported. May be null. */
+			this.imagesPath = null;
+			/** The path to the audio directory as defined in Spine. Available only when nonessential data was exported. May be null. */
+			this.audioPath = null;
+		}
+		/** Finds a bone by comparing each bone's name. It is more efficient to cache the results of this method than to call it
+		 * multiple times.
+		 * @returns May be null. */
+		findBone(boneName) {
+			if (!boneName)
+				throw new Error("boneName cannot be null.");
+			let bones = this.bones;
+			for (let i = 0, n = bones.length; i < n; i++) {
+				let bone = bones[i];
+				if (bone.name == boneName)
+					return bone;
+			}
+			return null;
+		}
+		/** Finds a slot by comparing each slot's name. It is more efficient to cache the results of this method than to call it
+		 * multiple times.
+		 * @returns May be null. */
+		findSlot(slotName) {
+			if (!slotName)
+				throw new Error("slotName cannot be null.");
+			let slots = this.slots;
+			for (let i = 0, n = slots.length; i < n; i++) {
+				let slot = slots[i];
+				if (slot.name == slotName)
+					return slot;
+			}
+			return null;
+		}
+		/** Finds a skin by comparing each skin's name. It is more efficient to cache the results of this method than to call it
+		 * multiple times.
+		 * @returns May be null. */
+		findSkin(skinName) {
+			if (!skinName)
+				throw new Error("skinName cannot be null.");
+			let skins = this.skins;
+			for (let i = 0, n = skins.length; i < n; i++) {
+				let skin = skins[i];
+				if (skin.name == skinName)
+					return skin;
+			}
+			return null;
+		}
+		/** Finds an event by comparing each events's name. It is more efficient to cache the results of this method than to call it
+		 * multiple times.
+		 * @returns May be null. */
+		findEvent(eventDataName) {
+			if (!eventDataName)
+				throw new Error("eventDataName cannot be null.");
+			let events = this.events;
+			for (let i = 0, n = events.length; i < n; i++) {
+				let event = events[i];
+				if (event.name == eventDataName)
+					return event;
+			}
+			return null;
+		}
+		/** Finds an animation by comparing each animation's name. It is more efficient to cache the results of this method than to
+		 * call it multiple times.
+		 * @returns May be null. */
+		findAnimation(animationName) {
+			if (!animationName)
+				throw new Error("animationName cannot be null.");
+			let animations = this.animations;
+			for (let i = 0, n = animations.length; i < n; i++) {
+				let animation = animations[i];
+				if (animation.name == animationName)
+					return animation;
+			}
+			return null;
+		}
+		/** Finds an IK constraint by comparing each IK constraint's name. It is more efficient to cache the results of this method
+		 * than to call it multiple times.
+		 * @return May be null. */
+		findIkConstraint(constraintName) {
+			if (!constraintName)
+				throw new Error("constraintName cannot be null.");
+			let ikConstraints = this.ikConstraints;
+			for (let i = 0, n = ikConstraints.length; i < n; i++) {
+				let constraint = ikConstraints[i];
+				if (constraint.name == constraintName)
+					return constraint;
+			}
+			return null;
+		}
+		/** Finds a transform constraint by comparing each transform constraint's name. It is more efficient to cache the results of
+		 * this method than to call it multiple times.
+		 * @return May be null. */
+		findTransformConstraint(constraintName) {
+			if (!constraintName)
+				throw new Error("constraintName cannot be null.");
+			let transformConstraints = this.transformConstraints;
+			for (let i = 0, n = transformConstraints.length; i < n; i++) {
+				let constraint = transformConstraints[i];
+				if (constraint.name == constraintName)
+					return constraint;
+			}
+			return null;
+		}
+		/** Finds a path constraint by comparing each path constraint's name. It is more efficient to cache the results of this method
+		 * than to call it multiple times.
+		 * @return May be null. */
+		findPathConstraint(constraintName) {
+			if (!constraintName)
+				throw new Error("constraintName cannot be null.");
+			let pathConstraints = this.pathConstraints;
+			for (let i = 0, n = pathConstraints.length; i < n; i++) {
+				let constraint = pathConstraints[i];
+				if (constraint.name == constraintName)
+					return constraint;
+			}
+			return null;
+		}
+	};
+
+	// spine-core/src/Skin.ts
+	var SkinEntry = class {
+		constructor(slotIndex = 0, name, attachment) {
+			this.slotIndex = slotIndex;
+			this.name = name;
+			this.attachment = attachment;
+		}
+	};
+	var Skin = class {
+		constructor(name) {
+			this.attachments = new Array();
+			this.bones = Array();
+			this.constraints = new Array();
+			if (!name)
+				throw new Error("name cannot be null.");
+			this.name = name;
+		}
+		/** Adds an attachment to the skin for the specified slot index and name. */
+		setAttachment(slotIndex, name, attachment) {
+			if (!attachment)
+				throw new Error("attachment cannot be null.");
+			let attachments = this.attachments;
+			if (slotIndex >= attachments.length)
+				attachments.length = slotIndex + 1;
+			if (!attachments[slotIndex])
+				attachments[slotIndex] = {};
+			attachments[slotIndex][name] = attachment;
+		}
+		/** Adds all attachments, bones, and constraints from the specified skin to this skin. */
+		addSkin(skin) {
+			for (let i = 0; i < skin.bones.length; i++) {
+				let bone = skin.bones[i];
+				let contained = false;
+				for (let ii = 0; ii < this.bones.length; ii++) {
+					if (this.bones[ii] == bone) {
+						contained = true;
+						break;
+					}
+				}
+				if (!contained)
+					this.bones.push(bone);
+			}
+			for (let i = 0; i < skin.constraints.length; i++) {
+				let constraint = skin.constraints[i];
+				let contained = false;
+				for (let ii = 0; ii < this.constraints.length; ii++) {
+					if (this.constraints[ii] == constraint) {
+						contained = true;
+						break;
+					}
+				}
+				if (!contained)
+					this.constraints.push(constraint);
+			}
+			let attachments = skin.getAttachments();
+			for (let i = 0; i < attachments.length; i++) {
+				var attachment = attachments[i];
+				this.setAttachment(attachment.slotIndex, attachment.name, attachment.attachment);
+			}
+		}
+		/** Adds all bones and constraints and copies of all attachments from the specified skin to this skin. Mesh attachments are not
+		 * copied, instead a new linked mesh is created. The attachment copies can be modified without affecting the originals. */
+		copySkin(skin) {
+			for (let i = 0; i < skin.bones.length; i++) {
+				let bone = skin.bones[i];
+				let contained = false;
+				for (let ii = 0; ii < this.bones.length; ii++) {
+					if (this.bones[ii] == bone) {
+						contained = true;
+						break;
+					}
+				}
+				if (!contained)
+					this.bones.push(bone);
+			}
+			for (let i = 0; i < skin.constraints.length; i++) {
+				let constraint = skin.constraints[i];
+				let contained = false;
+				for (let ii = 0; ii < this.constraints.length; ii++) {
+					if (this.constraints[ii] == constraint) {
+						contained = true;
+						break;
+					}
+				}
+				if (!contained)
+					this.constraints.push(constraint);
+			}
+			let attachments = skin.getAttachments();
+			for (let i = 0; i < attachments.length; i++) {
+				var attachment = attachments[i];
+				if (!attachment.attachment)
+					continue;
+				if (attachment.attachment instanceof MeshAttachment) {
+					attachment.attachment = attachment.attachment.newLinkedMesh();
+					this.setAttachment(attachment.slotIndex, attachment.name, attachment.attachment);
+				} else {
+					attachment.attachment = attachment.attachment.copy();
+					this.setAttachment(attachment.slotIndex, attachment.name, attachment.attachment);
+				}
+			}
+		}
+		/** Returns the attachment for the specified slot index and name, or null. */
+		getAttachment(slotIndex, name) {
+			let dictionary = this.attachments[slotIndex];
+			return dictionary ? dictionary[name] : null;
+		}
+		/** Removes the attachment in the skin for the specified slot index and name, if any. */
+		removeAttachment(slotIndex, name) {
+			let dictionary = this.attachments[slotIndex];
+			if (dictionary)
+				delete dictionary[name];
+		}
+		/** Returns all attachments in this skin. */
+		getAttachments() {
+			let entries = new Array();
+			for (var i = 0; i < this.attachments.length; i++) {
+				let slotAttachments = this.attachments[i];
+				if (slotAttachments) {
+					for (let name in slotAttachments) {
+						let attachment = slotAttachments[name];
+						if (attachment)
+							entries.push(new SkinEntry(i, name, attachment));
+					}
+				}
+			}
+			return entries;
+		}
+		/** Returns all attachments in this skin for the specified slot index. */
+		getAttachmentsForSlot(slotIndex, attachments) {
+			let slotAttachments = this.attachments[slotIndex];
+			if (slotAttachments) {
+				for (let name in slotAttachments) {
+					let attachment = slotAttachments[name];
+					if (attachment)
+						attachments.push(new SkinEntry(slotIndex, name, attachment));
+				}
+			}
+		}
+		/** Clears all attachments, bones, and constraints. */
+		clear() {
+			this.attachments.length = 0;
+			this.bones.length = 0;
+			this.constraints.length = 0;
+		}
+		/** Attach each attachment in this skin if the corresponding attachment in the old skin is currently attached. */
+		attachAll(skeleton, oldSkin) {
+			let slotIndex = 0;
+			for (let i = 0; i < skeleton.slots.length; i++) {
+				let slot = skeleton.slots[i];
+				let slotAttachment = slot.getAttachment();
+				if (slotAttachment && slotIndex < oldSkin.attachments.length) {
+					let dictionary = oldSkin.attachments[slotIndex];
+					for (let key in dictionary) {
+						let skinAttachment = dictionary[key];
+						if (slotAttachment == skinAttachment) {
+							let attachment = this.getAttachment(slotIndex, key);
+							if (attachment)
+								slot.setAttachment(attachment);
+							break;
+						}
+					}
+				}
+				slotIndex++;
+			}
+		}
+	};
+
+	// spine-core/src/SlotData.ts
+	var SlotData = class {
+		constructor(index, name, boneData) {
+			/** The index of the slot in {@link Skeleton#getSlots()}. */
+			this.index = 0;
+			/** The color used to tint the slot's attachment. If {@link #getDarkColor()} is set, this is used as the light color for two
+			 * color tinting. */
+			this.color = new Color(1, 1, 1, 1);
+			/** The dark color used to tint the slot's attachment for two color tinting, or null if two color tinting is not used. The dark
+			 * color's alpha is not used. */
+			this.darkColor = null;
+			/** The name of the attachment that is visible for this slot in the setup pose, or null if no attachment is visible. */
+			this.attachmentName = null;
+			/** The blend mode for drawing the slot's attachment. */
+			this.blendMode = BlendMode.Normal;
+			if (index < 0)
+				throw new Error("index must be >= 0.");
+			if (!name)
+				throw new Error("name cannot be null.");
+			if (!boneData)
+				throw new Error("boneData cannot be null.");
+			this.index = index;
+			this.name = name;
+			this.boneData = boneData;
+		}
+	};
+	var BlendMode = /* @__PURE__ */ ((BlendMode3) => {
+		BlendMode3[BlendMode3["Normal"] = 0] = "Normal";
+		BlendMode3[BlendMode3["Additive"] = 1] = "Additive";
+		BlendMode3[BlendMode3["Multiply"] = 2] = "Multiply";
+		BlendMode3[BlendMode3["Screen"] = 3] = "Screen";
+		return BlendMode3;
+	})(BlendMode || {});
+
+	// spine-core/src/TransformConstraintData.ts
+	var TransformConstraintData = class extends ConstraintData {
+		constructor(name) {
+			super(name, 0, false);
+			/** The bones that will be modified by this transform constraint. */
+			this.bones = new Array();
+			/** The target bone whose world transform will be copied to the constrained bones. */
+			this._target = null;
+			this.mixRotate = 0;
+			this.mixX = 0;
+			this.mixY = 0;
+			this.mixScaleX = 0;
+			this.mixScaleY = 0;
+			this.mixShearY = 0;
+			/** An offset added to the constrained bone rotation. */
+			this.offsetRotation = 0;
+			/** An offset added to the constrained bone X translation. */
+			this.offsetX = 0;
+			/** An offset added to the constrained bone Y translation. */
+			this.offsetY = 0;
+			/** An offset added to the constrained bone scaleX. */
+			this.offsetScaleX = 0;
+			/** An offset added to the constrained bone scaleY. */
+			this.offsetScaleY = 0;
+			/** An offset added to the constrained bone shearY. */
+			this.offsetShearY = 0;
+			this.relative = false;
+			this.local = false;
+		}
+		set target(boneData) {
+			this._target = boneData;
+		}
+		get target() {
+			if (!this._target)
+				throw new Error("BoneData not set.");
+			else
+				return this._target;
+		}
+	};
+
+	// spine-core/src/SkeletonBinary.ts
+	var SkeletonBinary = class {
+		constructor(attachmentLoader) {
+			/** Scales bone positions, image sizes, and translations as they are loaded. This allows different size images to be used at
+			 * runtime than were used in Spine.
+			 *
+			 * See [Scaling](http://esotericsoftware.com/spine-loading-skeleton-data#Scaling) in the Spine Runtimes Guide. */
+			this.scale = 1;
+			this.linkedMeshes = new Array();
+			this.attachmentLoader = attachmentLoader;
+		}
+		readSkeletonData(binary) {
+			let scale = this.scale;
+			let skeletonData = new SkeletonData();
+			skeletonData.name = "";
+			let input = new BinaryInput(binary);
+			let lowHash = input.readInt32();
+			let highHash = input.readInt32();
+			skeletonData.hash = highHash == 0 && lowHash == 0 ? null : highHash.toString(16) + lowHash.toString(16);
+			skeletonData.version = input.readString();
+			skeletonData.x = input.readFloat();
+			skeletonData.y = input.readFloat();
+			skeletonData.width = input.readFloat();
+			skeletonData.height = input.readFloat();
+			let nonessential = input.readBoolean();
+			if (nonessential) {
+				skeletonData.fps = input.readFloat();
+				skeletonData.imagesPath = input.readString();
+				skeletonData.audioPath = input.readString();
+			}
+			let n = 0;
+			n = input.readInt(true);
+			for (let i = 0; i < n; i++) {
+				let str = input.readString();
+				if (!str)
+					throw new Error("String in string table must not be null.");
+				input.strings.push(str);
+			}
+			n = input.readInt(true);
+			for (let i = 0; i < n; i++) {
+				let name = input.readString();
+				if (!name)
+					throw new Error("Bone name must not be null.");
+				let parent = i == 0 ? null : skeletonData.bones[input.readInt(true)];
+				let data = new BoneData(i, name, parent);
+				data.rotation = input.readFloat();
+				data.x = input.readFloat() * scale;
+				data.y = input.readFloat() * scale;
+				data.scaleX = input.readFloat();
+				data.scaleY = input.readFloat();
+				data.shearX = input.readFloat();
+				data.shearY = input.readFloat();
+				data.length = input.readFloat() * scale;
+				data.transformMode = input.readInt(true);
+				data.skinRequired = input.readBoolean();
+				if (nonessential)
+					Color.rgba8888ToColor(data.color, input.readInt32());
+				skeletonData.bones.push(data);
+			}
+			n = input.readInt(true);
+			for (let i = 0; i < n; i++) {
+				let slotName = input.readString();
+				if (!slotName)
+					throw new Error("Slot name must not be null.");
+				let boneData = skeletonData.bones[input.readInt(true)];
+				let data = new SlotData(i, slotName, boneData);
+				Color.rgba8888ToColor(data.color, input.readInt32());
+				let darkColor = input.readInt32();
+				if (darkColor != -1)
+					Color.rgb888ToColor(data.darkColor = new Color(), darkColor);
+				data.attachmentName = input.readStringRef();
+				data.blendMode = input.readInt(true);
+				skeletonData.slots.push(data);
+			}
+			n = input.readInt(true);
+			for (let i = 0, nn; i < n; i++) {
+				let name = input.readString();
+				if (!name)
+					throw new Error("IK constraint data name must not be null.");
+				let data = new IkConstraintData(name);
+				data.order = input.readInt(true);
+				data.skinRequired = input.readBoolean();
+				nn = input.readInt(true);
+				for (let ii = 0; ii < nn; ii++)
+					data.bones.push(skeletonData.bones[input.readInt(true)]);
+				data.target = skeletonData.bones[input.readInt(true)];
+				data.mix = input.readFloat();
+				data.softness = input.readFloat() * scale;
+				data.bendDirection = input.readByte();
+				data.compress = input.readBoolean();
+				data.stretch = input.readBoolean();
+				data.uniform = input.readBoolean();
+				skeletonData.ikConstraints.push(data);
+			}
+			n = input.readInt(true);
+			for (let i = 0, nn; i < n; i++) {
+				let name = input.readString();
+				if (!name)
+					throw new Error("Transform constraint data name must not be null.");
+				let data = new TransformConstraintData(name);
+				data.order = input.readInt(true);
+				data.skinRequired = input.readBoolean();
+				nn = input.readInt(true);
+				for (let ii = 0; ii < nn; ii++)
+					data.bones.push(skeletonData.bones[input.readInt(true)]);
+				data.target = skeletonData.bones[input.readInt(true)];
+				data.local = input.readBoolean();
+				data.relative = input.readBoolean();
+				data.offsetRotation = input.readFloat();
+				data.offsetX = input.readFloat() * scale;
+				data.offsetY = input.readFloat() * scale;
+				data.offsetScaleX = input.readFloat();
+				data.offsetScaleY = input.readFloat();
+				data.offsetShearY = input.readFloat();
+				data.mixRotate = input.readFloat();
+				data.mixX = input.readFloat();
+				data.mixY = input.readFloat();
+				data.mixScaleX = input.readFloat();
+				data.mixScaleY = input.readFloat();
+				data.mixShearY = input.readFloat();
+				skeletonData.transformConstraints.push(data);
+			}
+			n = input.readInt(true);
+			for (let i = 0, nn; i < n; i++) {
+				let name = input.readString();
+				if (!name)
+					throw new Error("Path constraint data name must not be null.");
+				let data = new PathConstraintData(name);
+				data.order = input.readInt(true);
+				data.skinRequired = input.readBoolean();
+				nn = input.readInt(true);
+				for (let ii = 0; ii < nn; ii++)
+					data.bones.push(skeletonData.bones[input.readInt(true)]);
+				data.target = skeletonData.slots[input.readInt(true)];
+				data.positionMode = input.readInt(true);
+				data.spacingMode = input.readInt(true);
+				data.rotateMode = input.readInt(true);
+				data.offsetRotation = input.readFloat();
+				data.position = input.readFloat();
+				if (data.positionMode == 0 /* Fixed */)
+					data.position *= scale;
+				data.spacing = input.readFloat();
+				if (data.spacingMode == 0 /* Length */ || data.spacingMode == 1 /* Fixed */)
+					data.spacing *= scale;
+				data.mixRotate = input.readFloat();
+				data.mixX = input.readFloat();
+				data.mixY = input.readFloat();
+				skeletonData.pathConstraints.push(data);
+			}
+			let defaultSkin = this.readSkin(input, skeletonData, true, nonessential);
+			if (defaultSkin) {
+				skeletonData.defaultSkin = defaultSkin;
+				skeletonData.skins.push(defaultSkin);
+			}
+			{
+				let i = skeletonData.skins.length;
+				Utils.setArraySize(skeletonData.skins, n = i + input.readInt(true));
+				for (; i < n; i++) {
+					let skin = this.readSkin(input, skeletonData, false, nonessential);
+					if (!skin)
+						throw new Error("readSkin() should not have returned null.");
+					skeletonData.skins[i] = skin;
+				}
+			}
+			n = this.linkedMeshes.length;
+			for (let i = 0; i < n; i++) {
+				let linkedMesh = this.linkedMeshes[i];
+				let skin = !linkedMesh.skin ? skeletonData.defaultSkin : skeletonData.findSkin(linkedMesh.skin);
+				if (!skin)
+					throw new Error("Not skin found for linked mesh.");
+				if (!linkedMesh.parent)
+					throw new Error("Linked mesh parent must not be null");
+				let parent = skin.getAttachment(linkedMesh.slotIndex, linkedMesh.parent);
+				if (!parent)
+					throw new Error(`Parent mesh not found: ${linkedMesh.parent}`);
+				linkedMesh.mesh.timelineAttachment = linkedMesh.inheritTimeline ? parent : linkedMesh.mesh;
+				linkedMesh.mesh.setParentMesh(parent);
+				if (linkedMesh.mesh.region != null)
+					linkedMesh.mesh.updateRegion();
+			}
+			this.linkedMeshes.length = 0;
+			n = input.readInt(true);
+			for (let i = 0; i < n; i++) {
+				let eventName = input.readStringRef();
+				if (!eventName)
+					throw new Error();
+				let data = new EventData(eventName);
+				data.intValue = input.readInt(false);
+				data.floatValue = input.readFloat();
+				data.stringValue = input.readString();
+				data.audioPath = input.readString();
+				if (data.audioPath) {
+					data.volume = input.readFloat();
+					data.balance = input.readFloat();
+				}
+				skeletonData.events.push(data);
+			}
+			n = input.readInt(true);
+			for (let i = 0; i < n; i++) {
+				let animationName = input.readString();
+				if (!animationName)
+					throw new Error("Animatio name must not be null.");
+				skeletonData.animations.push(this.readAnimation(input, animationName, skeletonData));
+			}
+			return skeletonData;
+		}
+		readSkin(input, skeletonData, defaultSkin, nonessential) {
+			let skin = null;
+			let slotCount = 0;
+			if (defaultSkin) {
+				slotCount = input.readInt(true);
+				if (slotCount == 0)
+					return null;
+				skin = new Skin("default");
+			} else {
+				let skinName = input.readStringRef();
+				if (!skinName)
+					throw new Error("Skin name must not be null.");
+				skin = new Skin(skinName);
+				skin.bones.length = input.readInt(true);
+				for (let i = 0, n = skin.bones.length; i < n; i++)
+					skin.bones[i] = skeletonData.bones[input.readInt(true)];
+				for (let i = 0, n = input.readInt(true); i < n; i++)
+					skin.constraints.push(skeletonData.ikConstraints[input.readInt(true)]);
+				for (let i = 0, n = input.readInt(true); i < n; i++)
+					skin.constraints.push(skeletonData.transformConstraints[input.readInt(true)]);
+				for (let i = 0, n = input.readInt(true); i < n; i++)
+					skin.constraints.push(skeletonData.pathConstraints[input.readInt(true)]);
+				slotCount = input.readInt(true);
+			}
+			for (let i = 0; i < slotCount; i++) {
+				let slotIndex = input.readInt(true);
+				for (let ii = 0, nn = input.readInt(true); ii < nn; ii++) {
+					let name = input.readStringRef();
+					if (!name)
+						throw new Error("Attachment name must not be null");
+					let attachment = this.readAttachment(input, skeletonData, skin, slotIndex, name, nonessential);
+					if (attachment)
+						skin.setAttachment(slotIndex, name, attachment);
+				}
+			}
+			return skin;
+		}
+		readAttachment(input, skeletonData, skin, slotIndex, attachmentName, nonessential) {
+			let scale = this.scale;
+			let name = input.readStringRef();
+			if (!name)
+				name = attachmentName;
+			switch (input.readByte()) {
+				case AttachmentType.Region: {
+					let path = input.readStringRef();
+					let rotation = input.readFloat();
+					let x = input.readFloat();
+					let y = input.readFloat();
+					let scaleX = input.readFloat();
+					let scaleY = input.readFloat();
+					let width = input.readFloat();
+					let height = input.readFloat();
+					let color = input.readInt32();
+					let sequence = this.readSequence(input);
+					if (!path)
+						path = name;
+					let region = this.attachmentLoader.newRegionAttachment(skin, name, path, sequence);
+					if (!region)
+						return null;
+					region.path = path;
+					region.x = x * scale;
+					region.y = y * scale;
+					region.scaleX = scaleX;
+					region.scaleY = scaleY;
+					region.rotation = rotation;
+					region.width = width * scale;
+					region.height = height * scale;
+					Color.rgba8888ToColor(region.color, color);
+					region.sequence = sequence;
+					if (sequence == null)
+						region.updateRegion();
+					return region;
+				}
+				case AttachmentType.BoundingBox: {
+					let vertexCount = input.readInt(true);
+					let vertices = this.readVertices(input, vertexCount);
+					let color = nonessential ? input.readInt32() : 0;
+					let box = this.attachmentLoader.newBoundingBoxAttachment(skin, name);
+					if (!box)
+						return null;
+					box.worldVerticesLength = vertexCount << 1;
+					box.vertices = vertices.vertices;
+					box.bones = vertices.bones;
+					if (nonessential)
+						Color.rgba8888ToColor(box.color, color);
+					return box;
+				}
+				case AttachmentType.Mesh: {
+					let path = input.readStringRef();
+					let color = input.readInt32();
+					let vertexCount = input.readInt(true);
+					let uvs = this.readFloatArray(input, vertexCount << 1, 1);
+					let triangles = this.readShortArray(input);
+					let vertices = this.readVertices(input, vertexCount);
+					let hullLength = input.readInt(true);
+					let sequence = this.readSequence(input);
+					let edges = [];
+					let width = 0, height = 0;
+					if (nonessential) {
+						edges = this.readShortArray(input);
+						width = input.readFloat();
+						height = input.readFloat();
+					}
+					if (!path)
+						path = name;
+					let mesh = this.attachmentLoader.newMeshAttachment(skin, name, path, sequence);
+					if (!mesh)
+						return null;
+					mesh.path = path;
+					Color.rgba8888ToColor(mesh.color, color);
+					mesh.bones = vertices.bones;
+					mesh.vertices = vertices.vertices;
+					mesh.worldVerticesLength = vertexCount << 1;
+					mesh.triangles = triangles;
+					mesh.regionUVs = uvs;
+					if (sequence == null)
+						mesh.updateRegion();
+					mesh.hullLength = hullLength << 1;
+					mesh.sequence = sequence;
+					if (nonessential) {
+						mesh.edges = edges;
+						mesh.width = width * scale;
+						mesh.height = height * scale;
+					}
+					return mesh;
+				}
+				case AttachmentType.LinkedMesh: {
+					let path = input.readStringRef();
+					let color = input.readInt32();
+					let skinName = input.readStringRef();
+					let parent = input.readStringRef();
+					let inheritTimelines = input.readBoolean();
+					let sequence = this.readSequence(input);
+					let width = 0, height = 0;
+					if (nonessential) {
+						width = input.readFloat();
+						height = input.readFloat();
+					}
+					if (!path)
+						path = name;
+					let mesh = this.attachmentLoader.newMeshAttachment(skin, name, path, sequence);
+					if (!mesh)
+						return null;
+					mesh.path = path;
+					Color.rgba8888ToColor(mesh.color, color);
+					mesh.sequence = sequence;
+					if (nonessential) {
+						mesh.width = width * scale;
+						mesh.height = height * scale;
+					}
+					this.linkedMeshes.push(new LinkedMesh(mesh, skinName, slotIndex, parent, inheritTimelines));
+					return mesh;
+				}
+				case AttachmentType.Path: {
+					let closed2 = input.readBoolean();
+					let constantSpeed = input.readBoolean();
+					let vertexCount = input.readInt(true);
+					let vertices = this.readVertices(input, vertexCount);
+					let lengths = Utils.newArray(vertexCount / 3, 0);
+					for (let i = 0, n = lengths.length; i < n; i++)
+						lengths[i] = input.readFloat() * scale;
+					let color = nonessential ? input.readInt32() : 0;
+					let path = this.attachmentLoader.newPathAttachment(skin, name);
+					if (!path)
+						return null;
+					path.closed = closed2;
+					path.constantSpeed = constantSpeed;
+					path.worldVerticesLength = vertexCount << 1;
+					path.vertices = vertices.vertices;
+					path.bones = vertices.bones;
+					path.lengths = lengths;
+					if (nonessential)
+						Color.rgba8888ToColor(path.color, color);
+					return path;
+				}
+				case AttachmentType.Point: {
+					let rotation = input.readFloat();
+					let x = input.readFloat();
+					let y = input.readFloat();
+					let color = nonessential ? input.readInt32() : 0;
+					let point = this.attachmentLoader.newPointAttachment(skin, name);
+					if (!point)
+						return null;
+					point.x = x * scale;
+					point.y = y * scale;
+					point.rotation = rotation;
+					if (nonessential)
+						Color.rgba8888ToColor(point.color, color);
+					return point;
+				}
+				case AttachmentType.Clipping: {
+					let endSlotIndex = input.readInt(true);
+					let vertexCount = input.readInt(true);
+					let vertices = this.readVertices(input, vertexCount);
+					let color = nonessential ? input.readInt32() : 0;
+					let clip = this.attachmentLoader.newClippingAttachment(skin, name);
+					if (!clip)
+						return null;
+					clip.endSlot = skeletonData.slots[endSlotIndex];
+					clip.worldVerticesLength = vertexCount << 1;
+					clip.vertices = vertices.vertices;
+					clip.bones = vertices.bones;
+					if (nonessential)
+						Color.rgba8888ToColor(clip.color, color);
+					return clip;
+				}
+			}
+			return null;
+		}
+		readSequence(input) {
+			if (!input.readBoolean())
+				return null;
+			let sequence = new Sequence(input.readInt(true));
+			sequence.start = input.readInt(true);
+			sequence.digits = input.readInt(true);
+			sequence.setupIndex = input.readInt(true);
+			return sequence;
+		}
+		readVertices(input, vertexCount) {
+			let scale = this.scale;
+			let verticesLength = vertexCount << 1;
+			let vertices = new Vertices();
+			if (!input.readBoolean()) {
+				vertices.vertices = this.readFloatArray(input, verticesLength, scale);
+				return vertices;
+			}
+			let weights = new Array();
+			let bonesArray = new Array();
+			for (let i = 0; i < vertexCount; i++) {
+				let boneCount = input.readInt(true);
+				bonesArray.push(boneCount);
+				for (let ii = 0; ii < boneCount; ii++) {
+					bonesArray.push(input.readInt(true));
+					weights.push(input.readFloat() * scale);
+					weights.push(input.readFloat() * scale);
+					weights.push(input.readFloat());
+				}
+			}
+			vertices.vertices = Utils.toFloatArray(weights);
+			vertices.bones = bonesArray;
+			return vertices;
+		}
+		readFloatArray(input, n, scale) {
+			let array = new Array(n);
+			if (scale == 1) {
+				for (let i = 0; i < n; i++)
+					array[i] = input.readFloat();
+			} else {
+				for (let i = 0; i < n; i++)
+					array[i] = input.readFloat() * scale;
+			}
+			return array;
+		}
+		readShortArray(input) {
+			let n = input.readInt(true);
+			let array = new Array(n);
+			for (let i = 0; i < n; i++)
+				array[i] = input.readShort();
+			return array;
+		}
+		readAnimation(input, name, skeletonData) {
+			input.readInt(true);
+			let timelines = new Array();
+			let scale = this.scale;
+			let tempColor1 = new Color();
+			let tempColor2 = new Color();
+			for (let i = 0, n = input.readInt(true); i < n; i++) {
+				let slotIndex = input.readInt(true);
+				for (let ii = 0, nn = input.readInt(true); ii < nn; ii++) {
+					let timelineType = input.readByte();
+					let frameCount = input.readInt(true);
+					let frameLast = frameCount - 1;
+					switch (timelineType) {
+						case SLOT_ATTACHMENT: {
+							let timeline = new AttachmentTimeline(frameCount, slotIndex);
+							for (let frame = 0; frame < frameCount; frame++)
+								timeline.setFrame(frame, input.readFloat(), input.readStringRef());
+							timelines.push(timeline);
+							break;
+						}
+						case SLOT_RGBA: {
+							let bezierCount = input.readInt(true);
+							let timeline = new RGBATimeline(frameCount, bezierCount, slotIndex);
+							let time = input.readFloat();
+							let r = input.readUnsignedByte() / 255;
+							let g = input.readUnsignedByte() / 255;
+							let b = input.readUnsignedByte() / 255;
+							let a = input.readUnsignedByte() / 255;
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, r, g, b, a);
+								if (frame == frameLast)
+									break;
+								let time2 = input.readFloat();
+								let r2 = input.readUnsignedByte() / 255;
+								let g2 = input.readUnsignedByte() / 255;
+								let b2 = input.readUnsignedByte() / 255;
+								let a2 = input.readUnsignedByte() / 255;
+								switch (input.readByte()) {
+									case CURVE_STEPPED:
+										timeline.setStepped(frame);
+										break;
+									case CURVE_BEZIER:
+										setBezier(input, timeline, bezier++, frame, 0, time, time2, r, r2, 1);
+										setBezier(input, timeline, bezier++, frame, 1, time, time2, g, g2, 1);
+										setBezier(input, timeline, bezier++, frame, 2, time, time2, b, b2, 1);
+										setBezier(input, timeline, bezier++, frame, 3, time, time2, a, a2, 1);
+								}
+								time = time2;
+								r = r2;
+								g = g2;
+								b = b2;
+								a = a2;
+							}
+							timelines.push(timeline);
+							break;
+						}
+						case SLOT_RGB: {
+							let bezierCount = input.readInt(true);
+							let timeline = new RGBTimeline(frameCount, bezierCount, slotIndex);
+							let time = input.readFloat();
+							let r = input.readUnsignedByte() / 255;
+							let g = input.readUnsignedByte() / 255;
+							let b = input.readUnsignedByte() / 255;
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, r, g, b);
+								if (frame == frameLast)
+									break;
+								let time2 = input.readFloat();
+								let r2 = input.readUnsignedByte() / 255;
+								let g2 = input.readUnsignedByte() / 255;
+								let b2 = input.readUnsignedByte() / 255;
+								switch (input.readByte()) {
+									case CURVE_STEPPED:
+										timeline.setStepped(frame);
+										break;
+									case CURVE_BEZIER:
+										setBezier(input, timeline, bezier++, frame, 0, time, time2, r, r2, 1);
+										setBezier(input, timeline, bezier++, frame, 1, time, time2, g, g2, 1);
+										setBezier(input, timeline, bezier++, frame, 2, time, time2, b, b2, 1);
+								}
+								time = time2;
+								r = r2;
+								g = g2;
+								b = b2;
+							}
+							timelines.push(timeline);
+							break;
+						}
+						case SLOT_RGBA2: {
+							let bezierCount = input.readInt(true);
+							let timeline = new RGBA2Timeline(frameCount, bezierCount, slotIndex);
+							let time = input.readFloat();
+							let r = input.readUnsignedByte() / 255;
+							let g = input.readUnsignedByte() / 255;
+							let b = input.readUnsignedByte() / 255;
+							let a = input.readUnsignedByte() / 255;
+							let r2 = input.readUnsignedByte() / 255;
+							let g2 = input.readUnsignedByte() / 255;
+							let b2 = input.readUnsignedByte() / 255;
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, r, g, b, a, r2, g2, b2);
+								if (frame == frameLast)
+									break;
+								let time2 = input.readFloat();
+								let nr = input.readUnsignedByte() / 255;
+								let ng = input.readUnsignedByte() / 255;
+								let nb = input.readUnsignedByte() / 255;
+								let na = input.readUnsignedByte() / 255;
+								let nr2 = input.readUnsignedByte() / 255;
+								let ng2 = input.readUnsignedByte() / 255;
+								let nb2 = input.readUnsignedByte() / 255;
+								switch (input.readByte()) {
+									case CURVE_STEPPED:
+										timeline.setStepped(frame);
+										break;
+									case CURVE_BEZIER:
+										setBezier(input, timeline, bezier++, frame, 0, time, time2, r, nr, 1);
+										setBezier(input, timeline, bezier++, frame, 1, time, time2, g, ng, 1);
+										setBezier(input, timeline, bezier++, frame, 2, time, time2, b, nb, 1);
+										setBezier(input, timeline, bezier++, frame, 3, time, time2, a, na, 1);
+										setBezier(input, timeline, bezier++, frame, 4, time, time2, r2, nr2, 1);
+										setBezier(input, timeline, bezier++, frame, 5, time, time2, g2, ng2, 1);
+										setBezier(input, timeline, bezier++, frame, 6, time, time2, b2, nb2, 1);
+								}
+								time = time2;
+								r = nr;
+								g = ng;
+								b = nb;
+								a = na;
+								r2 = nr2;
+								g2 = ng2;
+								b2 = nb2;
+							}
+							timelines.push(timeline);
+							break;
+						}
+						case SLOT_RGB2: {
+							let bezierCount = input.readInt(true);
+							let timeline = new RGB2Timeline(frameCount, bezierCount, slotIndex);
+							let time = input.readFloat();
+							let r = input.readUnsignedByte() / 255;
+							let g = input.readUnsignedByte() / 255;
+							let b = input.readUnsignedByte() / 255;
+							let r2 = input.readUnsignedByte() / 255;
+							let g2 = input.readUnsignedByte() / 255;
+							let b2 = input.readUnsignedByte() / 255;
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, r, g, b, r2, g2, b2);
+								if (frame == frameLast)
+									break;
+								let time2 = input.readFloat();
+								let nr = input.readUnsignedByte() / 255;
+								let ng = input.readUnsignedByte() / 255;
+								let nb = input.readUnsignedByte() / 255;
+								let nr2 = input.readUnsignedByte() / 255;
+								let ng2 = input.readUnsignedByte() / 255;
+								let nb2 = input.readUnsignedByte() / 255;
+								switch (input.readByte()) {
+									case CURVE_STEPPED:
+										timeline.setStepped(frame);
+										break;
+									case CURVE_BEZIER:
+										setBezier(input, timeline, bezier++, frame, 0, time, time2, r, nr, 1);
+										setBezier(input, timeline, bezier++, frame, 1, time, time2, g, ng, 1);
+										setBezier(input, timeline, bezier++, frame, 2, time, time2, b, nb, 1);
+										setBezier(input, timeline, bezier++, frame, 3, time, time2, r2, nr2, 1);
+										setBezier(input, timeline, bezier++, frame, 4, time, time2, g2, ng2, 1);
+										setBezier(input, timeline, bezier++, frame, 5, time, time2, b2, nb2, 1);
+								}
+								time = time2;
+								r = nr;
+								g = ng;
+								b = nb;
+								r2 = nr2;
+								g2 = ng2;
+								b2 = nb2;
+							}
+							timelines.push(timeline);
+							break;
+						}
+						case SLOT_ALPHA: {
+							let timeline = new AlphaTimeline(frameCount, input.readInt(true), slotIndex);
+							let time = input.readFloat(), a = input.readUnsignedByte() / 255;
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, a);
+								if (frame == frameLast)
+									break;
+								let time2 = input.readFloat();
+								let a2 = input.readUnsignedByte() / 255;
+								switch (input.readByte()) {
+									case CURVE_STEPPED:
+										timeline.setStepped(frame);
+										break;
+									case CURVE_BEZIER:
+										setBezier(input, timeline, bezier++, frame, 0, time, time2, a, a2, 1);
+								}
+								time = time2;
+								a = a2;
+							}
+							timelines.push(timeline);
+						}
+					}
+				}
+			}
+			for (let i = 0, n = input.readInt(true); i < n; i++) {
+				let boneIndex = input.readInt(true);
+				for (let ii = 0, nn = input.readInt(true); ii < nn; ii++) {
+					let type = input.readByte(), frameCount = input.readInt(true), bezierCount = input.readInt(true);
+					switch (type) {
+						case BONE_ROTATE:
+							timelines.push(readTimeline1(input, new RotateTimeline(frameCount, bezierCount, boneIndex), 1));
+							break;
+						case BONE_TRANSLATE:
+							timelines.push(readTimeline2(input, new TranslateTimeline(frameCount, bezierCount, boneIndex), scale));
+							break;
+						case BONE_TRANSLATEX:
+							timelines.push(readTimeline1(input, new TranslateXTimeline(frameCount, bezierCount, boneIndex), scale));
+							break;
+						case BONE_TRANSLATEY:
+							timelines.push(readTimeline1(input, new TranslateYTimeline(frameCount, bezierCount, boneIndex), scale));
+							break;
+						case BONE_SCALE:
+							timelines.push(readTimeline2(input, new ScaleTimeline(frameCount, bezierCount, boneIndex), 1));
+							break;
+						case BONE_SCALEX:
+							timelines.push(readTimeline1(input, new ScaleXTimeline(frameCount, bezierCount, boneIndex), 1));
+							break;
+						case BONE_SCALEY:
+							timelines.push(readTimeline1(input, new ScaleYTimeline(frameCount, bezierCount, boneIndex), 1));
+							break;
+						case BONE_SHEAR:
+							timelines.push(readTimeline2(input, new ShearTimeline(frameCount, bezierCount, boneIndex), 1));
+							break;
+						case BONE_SHEARX:
+							timelines.push(readTimeline1(input, new ShearXTimeline(frameCount, bezierCount, boneIndex), 1));
+							break;
+						case BONE_SHEARY:
+							timelines.push(readTimeline1(input, new ShearYTimeline(frameCount, bezierCount, boneIndex), 1));
+					}
+				}
+			}
+			for (let i = 0, n = input.readInt(true); i < n; i++) {
+				let index = input.readInt(true), frameCount = input.readInt(true), frameLast = frameCount - 1;
+				let timeline = new IkConstraintTimeline(frameCount, input.readInt(true), index);
+				let time = input.readFloat(), mix = input.readFloat(), softness = input.readFloat() * scale;
+				for (let frame = 0, bezier = 0; ; frame++) {
+					timeline.setFrame(frame, time, mix, softness, input.readByte(), input.readBoolean(), input.readBoolean());
+					if (frame == frameLast)
+						break;
+					let time2 = input.readFloat(), mix2 = input.readFloat(), softness2 = input.readFloat() * scale;
+					switch (input.readByte()) {
+						case CURVE_STEPPED:
+							timeline.setStepped(frame);
+							break;
+						case CURVE_BEZIER:
+							setBezier(input, timeline, bezier++, frame, 0, time, time2, mix, mix2, 1);
+							setBezier(input, timeline, bezier++, frame, 1, time, time2, softness, softness2, scale);
+					}
+					time = time2;
+					mix = mix2;
+					softness = softness2;
+				}
+				timelines.push(timeline);
+			}
+			for (let i = 0, n = input.readInt(true); i < n; i++) {
+				let index = input.readInt(true), frameCount = input.readInt(true), frameLast = frameCount - 1;
+				let timeline = new TransformConstraintTimeline(frameCount, input.readInt(true), index);
+				let time = input.readFloat(), mixRotate = input.readFloat(), mixX = input.readFloat(), mixY = input.readFloat(), mixScaleX = input.readFloat(), mixScaleY = input.readFloat(), mixShearY = input.readFloat();
+				for (let frame = 0, bezier = 0; ; frame++) {
+					timeline.setFrame(frame, time, mixRotate, mixX, mixY, mixScaleX, mixScaleY, mixShearY);
+					if (frame == frameLast)
+						break;
+					let time2 = input.readFloat(), mixRotate2 = input.readFloat(), mixX2 = input.readFloat(), mixY2 = input.readFloat(), mixScaleX2 = input.readFloat(), mixScaleY2 = input.readFloat(), mixShearY2 = input.readFloat();
+					switch (input.readByte()) {
+						case CURVE_STEPPED:
+							timeline.setStepped(frame);
+							break;
+						case CURVE_BEZIER:
+							setBezier(input, timeline, bezier++, frame, 0, time, time2, mixRotate, mixRotate2, 1);
+							setBezier(input, timeline, bezier++, frame, 1, time, time2, mixX, mixX2, 1);
+							setBezier(input, timeline, bezier++, frame, 2, time, time2, mixY, mixY2, 1);
+							setBezier(input, timeline, bezier++, frame, 3, time, time2, mixScaleX, mixScaleX2, 1);
+							setBezier(input, timeline, bezier++, frame, 4, time, time2, mixScaleY, mixScaleY2, 1);
+							setBezier(input, timeline, bezier++, frame, 5, time, time2, mixShearY, mixShearY2, 1);
+					}
+					time = time2;
+					mixRotate = mixRotate2;
+					mixX = mixX2;
+					mixY = mixY2;
+					mixScaleX = mixScaleX2;
+					mixScaleY = mixScaleY2;
+					mixShearY = mixShearY2;
+				}
+				timelines.push(timeline);
+			}
+			for (let i = 0, n = input.readInt(true); i < n; i++) {
+				let index = input.readInt(true);
+				let data = skeletonData.pathConstraints[index];
+				for (let ii = 0, nn = input.readInt(true); ii < nn; ii++) {
+					switch (input.readByte()) {
+						case PATH_POSITION:
+							timelines.push(readTimeline1(
+								input,
+								new PathConstraintPositionTimeline(input.readInt(true), input.readInt(true), index),
+								data.positionMode == 0 /* Fixed */ ? scale : 1
+							));
+							break;
+						case PATH_SPACING:
+							timelines.push(readTimeline1(
+								input,
+								new PathConstraintSpacingTimeline(input.readInt(true), input.readInt(true), index),
+								data.spacingMode == 0 /* Length */ || data.spacingMode == 1 /* Fixed */ ? scale : 1
+							));
+							break;
+						case PATH_MIX:
+							let timeline = new PathConstraintMixTimeline(input.readInt(true), input.readInt(true), index);
+							let time = input.readFloat(), mixRotate = input.readFloat(), mixX = input.readFloat(), mixY = input.readFloat();
+							for (let frame = 0, bezier = 0, frameLast = timeline.getFrameCount() - 1; ; frame++) {
+								timeline.setFrame(frame, time, mixRotate, mixX, mixY);
+								if (frame == frameLast)
+									break;
+								let time2 = input.readFloat(), mixRotate2 = input.readFloat(), mixX2 = input.readFloat(), mixY2 = input.readFloat();
+								switch (input.readByte()) {
+									case CURVE_STEPPED:
+										timeline.setStepped(frame);
+										break;
+									case CURVE_BEZIER:
+										setBezier(input, timeline, bezier++, frame, 0, time, time2, mixRotate, mixRotate2, 1);
+										setBezier(input, timeline, bezier++, frame, 1, time, time2, mixX, mixX2, 1);
+										setBezier(input, timeline, bezier++, frame, 2, time, time2, mixY, mixY2, 1);
+								}
+								time = time2;
+								mixRotate = mixRotate2;
+								mixX = mixX2;
+								mixY = mixY2;
+							}
+							timelines.push(timeline);
+					}
+				}
+			}
+			for (let i = 0, n = input.readInt(true); i < n; i++) {
+				let skin = skeletonData.skins[input.readInt(true)];
+				for (let ii = 0, nn = input.readInt(true); ii < nn; ii++) {
+					let slotIndex = input.readInt(true);
+					for (let iii = 0, nnn = input.readInt(true); iii < nnn; iii++) {
+						let attachmentName = input.readStringRef();
+						if (!attachmentName)
+							throw new Error("attachmentName must not be null.");
+						let attachment = skin.getAttachment(slotIndex, attachmentName);
+						let timelineType = input.readByte();
+						let frameCount = input.readInt(true);
+						let frameLast = frameCount - 1;
+						switch (timelineType) {
+							case ATTACHMENT_DEFORM: {
+								let vertexAttachment = attachment;
+								let weighted = vertexAttachment.bones;
+								let vertices = vertexAttachment.vertices;
+								let deformLength = weighted ? vertices.length / 3 * 2 : vertices.length;
+								let bezierCount = input.readInt(true);
+								let timeline = new DeformTimeline(frameCount, bezierCount, slotIndex, vertexAttachment);
+								let time = input.readFloat();
+								for (let frame = 0, bezier = 0; ; frame++) {
+									let deform;
+									let end = input.readInt(true);
+									if (end == 0)
+										deform = weighted ? Utils.newFloatArray(deformLength) : vertices;
+									else {
+										deform = Utils.newFloatArray(deformLength);
+										let start = input.readInt(true);
+										end += start;
+										if (scale == 1) {
+											for (let v = start; v < end; v++)
+												deform[v] = input.readFloat();
+										} else {
+											for (let v = start; v < end; v++)
+												deform[v] = input.readFloat() * scale;
+										}
+										if (!weighted) {
+											for (let v = 0, vn = deform.length; v < vn; v++)
+												deform[v] += vertices[v];
+										}
+									}
+									timeline.setFrame(frame, time, deform);
+									if (frame == frameLast)
+										break;
+									let time2 = input.readFloat();
+									switch (input.readByte()) {
+										case CURVE_STEPPED:
+											timeline.setStepped(frame);
+											break;
+										case CURVE_BEZIER:
+											setBezier(input, timeline, bezier++, frame, 0, time, time2, 0, 1, 1);
+									}
+									time = time2;
+								}
+								timelines.push(timeline);
+								break;
+							}
+							case ATTACHMENT_SEQUENCE: {
+								let timeline = new SequenceTimeline(frameCount, slotIndex, attachment);
+								for (let frame = 0; frame < frameCount; frame++) {
+									let time = input.readFloat();
+									let modeAndIndex = input.readInt32();
+									timeline.setFrame(
+										frame,
+										time,
+										SequenceModeValues[modeAndIndex & 15],
+										modeAndIndex >> 4,
+										input.readFloat()
+									);
+								}
+								timelines.push(timeline);
+								break;
+							}
+						}
+					}
+				}
+			}
+			let drawOrderCount = input.readInt(true);
+			if (drawOrderCount > 0) {
+				let timeline = new DrawOrderTimeline(drawOrderCount);
+				let slotCount = skeletonData.slots.length;
+				for (let i = 0; i < drawOrderCount; i++) {
+					let time = input.readFloat();
+					let offsetCount = input.readInt(true);
+					let drawOrder = Utils.newArray(slotCount, 0);
+					for (let ii = slotCount - 1; ii >= 0; ii--)
+						drawOrder[ii] = -1;
+					let unchanged = Utils.newArray(slotCount - offsetCount, 0);
+					let originalIndex = 0, unchangedIndex = 0;
+					for (let ii = 0; ii < offsetCount; ii++) {
+						let slotIndex = input.readInt(true);
+						while (originalIndex != slotIndex)
+							unchanged[unchangedIndex++] = originalIndex++;
+						drawOrder[originalIndex + input.readInt(true)] = originalIndex++;
+					}
+					while (originalIndex < slotCount)
+						unchanged[unchangedIndex++] = originalIndex++;
+					for (let ii = slotCount - 1; ii >= 0; ii--)
+						if (drawOrder[ii] == -1)
+							drawOrder[ii] = unchanged[--unchangedIndex];
+					timeline.setFrame(i, time, drawOrder);
+				}
+				timelines.push(timeline);
+			}
+			let eventCount = input.readInt(true);
+			if (eventCount > 0) {
+				let timeline = new EventTimeline(eventCount);
+				for (let i = 0; i < eventCount; i++) {
+					let time = input.readFloat();
+					let eventData = skeletonData.events[input.readInt(true)];
+					let event = new Event(time, eventData);
+					event.intValue = input.readInt(false);
+					event.floatValue = input.readFloat();
+					event.stringValue = input.readBoolean() ? input.readString() : eventData.stringValue;
+					if (event.data.audioPath) {
+						event.volume = input.readFloat();
+						event.balance = input.readFloat();
+					}
+					timeline.setFrame(i, event);
+				}
+				timelines.push(timeline);
+			}
+			let duration = 0;
+			for (let i = 0, n = timelines.length; i < n; i++)
+				duration = Math.max(duration, timelines[i].getDuration());
+			return new Animation(name, timelines, duration);
+		}
+	};
+	var BinaryInput = class {
+		constructor(data, strings = new Array(), index = 0, buffer = new DataView(data.buffer)) {
+			this.strings = strings;
+			this.index = index;
+			this.buffer = buffer;
+		}
+		readByte() {
+			return this.buffer.getInt8(this.index++);
+		}
+		readUnsignedByte() {
+			return this.buffer.getUint8(this.index++);
+		}
+		readShort() {
+			let value = this.buffer.getInt16(this.index);
+			this.index += 2;
+			return value;
+		}
+		readInt32() {
+			let value = this.buffer.getInt32(this.index);
+			this.index += 4;
+			return value;
+		}
+		readInt(optimizePositive) {
+			let b = this.readByte();
+			let result = b & 127;
+			if ((b & 128) != 0) {
+				b = this.readByte();
+				result |= (b & 127) << 7;
+				if ((b & 128) != 0) {
+					b = this.readByte();
+					result |= (b & 127) << 14;
+					if ((b & 128) != 0) {
+						b = this.readByte();
+						result |= (b & 127) << 21;
+						if ((b & 128) != 0) {
+							b = this.readByte();
+							result |= (b & 127) << 28;
+						}
+					}
+				}
+			}
+			return optimizePositive ? result : result >>> 1 ^ -(result & 1);
+		}
+		readStringRef() {
+			let index = this.readInt(true);
+			return index == 0 ? null : this.strings[index - 1];
+		}
+		readString() {
+			let byteCount = this.readInt(true);
+			switch (byteCount) {
+				case 0:
+					return null;
+				case 1:
+					return "";
+			}
+			byteCount--;
+			let chars = "";
+			let charCount = 0;
+			for (let i = 0; i < byteCount;) {
+				let b = this.readUnsignedByte();
+				switch (b >> 4) {
+					case 12:
+					case 13:
+						chars += String.fromCharCode((b & 31) << 6 | this.readByte() & 63);
+						i += 2;
+						break;
+					case 14:
+						chars += String.fromCharCode((b & 15) << 12 | (this.readByte() & 63) << 6 | this.readByte() & 63);
+						i += 3;
+						break;
+					default:
+						chars += String.fromCharCode(b);
+						i++;
+				}
+			}
+			return chars;
+		}
+		readFloat() {
+			let value = this.buffer.getFloat32(this.index);
+			this.index += 4;
+			return value;
+		}
+		readBoolean() {
+			return this.readByte() != 0;
+		}
+	};
+	var LinkedMesh = class {
+		constructor(mesh, skin, slotIndex, parent, inheritDeform) {
+			this.mesh = mesh;
+			this.skin = skin;
+			this.slotIndex = slotIndex;
+			this.parent = parent;
+			this.inheritTimeline = inheritDeform;
+		}
+	};
+	var Vertices = class {
+		constructor(bones = null, vertices = null) {
+			this.bones = bones;
+			this.vertices = vertices;
+		}
+	};
+	var AttachmentType = /* @__PURE__ */ ((AttachmentType2) => {
+		AttachmentType2[AttachmentType2["Region"] = 0] = "Region";
+		AttachmentType2[AttachmentType2["BoundingBox"] = 1] = "BoundingBox";
+		AttachmentType2[AttachmentType2["Mesh"] = 2] = "Mesh";
+		AttachmentType2[AttachmentType2["LinkedMesh"] = 3] = "LinkedMesh";
+		AttachmentType2[AttachmentType2["Path"] = 4] = "Path";
+		AttachmentType2[AttachmentType2["Point"] = 5] = "Point";
+		AttachmentType2[AttachmentType2["Clipping"] = 6] = "Clipping";
+		return AttachmentType2;
+	})(AttachmentType || {});
+	function readTimeline1(input, timeline, scale) {
+		let time = input.readFloat(), value = input.readFloat() * scale;
+		for (let frame = 0, bezier = 0, frameLast = timeline.getFrameCount() - 1; ; frame++) {
+			timeline.setFrame(frame, time, value);
+			if (frame == frameLast)
+				break;
+			let time2 = input.readFloat(), value2 = input.readFloat() * scale;
+			switch (input.readByte()) {
+				case CURVE_STEPPED:
+					timeline.setStepped(frame);
+					break;
+				case CURVE_BEZIER:
+					setBezier(input, timeline, bezier++, frame, 0, time, time2, value, value2, scale);
+			}
+			time = time2;
+			value = value2;
+		}
+		return timeline;
+	}
+	function readTimeline2(input, timeline, scale) {
+		let time = input.readFloat(), value1 = input.readFloat() * scale, value2 = input.readFloat() * scale;
+		for (let frame = 0, bezier = 0, frameLast = timeline.getFrameCount() - 1; ; frame++) {
+			timeline.setFrame(frame, time, value1, value2);
+			if (frame == frameLast)
+				break;
+			let time2 = input.readFloat(), nvalue1 = input.readFloat() * scale, nvalue2 = input.readFloat() * scale;
+			switch (input.readByte()) {
+				case CURVE_STEPPED:
+					timeline.setStepped(frame);
+					break;
+				case CURVE_BEZIER:
+					setBezier(input, timeline, bezier++, frame, 0, time, time2, value1, nvalue1, scale);
+					setBezier(input, timeline, bezier++, frame, 1, time, time2, value2, nvalue2, scale);
+			}
+			time = time2;
+			value1 = nvalue1;
+			value2 = nvalue2;
+		}
+		return timeline;
+	}
+	function setBezier(input, timeline, bezier, frame, value, time1, time2, value1, value2, scale) {
+		timeline.setBezier(bezier, frame, value, time1, value1, input.readFloat(), input.readFloat() * scale, input.readFloat(), input.readFloat() * scale, time2, value2);
+	}
+	var BONE_ROTATE = 0;
+	var BONE_TRANSLATE = 1;
+	var BONE_TRANSLATEX = 2;
+	var BONE_TRANSLATEY = 3;
+	var BONE_SCALE = 4;
+	var BONE_SCALEX = 5;
+	var BONE_SCALEY = 6;
+	var BONE_SHEAR = 7;
+	var BONE_SHEARX = 8;
+	var BONE_SHEARY = 9;
+	var SLOT_ATTACHMENT = 0;
+	var SLOT_RGBA = 1;
+	var SLOT_RGB = 2;
+	var SLOT_RGBA2 = 3;
+	var SLOT_RGB2 = 4;
+	var SLOT_ALPHA = 5;
+	var ATTACHMENT_DEFORM = 0;
+	var ATTACHMENT_SEQUENCE = 1;
+	var PATH_POSITION = 0;
+	var PATH_SPACING = 1;
+	var PATH_MIX = 2;
+	var CURVE_STEPPED = 1;
+	var CURVE_BEZIER = 2;
+
+	// spine-core/src/SkeletonBounds.ts
+	var SkeletonBounds = class {
+		constructor() {
+			/** The left edge of the axis aligned bounding box. */
+			this.minX = 0;
+			/** The bottom edge of the axis aligned bounding box. */
+			this.minY = 0;
+			/** The right edge of the axis aligned bounding box. */
+			this.maxX = 0;
+			/** The top edge of the axis aligned bounding box. */
+			this.maxY = 0;
+			/** The visible bounding boxes. */
+			this.boundingBoxes = new Array();
+			/** The world vertices for the bounding box polygons. */
+			this.polygons = new Array();
+			this.polygonPool = new Pool(() => {
+				return Utils.newFloatArray(16);
+			});
+		}
+		/** Clears any previous polygons, finds all visible bounding box attachments, and computes the world vertices for each bounding
+		 * box's polygon.
+		 * @param updateAabb If true, the axis aligned bounding box containing all the polygons is computed. If false, the
+		 *           SkeletonBounds AABB methods will always return true. */
+		update(skeleton, updateAabb) {
+			if (!skeleton)
+				throw new Error("skeleton cannot be null.");
+			let boundingBoxes = this.boundingBoxes;
+			let polygons = this.polygons;
+			let polygonPool = this.polygonPool;
+			let slots = skeleton.slots;
+			let slotCount = slots.length;
+			boundingBoxes.length = 0;
+			polygonPool.freeAll(polygons);
+			polygons.length = 0;
+			for (let i = 0; i < slotCount; i++) {
+				let slot = slots[i];
+				if (!slot.bone.active)
+					continue;
+				let attachment = slot.getAttachment();
+				if (attachment instanceof BoundingBoxAttachment) {
+					let boundingBox = attachment;
+					boundingBoxes.push(boundingBox);
+					let polygon = polygonPool.obtain();
+					if (polygon.length != boundingBox.worldVerticesLength) {
+						polygon = Utils.newFloatArray(boundingBox.worldVerticesLength);
+					}
+					polygons.push(polygon);
+					boundingBox.computeWorldVertices(slot, 0, boundingBox.worldVerticesLength, polygon, 0, 2);
+				}
+			}
+			if (updateAabb) {
+				this.aabbCompute();
+			} else {
+				this.minX = Number.POSITIVE_INFINITY;
+				this.minY = Number.POSITIVE_INFINITY;
+				this.maxX = Number.NEGATIVE_INFINITY;
+				this.maxY = Number.NEGATIVE_INFINITY;
+			}
+		}
+		aabbCompute() {
+			let minX = Number.POSITIVE_INFINITY, minY = Number.POSITIVE_INFINITY, maxX = Number.NEGATIVE_INFINITY, maxY = Number.NEGATIVE_INFINITY;
+			let polygons = this.polygons;
+			for (let i = 0, n = polygons.length; i < n; i++) {
+				let polygon = polygons[i];
+				let vertices = polygon;
+				for (let ii = 0, nn = polygon.length; ii < nn; ii += 2) {
+					let x = vertices[ii];
+					let y = vertices[ii + 1];
+					minX = Math.min(minX, x);
+					minY = Math.min(minY, y);
+					maxX = Math.max(maxX, x);
+					maxY = Math.max(maxY, y);
+				}
+			}
+			this.minX = minX;
+			this.minY = minY;
+			this.maxX = maxX;
+			this.maxY = maxY;
+		}
+		/** Returns true if the axis aligned bounding box contains the point. */
+		aabbContainsPoint(x, y) {
+			return x >= this.minX && x <= this.maxX && y >= this.minY && y <= this.maxY;
+		}
+		/** Returns true if the axis aligned bounding box intersects the line segment. */
+		aabbIntersectsSegment(x1, y1, x2, y2) {
+			let minX = this.minX;
+			let minY = this.minY;
+			let maxX = this.maxX;
+			let maxY = this.maxY;
+			if (x1 <= minX && x2 <= minX || y1 <= minY && y2 <= minY || x1 >= maxX && x2 >= maxX || y1 >= maxY && y2 >= maxY)
+				return false;
+			let m = (y2 - y1) / (x2 - x1);
+			let y = m * (minX - x1) + y1;
+			if (y > minY && y < maxY)
+				return true;
+			y = m * (maxX - x1) + y1;
+			if (y > minY && y < maxY)
+				return true;
+			let x = (minY - y1) / m + x1;
+			if (x > minX && x < maxX)
+				return true;
+			x = (maxY - y1) / m + x1;
+			if (x > minX && x < maxX)
+				return true;
+			return false;
+		}
+		/** Returns true if the axis aligned bounding box intersects the axis aligned bounding box of the specified bounds. */
+		aabbIntersectsSkeleton(bounds) {
+			return this.minX < bounds.maxX && this.maxX > bounds.minX && this.minY < bounds.maxY && this.maxY > bounds.minY;
+		}
+		/** Returns the first bounding box attachment that contains the point, or null. When doing many checks, it is usually more
+		 * efficient to only call this method if {@link #aabbContainsPoint(float, float)} returns true. */
+		containsPoint(x, y) {
+			let polygons = this.polygons;
+			for (let i = 0, n = polygons.length; i < n; i++)
+				if (this.containsPointPolygon(polygons[i], x, y))
+					return this.boundingBoxes[i];
+			return null;
+		}
+		/** Returns true if the polygon contains the point. */
+		containsPointPolygon(polygon, x, y) {
+			let vertices = polygon;
+			let nn = polygon.length;
+			let prevIndex = nn - 2;
+			let inside = false;
+			for (let ii = 0; ii < nn; ii += 2) {
+				let vertexY = vertices[ii + 1];
+				let prevY = vertices[prevIndex + 1];
+				if (vertexY < y && prevY >= y || prevY < y && vertexY >= y) {
+					let vertexX = vertices[ii];
+					if (vertexX + (y - vertexY) / (prevY - vertexY) * (vertices[prevIndex] - vertexX) < x)
+						inside = !inside;
+				}
+				prevIndex = ii;
+			}
+			return inside;
+		}
+		/** Returns the first bounding box attachment that contains any part of the line segment, or null. When doing many checks, it
+		 * is usually more efficient to only call this method if {@link #aabbIntersectsSegment()} returns
+		 * true. */
+		intersectsSegment(x1, y1, x2, y2) {
+			let polygons = this.polygons;
+			for (let i = 0, n = polygons.length; i < n; i++)
+				if (this.intersectsSegmentPolygon(polygons[i], x1, y1, x2, y2))
+					return this.boundingBoxes[i];
+			return null;
+		}
+		/** Returns true if the polygon contains any part of the line segment. */
+		intersectsSegmentPolygon(polygon, x1, y1, x2, y2) {
+			let vertices = polygon;
+			let nn = polygon.length;
+			let width12 = x1 - x2, height12 = y1 - y2;
+			let det1 = x1 * y2 - y1 * x2;
+			let x3 = vertices[nn - 2], y3 = vertices[nn - 1];
+			for (let ii = 0; ii < nn; ii += 2) {
+				let x4 = vertices[ii], y4 = vertices[ii + 1];
+				let det2 = x3 * y4 - y3 * x4;
+				let width34 = x3 - x4, height34 = y3 - y4;
+				let det3 = width12 * height34 - height12 * width34;
+				let x = (det1 * width34 - width12 * det2) / det3;
+				if ((x >= x3 && x <= x4 || x >= x4 && x <= x3) && (x >= x1 && x <= x2 || x >= x2 && x <= x1)) {
+					let y = (det1 * height34 - height12 * det2) / det3;
+					if ((y >= y3 && y <= y4 || y >= y4 && y <= y3) && (y >= y1 && y <= y2 || y >= y2 && y <= y1))
+						return true;
+				}
+				x3 = x4;
+				y3 = y4;
+			}
+			return false;
+		}
+		/** Returns the polygon for the specified bounding box, or null. */
+		getPolygon(boundingBox) {
+			if (!boundingBox)
+				throw new Error("boundingBox cannot be null.");
+			let index = this.boundingBoxes.indexOf(boundingBox);
+			return index == -1 ? null : this.polygons[index];
+		}
+		/** The width of the axis aligned bounding box. */
+		getWidth() {
+			return this.maxX - this.minX;
+		}
+		/** The height of the axis aligned bounding box. */
+		getHeight() {
+			return this.maxY - this.minY;
+		}
+	};
+
+	// spine-core/src/Triangulator.ts
+	var Triangulator = class {
+		constructor() {
+			this.convexPolygons = new Array();
+			this.convexPolygonsIndices = new Array();
+			this.indicesArray = new Array();
+			this.isConcaveArray = new Array();
+			this.triangles = new Array();
+			this.polygonPool = new Pool(() => {
+				return new Array();
+			});
+			this.polygonIndicesPool = new Pool(() => {
+				return new Array();
+			});
+		}
+		triangulate(verticesArray) {
+			let vertices = verticesArray;
+			let vertexCount = verticesArray.length >> 1;
+			let indices = this.indicesArray;
+			indices.length = 0;
+			for (let i = 0; i < vertexCount; i++)
+				indices[i] = i;
+			let isConcave = this.isConcaveArray;
+			isConcave.length = 0;
+			for (let i = 0, n = vertexCount; i < n; ++i)
+				isConcave[i] = Triangulator.isConcave(i, vertexCount, vertices, indices);
+			let triangles = this.triangles;
+			triangles.length = 0;
+			while (vertexCount > 3) {
+				let previous = vertexCount - 1, i = 0, next = 1;
+				while (true) {
+					outer:
+					if (!isConcave[i]) {
+						let p1 = indices[previous] << 1, p2 = indices[i] << 1, p3 = indices[next] << 1;
+						let p1x = vertices[p1], p1y = vertices[p1 + 1];
+						let p2x = vertices[p2], p2y = vertices[p2 + 1];
+						let p3x = vertices[p3], p3y = vertices[p3 + 1];
+						for (let ii = (next + 1) % vertexCount; ii != previous; ii = (ii + 1) % vertexCount) {
+							if (!isConcave[ii])
+								continue;
+							let v = indices[ii] << 1;
+							let vx = vertices[v], vy = vertices[v + 1];
+							if (Triangulator.positiveArea(p3x, p3y, p1x, p1y, vx, vy)) {
+								if (Triangulator.positiveArea(p1x, p1y, p2x, p2y, vx, vy)) {
+									if (Triangulator.positiveArea(p2x, p2y, p3x, p3y, vx, vy))
+										break outer;
+								}
+							}
+						}
+						break;
+					}
+					if (next == 0) {
+						do {
+							if (!isConcave[i])
+								break;
+							i--;
+						} while (i > 0);
+						break;
+					}
+					previous = i;
+					i = next;
+					next = (next + 1) % vertexCount;
+				}
+				triangles.push(indices[(vertexCount + i - 1) % vertexCount]);
+				triangles.push(indices[i]);
+				triangles.push(indices[(i + 1) % vertexCount]);
+				indices.splice(i, 1);
+				isConcave.splice(i, 1);
+				vertexCount--;
+				let previousIndex = (vertexCount + i - 1) % vertexCount;
+				let nextIndex = i == vertexCount ? 0 : i;
+				isConcave[previousIndex] = Triangulator.isConcave(previousIndex, vertexCount, vertices, indices);
+				isConcave[nextIndex] = Triangulator.isConcave(nextIndex, vertexCount, vertices, indices);
+			}
+			if (vertexCount == 3) {
+				triangles.push(indices[2]);
+				triangles.push(indices[0]);
+				triangles.push(indices[1]);
+			}
+			return triangles;
+		}
+		decompose(verticesArray, triangles) {
+			let vertices = verticesArray;
+			let convexPolygons = this.convexPolygons;
+			this.polygonPool.freeAll(convexPolygons);
+			convexPolygons.length = 0;
+			let convexPolygonsIndices = this.convexPolygonsIndices;
+			this.polygonIndicesPool.freeAll(convexPolygonsIndices);
+			convexPolygonsIndices.length = 0;
+			let polygonIndices = this.polygonIndicesPool.obtain();
+			polygonIndices.length = 0;
+			let polygon = this.polygonPool.obtain();
+			polygon.length = 0;
+			let fanBaseIndex = -1, lastWinding = 0;
+			for (let i = 0, n = triangles.length; i < n; i += 3) {
+				let t1 = triangles[i] << 1, t2 = triangles[i + 1] << 1, t3 = triangles[i + 2] << 1;
+				let x1 = vertices[t1], y1 = vertices[t1 + 1];
+				let x2 = vertices[t2], y2 = vertices[t2 + 1];
+				let x3 = vertices[t3], y3 = vertices[t3 + 1];
+				let merged = false;
+				if (fanBaseIndex == t1) {
+					let o = polygon.length - 4;
+					let winding1 = Triangulator.winding(polygon[o], polygon[o + 1], polygon[o + 2], polygon[o + 3], x3, y3);
+					let winding2 = Triangulator.winding(x3, y3, polygon[0], polygon[1], polygon[2], polygon[3]);
+					if (winding1 == lastWinding && winding2 == lastWinding) {
+						polygon.push(x3);
+						polygon.push(y3);
+						polygonIndices.push(t3);
+						merged = true;
+					}
+				}
+				if (!merged) {
+					if (polygon.length > 0) {
+						convexPolygons.push(polygon);
+						convexPolygonsIndices.push(polygonIndices);
+					} else {
+						this.polygonPool.free(polygon);
+						this.polygonIndicesPool.free(polygonIndices);
+					}
+					polygon = this.polygonPool.obtain();
+					polygon.length = 0;
+					polygon.push(x1);
+					polygon.push(y1);
+					polygon.push(x2);
+					polygon.push(y2);
+					polygon.push(x3);
+					polygon.push(y3);
+					polygonIndices = this.polygonIndicesPool.obtain();
+					polygonIndices.length = 0;
+					polygonIndices.push(t1);
+					polygonIndices.push(t2);
+					polygonIndices.push(t3);
+					lastWinding = Triangulator.winding(x1, y1, x2, y2, x3, y3);
+					fanBaseIndex = t1;
+				}
+			}
+			if (polygon.length > 0) {
+				convexPolygons.push(polygon);
+				convexPolygonsIndices.push(polygonIndices);
+			}
+			for (let i = 0, n = convexPolygons.length; i < n; i++) {
+				polygonIndices = convexPolygonsIndices[i];
+				if (polygonIndices.length == 0)
+					continue;
+				let firstIndex = polygonIndices[0];
+				let lastIndex = polygonIndices[polygonIndices.length - 1];
+				polygon = convexPolygons[i];
+				let o = polygon.length - 4;
+				let prevPrevX = polygon[o], prevPrevY = polygon[o + 1];
+				let prevX = polygon[o + 2], prevY = polygon[o + 3];
+				let firstX = polygon[0], firstY = polygon[1];
+				let secondX = polygon[2], secondY = polygon[3];
+				let winding = Triangulator.winding(prevPrevX, prevPrevY, prevX, prevY, firstX, firstY);
+				for (let ii = 0; ii < n; ii++) {
+					if (ii == i)
+						continue;
+					let otherIndices = convexPolygonsIndices[ii];
+					if (otherIndices.length != 3)
+						continue;
+					let otherFirstIndex = otherIndices[0];
+					let otherSecondIndex = otherIndices[1];
+					let otherLastIndex = otherIndices[2];
+					let otherPoly = convexPolygons[ii];
+					let x3 = otherPoly[otherPoly.length - 2], y3 = otherPoly[otherPoly.length - 1];
+					if (otherFirstIndex != firstIndex || otherSecondIndex != lastIndex)
+						continue;
+					let winding1 = Triangulator.winding(prevPrevX, prevPrevY, prevX, prevY, x3, y3);
+					let winding2 = Triangulator.winding(x3, y3, firstX, firstY, secondX, secondY);
+					if (winding1 == winding && winding2 == winding) {
+						otherPoly.length = 0;
+						otherIndices.length = 0;
+						polygon.push(x3);
+						polygon.push(y3);
+						polygonIndices.push(otherLastIndex);
+						prevPrevX = prevX;
+						prevPrevY = prevY;
+						prevX = x3;
+						prevY = y3;
+						ii = 0;
+					}
+				}
+			}
+			for (let i = convexPolygons.length - 1; i >= 0; i--) {
+				polygon = convexPolygons[i];
+				if (polygon.length == 0) {
+					convexPolygons.splice(i, 1);
+					this.polygonPool.free(polygon);
+					polygonIndices = convexPolygonsIndices[i];
+					convexPolygonsIndices.splice(i, 1);
+					this.polygonIndicesPool.free(polygonIndices);
+				}
+			}
+			return convexPolygons;
+		}
+		static isConcave(index, vertexCount, vertices, indices) {
+			let previous = indices[(vertexCount + index - 1) % vertexCount] << 1;
+			let current = indices[index] << 1;
+			let next = indices[(index + 1) % vertexCount] << 1;
+			return !this.positiveArea(
+				vertices[previous],
+				vertices[previous + 1],
+				vertices[current],
+				vertices[current + 1],
+				vertices[next],
+				vertices[next + 1]
+			);
+		}
+		static positiveArea(p1x, p1y, p2x, p2y, p3x, p3y) {
+			return p1x * (p3y - p2y) + p2x * (p1y - p3y) + p3x * (p2y - p1y) >= 0;
+		}
+		static winding(p1x, p1y, p2x, p2y, p3x, p3y) {
+			let px = p2x - p1x, py = p2y - p1y;
+			return p3x * py - p3y * px + px * p1y - p1x * py >= 0 ? 1 : -1;
+		}
+	};
+
+	// spine-core/src/SkeletonClipping.ts
+	var SkeletonClipping = class {
+		constructor() {
+			this.triangulator = new Triangulator();
+			this.clippingPolygon = new Array();
+			this.clipOutput = new Array();
+			this.clippedVertices = new Array();
+			this.clippedTriangles = new Array();
+			this.scratch = new Array();
+			this.clipAttachment = null;
+			this.clippingPolygons = null;
+		}
+		clipStart(slot, clip) {
+			if (this.clipAttachment)
+				return 0;
+			this.clipAttachment = clip;
+			let n = clip.worldVerticesLength;
+			let vertices = Utils.setArraySize(this.clippingPolygon, n);
+			clip.computeWorldVertices(slot, 0, n, vertices, 0, 2);
+			let clippingPolygon = this.clippingPolygon;
+			SkeletonClipping.makeClockwise(clippingPolygon);
+			let clippingPolygons = this.clippingPolygons = this.triangulator.decompose(clippingPolygon, this.triangulator.triangulate(clippingPolygon));
+			for (let i = 0, n2 = clippingPolygons.length; i < n2; i++) {
+				let polygon = clippingPolygons[i];
+				SkeletonClipping.makeClockwise(polygon);
+				polygon.push(polygon[0]);
+				polygon.push(polygon[1]);
+			}
+			return clippingPolygons.length;
+		}
+		clipEndWithSlot(slot) {
+			if (this.clipAttachment && this.clipAttachment.endSlot == slot.data)
+				this.clipEnd();
+		}
+		clipEnd() {
+			if (!this.clipAttachment)
+				return;
+			this.clipAttachment = null;
+			this.clippingPolygons = null;
+			this.clippedVertices.length = 0;
+			this.clippedTriangles.length = 0;
+			this.clippingPolygon.length = 0;
+		}
+		isClipping() {
+			return this.clipAttachment != null;
+		}
+		clipTriangles(vertices, verticesLength, triangles, trianglesLength, uvs, light, dark, twoColor) {
+			let clipOutput = this.clipOutput, clippedVertices = this.clippedVertices;
+			let clippedTriangles = this.clippedTriangles;
+			let polygons = this.clippingPolygons;
+			let polygonsCount = polygons.length;
+			let vertexSize = twoColor ? 12 : 8;
+			let index = 0;
+			clippedVertices.length = 0;
+			clippedTriangles.length = 0;
+			outer:
+			for (let i = 0; i < trianglesLength; i += 3) {
+				let vertexOffset = triangles[i] << 1;
+				let x1 = vertices[vertexOffset], y1 = vertices[vertexOffset + 1];
+				let u1 = uvs[vertexOffset], v1 = uvs[vertexOffset + 1];
+				vertexOffset = triangles[i + 1] << 1;
+				let x2 = vertices[vertexOffset], y2 = vertices[vertexOffset + 1];
+				let u2 = uvs[vertexOffset], v2 = uvs[vertexOffset + 1];
+				vertexOffset = triangles[i + 2] << 1;
+				let x3 = vertices[vertexOffset], y3 = vertices[vertexOffset + 1];
+				let u3 = uvs[vertexOffset], v3 = uvs[vertexOffset + 1];
+				for (let p = 0; p < polygonsCount; p++) {
+					let s = clippedVertices.length;
+					if (this.clip(x1, y1, x2, y2, x3, y3, polygons[p], clipOutput)) {
+						let clipOutputLength = clipOutput.length;
+						if (clipOutputLength == 0)
+							continue;
+						let d0 = y2 - y3, d1 = x3 - x2, d2 = x1 - x3, d4 = y3 - y1;
+						let d = 1 / (d0 * d2 + d1 * (y1 - y3));
+						let clipOutputCount = clipOutputLength >> 1;
+						let clipOutputItems = this.clipOutput;
+						let clippedVerticesItems = Utils.setArraySize(clippedVertices, s + clipOutputCount * vertexSize);
+						for (let ii = 0; ii < clipOutputLength; ii += 2) {
+							let x = clipOutputItems[ii], y = clipOutputItems[ii + 1];
+							clippedVerticesItems[s] = x;
+							clippedVerticesItems[s + 1] = y;
+							clippedVerticesItems[s + 2] = light.r;
+							clippedVerticesItems[s + 3] = light.g;
+							clippedVerticesItems[s + 4] = light.b;
+							clippedVerticesItems[s + 5] = light.a;
+							let c0 = x - x3, c1 = y - y3;
+							let a = (d0 * c0 + d1 * c1) * d;
+							let b = (d4 * c0 + d2 * c1) * d;
+							let c = 1 - a - b;
+							clippedVerticesItems[s + 6] = u1 * a + u2 * b + u3 * c;
+							clippedVerticesItems[s + 7] = v1 * a + v2 * b + v3 * c;
+							if (twoColor) {
+								clippedVerticesItems[s + 8] = dark.r;
+								clippedVerticesItems[s + 9] = dark.g;
+								clippedVerticesItems[s + 10] = dark.b;
+								clippedVerticesItems[s + 11] = dark.a;
+							}
+							s += vertexSize;
+						}
+						s = clippedTriangles.length;
+						let clippedTrianglesItems = Utils.setArraySize(clippedTriangles, s + 3 * (clipOutputCount - 2));
+						clipOutputCount--;
+						for (let ii = 1; ii < clipOutputCount; ii++) {
+							clippedTrianglesItems[s] = index;
+							clippedTrianglesItems[s + 1] = index + ii;
+							clippedTrianglesItems[s + 2] = index + ii + 1;
+							s += 3;
+						}
+						index += clipOutputCount + 1;
+					} else {
+						let clippedVerticesItems = Utils.setArraySize(clippedVertices, s + 3 * vertexSize);
+						clippedVerticesItems[s] = x1;
+						clippedVerticesItems[s + 1] = y1;
+						clippedVerticesItems[s + 2] = light.r;
+						clippedVerticesItems[s + 3] = light.g;
+						clippedVerticesItems[s + 4] = light.b;
+						clippedVerticesItems[s + 5] = light.a;
+						if (!twoColor) {
+							clippedVerticesItems[s + 6] = u1;
+							clippedVerticesItems[s + 7] = v1;
+							clippedVerticesItems[s + 8] = x2;
+							clippedVerticesItems[s + 9] = y2;
+							clippedVerticesItems[s + 10] = light.r;
+							clippedVerticesItems[s + 11] = light.g;
+							clippedVerticesItems[s + 12] = light.b;
+							clippedVerticesItems[s + 13] = light.a;
+							clippedVerticesItems[s + 14] = u2;
+							clippedVerticesItems[s + 15] = v2;
+							clippedVerticesItems[s + 16] = x3;
+							clippedVerticesItems[s + 17] = y3;
+							clippedVerticesItems[s + 18] = light.r;
+							clippedVerticesItems[s + 19] = light.g;
+							clippedVerticesItems[s + 20] = light.b;
+							clippedVerticesItems[s + 21] = light.a;
+							clippedVerticesItems[s + 22] = u3;
+							clippedVerticesItems[s + 23] = v3;
+						} else {
+							clippedVerticesItems[s + 6] = u1;
+							clippedVerticesItems[s + 7] = v1;
+							clippedVerticesItems[s + 8] = dark.r;
+							clippedVerticesItems[s + 9] = dark.g;
+							clippedVerticesItems[s + 10] = dark.b;
+							clippedVerticesItems[s + 11] = dark.a;
+							clippedVerticesItems[s + 12] = x2;
+							clippedVerticesItems[s + 13] = y2;
+							clippedVerticesItems[s + 14] = light.r;
+							clippedVerticesItems[s + 15] = light.g;
+							clippedVerticesItems[s + 16] = light.b;
+							clippedVerticesItems[s + 17] = light.a;
+							clippedVerticesItems[s + 18] = u2;
+							clippedVerticesItems[s + 19] = v2;
+							clippedVerticesItems[s + 20] = dark.r;
+							clippedVerticesItems[s + 21] = dark.g;
+							clippedVerticesItems[s + 22] = dark.b;
+							clippedVerticesItems[s + 23] = dark.a;
+							clippedVerticesItems[s + 24] = x3;
+							clippedVerticesItems[s + 25] = y3;
+							clippedVerticesItems[s + 26] = light.r;
+							clippedVerticesItems[s + 27] = light.g;
+							clippedVerticesItems[s + 28] = light.b;
+							clippedVerticesItems[s + 29] = light.a;
+							clippedVerticesItems[s + 30] = u3;
+							clippedVerticesItems[s + 31] = v3;
+							clippedVerticesItems[s + 32] = dark.r;
+							clippedVerticesItems[s + 33] = dark.g;
+							clippedVerticesItems[s + 34] = dark.b;
+							clippedVerticesItems[s + 35] = dark.a;
+						}
+						s = clippedTriangles.length;
+						let clippedTrianglesItems = Utils.setArraySize(clippedTriangles, s + 3);
+						clippedTrianglesItems[s] = index;
+						clippedTrianglesItems[s + 1] = index + 1;
+						clippedTrianglesItems[s + 2] = index + 2;
+						index += 3;
+						continue outer;
+					}
+				}
+			}
+		}
+		/** Clips the input triangle against the convex, clockwise clipping area. If the triangle lies entirely within the clipping
+		 * area, false is returned. The clipping area must duplicate the first vertex at the end of the vertices list. */
+		clip(x1, y1, x2, y2, x3, y3, clippingArea, output) {
+			let originalOutput = output;
+			let clipped = false;
+			let input;
+			if (clippingArea.length % 4 >= 2) {
+				input = output;
+				output = this.scratch;
+			} else
+				input = this.scratch;
+			input.length = 0;
+			input.push(x1);
+			input.push(y1);
+			input.push(x2);
+			input.push(y2);
+			input.push(x3);
+			input.push(y3);
+			input.push(x1);
+			input.push(y1);
+			output.length = 0;
+			let clippingVertices = clippingArea;
+			let clippingVerticesLast = clippingArea.length - 4;
+			for (let i = 0; ; i += 2) {
+				let edgeX = clippingVertices[i], edgeY = clippingVertices[i + 1];
+				let edgeX2 = clippingVertices[i + 2], edgeY2 = clippingVertices[i + 3];
+				let deltaX = edgeX - edgeX2, deltaY = edgeY - edgeY2;
+				let inputVertices = input;
+				let inputVerticesLength = input.length - 2, outputStart = output.length;
+				for (let ii = 0; ii < inputVerticesLength; ii += 2) {
+					let inputX = inputVertices[ii], inputY = inputVertices[ii + 1];
+					let inputX2 = inputVertices[ii + 2], inputY2 = inputVertices[ii + 3];
+					let side2 = deltaX * (inputY2 - edgeY2) - deltaY * (inputX2 - edgeX2) > 0;
+					if (deltaX * (inputY - edgeY2) - deltaY * (inputX - edgeX2) > 0) {
+						if (side2) {
+							output.push(inputX2);
+							output.push(inputY2);
+							continue;
+						}
+						let c0 = inputY2 - inputY, c2 = inputX2 - inputX;
+						let s = c0 * (edgeX2 - edgeX) - c2 * (edgeY2 - edgeY);
+						if (Math.abs(s) > 1e-6) {
+							let ua = (c2 * (edgeY - inputY) - c0 * (edgeX - inputX)) / s;
+							output.push(edgeX + (edgeX2 - edgeX) * ua);
+							output.push(edgeY + (edgeY2 - edgeY) * ua);
+						} else {
+							output.push(edgeX);
+							output.push(edgeY);
+						}
+					} else if (side2) {
+						let c0 = inputY2 - inputY, c2 = inputX2 - inputX;
+						let s = c0 * (edgeX2 - edgeX) - c2 * (edgeY2 - edgeY);
+						if (Math.abs(s) > 1e-6) {
+							let ua = (c2 * (edgeY - inputY) - c0 * (edgeX - inputX)) / s;
+							output.push(edgeX + (edgeX2 - edgeX) * ua);
+							output.push(edgeY + (edgeY2 - edgeY) * ua);
+						} else {
+							output.push(edgeX);
+							output.push(edgeY);
+						}
+						output.push(inputX2);
+						output.push(inputY2);
+					}
+					clipped = true;
+				}
+				if (outputStart == output.length) {
+					originalOutput.length = 0;
+					return true;
+				}
+				output.push(output[0]);
+				output.push(output[1]);
+				if (i == clippingVerticesLast)
+					break;
+				let temp = output;
+				output = input;
+				output.length = 0;
+				input = temp;
+			}
+			if (originalOutput != output) {
+				originalOutput.length = 0;
+				for (let i = 0, n = output.length - 2; i < n; i++)
+					originalOutput[i] = output[i];
+			} else
+				originalOutput.length = originalOutput.length - 2;
+			return clipped;
+		}
+		static makeClockwise(polygon) {
+			let vertices = polygon;
+			let verticeslength = polygon.length;
+			let area = vertices[verticeslength - 2] * vertices[1] - vertices[0] * vertices[verticeslength - 1], p1x = 0, p1y = 0, p2x = 0, p2y = 0;
+			for (let i = 0, n = verticeslength - 3; i < n; i += 2) {
+				p1x = vertices[i];
+				p1y = vertices[i + 1];
+				p2x = vertices[i + 2];
+				p2y = vertices[i + 3];
+				area += p1x * p2y - p2x * p1y;
+			}
+			if (area < 0)
+				return;
+			for (let i = 0, lastX = verticeslength - 2, n = verticeslength >> 1; i < n; i += 2) {
+				let x = vertices[i], y = vertices[i + 1];
+				let other = lastX - i;
+				vertices[i] = vertices[other];
+				vertices[i + 1] = vertices[other + 1];
+				vertices[other] = x;
+				vertices[other + 1] = y;
+			}
+		}
+	};
+
+	// spine-core/src/SkeletonJson.ts
+	var SkeletonJson = class {
+		constructor(attachmentLoader) {
+			/** Scales bone positions, image sizes, and translations as they are loaded. This allows different size images to be used at
+			 * runtime than were used in Spine.
+			 *
+			 * See [Scaling](http://esotericsoftware.com/spine-loading-skeleton-data#Scaling) in the Spine Runtimes Guide. */
+			this.scale = 1;
+			this.linkedMeshes = new Array();
+			this.attachmentLoader = attachmentLoader;
+		}
+		readSkeletonData(json) {
+			let scale = this.scale;
+			let skeletonData = new SkeletonData();
+			let root = typeof json === "string" ? JSON.parse(json) : json;
+			let skeletonMap = root.skeleton;
+			if (skeletonMap) {
+				skeletonData.hash = skeletonMap.hash;
+				skeletonData.version = skeletonMap.spine;
+				skeletonData.x = skeletonMap.x;
+				skeletonData.y = skeletonMap.y;
+				skeletonData.width = skeletonMap.width;
+				skeletonData.height = skeletonMap.height;
+				skeletonData.fps = skeletonMap.fps;
+				skeletonData.imagesPath = skeletonMap.images;
+			}
+			if (root.bones) {
+				for (let i = 0; i < root.bones.length; i++) {
+					let boneMap = root.bones[i];
+					let parent = null;
+					let parentName = getValue(boneMap, "parent", null);
+					if (parentName)
+						parent = skeletonData.findBone(parentName);
+					let data = new BoneData(skeletonData.bones.length, boneMap.name, parent);
+					data.length = getValue(boneMap, "length", 0) * scale;
+					data.x = getValue(boneMap, "x", 0) * scale;
+					data.y = getValue(boneMap, "y", 0) * scale;
+					data.rotation = getValue(boneMap, "rotation", 0);
+					data.scaleX = getValue(boneMap, "scaleX", 1);
+					data.scaleY = getValue(boneMap, "scaleY", 1);
+					data.shearX = getValue(boneMap, "shearX", 0);
+					data.shearY = getValue(boneMap, "shearY", 0);
+					data.transformMode = Utils.enumValue(TransformMode, getValue(boneMap, "transform", "Normal"));
+					data.skinRequired = getValue(boneMap, "skin", false);
+					let color = getValue(boneMap, "color", null);
+					if (color)
+						data.color.setFromString(color);
+					skeletonData.bones.push(data);
+				}
+			}
+			if (root.slots) {
+				for (let i = 0; i < root.slots.length; i++) {
+					let slotMap = root.slots[i];
+					let boneData = skeletonData.findBone(slotMap.bone);
+					if (!boneData)
+						throw new Error(`Couldn't find bone ${slotMap.bone} for slot ${slotMap.name}`);
+					let data = new SlotData(skeletonData.slots.length, slotMap.name, boneData);
+					let color = getValue(slotMap, "color", null);
+					if (color)
+						data.color.setFromString(color);
+					let dark = getValue(slotMap, "dark", null);
+					if (dark)
+						data.darkColor = Color.fromString(dark);
+					data.attachmentName = getValue(slotMap, "attachment", null);
+					data.blendMode = Utils.enumValue(BlendMode, getValue(slotMap, "blend", "normal"));
+					skeletonData.slots.push(data);
+				}
+			}
+			if (root.ik) {
+				for (let i = 0; i < root.ik.length; i++) {
+					let constraintMap = root.ik[i];
+					let data = new IkConstraintData(constraintMap.name);
+					data.order = getValue(constraintMap, "order", 0);
+					data.skinRequired = getValue(constraintMap, "skin", false);
+					for (let ii = 0; ii < constraintMap.bones.length; ii++) {
+						let bone = skeletonData.findBone(constraintMap.bones[ii]);
+						if (!bone)
+							throw new Error(`Couldn't find bone ${constraintMap.bones[ii]} for IK constraint ${constraintMap.name}.`);
+						data.bones.push(bone);
+					}
+					let target = skeletonData.findBone(constraintMap.target);
+					;
+					if (!target)
+						throw new Error(`Couldn't find target bone ${constraintMap.target} for IK constraint ${constraintMap.name}.`);
+					data.target = target;
+					data.mix = getValue(constraintMap, "mix", 1);
+					data.softness = getValue(constraintMap, "softness", 0) * scale;
+					data.bendDirection = getValue(constraintMap, "bendPositive", true) ? 1 : -1;
+					data.compress = getValue(constraintMap, "compress", false);
+					data.stretch = getValue(constraintMap, "stretch", false);
+					data.uniform = getValue(constraintMap, "uniform", false);
+					skeletonData.ikConstraints.push(data);
+				}
+			}
+			if (root.transform) {
+				for (let i = 0; i < root.transform.length; i++) {
+					let constraintMap = root.transform[i];
+					let data = new TransformConstraintData(constraintMap.name);
+					data.order = getValue(constraintMap, "order", 0);
+					data.skinRequired = getValue(constraintMap, "skin", false);
+					for (let ii = 0; ii < constraintMap.bones.length; ii++) {
+						let boneName = constraintMap.bones[ii];
+						let bone = skeletonData.findBone(boneName);
+						if (!bone)
+							throw new Error(`Couldn't find bone ${boneName} for transform constraint ${constraintMap.name}.`);
+						data.bones.push(bone);
+					}
+					let targetName = constraintMap.target;
+					let target = skeletonData.findBone(targetName);
+					if (!target)
+						throw new Error(`Couldn't find target bone ${targetName} for transform constraint ${constraintMap.name}.`);
+					data.target = target;
+					data.local = getValue(constraintMap, "local", false);
+					data.relative = getValue(constraintMap, "relative", false);
+					data.offsetRotation = getValue(constraintMap, "rotation", 0);
+					data.offsetX = getValue(constraintMap, "x", 0) * scale;
+					data.offsetY = getValue(constraintMap, "y", 0) * scale;
+					data.offsetScaleX = getValue(constraintMap, "scaleX", 0);
+					data.offsetScaleY = getValue(constraintMap, "scaleY", 0);
+					data.offsetShearY = getValue(constraintMap, "shearY", 0);
+					data.mixRotate = getValue(constraintMap, "mixRotate", 1);
+					data.mixX = getValue(constraintMap, "mixX", 1);
+					data.mixY = getValue(constraintMap, "mixY", data.mixX);
+					data.mixScaleX = getValue(constraintMap, "mixScaleX", 1);
+					data.mixScaleY = getValue(constraintMap, "mixScaleY", data.mixScaleX);
+					data.mixShearY = getValue(constraintMap, "mixShearY", 1);
+					skeletonData.transformConstraints.push(data);
+				}
+			}
+			if (root.path) {
+				for (let i = 0; i < root.path.length; i++) {
+					let constraintMap = root.path[i];
+					let data = new PathConstraintData(constraintMap.name);
+					data.order = getValue(constraintMap, "order", 0);
+					data.skinRequired = getValue(constraintMap, "skin", false);
+					for (let ii = 0; ii < constraintMap.bones.length; ii++) {
+						let boneName = constraintMap.bones[ii];
+						let bone = skeletonData.findBone(boneName);
+						if (!bone)
+							throw new Error(`Couldn't find bone ${boneName} for path constraint ${constraintMap.name}.`);
+						data.bones.push(bone);
+					}
+					let targetName = constraintMap.target;
+					let target = skeletonData.findSlot(targetName);
+					if (!target)
+						throw new Error(`Couldn't find target slot ${targetName} for path constraint ${constraintMap.name}.`);
+					data.target = target;
+					data.positionMode = Utils.enumValue(PositionMode, getValue(constraintMap, "positionMode", "Percent"));
+					data.spacingMode = Utils.enumValue(SpacingMode, getValue(constraintMap, "spacingMode", "Length"));
+					data.rotateMode = Utils.enumValue(RotateMode, getValue(constraintMap, "rotateMode", "Tangent"));
+					data.offsetRotation = getValue(constraintMap, "rotation", 0);
+					data.position = getValue(constraintMap, "position", 0);
+					if (data.positionMode == 0 /* Fixed */)
+						data.position *= scale;
+					data.spacing = getValue(constraintMap, "spacing", 0);
+					if (data.spacingMode == 0 /* Length */ || data.spacingMode == 1 /* Fixed */)
+						data.spacing *= scale;
+					data.mixRotate = getValue(constraintMap, "mixRotate", 1);
+					data.mixX = getValue(constraintMap, "mixX", 1);
+					data.mixY = getValue(constraintMap, "mixY", data.mixX);
+					skeletonData.pathConstraints.push(data);
+				}
+			}
+			if (root.skins) {
+				for (let i = 0; i < root.skins.length; i++) {
+					let skinMap = root.skins[i];
+					let skin = new Skin(skinMap.name);
+					if (skinMap.bones) {
+						for (let ii = 0; ii < skinMap.bones.length; ii++) {
+							let boneName = skinMap.bones[ii];
+							let bone = skeletonData.findBone(boneName);
+							if (!bone)
+								throw new Error(`Couldn't find bone ${boneName} for skin ${skinMap.name}.`);
+							skin.bones.push(bone);
+						}
+					}
+					if (skinMap.ik) {
+						for (let ii = 0; ii < skinMap.ik.length; ii++) {
+							let constraintName = skinMap.ik[ii];
+							let constraint = skeletonData.findIkConstraint(constraintName);
+							if (!constraint)
+								throw new Error(`Couldn't find IK constraint ${constraintName} for skin ${skinMap.name}.`);
+							skin.constraints.push(constraint);
+						}
+					}
+					if (skinMap.transform) {
+						for (let ii = 0; ii < skinMap.transform.length; ii++) {
+							let constraintName = skinMap.transform[ii];
+							let constraint = skeletonData.findTransformConstraint(constraintName);
+							if (!constraint)
+								throw new Error(`Couldn't find transform constraint ${constraintName} for skin ${skinMap.name}.`);
+							skin.constraints.push(constraint);
+						}
+					}
+					if (skinMap.path) {
+						for (let ii = 0; ii < skinMap.path.length; ii++) {
+							let constraintName = skinMap.path[ii];
+							let constraint = skeletonData.findPathConstraint(constraintName);
+							if (!constraint)
+								throw new Error(`Couldn't find path constraint ${constraintName} for skin ${skinMap.name}.`);
+							skin.constraints.push(constraint);
+						}
+					}
+					for (let slotName in skinMap.attachments) {
+						let slot = skeletonData.findSlot(slotName);
+						if (!slot)
+							throw new Error(`Couldn't find slot ${slotName} for skin ${skinMap.name}.`);
+						let slotMap = skinMap.attachments[slotName];
+						for (let entryName in slotMap) {
+							let attachment = this.readAttachment(slotMap[entryName], skin, slot.index, entryName, skeletonData);
+							if (attachment)
+								skin.setAttachment(slot.index, entryName, attachment);
+						}
+					}
+					skeletonData.skins.push(skin);
+					if (skin.name == "default")
+						skeletonData.defaultSkin = skin;
+				}
+			}
+			for (let i = 0, n = this.linkedMeshes.length; i < n; i++) {
+				let linkedMesh = this.linkedMeshes[i];
+				let skin = !linkedMesh.skin ? skeletonData.defaultSkin : skeletonData.findSkin(linkedMesh.skin);
+				if (!skin)
+					throw new Error(`Skin not found: ${linkedMesh.skin}`);
+				let parent = skin.getAttachment(linkedMesh.slotIndex, linkedMesh.parent);
+				if (!parent)
+					throw new Error(`Parent mesh not found: ${linkedMesh.parent}`);
+				linkedMesh.mesh.timelineAttachment = linkedMesh.inheritTimeline ? parent : linkedMesh.mesh;
+				linkedMesh.mesh.setParentMesh(parent);
+				if (linkedMesh.mesh.region != null)
+					linkedMesh.mesh.updateRegion();
+			}
+			this.linkedMeshes.length = 0;
+			if (root.events) {
+				for (let eventName in root.events) {
+					let eventMap = root.events[eventName];
+					let data = new EventData(eventName);
+					data.intValue = getValue(eventMap, "int", 0);
+					data.floatValue = getValue(eventMap, "float", 0);
+					data.stringValue = getValue(eventMap, "string", "");
+					data.audioPath = getValue(eventMap, "audio", null);
+					if (data.audioPath) {
+						data.volume = getValue(eventMap, "volume", 1);
+						data.balance = getValue(eventMap, "balance", 0);
+					}
+					skeletonData.events.push(data);
+				}
+			}
+			if (root.animations) {
+				for (let animationName in root.animations) {
+					let animationMap = root.animations[animationName];
+					this.readAnimation(animationMap, animationName, skeletonData);
+				}
+			}
+			return skeletonData;
+		}
+		readAttachment(map, skin, slotIndex, name, skeletonData) {
+			let scale = this.scale;
+			name = getValue(map, "name", name);
+			switch (getValue(map, "type", "region")) {
+				case "region": {
+					let path = getValue(map, "path", name);
+					let sequence = this.readSequence(getValue(map, "sequence", null));
+					let region = this.attachmentLoader.newRegionAttachment(skin, name, path, sequence);
+					if (!region)
+						return null;
+					region.path = path;
+					region.x = getValue(map, "x", 0) * scale;
+					region.y = getValue(map, "y", 0) * scale;
+					region.scaleX = getValue(map, "scaleX", 1);
+					region.scaleY = getValue(map, "scaleY", 1);
+					region.rotation = getValue(map, "rotation", 0);
+					region.width = map.width * scale;
+					region.height = map.height * scale;
+					region.sequence = sequence;
+					let color = getValue(map, "color", null);
+					if (color)
+						region.color.setFromString(color);
+					if (region.region != null)
+						region.updateRegion();
+					return region;
+				}
+				case "boundingbox": {
+					let box = this.attachmentLoader.newBoundingBoxAttachment(skin, name);
+					if (!box)
+						return null;
+					this.readVertices(map, box, map.vertexCount << 1);
+					let color = getValue(map, "color", null);
+					if (color)
+						box.color.setFromString(color);
+					return box;
+				}
+				case "mesh":
+				case "linkedmesh": {
+					let path = getValue(map, "path", name);
+					let sequence = this.readSequence(getValue(map, "sequence", null));
+					let mesh = this.attachmentLoader.newMeshAttachment(skin, name, path, sequence);
+					if (!mesh)
+						return null;
+					mesh.path = path;
+					let color = getValue(map, "color", null);
+					if (color)
+						mesh.color.setFromString(color);
+					mesh.width = getValue(map, "width", 0) * scale;
+					mesh.height = getValue(map, "height", 0) * scale;
+					mesh.sequence = sequence;
+					let parent = getValue(map, "parent", null);
+					if (parent) {
+						this.linkedMeshes.push(new LinkedMesh2(mesh, getValue(map, "skin", null), slotIndex, parent, getValue(map, "timelines", true)));
+						return mesh;
+					}
+					let uvs = map.uvs;
+					this.readVertices(map, mesh, uvs.length);
+					mesh.triangles = map.triangles;
+					mesh.regionUVs = uvs;
+					if (mesh.region != null)
+						mesh.updateRegion();
+					mesh.edges = getValue(map, "edges", null);
+					mesh.hullLength = getValue(map, "hull", 0) * 2;
+					return mesh;
+				}
+				case "path": {
+					let path = this.attachmentLoader.newPathAttachment(skin, name);
+					if (!path)
+						return null;
+					path.closed = getValue(map, "closed", false);
+					path.constantSpeed = getValue(map, "constantSpeed", true);
+					let vertexCount = map.vertexCount;
+					this.readVertices(map, path, vertexCount << 1);
+					let lengths = Utils.newArray(vertexCount / 3, 0);
+					for (let i = 0; i < map.lengths.length; i++)
+						lengths[i] = map.lengths[i] * scale;
+					path.lengths = lengths;
+					let color = getValue(map, "color", null);
+					if (color)
+						path.color.setFromString(color);
+					return path;
+				}
+				case "point": {
+					let point = this.attachmentLoader.newPointAttachment(skin, name);
+					if (!point)
+						return null;
+					point.x = getValue(map, "x", 0) * scale;
+					point.y = getValue(map, "y", 0) * scale;
+					point.rotation = getValue(map, "rotation", 0);
+					let color = getValue(map, "color", null);
+					if (color)
+						point.color.setFromString(color);
+					return point;
+				}
+				case "clipping": {
+					let clip = this.attachmentLoader.newClippingAttachment(skin, name);
+					if (!clip)
+						return null;
+					let end = getValue(map, "end", null);
+					if (end)
+						clip.endSlot = skeletonData.findSlot(end);
+					let vertexCount = map.vertexCount;
+					this.readVertices(map, clip, vertexCount << 1);
+					let color = getValue(map, "color", null);
+					if (color)
+						clip.color.setFromString(color);
+					return clip;
+				}
+			}
+			return null;
+		}
+		readSequence(map) {
+			if (map == null)
+				return null;
+			let sequence = new Sequence(getValue(map, "count", 0));
+			sequence.start = getValue(map, "start", 1);
+			sequence.digits = getValue(map, "digits", 0);
+			sequence.setupIndex = getValue(map, "setup", 0);
+			return sequence;
+		}
+		readVertices(map, attachment, verticesLength) {
+			let scale = this.scale;
+			attachment.worldVerticesLength = verticesLength;
+			let vertices = map.vertices;
+			if (verticesLength == vertices.length) {
+				let scaledVertices = Utils.toFloatArray(vertices);
+				if (scale != 1) {
+					for (let i = 0, n = vertices.length; i < n; i++)
+						scaledVertices[i] *= scale;
+				}
+				attachment.vertices = scaledVertices;
+				return;
+			}
+			let weights = new Array();
+			let bones = new Array();
+			for (let i = 0, n = vertices.length; i < n;) {
+				let boneCount = vertices[i++];
+				bones.push(boneCount);
+				for (let nn = i + boneCount * 4; i < nn; i += 4) {
+					bones.push(vertices[i]);
+					weights.push(vertices[i + 1] * scale);
+					weights.push(vertices[i + 2] * scale);
+					weights.push(vertices[i + 3]);
+				}
+			}
+			attachment.bones = bones;
+			attachment.vertices = Utils.toFloatArray(weights);
+		}
+		readAnimation(map, name, skeletonData) {
+			let scale = this.scale;
+			let timelines = new Array();
+			if (map.slots) {
+				for (let slotName in map.slots) {
+					let slotMap = map.slots[slotName];
+					let slot = skeletonData.findSlot(slotName);
+					if (!slot)
+						throw new Error("Slot not found: " + slotName);
+					let slotIndex = slot.index;
+					for (let timelineName in slotMap) {
+						let timelineMap = slotMap[timelineName];
+						if (!timelineMap)
+							continue;
+						let frames = timelineMap.length;
+						if (timelineName == "attachment") {
+							let timeline = new AttachmentTimeline(frames, slotIndex);
+							for (let frame = 0; frame < frames; frame++) {
+								let keyMap = timelineMap[frame];
+								timeline.setFrame(frame, getValue(keyMap, "time", 0), getValue(keyMap, "name", null));
+							}
+							timelines.push(timeline);
+						} else if (timelineName == "rgba") {
+							let timeline = new RGBATimeline(frames, frames << 2, slotIndex);
+							let keyMap = timelineMap[0];
+							let time = getValue(keyMap, "time", 0);
+							let color = Color.fromString(keyMap.color);
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, color.r, color.g, color.b, color.a);
+								let nextMap = timelineMap[frame + 1];
+								if (!nextMap) {
+									timeline.shrink(bezier);
+									break;
+								}
+								let time2 = getValue(nextMap, "time", 0);
+								let newColor = Color.fromString(nextMap.color);
+								let curve = keyMap.curve;
+								if (curve) {
+									bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, color.r, newColor.r, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 1, time, time2, color.g, newColor.g, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 2, time, time2, color.b, newColor.b, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 3, time, time2, color.a, newColor.a, 1);
+								}
+								time = time2;
+								color = newColor;
+								keyMap = nextMap;
+							}
+							timelines.push(timeline);
+						} else if (timelineName == "rgb") {
+							let timeline = new RGBTimeline(frames, frames * 3, slotIndex);
+							let keyMap = timelineMap[0];
+							let time = getValue(keyMap, "time", 0);
+							let color = Color.fromString(keyMap.color);
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, color.r, color.g, color.b);
+								let nextMap = timelineMap[frame + 1];
+								if (!nextMap) {
+									timeline.shrink(bezier);
+									break;
+								}
+								let time2 = getValue(nextMap, "time", 0);
+								let newColor = Color.fromString(nextMap.color);
+								let curve = keyMap.curve;
+								if (curve) {
+									bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, color.r, newColor.r, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 1, time, time2, color.g, newColor.g, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 2, time, time2, color.b, newColor.b, 1);
+								}
+								time = time2;
+								color = newColor;
+								keyMap = nextMap;
+							}
+							timelines.push(timeline);
+						} else if (timelineName == "alpha") {
+							timelines.push(readTimeline12(timelineMap, new AlphaTimeline(frames, frames, slotIndex), 0, 1));
+						} else if (timelineName == "rgba2") {
+							let timeline = new RGBA2Timeline(frames, frames * 7, slotIndex);
+							let keyMap = timelineMap[0];
+							let time = getValue(keyMap, "time", 0);
+							let color = Color.fromString(keyMap.light);
+							let color2 = Color.fromString(keyMap.dark);
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, color.r, color.g, color.b, color.a, color2.r, color2.g, color2.b);
+								let nextMap = timelineMap[frame + 1];
+								if (!nextMap) {
+									timeline.shrink(bezier);
+									break;
+								}
+								let time2 = getValue(nextMap, "time", 0);
+								let newColor = Color.fromString(nextMap.light);
+								let newColor2 = Color.fromString(nextMap.dark);
+								let curve = keyMap.curve;
+								if (curve) {
+									bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, color.r, newColor.r, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 1, time, time2, color.g, newColor.g, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 2, time, time2, color.b, newColor.b, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 3, time, time2, color.a, newColor.a, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 4, time, time2, color2.r, newColor2.r, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 5, time, time2, color2.g, newColor2.g, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 6, time, time2, color2.b, newColor2.b, 1);
+								}
+								time = time2;
+								color = newColor;
+								color2 = newColor2;
+								keyMap = nextMap;
+							}
+							timelines.push(timeline);
+						} else if (timelineName == "rgb2") {
+							let timeline = new RGB2Timeline(frames, frames * 6, slotIndex);
+							let keyMap = timelineMap[0];
+							let time = getValue(keyMap, "time", 0);
+							let color = Color.fromString(keyMap.light);
+							let color2 = Color.fromString(keyMap.dark);
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, color.r, color.g, color.b, color2.r, color2.g, color2.b);
+								let nextMap = timelineMap[frame + 1];
+								if (!nextMap) {
+									timeline.shrink(bezier);
+									break;
+								}
+								let time2 = getValue(nextMap, "time", 0);
+								let newColor = Color.fromString(nextMap.light);
+								let newColor2 = Color.fromString(nextMap.dark);
+								let curve = keyMap.curve;
+								if (curve) {
+									bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, color.r, newColor.r, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 1, time, time2, color.g, newColor.g, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 2, time, time2, color.b, newColor.b, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 3, time, time2, color2.r, newColor2.r, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 4, time, time2, color2.g, newColor2.g, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 5, time, time2, color2.b, newColor2.b, 1);
+								}
+								time = time2;
+								color = newColor;
+								color2 = newColor2;
+								keyMap = nextMap;
+							}
+							timelines.push(timeline);
+						}
+					}
+				}
+			}
+			if (map.bones) {
+				for (let boneName in map.bones) {
+					let boneMap = map.bones[boneName];
+					let bone = skeletonData.findBone(boneName);
+					if (!bone)
+						throw new Error("Bone not found: " + boneName);
+					let boneIndex = bone.index;
+					for (let timelineName in boneMap) {
+						let timelineMap = boneMap[timelineName];
+						let frames = timelineMap.length;
+						if (frames == 0)
+							continue;
+						if (timelineName === "rotate") {
+							timelines.push(readTimeline12(timelineMap, new RotateTimeline(frames, frames, boneIndex), 0, 1));
+						} else if (timelineName === "translate") {
+							let timeline = new TranslateTimeline(frames, frames << 1, boneIndex);
+							timelines.push(readTimeline22(timelineMap, timeline, "x", "y", 0, scale));
+						} else if (timelineName === "translatex") {
+							let timeline = new TranslateXTimeline(frames, frames, boneIndex);
+							timelines.push(readTimeline12(timelineMap, timeline, 0, scale));
+						} else if (timelineName === "translatey") {
+							let timeline = new TranslateYTimeline(frames, frames, boneIndex);
+							timelines.push(readTimeline12(timelineMap, timeline, 0, scale));
+						} else if (timelineName === "scale") {
+							let timeline = new ScaleTimeline(frames, frames << 1, boneIndex);
+							timelines.push(readTimeline22(timelineMap, timeline, "x", "y", 1, 1));
+						} else if (timelineName === "scalex") {
+							let timeline = new ScaleXTimeline(frames, frames, boneIndex);
+							timelines.push(readTimeline12(timelineMap, timeline, 1, 1));
+						} else if (timelineName === "scaley") {
+							let timeline = new ScaleYTimeline(frames, frames, boneIndex);
+							timelines.push(readTimeline12(timelineMap, timeline, 1, 1));
+						} else if (timelineName === "shear") {
+							let timeline = new ShearTimeline(frames, frames << 1, boneIndex);
+							timelines.push(readTimeline22(timelineMap, timeline, "x", "y", 0, 1));
+						} else if (timelineName === "shearx") {
+							let timeline = new ShearXTimeline(frames, frames, boneIndex);
+							timelines.push(readTimeline12(timelineMap, timeline, 0, 1));
+						} else if (timelineName === "sheary") {
+							let timeline = new ShearYTimeline(frames, frames, boneIndex);
+							timelines.push(readTimeline12(timelineMap, timeline, 0, 1));
+						}
+					}
+				}
+			}
+			if (map.ik) {
+				for (let constraintName in map.ik) {
+					let constraintMap = map.ik[constraintName];
+					let keyMap = constraintMap[0];
+					if (!keyMap)
+						continue;
+					let constraint = skeletonData.findIkConstraint(constraintName);
+					if (!constraint)
+						throw new Error("IK Constraint not found: " + constraintName);
+					let constraintIndex = skeletonData.ikConstraints.indexOf(constraint);
+					let timeline = new IkConstraintTimeline(constraintMap.length, constraintMap.length << 1, constraintIndex);
+					let time = getValue(keyMap, "time", 0);
+					let mix = getValue(keyMap, "mix", 1);
+					let softness = getValue(keyMap, "softness", 0) * scale;
+					for (let frame = 0, bezier = 0; ; frame++) {
+						timeline.setFrame(frame, time, mix, softness, getValue(keyMap, "bendPositive", true) ? 1 : -1, getValue(keyMap, "compress", false), getValue(keyMap, "stretch", false));
+						let nextMap = constraintMap[frame + 1];
+						if (!nextMap) {
+							timeline.shrink(bezier);
+							break;
+						}
+						let time2 = getValue(nextMap, "time", 0);
+						let mix2 = getValue(nextMap, "mix", 1);
+						let softness2 = getValue(nextMap, "softness", 0) * scale;
+						let curve = keyMap.curve;
+						if (curve) {
+							bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, mix, mix2, 1);
+							bezier = readCurve(curve, timeline, bezier, frame, 1, time, time2, softness, softness2, scale);
+						}
+						time = time2;
+						mix = mix2;
+						softness = softness2;
+						keyMap = nextMap;
+					}
+					timelines.push(timeline);
+				}
+			}
+			if (map.transform) {
+				for (let constraintName in map.transform) {
+					let timelineMap = map.transform[constraintName];
+					let keyMap = timelineMap[0];
+					if (!keyMap)
+						continue;
+					let constraint = skeletonData.findTransformConstraint(constraintName);
+					if (!constraint)
+						throw new Error("Transform constraint not found: " + constraintName);
+					let constraintIndex = skeletonData.transformConstraints.indexOf(constraint);
+					let timeline = new TransformConstraintTimeline(timelineMap.length, timelineMap.length * 6, constraintIndex);
+					let time = getValue(keyMap, "time", 0);
+					let mixRotate = getValue(keyMap, "mixRotate", 1);
+					let mixX = getValue(keyMap, "mixX", 1);
+					let mixY = getValue(keyMap, "mixY", mixX);
+					let mixScaleX = getValue(keyMap, "mixScaleX", 1);
+					let mixScaleY = getValue(keyMap, "mixScaleY", mixScaleX);
+					let mixShearY = getValue(keyMap, "mixShearY", 1);
+					for (let frame = 0, bezier = 0; ; frame++) {
+						timeline.setFrame(frame, time, mixRotate, mixX, mixY, mixScaleX, mixScaleY, mixShearY);
+						let nextMap = timelineMap[frame + 1];
+						if (!nextMap) {
+							timeline.shrink(bezier);
+							break;
+						}
+						let time2 = getValue(nextMap, "time", 0);
+						let mixRotate2 = getValue(nextMap, "mixRotate", 1);
+						let mixX2 = getValue(nextMap, "mixX", 1);
+						let mixY2 = getValue(nextMap, "mixY", mixX2);
+						let mixScaleX2 = getValue(nextMap, "mixScaleX", 1);
+						let mixScaleY2 = getValue(nextMap, "mixScaleY", mixScaleX2);
+						let mixShearY2 = getValue(nextMap, "mixShearY", 1);
+						let curve = keyMap.curve;
+						if (curve) {
+							bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, mixRotate, mixRotate2, 1);
+							bezier = readCurve(curve, timeline, bezier, frame, 1, time, time2, mixX, mixX2, 1);
+							bezier = readCurve(curve, timeline, bezier, frame, 2, time, time2, mixY, mixY2, 1);
+							bezier = readCurve(curve, timeline, bezier, frame, 3, time, time2, mixScaleX, mixScaleX2, 1);
+							bezier = readCurve(curve, timeline, bezier, frame, 4, time, time2, mixScaleY, mixScaleY2, 1);
+							bezier = readCurve(curve, timeline, bezier, frame, 5, time, time2, mixShearY, mixShearY2, 1);
+						}
+						time = time2;
+						mixRotate = mixRotate2;
+						mixX = mixX2;
+						mixY = mixY2;
+						mixScaleX = mixScaleX2;
+						mixScaleY = mixScaleY2;
+						mixScaleX = mixScaleX2;
+						keyMap = nextMap;
+					}
+					timelines.push(timeline);
+				}
+			}
+			if (map.path) {
+				for (let constraintName in map.path) {
+					let constraintMap = map.path[constraintName];
+					let constraint = skeletonData.findPathConstraint(constraintName);
+					if (!constraint)
+						throw new Error("Path constraint not found: " + constraintName);
+					let constraintIndex = skeletonData.pathConstraints.indexOf(constraint);
+					for (let timelineName in constraintMap) {
+						let timelineMap = constraintMap[timelineName];
+						let keyMap = timelineMap[0];
+						if (!keyMap)
+							continue;
+						let frames = timelineMap.length;
+						if (timelineName === "position") {
+							let timeline = new PathConstraintPositionTimeline(frames, frames, constraintIndex);
+							timelines.push(readTimeline12(timelineMap, timeline, 0, constraint.positionMode == 0 /* Fixed */ ? scale : 1));
+						} else if (timelineName === "spacing") {
+							let timeline = new PathConstraintSpacingTimeline(frames, frames, constraintIndex);
+							timelines.push(readTimeline12(timelineMap, timeline, 0, constraint.spacingMode == 0 /* Length */ || constraint.spacingMode == 1 /* Fixed */ ? scale : 1));
+						} else if (timelineName === "mix") {
+							let timeline = new PathConstraintMixTimeline(frames, frames * 3, constraintIndex);
+							let time = getValue(keyMap, "time", 0);
+							let mixRotate = getValue(keyMap, "mixRotate", 1);
+							let mixX = getValue(keyMap, "mixX", 1);
+							let mixY = getValue(keyMap, "mixY", mixX);
+							for (let frame = 0, bezier = 0; ; frame++) {
+								timeline.setFrame(frame, time, mixRotate, mixX, mixY);
+								let nextMap = timelineMap[frame + 1];
+								if (!nextMap) {
+									timeline.shrink(bezier);
+									break;
+								}
+								let time2 = getValue(nextMap, "time", 0);
+								let mixRotate2 = getValue(nextMap, "mixRotate", 1);
+								let mixX2 = getValue(nextMap, "mixX", 1);
+								let mixY2 = getValue(nextMap, "mixY", mixX2);
+								let curve = keyMap.curve;
+								if (curve) {
+									bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, mixRotate, mixRotate2, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 1, time, time2, mixX, mixX2, 1);
+									bezier = readCurve(curve, timeline, bezier, frame, 2, time, time2, mixY, mixY2, 1);
+								}
+								time = time2;
+								mixRotate = mixRotate2;
+								mixX = mixX2;
+								mixY = mixY2;
+								keyMap = nextMap;
+							}
+							timelines.push(timeline);
+						}
+					}
+				}
+			}
+			if (map.attachments) {
+				for (let attachmentsName in map.attachments) {
+					let attachmentsMap = map.attachments[attachmentsName];
+					let skin = skeletonData.findSkin(attachmentsName);
+					if (!skin)
+						throw new Error("Skin not found: " + attachmentsName);
+					for (let slotMapName in attachmentsMap) {
+						let slotMap = attachmentsMap[slotMapName];
+						let slot = skeletonData.findSlot(slotMapName);
+						if (!slot)
+							throw new Error("Slot not found: " + slotMapName);
+						let slotIndex = slot.index;
+						for (let attachmentMapName in slotMap) {
+							let attachmentMap = slotMap[attachmentMapName];
+							let attachment = skin.getAttachment(slotIndex, attachmentMapName);
+							for (let timelineMapName in attachmentMap) {
+								let timelineMap = attachmentMap[timelineMapName];
+								let keyMap = timelineMap[0];
+								if (!keyMap)
+									continue;
+								if (timelineMapName == "deform") {
+									let weighted = attachment.bones;
+									let vertices = attachment.vertices;
+									let deformLength = weighted ? vertices.length / 3 * 2 : vertices.length;
+									let timeline = new DeformTimeline(timelineMap.length, timelineMap.length, slotIndex, attachment);
+									let time = getValue(keyMap, "time", 0);
+									for (let frame = 0, bezier = 0; ; frame++) {
+										let deform;
+										let verticesValue = getValue(keyMap, "vertices", null);
+										if (!verticesValue)
+											deform = weighted ? Utils.newFloatArray(deformLength) : vertices;
+										else {
+											deform = Utils.newFloatArray(deformLength);
+											let start = getValue(keyMap, "offset", 0);
+											Utils.arrayCopy(verticesValue, 0, deform, start, verticesValue.length);
+											if (scale != 1) {
+												for (let i = start, n = i + verticesValue.length; i < n; i++)
+													deform[i] *= scale;
+											}
+											if (!weighted) {
+												for (let i = 0; i < deformLength; i++)
+													deform[i] += vertices[i];
+											}
+										}
+										timeline.setFrame(frame, time, deform);
+										let nextMap = timelineMap[frame + 1];
+										if (!nextMap) {
+											timeline.shrink(bezier);
+											break;
+										}
+										let time2 = getValue(nextMap, "time", 0);
+										let curve = keyMap.curve;
+										if (curve)
+											bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, 0, 1, 1);
+										time = time2;
+										keyMap = nextMap;
+									}
+									timelines.push(timeline);
+								} else if (timelineMapName == "sequence") {
+									let timeline = new SequenceTimeline(timelineMap.length, slotIndex, attachment);
+									let lastDelay = 0;
+									for (let frame = 0; frame < timelineMap.length; frame++) {
+										let delay = getValue(keyMap, "delay", lastDelay);
+										let time = getValue(keyMap, "time", 0);
+										let mode = SequenceMode[getValue(keyMap, "mode", "hold")];
+										let index = getValue(keyMap, "index", 0);
+										timeline.setFrame(frame, time, mode, index, delay);
+										lastDelay = delay;
+										keyMap = timelineMap[frame + 1];
+									}
+									timelines.push(timeline);
+								}
+							}
+						}
+					}
+				}
+			}
+			if (map.drawOrder) {
+				let timeline = new DrawOrderTimeline(map.drawOrder.length);
+				let slotCount = skeletonData.slots.length;
+				let frame = 0;
+				for (let i = 0; i < map.drawOrder.length; i++, frame++) {
+					let drawOrderMap = map.drawOrder[i];
+					let drawOrder = null;
+					let offsets = getValue(drawOrderMap, "offsets", null);
+					if (offsets) {
+						drawOrder = Utils.newArray(slotCount, -1);
+						let unchanged = Utils.newArray(slotCount - offsets.length, 0);
+						let originalIndex = 0, unchangedIndex = 0;
+						for (let ii = 0; ii < offsets.length; ii++) {
+							let offsetMap = offsets[ii];
+							let slot = skeletonData.findSlot(offsetMap.slot);
+							if (!slot)
+								throw new Error("Slot not found: " + slot);
+							let slotIndex = slot.index;
+							while (originalIndex != slotIndex)
+								unchanged[unchangedIndex++] = originalIndex++;
+							drawOrder[originalIndex + offsetMap.offset] = originalIndex++;
+						}
+						while (originalIndex < slotCount)
+							unchanged[unchangedIndex++] = originalIndex++;
+						for (let ii = slotCount - 1; ii >= 0; ii--)
+							if (drawOrder[ii] == -1)
+								drawOrder[ii] = unchanged[--unchangedIndex];
+					}
+					timeline.setFrame(frame, getValue(drawOrderMap, "time", 0), drawOrder);
+				}
+				timelines.push(timeline);
+			}
+			if (map.events) {
+				let timeline = new EventTimeline(map.events.length);
+				let frame = 0;
+				for (let i = 0; i < map.events.length; i++, frame++) {
+					let eventMap = map.events[i];
+					let eventData = skeletonData.findEvent(eventMap.name);
+					if (!eventData)
+						throw new Error("Event not found: " + eventMap.name);
+					let event = new Event(Utils.toSinglePrecision(getValue(eventMap, "time", 0)), eventData);
+					event.intValue = getValue(eventMap, "int", eventData.intValue);
+					event.floatValue = getValue(eventMap, "float", eventData.floatValue);
+					event.stringValue = getValue(eventMap, "string", eventData.stringValue);
+					if (event.data.audioPath) {
+						event.volume = getValue(eventMap, "volume", 1);
+						event.balance = getValue(eventMap, "balance", 0);
+					}
+					timeline.setFrame(frame, event);
+				}
+				timelines.push(timeline);
+			}
+			let duration = 0;
+			for (let i = 0, n = timelines.length; i < n; i++)
+				duration = Math.max(duration, timelines[i].getDuration());
+			skeletonData.animations.push(new Animation(name, timelines, duration));
+		}
+	};
+	var LinkedMesh2 = class {
+		constructor(mesh, skin, slotIndex, parent, inheritDeform) {
+			this.mesh = mesh;
+			this.skin = skin;
+			this.slotIndex = slotIndex;
+			this.parent = parent;
+			this.inheritTimeline = inheritDeform;
+		}
+	};
+	function readTimeline12(keys, timeline, defaultValue, scale) {
+		let keyMap = keys[0];
+		let time = getValue(keyMap, "time", 0);
+		let value = getValue(keyMap, "value", defaultValue) * scale;
+		let bezier = 0;
+		for (let frame = 0; ; frame++) {
+			timeline.setFrame(frame, time, value);
+			let nextMap = keys[frame + 1];
+			if (!nextMap) {
+				timeline.shrink(bezier);
+				return timeline;
+			}
+			let time2 = getValue(nextMap, "time", 0);
+			let value2 = getValue(nextMap, "value", defaultValue) * scale;
+			if (keyMap.curve)
+				bezier = readCurve(keyMap.curve, timeline, bezier, frame, 0, time, time2, value, value2, scale);
+			time = time2;
+			value = value2;
+			keyMap = nextMap;
+		}
+	}
+	function readTimeline22(keys, timeline, name1, name2, defaultValue, scale) {
+		let keyMap = keys[0];
+		let time = getValue(keyMap, "time", 0);
+		let value1 = getValue(keyMap, name1, defaultValue) * scale;
+		let value2 = getValue(keyMap, name2, defaultValue) * scale;
+		let bezier = 0;
+		for (let frame = 0; ; frame++) {
+			timeline.setFrame(frame, time, value1, value2);
+			let nextMap = keys[frame + 1];
+			if (!nextMap) {
+				timeline.shrink(bezier);
+				return timeline;
+			}
+			let time2 = getValue(nextMap, "time", 0);
+			let nvalue1 = getValue(nextMap, name1, defaultValue) * scale;
+			let nvalue2 = getValue(nextMap, name2, defaultValue) * scale;
+			let curve = keyMap.curve;
+			if (curve) {
+				bezier = readCurve(curve, timeline, bezier, frame, 0, time, time2, value1, nvalue1, scale);
+				bezier = readCurve(curve, timeline, bezier, frame, 1, time, time2, value2, nvalue2, scale);
+			}
+			time = time2;
+			value1 = nvalue1;
+			value2 = nvalue2;
+			keyMap = nextMap;
+		}
+	}
+	function readCurve(curve, timeline, bezier, frame, value, time1, time2, value1, value2, scale) {
+		if (curve == "stepped") {
+			timeline.setStepped(frame);
+			return bezier;
+		}
+		let i = value << 2;
+		let cx1 = curve[i];
+		let cy1 = curve[i + 1] * scale;
+		let cx2 = curve[i + 2];
+		let cy2 = curve[i + 3] * scale;
+		timeline.setBezier(bezier, frame, value, time1, value1, cx1, cy1, cx2, cy2, time2, value2);
+		return bezier + 1;
+	}
+	function getValue(map, property, defaultValue) {
+		return map[property] !== void 0 ? map[property] : defaultValue;
+	}
+
+	// spine-core/src/polyfills.ts
+	(() => {
+		if (typeof Math.fround === "undefined") {
+			Math.fround = function (array) {
+				return function (x) {
+					return array[0] = x, array[0];
+				};
+			}(new Float32Array(1));
+		}
+	})();
+
+	// spine-webgl/src/WebGL.ts
+	var ManagedWebGLRenderingContext = class {
+		constructor(canvasOrContext, contextConfig = { alpha: "true" }) {
+			this.restorables = new Array();
+			if (!(canvasOrContext instanceof WebGLRenderingContext || typeof WebGL2RenderingContext !== "undefined" && canvasOrContext instanceof WebGL2RenderingContext)) {
+				let canvas = canvasOrContext;
+				this.gl = canvas.getContext("webgl2", contextConfig) || canvas.getContext("webgl", contextConfig);
+				this.canvas = canvas;
+				canvas.addEventListener("webglcontextlost", (e) => {
+					let event = e;
+					if (e)
+						e.preventDefault();
+				});
+				canvas.addEventListener("webglcontextrestored", (e) => {
+					for (let i = 0, n = this.restorables.length; i < n; i++)
+						this.restorables[i].restore();
+				});
+			} else {
+				this.gl = canvasOrContext;
+				this.canvas = this.gl.canvas;
+			}
+		}
+		addRestorable(restorable) {
+			this.restorables.push(restorable);
+		}
+		removeRestorable(restorable) {
+			let index = this.restorables.indexOf(restorable);
+			if (index > -1)
+				this.restorables.splice(index, 1);
+		}
+	};
+	var ONE = 1;
+	var ONE_MINUS_SRC_COLOR = 769;
+	var SRC_ALPHA = 770;
+	var ONE_MINUS_SRC_ALPHA = 771;
+	var DST_COLOR = 774;
+	var WebGLBlendModeConverter = class {
+		static getDestGLBlendMode(blendMode) {
+			switch (blendMode) {
+				case 0 /* Normal */:
+					return ONE_MINUS_SRC_ALPHA;
+				case 1 /* Additive */:
+					return ONE;
+				case 2 /* Multiply */:
+					return ONE_MINUS_SRC_ALPHA;
+				case 3 /* Screen */:
+					return ONE_MINUS_SRC_ALPHA;
+				default:
+					throw new Error("Unknown blend mode: " + blendMode);
+			}
+		}
+		static getSourceColorGLBlendMode(blendMode, premultipliedAlpha = false) {
+			switch (blendMode) {
+				case 0 /* Normal */:
+					return premultipliedAlpha ? ONE : SRC_ALPHA;
+				case 1 /* Additive */:
+					return premultipliedAlpha ? ONE : SRC_ALPHA;
+				case 2 /* Multiply */:
+					return DST_COLOR;
+				case 3 /* Screen */:
+					return ONE;
+				default:
+					throw new Error("Unknown blend mode: " + blendMode);
+			}
+		}
+		static getSourceAlphaGLBlendMode(blendMode) {
+			switch (blendMode) {
+				case 0 /* Normal */:
+					return ONE;
+				case 1 /* Additive */:
+					return ONE;
+				case 2 /* Multiply */:
+					return ONE_MINUS_SRC_ALPHA;
+				case 3 /* Screen */:
+					return ONE_MINUS_SRC_COLOR;
+				default:
+					throw new Error("Unknown blend mode: " + blendMode);
+			}
+		}
+	};
+
+	// spine-webgl/src/GLTexture.ts
+	var _GLTexture = class extends Texture {
+		constructor(context, image, useMipMaps = false) {
+			super(image);
+			this.texture = null;
+			this.boundUnit = 0;
+			this.useMipMaps = false;
+			this.context = context instanceof ManagedWebGLRenderingContext ? context : new ManagedWebGLRenderingContext(context);
+			this.useMipMaps = useMipMaps;
+			this.restore();
+			this.context.addRestorable(this);
+		}
+		setFilters(minFilter, magFilter) {
+			let gl = this.context.gl;
+			this.bind();
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, minFilter);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, _GLTexture.validateMagFilter(magFilter));
+			this.useMipMaps = _GLTexture.usesMipMaps(minFilter);
+			if (this.useMipMaps)
+				gl.generateMipmap(gl.TEXTURE_2D);
+		}
+		static validateMagFilter(magFilter) {
+			switch (magFilter) {
+				case 9987 /* MipMap */:
+				case 9987 /* MipMapLinearLinear */:
+				case 9985 /* MipMapLinearNearest */:
+				case 9986 /* MipMapNearestLinear */:
+				case 9984 /* MipMapNearestNearest */:
+					return 9729 /* Linear */;
+				default:
+					return magFilter;
+			}
+		}
+		static usesMipMaps(filter) {
+			switch (filter) {
+				case 9987 /* MipMap */:
+				case 9987 /* MipMapLinearLinear */:
+				case 9985 /* MipMapLinearNearest */:
+				case 9986 /* MipMapNearestLinear */:
+				case 9984 /* MipMapNearestNearest */:
+					return true;
+				default:
+					return false;
+			}
+		}
+		setWraps(uWrap, vWrap) {
+			let gl = this.context.gl;
+			this.bind();
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, uWrap);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, vWrap);
+		}
+		update(useMipMaps) {
+			let gl = this.context.gl;
+			if (!this.texture)
+				this.texture = this.context.gl.createTexture();
+			this.bind();
+			if (_GLTexture.DISABLE_UNPACK_PREMULTIPLIED_ALPHA_WEBGL)
+				gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this._image);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, useMipMaps ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+			if (useMipMaps)
+				gl.generateMipmap(gl.TEXTURE_2D);
+		}
+		restore() {
+			this.texture = null;
+			this.update(this.useMipMaps);
+		}
+		bind(unit = 0) {
+			let gl = this.context.gl;
+			this.boundUnit = unit;
+			gl.activeTexture(gl.TEXTURE0 + unit);
+			gl.bindTexture(gl.TEXTURE_2D, this.texture);
+		}
+		unbind() {
+			let gl = this.context.gl;
+			gl.activeTexture(gl.TEXTURE0 + this.boundUnit);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
+		dispose() {
+			this.context.removeRestorable(this);
+			let gl = this.context.gl;
+			gl.deleteTexture(this.texture);
+		}
+	};
+	var GLTexture = _GLTexture;
+	GLTexture.DISABLE_UNPACK_PREMULTIPLIED_ALPHA_WEBGL = false;
+
+	// spine-webgl/src/AssetManager.ts
+	var AssetManager = class extends AssetManagerBase {
+		constructor(context, pathPrefix = "", downloader = new Downloader()) {
+			super((image) => {
+				return new GLTexture(context, image);
+			}, pathPrefix, downloader);
+		}
+	};
+
+	// spine-webgl/src/Vector3.ts
+	var Vector3 = class {
+		constructor(x = 0, y = 0, z = 0) {
+			this.x = 0;
+			this.y = 0;
+			this.z = 0;
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+		setFrom(v) {
+			this.x = v.x;
+			this.y = v.y;
+			this.z = v.z;
+			return this;
+		}
+		set(x, y, z) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
+			return this;
+		}
+		add(v) {
+			this.x += v.x;
+			this.y += v.y;
+			this.z += v.z;
+			return this;
+		}
+		sub(v) {
+			this.x -= v.x;
+			this.y -= v.y;
+			this.z -= v.z;
+			return this;
+		}
+		scale(s) {
+			this.x *= s;
+			this.y *= s;
+			this.z *= s;
+			return this;
+		}
+		normalize() {
+			let len = this.length();
+			if (len == 0)
+				return this;
+			len = 1 / len;
+			this.x *= len;
+			this.y *= len;
+			this.z *= len;
+			return this;
+		}
+		cross(v) {
+			return this.set(this.y * v.z - this.z * v.y, this.z * v.x - this.x * v.z, this.x * v.y - this.y * v.x);
+		}
+		multiply(matrix) {
+			let l_mat = matrix.values;
+			return this.set(
+				this.x * l_mat[M00] + this.y * l_mat[M01] + this.z * l_mat[M02] + l_mat[M03],
+				this.x * l_mat[M10] + this.y * l_mat[M11] + this.z * l_mat[M12] + l_mat[M13],
+				this.x * l_mat[M20] + this.y * l_mat[M21] + this.z * l_mat[M22] + l_mat[M23]
+			);
+		}
+		project(matrix) {
+			let l_mat = matrix.values;
+			let l_w = 1 / (this.x * l_mat[M30] + this.y * l_mat[M31] + this.z * l_mat[M32] + l_mat[M33]);
+			return this.set(
+				(this.x * l_mat[M00] + this.y * l_mat[M01] + this.z * l_mat[M02] + l_mat[M03]) * l_w,
+				(this.x * l_mat[M10] + this.y * l_mat[M11] + this.z * l_mat[M12] + l_mat[M13]) * l_w,
+				(this.x * l_mat[M20] + this.y * l_mat[M21] + this.z * l_mat[M22] + l_mat[M23]) * l_w
+			);
+		}
+		dot(v) {
+			return this.x * v.x + this.y * v.y + this.z * v.z;
+		}
+		length() {
+			return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+		}
+		distance(v) {
+			let a = v.x - this.x;
+			let b = v.y - this.y;
+			let c = v.z - this.z;
+			return Math.sqrt(a * a + b * b + c * c);
+		}
+	};
+
+	// spine-webgl/src/Matrix4.ts
+	var M00 = 0;
+	var M01 = 4;
+	var M02 = 8;
+	var M03 = 12;
+	var M10 = 1;
+	var M11 = 5;
+	var M12 = 9;
+	var M13 = 13;
+	var M20 = 2;
+	var M21 = 6;
+	var M22 = 10;
+	var M23 = 14;
+	var M30 = 3;
+	var M31 = 7;
+	var M32 = 11;
+	var M33 = 15;
+	var _Matrix4 = class {
+		constructor() {
+			this.temp = new Float32Array(16);
+			this.values = new Float32Array(16);
+			let v = this.values;
+			v[M00] = 1;
+			v[M11] = 1;
+			v[M22] = 1;
+			v[M33] = 1;
+		}
+		set(values) {
+			this.values.set(values);
+			return this;
+		}
+		transpose() {
+			let t = this.temp;
+			let v = this.values;
+			t[M00] = v[M00];
+			t[M01] = v[M10];
+			t[M02] = v[M20];
+			t[M03] = v[M30];
+			t[M10] = v[M01];
+			t[M11] = v[M11];
+			t[M12] = v[M21];
+			t[M13] = v[M31];
+			t[M20] = v[M02];
+			t[M21] = v[M12];
+			t[M22] = v[M22];
+			t[M23] = v[M32];
+			t[M30] = v[M03];
+			t[M31] = v[M13];
+			t[M32] = v[M23];
+			t[M33] = v[M33];
+			return this.set(t);
+		}
+		identity() {
+			let v = this.values;
+			v[M00] = 1;
+			v[M01] = 0;
+			v[M02] = 0;
+			v[M03] = 0;
+			v[M10] = 0;
+			v[M11] = 1;
+			v[M12] = 0;
+			v[M13] = 0;
+			v[M20] = 0;
+			v[M21] = 0;
+			v[M22] = 1;
+			v[M23] = 0;
+			v[M30] = 0;
+			v[M31] = 0;
+			v[M32] = 0;
+			v[M33] = 1;
+			return this;
+		}
+		invert() {
+			let v = this.values;
+			let t = this.temp;
+			let l_det = v[M30] * v[M21] * v[M12] * v[M03] - v[M20] * v[M31] * v[M12] * v[M03] - v[M30] * v[M11] * v[M22] * v[M03] + v[M10] * v[M31] * v[M22] * v[M03] + v[M20] * v[M11] * v[M32] * v[M03] - v[M10] * v[M21] * v[M32] * v[M03] - v[M30] * v[M21] * v[M02] * v[M13] + v[M20] * v[M31] * v[M02] * v[M13] + v[M30] * v[M01] * v[M22] * v[M13] - v[M00] * v[M31] * v[M22] * v[M13] - v[M20] * v[M01] * v[M32] * v[M13] + v[M00] * v[M21] * v[M32] * v[M13] + v[M30] * v[M11] * v[M02] * v[M23] - v[M10] * v[M31] * v[M02] * v[M23] - v[M30] * v[M01] * v[M12] * v[M23] + v[M00] * v[M31] * v[M12] * v[M23] + v[M10] * v[M01] * v[M32] * v[M23] - v[M00] * v[M11] * v[M32] * v[M23] - v[M20] * v[M11] * v[M02] * v[M33] + v[M10] * v[M21] * v[M02] * v[M33] + v[M20] * v[M01] * v[M12] * v[M33] - v[M00] * v[M21] * v[M12] * v[M33] - v[M10] * v[M01] * v[M22] * v[M33] + v[M00] * v[M11] * v[M22] * v[M33];
+			if (l_det == 0)
+				throw new Error("non-invertible matrix");
+			let inv_det = 1 / l_det;
+			t[M00] = v[M12] * v[M23] * v[M31] - v[M13] * v[M22] * v[M31] + v[M13] * v[M21] * v[M32] - v[M11] * v[M23] * v[M32] - v[M12] * v[M21] * v[M33] + v[M11] * v[M22] * v[M33];
+			t[M01] = v[M03] * v[M22] * v[M31] - v[M02] * v[M23] * v[M31] - v[M03] * v[M21] * v[M32] + v[M01] * v[M23] * v[M32] + v[M02] * v[M21] * v[M33] - v[M01] * v[M22] * v[M33];
+			t[M02] = v[M02] * v[M13] * v[M31] - v[M03] * v[M12] * v[M31] + v[M03] * v[M11] * v[M32] - v[M01] * v[M13] * v[M32] - v[M02] * v[M11] * v[M33] + v[M01] * v[M12] * v[M33];
+			t[M03] = v[M03] * v[M12] * v[M21] - v[M02] * v[M13] * v[M21] - v[M03] * v[M11] * v[M22] + v[M01] * v[M13] * v[M22] + v[M02] * v[M11] * v[M23] - v[M01] * v[M12] * v[M23];
+			t[M10] = v[M13] * v[M22] * v[M30] - v[M12] * v[M23] * v[M30] - v[M13] * v[M20] * v[M32] + v[M10] * v[M23] * v[M32] + v[M12] * v[M20] * v[M33] - v[M10] * v[M22] * v[M33];
+			t[M11] = v[M02] * v[M23] * v[M30] - v[M03] * v[M22] * v[M30] + v[M03] * v[M20] * v[M32] - v[M00] * v[M23] * v[M32] - v[M02] * v[M20] * v[M33] + v[M00] * v[M22] * v[M33];
+			t[M12] = v[M03] * v[M12] * v[M30] - v[M02] * v[M13] * v[M30] - v[M03] * v[M10] * v[M32] + v[M00] * v[M13] * v[M32] + v[M02] * v[M10] * v[M33] - v[M00] * v[M12] * v[M33];
+			t[M13] = v[M02] * v[M13] * v[M20] - v[M03] * v[M12] * v[M20] + v[M03] * v[M10] * v[M22] - v[M00] * v[M13] * v[M22] - v[M02] * v[M10] * v[M23] + v[M00] * v[M12] * v[M23];
+			t[M20] = v[M11] * v[M23] * v[M30] - v[M13] * v[M21] * v[M30] + v[M13] * v[M20] * v[M31] - v[M10] * v[M23] * v[M31] - v[M11] * v[M20] * v[M33] + v[M10] * v[M21] * v[M33];
+			t[M21] = v[M03] * v[M21] * v[M30] - v[M01] * v[M23] * v[M30] - v[M03] * v[M20] * v[M31] + v[M00] * v[M23] * v[M31] + v[M01] * v[M20] * v[M33] - v[M00] * v[M21] * v[M33];
+			t[M22] = v[M01] * v[M13] * v[M30] - v[M03] * v[M11] * v[M30] + v[M03] * v[M10] * v[M31] - v[M00] * v[M13] * v[M31] - v[M01] * v[M10] * v[M33] + v[M00] * v[M11] * v[M33];
+			t[M23] = v[M03] * v[M11] * v[M20] - v[M01] * v[M13] * v[M20] - v[M03] * v[M10] * v[M21] + v[M00] * v[M13] * v[M21] + v[M01] * v[M10] * v[M23] - v[M00] * v[M11] * v[M23];
+			t[M30] = v[M12] * v[M21] * v[M30] - v[M11] * v[M22] * v[M30] - v[M12] * v[M20] * v[M31] + v[M10] * v[M22] * v[M31] + v[M11] * v[M20] * v[M32] - v[M10] * v[M21] * v[M32];
+			t[M31] = v[M01] * v[M22] * v[M30] - v[M02] * v[M21] * v[M30] + v[M02] * v[M20] * v[M31] - v[M00] * v[M22] * v[M31] - v[M01] * v[M20] * v[M32] + v[M00] * v[M21] * v[M32];
+			t[M32] = v[M02] * v[M11] * v[M30] - v[M01] * v[M12] * v[M30] - v[M02] * v[M10] * v[M31] + v[M00] * v[M12] * v[M31] + v[M01] * v[M10] * v[M32] - v[M00] * v[M11] * v[M32];
+			t[M33] = v[M01] * v[M12] * v[M20] - v[M02] * v[M11] * v[M20] + v[M02] * v[M10] * v[M21] - v[M00] * v[M12] * v[M21] - v[M01] * v[M10] * v[M22] + v[M00] * v[M11] * v[M22];
+			v[M00] = t[M00] * inv_det;
+			v[M01] = t[M01] * inv_det;
+			v[M02] = t[M02] * inv_det;
+			v[M03] = t[M03] * inv_det;
+			v[M10] = t[M10] * inv_det;
+			v[M11] = t[M11] * inv_det;
+			v[M12] = t[M12] * inv_det;
+			v[M13] = t[M13] * inv_det;
+			v[M20] = t[M20] * inv_det;
+			v[M21] = t[M21] * inv_det;
+			v[M22] = t[M22] * inv_det;
+			v[M23] = t[M23] * inv_det;
+			v[M30] = t[M30] * inv_det;
+			v[M31] = t[M31] * inv_det;
+			v[M32] = t[M32] * inv_det;
+			v[M33] = t[M33] * inv_det;
+			return this;
+		}
+		determinant() {
+			let v = this.values;
+			return v[M30] * v[M21] * v[M12] * v[M03] - v[M20] * v[M31] * v[M12] * v[M03] - v[M30] * v[M11] * v[M22] * v[M03] + v[M10] * v[M31] * v[M22] * v[M03] + v[M20] * v[M11] * v[M32] * v[M03] - v[M10] * v[M21] * v[M32] * v[M03] - v[M30] * v[M21] * v[M02] * v[M13] + v[M20] * v[M31] * v[M02] * v[M13] + v[M30] * v[M01] * v[M22] * v[M13] - v[M00] * v[M31] * v[M22] * v[M13] - v[M20] * v[M01] * v[M32] * v[M13] + v[M00] * v[M21] * v[M32] * v[M13] + v[M30] * v[M11] * v[M02] * v[M23] - v[M10] * v[M31] * v[M02] * v[M23] - v[M30] * v[M01] * v[M12] * v[M23] + v[M00] * v[M31] * v[M12] * v[M23] + v[M10] * v[M01] * v[M32] * v[M23] - v[M00] * v[M11] * v[M32] * v[M23] - v[M20] * v[M11] * v[M02] * v[M33] + v[M10] * v[M21] * v[M02] * v[M33] + v[M20] * v[M01] * v[M12] * v[M33] - v[M00] * v[M21] * v[M12] * v[M33] - v[M10] * v[M01] * v[M22] * v[M33] + v[M00] * v[M11] * v[M22] * v[M33];
+		}
+		translate(x, y, z) {
+			let v = this.values;
+			v[M03] += x;
+			v[M13] += y;
+			v[M23] += z;
+			return this;
+		}
+		copy() {
+			return new _Matrix4().set(this.values);
+		}
+		projection(near, far, fovy, aspectRatio) {
+			this.identity();
+			let l_fd = 1 / Math.tan(fovy * (Math.PI / 180) / 2);
+			let l_a1 = (far + near) / (near - far);
+			let l_a2 = 2 * far * near / (near - far);
+			let v = this.values;
+			v[M00] = l_fd / aspectRatio;
+			v[M10] = 0;
+			v[M20] = 0;
+			v[M30] = 0;
+			v[M01] = 0;
+			v[M11] = l_fd;
+			v[M21] = 0;
+			v[M31] = 0;
+			v[M02] = 0;
+			v[M12] = 0;
+			v[M22] = l_a1;
+			v[M32] = -1;
+			v[M03] = 0;
+			v[M13] = 0;
+			v[M23] = l_a2;
+			v[M33] = 0;
+			return this;
+		}
+		ortho2d(x, y, width, height) {
+			return this.ortho(x, x + width, y, y + height, 0, 1);
+		}
+		ortho(left, right, bottom, top, near, far) {
+			this.identity();
+			let x_orth = 2 / (right - left);
+			let y_orth = 2 / (top - bottom);
+			let z_orth = -2 / (far - near);
+			let tx = -(right + left) / (right - left);
+			let ty = -(top + bottom) / (top - bottom);
+			let tz = -(far + near) / (far - near);
+			let v = this.values;
+			v[M00] = x_orth;
+			v[M10] = 0;
+			v[M20] = 0;
+			v[M30] = 0;
+			v[M01] = 0;
+			v[M11] = y_orth;
+			v[M21] = 0;
+			v[M31] = 0;
+			v[M02] = 0;
+			v[M12] = 0;
+			v[M22] = z_orth;
+			v[M32] = 0;
+			v[M03] = tx;
+			v[M13] = ty;
+			v[M23] = tz;
+			v[M33] = 1;
+			return this;
+		}
+		multiply(matrix) {
+			let t = this.temp;
+			let v = this.values;
+			let m = matrix.values;
+			t[M00] = v[M00] * m[M00] + v[M01] * m[M10] + v[M02] * m[M20] + v[M03] * m[M30];
+			t[M01] = v[M00] * m[M01] + v[M01] * m[M11] + v[M02] * m[M21] + v[M03] * m[M31];
+			t[M02] = v[M00] * m[M02] + v[M01] * m[M12] + v[M02] * m[M22] + v[M03] * m[M32];
+			t[M03] = v[M00] * m[M03] + v[M01] * m[M13] + v[M02] * m[M23] + v[M03] * m[M33];
+			t[M10] = v[M10] * m[M00] + v[M11] * m[M10] + v[M12] * m[M20] + v[M13] * m[M30];
+			t[M11] = v[M10] * m[M01] + v[M11] * m[M11] + v[M12] * m[M21] + v[M13] * m[M31];
+			t[M12] = v[M10] * m[M02] + v[M11] * m[M12] + v[M12] * m[M22] + v[M13] * m[M32];
+			t[M13] = v[M10] * m[M03] + v[M11] * m[M13] + v[M12] * m[M23] + v[M13] * m[M33];
+			t[M20] = v[M20] * m[M00] + v[M21] * m[M10] + v[M22] * m[M20] + v[M23] * m[M30];
+			t[M21] = v[M20] * m[M01] + v[M21] * m[M11] + v[M22] * m[M21] + v[M23] * m[M31];
+			t[M22] = v[M20] * m[M02] + v[M21] * m[M12] + v[M22] * m[M22] + v[M23] * m[M32];
+			t[M23] = v[M20] * m[M03] + v[M21] * m[M13] + v[M22] * m[M23] + v[M23] * m[M33];
+			t[M30] = v[M30] * m[M00] + v[M31] * m[M10] + v[M32] * m[M20] + v[M33] * m[M30];
+			t[M31] = v[M30] * m[M01] + v[M31] * m[M11] + v[M32] * m[M21] + v[M33] * m[M31];
+			t[M32] = v[M30] * m[M02] + v[M31] * m[M12] + v[M32] * m[M22] + v[M33] * m[M32];
+			t[M33] = v[M30] * m[M03] + v[M31] * m[M13] + v[M32] * m[M23] + v[M33] * m[M33];
+			return this.set(this.temp);
+		}
+		multiplyLeft(matrix) {
+			let t = this.temp;
+			let v = this.values;
+			let m = matrix.values;
+			t[M00] = m[M00] * v[M00] + m[M01] * v[M10] + m[M02] * v[M20] + m[M03] * v[M30];
+			t[M01] = m[M00] * v[M01] + m[M01] * v[M11] + m[M02] * v[M21] + m[M03] * v[M31];
+			t[M02] = m[M00] * v[M02] + m[M01] * v[M12] + m[M02] * v[M22] + m[M03] * v[M32];
+			t[M03] = m[M00] * v[M03] + m[M01] * v[M13] + m[M02] * v[M23] + m[M03] * v[M33];
+			t[M10] = m[M10] * v[M00] + m[M11] * v[M10] + m[M12] * v[M20] + m[M13] * v[M30];
+			t[M11] = m[M10] * v[M01] + m[M11] * v[M11] + m[M12] * v[M21] + m[M13] * v[M31];
+			t[M12] = m[M10] * v[M02] + m[M11] * v[M12] + m[M12] * v[M22] + m[M13] * v[M32];
+			t[M13] = m[M10] * v[M03] + m[M11] * v[M13] + m[M12] * v[M23] + m[M13] * v[M33];
+			t[M20] = m[M20] * v[M00] + m[M21] * v[M10] + m[M22] * v[M20] + m[M23] * v[M30];
+			t[M21] = m[M20] * v[M01] + m[M21] * v[M11] + m[M22] * v[M21] + m[M23] * v[M31];
+			t[M22] = m[M20] * v[M02] + m[M21] * v[M12] + m[M22] * v[M22] + m[M23] * v[M32];
+			t[M23] = m[M20] * v[M03] + m[M21] * v[M13] + m[M22] * v[M23] + m[M23] * v[M33];
+			t[M30] = m[M30] * v[M00] + m[M31] * v[M10] + m[M32] * v[M20] + m[M33] * v[M30];
+			t[M31] = m[M30] * v[M01] + m[M31] * v[M11] + m[M32] * v[M21] + m[M33] * v[M31];
+			t[M32] = m[M30] * v[M02] + m[M31] * v[M12] + m[M32] * v[M22] + m[M33] * v[M32];
+			t[M33] = m[M30] * v[M03] + m[M31] * v[M13] + m[M32] * v[M23] + m[M33] * v[M33];
+			return this.set(this.temp);
+		}
+		lookAt(position, direction, up) {
+			let xAxis = _Matrix4.xAxis, yAxis = _Matrix4.yAxis, zAxis = _Matrix4.zAxis;
+			zAxis.setFrom(direction).normalize();
+			xAxis.setFrom(direction).normalize();
+			xAxis.cross(up).normalize();
+			yAxis.setFrom(xAxis).cross(zAxis).normalize();
+			this.identity();
+			let val = this.values;
+			val[M00] = xAxis.x;
+			val[M01] = xAxis.y;
+			val[M02] = xAxis.z;
+			val[M10] = yAxis.x;
+			val[M11] = yAxis.y;
+			val[M12] = yAxis.z;
+			val[M20] = -zAxis.x;
+			val[M21] = -zAxis.y;
+			val[M22] = -zAxis.z;
+			_Matrix4.tmpMatrix.identity();
+			_Matrix4.tmpMatrix.values[M03] = -position.x;
+			_Matrix4.tmpMatrix.values[M13] = -position.y;
+			_Matrix4.tmpMatrix.values[M23] = -position.z;
+			this.multiply(_Matrix4.tmpMatrix);
+			return this;
+		}
+	};
+	var Matrix42 = _Matrix4;
+	Matrix42.xAxis = new Vector3();
+	Matrix42.yAxis = new Vector3();
+	Matrix42.zAxis = new Vector3();
+	Matrix42.tmpMatrix = new _Matrix4();
+
+	// spine-webgl/src/Camera.ts
+	var OrthoCamera = class {
+		constructor(viewportWidth, viewportHeight) {
+			this.position = new Vector3(0, 0, 0);
+			this.direction = new Vector3(0, 0, -1);
+			this.up = new Vector3(0, 1, 0);
+			this.near = 0;
+			this.far = 100;
+			this.zoom = 1;
+			this.viewportWidth = 0;
+			this.viewportHeight = 0;
+			this.projectionView = new Matrix42();
+			this.inverseProjectionView = new Matrix42();
+			this.projection = new Matrix42();
+			this.view = new Matrix42();
+			this.viewportWidth = viewportWidth;
+			this.viewportHeight = viewportHeight;
+			this.update();
+		}
+		update() {
+			let projection = this.projection;
+			let view = this.view;
+			let projectionView = this.projectionView;
+			let inverseProjectionView = this.inverseProjectionView;
+			let zoom = this.zoom, viewportWidth = this.viewportWidth, viewportHeight = this.viewportHeight;
+			projection.ortho(
+				zoom * (-viewportWidth / 2),
+				zoom * (viewportWidth / 2),
+				zoom * (-viewportHeight / 2),
+				zoom * (viewportHeight / 2),
+				this.near,
+				this.far
+			);
+			view.lookAt(this.position, this.direction, this.up);
+			projectionView.set(projection.values);
+			projectionView.multiply(view);
+			inverseProjectionView.set(projectionView.values).invert();
+		}
+		screenToWorld(screenCoords, screenWidth, screenHeight) {
+			let x = screenCoords.x, y = screenHeight - screenCoords.y - 1;
+			screenCoords.x = 2 * x / screenWidth - 1;
+			screenCoords.y = 2 * y / screenHeight - 1;
+			screenCoords.z = 2 * screenCoords.z - 1;
+			screenCoords.project(this.inverseProjectionView);
+			return screenCoords;
+		}
+		worldToScreen(worldCoords, screenWidth, screenHeight) {
+			worldCoords.project(this.projectionView);
+			worldCoords.x = screenWidth * (worldCoords.x + 1) / 2;
+			worldCoords.y = screenHeight * (worldCoords.y + 1) / 2;
+			worldCoords.z = (worldCoords.z + 1) / 2;
+			return worldCoords;
+		}
+		setViewport(viewportWidth, viewportHeight) {
+			this.viewportWidth = viewportWidth;
+			this.viewportHeight = viewportHeight;
+		}
+	};
+
+	// spine-webgl/src/Input.ts
+	var Input = class {
+		constructor(element) {
+			this.mouseX = 0;
+			this.mouseY = 0;
+			this.buttonDown = false;
+			this.touch0 = null;
+			this.touch1 = null;
+			this.initialPinchDistance = 0;
+			this.listeners = new Array();
+			this.eventListeners = [];
+			this.element = element;
+			this.setupCallbacks(element);
+		}
+		setupCallbacks(element) {
+			let mouseDown = (ev) => {
+				if (ev instanceof MouseEvent) {
+					let rect = element.getBoundingClientRect();
+					this.mouseX = ev.clientX - rect.left;
+					;
+					this.mouseY = ev.clientY - rect.top;
+					this.buttonDown = true;
+					this.listeners.map((listener) => {
+						if (listener.down)
+							listener.down(this.mouseX, this.mouseY);
+					});
+					document.addEventListener("mousemove", mouseMove);
+					document.addEventListener("mouseup", mouseUp);
+				}
+			};
+			let mouseMove = (ev) => {
+				if (ev instanceof MouseEvent) {
+					let rect = element.getBoundingClientRect();
+					this.mouseX = ev.clientX - rect.left;
+					;
+					this.mouseY = ev.clientY - rect.top;
+					this.listeners.map((listener) => {
+						if (this.buttonDown) {
+							if (listener.dragged)
+								listener.dragged(this.mouseX, this.mouseY);
+						} else {
+							if (listener.moved)
+								listener.moved(this.mouseX, this.mouseY);
+						}
+					});
+				}
+			};
+			let mouseUp = (ev) => {
+				if (ev instanceof MouseEvent) {
+					let rect = element.getBoundingClientRect();
+					this.mouseX = ev.clientX - rect.left;
+					;
+					this.mouseY = ev.clientY - rect.top;
+					this.buttonDown = false;
+					this.listeners.map((listener) => {
+						if (listener.up)
+							listener.up(this.mouseX, this.mouseY);
+					});
+					document.removeEventListener("mousemove", mouseMove);
+					document.removeEventListener("mouseup", mouseUp);
+				}
+			};
+			let mouseWheel = (e) => {
+				e.preventDefault();
+				let deltaY = e.deltaY;
+				if (e.deltaMode == WheelEvent.DOM_DELTA_LINE)
+					deltaY *= 8;
+				if (e.deltaMode == WheelEvent.DOM_DELTA_PAGE)
+					deltaY *= 24;
+				this.listeners.map((listener) => {
+					if (listener.wheel)
+						listener.wheel(e.deltaY);
+				});
+			};
+			element.addEventListener("mousedown", mouseDown, true);
+			element.addEventListener("mousemove", mouseMove, true);
+			element.addEventListener("mouseup", mouseUp, true);
+			element.addEventListener("wheel", mouseWheel, true);
+			element.addEventListener("touchstart", (ev) => {
+				if (!this.touch0 || !this.touch1) {
+					var touches = ev.changedTouches;
+					let nativeTouch = touches.item(0);
+					if (!nativeTouch)
+						return;
+					let rect = element.getBoundingClientRect();
+					let x = nativeTouch.clientX - rect.left;
+					let y = nativeTouch.clientY - rect.top;
+					let touch = new Touch(nativeTouch.identifier, x, y);
+					this.mouseX = x;
+					this.mouseY = y;
+					this.buttonDown = true;
+					if (!this.touch0) {
+						this.touch0 = touch;
+						this.listeners.map((listener) => {
+							if (listener.down)
+								listener.down(touch.x, touch.y);
+						});
+					} else if (!this.touch1) {
+						this.touch1 = touch;
+						let dx = this.touch1.x - this.touch0.x;
+						let dy = this.touch1.x - this.touch0.x;
+						this.initialPinchDistance = Math.sqrt(dx * dx + dy * dy);
+						this.listeners.map((listener) => {
+							if (listener.zoom)
+								listener.zoom(this.initialPinchDistance, this.initialPinchDistance);
+						});
+					}
+				}
+				ev.preventDefault();
+			}, false);
+			element.addEventListener("touchmove", (ev) => {
+				if (this.touch0) {
+					var touches = ev.changedTouches;
+					let rect = element.getBoundingClientRect();
+					for (var i = 0; i < touches.length; i++) {
+						var nativeTouch = touches[i];
+						let x = nativeTouch.clientX - rect.left;
+						let y = nativeTouch.clientY - rect.top;
+						if (this.touch0.identifier === nativeTouch.identifier) {
+							this.touch0.x = this.mouseX = x;
+							this.touch0.y = this.mouseY = y;
+							this.listeners.map((listener) => {
+								if (listener.dragged)
+									listener.dragged(x, y);
+							});
+						}
+						if (this.touch1 && this.touch1.identifier === nativeTouch.identifier) {
+							this.touch1.x = this.mouseX = x;
+							this.touch1.y = this.mouseY = y;
+						}
+					}
+					if (this.touch0 && this.touch1) {
+						let dx = this.touch1.x - this.touch0.x;
+						let dy = this.touch1.x - this.touch0.x;
+						let distance = Math.sqrt(dx * dx + dy * dy);
+						this.listeners.map((listener) => {
+							if (listener.zoom)
+								listener.zoom(this.initialPinchDistance, distance);
+						});
+					}
+				}
+				ev.preventDefault();
+			}, false);
+			let touchEnd = (ev) => {
+				if (this.touch0) {
+					var touches = ev.changedTouches;
+					let rect = element.getBoundingClientRect();
+					for (var i = 0; i < touches.length; i++) {
+						var nativeTouch = touches[i];
+						let x = nativeTouch.clientX - rect.left;
+						let y = nativeTouch.clientY - rect.top;
+						if (this.touch0.identifier === nativeTouch.identifier) {
+							this.touch0 = null;
+							this.mouseX = x;
+							this.mouseY = y;
+							this.listeners.map((listener) => {
+								if (listener.up)
+									listener.up(x, y);
+							});
+							if (!this.touch1) {
+								this.buttonDown = false;
+								break;
+							} else {
+								this.touch0 = this.touch1;
+								this.touch1 = null;
+								this.mouseX = this.touch0.x;
+								this.mouseX = this.touch0.x;
+								this.buttonDown = true;
+								this.listeners.map((listener) => {
+									if (listener.down)
+										listener.down(this.touch0.x, this.touch0.y);
+								});
+							}
+						}
+						if (this.touch1 && this.touch1.identifier) {
+							this.touch1 = null;
+						}
+					}
+				}
+				ev.preventDefault();
+			};
+			element.addEventListener("touchend", touchEnd, false);
+			element.addEventListener("touchcancel", touchEnd);
+		}
+		addListener(listener) {
+			this.listeners.push(listener);
+		}
+		removeListener(listener) {
+			let idx = this.listeners.indexOf(listener);
+			if (idx > -1) {
+				this.listeners.splice(idx, 1);
+			}
+		}
+	};
+	var Touch = class {
+		constructor(identifier, x, y) {
+			this.identifier = identifier;
+			this.x = x;
+			this.y = y;
+		}
+	};
+
+	// spine-webgl/src/CameraController.ts
+	var CameraController = class {
+		constructor(canvas, camera) {
+			this.canvas = canvas;
+			this.camera = camera;
+			let cameraX = 0, cameraY = 0, cameraZoom = 0;
+			let mouseX = 0, mouseY = 0;
+			let lastX = 0, lastY = 0;
+			let initialZoom = 0;
+			new Input(canvas).addListener({
+				down: (x, y) => {
+					cameraX = camera.position.x;
+					cameraY = camera.position.y;
+					mouseX = lastX = x;
+					mouseY = lastY = y;
+					initialZoom = camera.zoom;
+				},
+				dragged: (x, y) => {
+					let deltaX = x - mouseX;
+					let deltaY = y - mouseY;
+					let originWorld = camera.screenToWorld(new Vector3(0, 0), canvas.clientWidth, canvas.clientHeight);
+					let deltaWorld = camera.screenToWorld(new Vector3(deltaX, deltaY), canvas.clientWidth, canvas.clientHeight).sub(originWorld);
+					camera.position.set(cameraX - deltaWorld.x, cameraY - deltaWorld.y, 0);
+					camera.update();
+					lastX = x;
+					lastY = y;
+				},
+				wheel: (delta) => {
+					let zoomAmount = delta / 200 * camera.zoom;
+					let newZoom = camera.zoom + zoomAmount;
+					if (newZoom > 0) {
+						let x = 0, y = 0;
+						if (delta < 0) {
+							x = lastX;
+							y = lastY;
+						} else {
+							let viewCenter = new Vector3(canvas.clientWidth / 2 + 15, canvas.clientHeight / 2);
+							let mouseToCenterX = lastX - viewCenter.x;
+							let mouseToCenterY = canvas.clientHeight - 1 - lastY - viewCenter.y;
+							x = viewCenter.x - mouseToCenterX;
+							y = canvas.clientHeight - 1 - viewCenter.y + mouseToCenterY;
+						}
+						let oldDistance = camera.screenToWorld(new Vector3(x, y), canvas.clientWidth, canvas.clientHeight);
+						camera.zoom = newZoom;
+						camera.update();
+						let newDistance = camera.screenToWorld(new Vector3(x, y), canvas.clientWidth, canvas.clientHeight);
+						camera.position.add(oldDistance.sub(newDistance));
+						camera.update();
+					}
+				},
+				zoom: (initialDistance, distance) => {
+					let newZoom = initialDistance / distance;
+					camera.zoom = initialZoom * newZoom;
+				},
+				up: (x, y) => {
+					lastX = x;
+					lastY = y;
+				},
+				moved: (x, y) => {
+					lastX = x;
+					lastY = y;
+				}
+			});
+		}
+	};
+
+	// spine-webgl/src/Shader.ts
+	var _Shader = class {
+		constructor(context, vertexShader, fragmentShader) {
+			this.vertexShader = vertexShader;
+			this.fragmentShader = fragmentShader;
+			this.vs = null;
+			this.fs = null;
+			this.program = null;
+			this.tmp2x2 = new Float32Array(2 * 2);
+			this.tmp3x3 = new Float32Array(3 * 3);
+			this.tmp4x4 = new Float32Array(4 * 4);
+			this.vsSource = vertexShader;
+			this.fsSource = fragmentShader;
+			this.context = context instanceof ManagedWebGLRenderingContext ? context : new ManagedWebGLRenderingContext(context);
+			this.context.addRestorable(this);
+			this.compile();
+		}
+		getProgram() {
+			return this.program;
+		}
+		getVertexShader() {
+			return this.vertexShader;
+		}
+		getFragmentShader() {
+			return this.fragmentShader;
+		}
+		getVertexShaderSource() {
+			return this.vsSource;
+		}
+		getFragmentSource() {
+			return this.fsSource;
+		}
+		compile() {
+			let gl = this.context.gl;
+			try {
+				this.vs = this.compileShader(gl.VERTEX_SHADER, this.vertexShader);
+				if (!this.vs)
+					throw new Error("Couldn't compile vertex shader.");
+				this.fs = this.compileShader(gl.FRAGMENT_SHADER, this.fragmentShader);
+				if (!this.fs)
+					throw new Error("Couldn#t compile fragment shader.");
+				this.program = this.compileProgram(this.vs, this.fs);
+			} catch (e) {
+				this.dispose();
+				throw e;
+			}
+		}
+		compileShader(type, source) {
+			let gl = this.context.gl;
+			let shader = gl.createShader(type);
+			if (!shader)
+				throw new Error("Couldn't create shader.");
+			gl.shaderSource(shader, source);
+			gl.compileShader(shader);
+			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+				let error = "Couldn't compile shader: " + gl.getShaderInfoLog(shader);
+				gl.deleteShader(shader);
+				if (!gl.isContextLost())
+					throw new Error(error);
+			}
+			return shader;
+		}
+		compileProgram(vs, fs) {
+			let gl = this.context.gl;
+			let program = gl.createProgram();
+			if (!program)
+				throw new Error("Couldn't compile program.");
+			gl.attachShader(program, vs);
+			gl.attachShader(program, fs);
+			gl.linkProgram(program);
+			if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+				let error = "Couldn't compile shader program: " + gl.getProgramInfoLog(program);
+				gl.deleteProgram(program);
+				if (!gl.isContextLost())
+					throw new Error(error);
+			}
+			return program;
+		}
+		restore() {
+			this.compile();
+		}
+		bind() {
+			this.context.gl.useProgram(this.program);
+		}
+		unbind() {
+			this.context.gl.useProgram(null);
+		}
+		setUniformi(uniform, value) {
+			this.context.gl.uniform1i(this.getUniformLocation(uniform), value);
+		}
+		setUniformf(uniform, value) {
+			this.context.gl.uniform1f(this.getUniformLocation(uniform), value);
+		}
+		setUniform2f(uniform, value, value2) {
+			this.context.gl.uniform2f(this.getUniformLocation(uniform), value, value2);
+		}
+		setUniform3f(uniform, value, value2, value3) {
+			this.context.gl.uniform3f(this.getUniformLocation(uniform), value, value2, value3);
+		}
+		setUniform4f(uniform, value, value2, value3, value4) {
+			this.context.gl.uniform4f(this.getUniformLocation(uniform), value, value2, value3, value4);
+		}
+		setUniform2x2f(uniform, value) {
+			let gl = this.context.gl;
+			this.tmp2x2.set(value);
+			gl.uniformMatrix2fv(this.getUniformLocation(uniform), false, this.tmp2x2);
+		}
+		setUniform3x3f(uniform, value) {
+			let gl = this.context.gl;
+			this.tmp3x3.set(value);
+			gl.uniformMatrix3fv(this.getUniformLocation(uniform), false, this.tmp3x3);
+		}
+		setUniform4x4f(uniform, value) {
+			let gl = this.context.gl;
+			this.tmp4x4.set(value);
+			gl.uniformMatrix4fv(this.getUniformLocation(uniform), false, this.tmp4x4);
+		}
+		getUniformLocation(uniform) {
+			let gl = this.context.gl;
+			if (!this.program)
+				throw new Error("Shader not compiled.");
+			let location = gl.getUniformLocation(this.program, uniform);
+			if (!location && !gl.isContextLost())
+				throw new Error(`Couldn't find location for uniform ${uniform}`);
+			return location;
+		}
+		getAttributeLocation(attribute) {
+			let gl = this.context.gl;
+			if (!this.program)
+				throw new Error("Shader not compiled.");
+			let location = gl.getAttribLocation(this.program, attribute);
+			if (location == -1 && !gl.isContextLost())
+				throw new Error(`Couldn't find location for attribute ${attribute}`);
+			return location;
+		}
+		dispose() {
+			this.context.removeRestorable(this);
+			let gl = this.context.gl;
+			if (this.vs) {
+				gl.deleteShader(this.vs);
+				this.vs = null;
+			}
+			if (this.fs) {
+				gl.deleteShader(this.fs);
+				this.fs = null;
+			}
+			if (this.program) {
+				gl.deleteProgram(this.program);
+				this.program = null;
+			}
+		}
+		static newColoredTextured(context) {
+			let vs = `
+attribute vec4 ${_Shader.POSITION};
+attribute vec4 ${_Shader.COLOR};
+attribute vec2 ${_Shader.TEXCOORDS};
+uniform mat4 ${_Shader.MVP_MATRIX};
+varying vec4 v_color;
+varying vec2 v_texCoords;
+
+void main () {
+	v_color = ${_Shader.COLOR};
+	v_texCoords = ${_Shader.TEXCOORDS};
+	gl_Position = ${_Shader.MVP_MATRIX} * ${_Shader.POSITION};
+}
+`;
+			let fs = `
+#ifdef GL_ES
+	#define LOWP lowp
+	precision mediump float;
+#else
+	#define LOWP
+#endif
+varying LOWP vec4 v_color;
+varying vec2 v_texCoords;
+uniform sampler2D u_texture;
+
+void main () {
+	gl_FragColor = v_color * texture2D(u_texture, v_texCoords);
+}
+`;
+			return new _Shader(context, vs, fs);
+		}
+		static newTwoColoredTextured(context) {
+			let vs = `
+attribute vec4 ${_Shader.POSITION};
+attribute vec4 ${_Shader.COLOR};
+attribute vec4 ${_Shader.COLOR2};
+attribute vec2 ${_Shader.TEXCOORDS};
+uniform mat4 ${_Shader.MVP_MATRIX};
+varying vec4 v_light;
+varying vec4 v_dark;
+varying vec2 v_texCoords;
+
+void main () {
+	v_light = ${_Shader.COLOR};
+	v_dark = ${_Shader.COLOR2};
+	v_texCoords = ${_Shader.TEXCOORDS};
+	gl_Position = ${_Shader.MVP_MATRIX} * ${_Shader.POSITION};
+}
+`;
+			let fs = `
+#ifdef GL_ES
+	#define LOWP lowp
+	precision mediump float;
+#else
+	#define LOWP
+#endif
+varying LOWP vec4 v_light;
+varying LOWP vec4 v_dark;
+varying vec2 v_texCoords;
+uniform sampler2D u_texture;
+
+void main () {
+	vec4 texColor = texture2D(u_texture, v_texCoords);
+	gl_FragColor.a = texColor.a * v_light.a;
+	gl_FragColor.rgb = ((texColor.a - 1.0) * v_dark.a + 1.0 - texColor.rgb) * v_dark.rgb + texColor.rgb * v_light.rgb;
+}
+`;
+			return new _Shader(context, vs, fs);
+		}
+		static newColored(context) {
+			let vs = `
+attribute vec4 ${_Shader.POSITION};
+attribute vec4 ${_Shader.COLOR};
+uniform mat4 ${_Shader.MVP_MATRIX};
+varying vec4 v_color;
+
+void main () {
+	v_color = ${_Shader.COLOR};
+	gl_Position = ${_Shader.MVP_MATRIX} * ${_Shader.POSITION};
+}
+`;
+			let fs = `
+#ifdef GL_ES
+	#define LOWP lowp
+	precision mediump float;
+#else
+	#define LOWP
+#endif
+varying LOWP vec4 v_color;
+
+void main () {
+	gl_FragColor = v_color;
+}
+`;
+			return new _Shader(context, vs, fs);
+		}
+	};
+	var Shader = _Shader;
+	Shader.MVP_MATRIX = "u_projTrans";
+	Shader.POSITION = "a_position";
+	Shader.COLOR = "a_color";
+	Shader.COLOR2 = "a_color2";
+	Shader.TEXCOORDS = "a_texCoords";
+	Shader.SAMPLER = "u_texture";
+
+	// spine-webgl/src/Mesh.ts
+	var Mesh = class {
+		constructor(context, attributes, maxVertices, maxIndices) {
+			this.attributes = attributes;
+			this.verticesBuffer = null;
+			this.verticesLength = 0;
+			this.dirtyVertices = false;
+			this.indicesBuffer = null;
+			this.indicesLength = 0;
+			this.dirtyIndices = false;
+			this.elementsPerVertex = 0;
+			this.context = context instanceof ManagedWebGLRenderingContext ? context : new ManagedWebGLRenderingContext(context);
+			this.elementsPerVertex = 0;
+			for (let i = 0; i < attributes.length; i++) {
+				this.elementsPerVertex += attributes[i].numElements;
+			}
+			this.vertices = new Float32Array(maxVertices * this.elementsPerVertex);
+			this.indices = new Uint16Array(maxIndices);
+			this.context.addRestorable(this);
+		}
+		getAttributes() {
+			return this.attributes;
+		}
+		maxVertices() {
+			return this.vertices.length / this.elementsPerVertex;
+		}
+		numVertices() {
+			return this.verticesLength / this.elementsPerVertex;
+		}
+		setVerticesLength(length) {
+			this.dirtyVertices = true;
+			this.verticesLength = length;
+		}
+		getVertices() {
+			return this.vertices;
+		}
+		maxIndices() {
+			return this.indices.length;
+		}
+		numIndices() {
+			return this.indicesLength;
+		}
+		setIndicesLength(length) {
+			this.dirtyIndices = true;
+			this.indicesLength = length;
+		}
+		getIndices() {
+			return this.indices;
+		}
+		getVertexSizeInFloats() {
+			let size = 0;
+			for (var i = 0; i < this.attributes.length; i++) {
+				let attribute = this.attributes[i];
+				size += attribute.numElements;
+			}
+			return size;
+		}
+		setVertices(vertices) {
+			this.dirtyVertices = true;
+			if (vertices.length > this.vertices.length)
+				throw Error("Mesh can't store more than " + this.maxVertices() + " vertices");
+			this.vertices.set(vertices, 0);
+			this.verticesLength = vertices.length;
+		}
+		setIndices(indices) {
+			this.dirtyIndices = true;
+			if (indices.length > this.indices.length)
+				throw Error("Mesh can't store more than " + this.maxIndices() + " indices");
+			this.indices.set(indices, 0);
+			this.indicesLength = indices.length;
+		}
+		draw(shader, primitiveType) {
+			this.drawWithOffset(shader, primitiveType, 0, this.indicesLength > 0 ? this.indicesLength : this.verticesLength / this.elementsPerVertex);
+		}
+		drawWithOffset(shader, primitiveType, offset, count) {
+			let gl = this.context.gl;
+			if (this.dirtyVertices || this.dirtyIndices)
+				this.update();
+			this.bind(shader);
+			if (this.indicesLength > 0) {
+				gl.drawElements(primitiveType, count, gl.UNSIGNED_SHORT, offset * 2);
+			} else {
+				gl.drawArrays(primitiveType, offset, count);
+			}
+			this.unbind(shader);
+		}
+		bind(shader) {
+			let gl = this.context.gl;
+			gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesBuffer);
+			let offset = 0;
+			for (let i = 0; i < this.attributes.length; i++) {
+				let attrib = this.attributes[i];
+				let location = shader.getAttributeLocation(attrib.name);
+				gl.enableVertexAttribArray(location);
+				gl.vertexAttribPointer(location, attrib.numElements, gl.FLOAT, false, this.elementsPerVertex * 4, offset * 4);
+				offset += attrib.numElements;
+			}
+			if (this.indicesLength > 0)
+				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+		}
+		unbind(shader) {
+			let gl = this.context.gl;
+			for (let i = 0; i < this.attributes.length; i++) {
+				let attrib = this.attributes[i];
+				let location = shader.getAttributeLocation(attrib.name);
+				gl.disableVertexAttribArray(location);
+			}
+			gl.bindBuffer(gl.ARRAY_BUFFER, null);
+			if (this.indicesLength > 0)
+				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+		}
+		update() {
+			let gl = this.context.gl;
+			if (this.dirtyVertices) {
+				if (!this.verticesBuffer) {
+					this.verticesBuffer = gl.createBuffer();
+				}
+				gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesBuffer);
+				gl.bufferData(gl.ARRAY_BUFFER, this.vertices.subarray(0, this.verticesLength), gl.DYNAMIC_DRAW);
+				this.dirtyVertices = false;
+			}
+			if (this.dirtyIndices) {
+				if (!this.indicesBuffer) {
+					this.indicesBuffer = gl.createBuffer();
+				}
+				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.indices.subarray(0, this.indicesLength), gl.DYNAMIC_DRAW);
+				this.dirtyIndices = false;
+			}
+		}
+		restore() {
+			this.verticesBuffer = null;
+			this.indicesBuffer = null;
+			this.update();
+		}
+		dispose() {
+			this.context.removeRestorable(this);
+			let gl = this.context.gl;
+			gl.deleteBuffer(this.verticesBuffer);
+			gl.deleteBuffer(this.indicesBuffer);
+		}
+	};
+	var VertexAttribute = class {
+		constructor(name, type, numElements) {
+			this.name = name;
+			this.type = type;
+			this.numElements = numElements;
+		}
+	};
+	var Position2Attribute = class extends VertexAttribute {
+		constructor() {
+			super(Shader.POSITION, VertexAttributeType.Float, 2);
+		}
+	};
+	var Position3Attribute = class extends VertexAttribute {
+		constructor() {
+			super(Shader.POSITION, VertexAttributeType.Float, 3);
+		}
+	};
+	var TexCoordAttribute = class extends VertexAttribute {
+		constructor(unit = 0) {
+			super(Shader.TEXCOORDS + (unit == 0 ? "" : unit), VertexAttributeType.Float, 2);
+		}
+	};
+	var ColorAttribute = class extends VertexAttribute {
+		constructor() {
+			super(Shader.COLOR, VertexAttributeType.Float, 4);
+		}
+	};
+	var Color2Attribute = class extends VertexAttribute {
+		constructor() {
+			super(Shader.COLOR2, VertexAttributeType.Float, 4);
+		}
+	};
+	var VertexAttributeType = /* @__PURE__ */ ((VertexAttributeType2) => {
+		VertexAttributeType2[VertexAttributeType2["Float"] = 0] = "Float";
+		return VertexAttributeType2;
+	})(VertexAttributeType || {});
+
+	// spine-webgl/src/PolygonBatcher.ts
+	var _PolygonBatcher = class {
+		constructor(context, twoColorTint = true, maxVertices = 10920) {
+			this.drawCalls = 0;
+			this.isDrawing = false;
+			this.shader = null;
+			this.lastTexture = null;
+			this.verticesLength = 0;
+			this.indicesLength = 0;
+			this.cullWasEnabled = false;
+			if (maxVertices > 10920)
+				throw new Error("Can't have more than 10920 triangles per batch: " + maxVertices);
+			this.context = context instanceof ManagedWebGLRenderingContext ? context : new ManagedWebGLRenderingContext(context);
+			let attributes = twoColorTint ? [new Position2Attribute(), new ColorAttribute(), new TexCoordAttribute(), new Color2Attribute()] : [new Position2Attribute(), new ColorAttribute(), new TexCoordAttribute()];
+			this.mesh = new Mesh(context, attributes, maxVertices, maxVertices * 3);
+			let gl = this.context.gl;
+			this.srcColorBlend = gl.SRC_ALPHA;
+			this.srcAlphaBlend = gl.ONE;
+			this.dstBlend = gl.ONE_MINUS_SRC_ALPHA;
+		}
+		begin(shader) {
+			if (this.isDrawing)
+				throw new Error("PolygonBatch is already drawing. Call PolygonBatch.end() before calling PolygonBatch.begin()");
+			this.drawCalls = 0;
+			this.shader = shader;
+			this.lastTexture = null;
+			this.isDrawing = true;
+			let gl = this.context.gl;
+			gl.enable(gl.BLEND);
+			gl.blendFuncSeparate(this.srcColorBlend, this.dstBlend, this.srcAlphaBlend, this.dstBlend);
+			if (_PolygonBatcher.disableCulling) {
+				this.cullWasEnabled = gl.isEnabled(gl.CULL_FACE);
+				if (this.cullWasEnabled)
+					gl.disable(gl.CULL_FACE);
+			}
+		}
+		setBlendMode(srcColorBlend, srcAlphaBlend, dstBlend) {
+			if (this.srcColorBlend == srcColorBlend && this.srcAlphaBlend == srcAlphaBlend && this.dstBlend == dstBlend)
+				return;
+			this.srcColorBlend = srcColorBlend;
+			this.srcAlphaBlend = srcAlphaBlend;
+			this.dstBlend = dstBlend;
+			if (this.isDrawing) {
+				this.flush();
+				let gl = this.context.gl;
+				gl.blendFuncSeparate(srcColorBlend, dstBlend, srcAlphaBlend, dstBlend);
+			}
+		}
+		draw(texture, vertices, indices) {
+			if (texture != this.lastTexture) {
+				this.flush();
+				this.lastTexture = texture;
+			} else if (this.verticesLength + vertices.length > this.mesh.getVertices().length || this.indicesLength + indices.length > this.mesh.getIndices().length) {
+				this.flush();
+			}
+			let indexStart = this.mesh.numVertices();
+			this.mesh.getVertices().set(vertices, this.verticesLength);
+			this.verticesLength += vertices.length;
+			this.mesh.setVerticesLength(this.verticesLength);
+			let indicesArray = this.mesh.getIndices();
+			for (let i = this.indicesLength, j = 0; j < indices.length; i++, j++)
+				indicesArray[i] = indices[j] + indexStart;
+			this.indicesLength += indices.length;
+			this.mesh.setIndicesLength(this.indicesLength);
+		}
+		flush() {
+			if (this.verticesLength == 0)
+				return;
+			if (!this.lastTexture)
+				throw new Error("No texture set.");
+			if (!this.shader)
+				throw new Error("No shader set.");
+			this.lastTexture.bind();
+			this.mesh.draw(this.shader, this.context.gl.TRIANGLES);
+			this.verticesLength = 0;
+			this.indicesLength = 0;
+			this.mesh.setVerticesLength(0);
+			this.mesh.setIndicesLength(0);
+			this.drawCalls++;
+			_PolygonBatcher.globalDrawCalls++;
+		}
+		end() {
+			if (!this.isDrawing)
+				throw new Error("PolygonBatch is not drawing. Call PolygonBatch.begin() before calling PolygonBatch.end()");
+			if (this.verticesLength > 0 || this.indicesLength > 0)
+				this.flush();
+			this.shader = null;
+			this.lastTexture = null;
+			this.isDrawing = false;
+			let gl = this.context.gl;
+			gl.disable(gl.BLEND);
+			if (_PolygonBatcher.disableCulling) {
+				if (this.cullWasEnabled)
+					gl.enable(gl.CULL_FACE);
+			}
+		}
+		getDrawCalls() {
+			return this.drawCalls;
+		}
+		static getAndResetGlobalDrawCalls() {
+			let result = _PolygonBatcher.globalDrawCalls;
+			_PolygonBatcher.globalDrawCalls = 0;
+			return result;
+		}
+		dispose() {
+			this.mesh.dispose();
+		}
+	};
+	var PolygonBatcher = _PolygonBatcher;
+	PolygonBatcher.disableCulling = false;
+	PolygonBatcher.globalDrawCalls = 0;
+
+	// spine-webgl/src/ShapeRenderer.ts
+	var ShapeRenderer = class {
+		constructor(context, maxVertices = 10920) {
+			this.isDrawing = false;
+			this.shapeType = ShapeType.Filled;
+			this.color = new Color(1, 1, 1, 1);
+			this.shader = null;
+			this.vertexIndex = 0;
+			this.tmp = new Vector2();
+			if (maxVertices > 10920)
+				throw new Error("Can't have more than 10920 triangles per batch: " + maxVertices);
+			this.context = context instanceof ManagedWebGLRenderingContext ? context : new ManagedWebGLRenderingContext(context);
+			this.mesh = new Mesh(context, [new Position2Attribute(), new ColorAttribute()], maxVertices, 0);
+			let gl = this.context.gl;
+			this.srcColorBlend = gl.SRC_ALPHA;
+			this.srcAlphaBlend = gl.ONE;
+			this.dstBlend = gl.ONE_MINUS_SRC_ALPHA;
+		}
+		begin(shader) {
+			if (this.isDrawing)
+				throw new Error("ShapeRenderer.begin() has already been called");
+			this.shader = shader;
+			this.vertexIndex = 0;
+			this.isDrawing = true;
+			let gl = this.context.gl;
+			gl.enable(gl.BLEND);
+			gl.blendFuncSeparate(this.srcColorBlend, this.dstBlend, this.srcAlphaBlend, this.dstBlend);
+		}
+		setBlendMode(srcColorBlend, srcAlphaBlend, dstBlend) {
+			this.srcColorBlend = srcColorBlend;
+			this.srcAlphaBlend = srcAlphaBlend;
+			this.dstBlend = dstBlend;
+			if (this.isDrawing) {
+				this.flush();
+				let gl = this.context.gl;
+				gl.blendFuncSeparate(srcColorBlend, dstBlend, srcAlphaBlend, dstBlend);
+			}
+		}
+		setColor(color) {
+			this.color.setFromColor(color);
+		}
+		setColorWith(r, g, b, a) {
+			this.color.set(r, g, b, a);
+		}
+		point(x, y, color) {
+			this.check(ShapeType.Point, 1);
+			if (!color)
+				color = this.color;
+			this.vertex(x, y, color);
+		}
+		line(x, y, x2, y2, color) {
+			this.check(ShapeType.Line, 2);
+			let vertices = this.mesh.getVertices();
+			let idx = this.vertexIndex;
+			if (!color)
+				color = this.color;
+			this.vertex(x, y, color);
+			this.vertex(x2, y2, color);
+		}
+		triangle(filled, x, y, x2, y2, x3, y3, color, color2, color3) {
+			this.check(filled ? ShapeType.Filled : ShapeType.Line, 3);
+			let vertices = this.mesh.getVertices();
+			let idx = this.vertexIndex;
+			if (!color)
+				color = this.color;
+			if (!color2)
+				color2 = this.color;
+			if (!color3)
+				color3 = this.color;
+			if (filled) {
+				this.vertex(x, y, color);
+				this.vertex(x2, y2, color2);
+				this.vertex(x3, y3, color3);
+			} else {
+				this.vertex(x, y, color);
+				this.vertex(x2, y2, color2);
+				this.vertex(x2, y2, color);
+				this.vertex(x3, y3, color2);
+				this.vertex(x3, y3, color);
+				this.vertex(x, y, color2);
+			}
+		}
+		quad(filled, x, y, x2, y2, x3, y3, x4, y4, color, color2, color3, color4) {
+			this.check(filled ? ShapeType.Filled : ShapeType.Line, 3);
+			let vertices = this.mesh.getVertices();
+			let idx = this.vertexIndex;
+			if (!color)
+				color = this.color;
+			if (!color2)
+				color2 = this.color;
+			if (!color3)
+				color3 = this.color;
+			if (!color4)
+				color4 = this.color;
+			if (filled) {
+				this.vertex(x, y, color);
+				this.vertex(x2, y2, color2);
+				this.vertex(x3, y3, color3);
+				this.vertex(x3, y3, color3);
+				this.vertex(x4, y4, color4);
+				this.vertex(x, y, color);
+			} else {
+				this.vertex(x, y, color);
+				this.vertex(x2, y2, color2);
+				this.vertex(x2, y2, color2);
+				this.vertex(x3, y3, color3);
+				this.vertex(x3, y3, color3);
+				this.vertex(x4, y4, color4);
+				this.vertex(x4, y4, color4);
+				this.vertex(x, y, color);
+			}
+		}
+		rect(filled, x, y, width, height, color) {
+			this.quad(filled, x, y, x + width, y, x + width, y + height, x, y + height, color, color, color, color);
+		}
+		rectLine(filled, x1, y1, x2, y2, width, color) {
+			this.check(filled ? ShapeType.Filled : ShapeType.Line, 8);
+			if (!color)
+				color = this.color;
+			let t = this.tmp.set(y2 - y1, x1 - x2);
+			t.normalize();
+			width *= 0.5;
+			let tx = t.x * width;
+			let ty = t.y * width;
+			if (!filled) {
+				this.vertex(x1 + tx, y1 + ty, color);
+				this.vertex(x1 - tx, y1 - ty, color);
+				this.vertex(x2 + tx, y2 + ty, color);
+				this.vertex(x2 - tx, y2 - ty, color);
+				this.vertex(x2 + tx, y2 + ty, color);
+				this.vertex(x1 + tx, y1 + ty, color);
+				this.vertex(x2 - tx, y2 - ty, color);
+				this.vertex(x1 - tx, y1 - ty, color);
+			} else {
+				this.vertex(x1 + tx, y1 + ty, color);
+				this.vertex(x1 - tx, y1 - ty, color);
+				this.vertex(x2 + tx, y2 + ty, color);
+				this.vertex(x2 - tx, y2 - ty, color);
+				this.vertex(x2 + tx, y2 + ty, color);
+				this.vertex(x1 - tx, y1 - ty, color);
+			}
+		}
+		x(x, y, size) {
+			this.line(x - size, y - size, x + size, y + size);
+			this.line(x - size, y + size, x + size, y - size);
+		}
+		polygon(polygonVertices, offset, count, color) {
+			if (count < 3)
+				throw new Error("Polygon must contain at least 3 vertices");
+			this.check(ShapeType.Line, count * 2);
+			if (!color)
+				color = this.color;
+			let vertices = this.mesh.getVertices();
+			let idx = this.vertexIndex;
+			offset <<= 1;
+			count <<= 1;
+			let firstX = polygonVertices[offset];
+			let firstY = polygonVertices[offset + 1];
+			let last = offset + count;
+			for (let i = offset, n = offset + count - 2; i < n; i += 2) {
+				let x1 = polygonVertices[i];
+				let y1 = polygonVertices[i + 1];
+				let x2 = 0;
+				let y2 = 0;
+				if (i + 2 >= last) {
+					x2 = firstX;
+					y2 = firstY;
+				} else {
+					x2 = polygonVertices[i + 2];
+					y2 = polygonVertices[i + 3];
+				}
+				this.vertex(x1, y1, color);
+				this.vertex(x2, y2, color);
+			}
+		}
+		circle(filled, x, y, radius, color, segments = 0) {
+			if (segments == 0)
+				segments = Math.max(1, 6 * MathUtils.cbrt(radius) | 0);
+			if (segments <= 0)
+				throw new Error("segments must be > 0.");
+			if (!color)
+				color = this.color;
+			let angle = 2 * MathUtils.PI / segments;
+			let cos = Math.cos(angle);
+			let sin = Math.sin(angle);
+			let cx = radius, cy = 0;
+			if (!filled) {
+				this.check(ShapeType.Line, segments * 2 + 2);
+				for (let i = 0; i < segments; i++) {
+					this.vertex(x + cx, y + cy, color);
+					let temp2 = cx;
+					cx = cos * cx - sin * cy;
+					cy = sin * temp2 + cos * cy;
+					this.vertex(x + cx, y + cy, color);
+				}
+				this.vertex(x + cx, y + cy, color);
+			} else {
+				this.check(ShapeType.Filled, segments * 3 + 3);
+				segments--;
+				for (let i = 0; i < segments; i++) {
+					this.vertex(x, y, color);
+					this.vertex(x + cx, y + cy, color);
+					let temp2 = cx;
+					cx = cos * cx - sin * cy;
+					cy = sin * temp2 + cos * cy;
+					this.vertex(x + cx, y + cy, color);
+				}
+				this.vertex(x, y, color);
+				this.vertex(x + cx, y + cy, color);
+			}
+			let temp = cx;
+			cx = radius;
+			cy = 0;
+			this.vertex(x + cx, y + cy, color);
+		}
+		curve(x1, y1, cx1, cy1, cx2, cy2, x2, y2, segments, color) {
+			this.check(ShapeType.Line, segments * 2 + 2);
+			if (!color)
+				color = this.color;
+			let subdiv_step = 1 / segments;
+			let subdiv_step2 = subdiv_step * subdiv_step;
+			let subdiv_step3 = subdiv_step * subdiv_step * subdiv_step;
+			let pre1 = 3 * subdiv_step;
+			let pre2 = 3 * subdiv_step2;
+			let pre4 = 6 * subdiv_step2;
+			let pre5 = 6 * subdiv_step3;
+			let tmp1x = x1 - cx1 * 2 + cx2;
+			let tmp1y = y1 - cy1 * 2 + cy2;
+			let tmp2x = (cx1 - cx2) * 3 - x1 + x2;
+			let tmp2y = (cy1 - cy2) * 3 - y1 + y2;
+			let fx = x1;
+			let fy = y1;
+			let dfx = (cx1 - x1) * pre1 + tmp1x * pre2 + tmp2x * subdiv_step3;
+			let dfy = (cy1 - y1) * pre1 + tmp1y * pre2 + tmp2y * subdiv_step3;
+			let ddfx = tmp1x * pre4 + tmp2x * pre5;
+			let ddfy = tmp1y * pre4 + tmp2y * pre5;
+			let dddfx = tmp2x * pre5;
+			let dddfy = tmp2y * pre5;
+			while (segments-- > 0) {
+				this.vertex(fx, fy, color);
+				fx += dfx;
+				fy += dfy;
+				dfx += ddfx;
+				dfy += ddfy;
+				ddfx += dddfx;
+				ddfy += dddfy;
+				this.vertex(fx, fy, color);
+			}
+			this.vertex(fx, fy, color);
+			this.vertex(x2, y2, color);
+		}
+		vertex(x, y, color) {
+			let idx = this.vertexIndex;
+			let vertices = this.mesh.getVertices();
+			vertices[idx++] = x;
+			vertices[idx++] = y;
+			vertices[idx++] = color.r;
+			vertices[idx++] = color.g;
+			vertices[idx++] = color.b;
+			vertices[idx++] = color.a;
+			this.vertexIndex = idx;
+		}
+		end() {
+			if (!this.isDrawing)
+				throw new Error("ShapeRenderer.begin() has not been called");
+			this.flush();
+			let gl = this.context.gl;
+			gl.disable(gl.BLEND);
+			this.isDrawing = false;
+		}
+		flush() {
+			if (this.vertexIndex == 0)
+				return;
+			if (!this.shader)
+				throw new Error("No shader set.");
+			this.mesh.setVerticesLength(this.vertexIndex);
+			this.mesh.draw(this.shader, this.shapeType);
+			this.vertexIndex = 0;
+		}
+		check(shapeType, numVertices) {
+			if (!this.isDrawing)
+				throw new Error("ShapeRenderer.begin() has not been called");
+			if (this.shapeType == shapeType) {
+				if (this.mesh.maxVertices() - this.mesh.numVertices() < numVertices)
+					this.flush();
+				else
+					return;
+			} else {
+				this.flush();
+				this.shapeType = shapeType;
+			}
+		}
+		dispose() {
+			this.mesh.dispose();
+		}
+	};
+	var ShapeType = /* @__PURE__ */ ((ShapeType2) => {
+		ShapeType2[ShapeType2["Point"] = 0] = "Point";
+		ShapeType2[ShapeType2["Line"] = 1] = "Line";
+		ShapeType2[ShapeType2["Filled"] = 4] = "Filled";
+		return ShapeType2;
+	})(ShapeType || {});
+
+	// spine-webgl/src/SkeletonDebugRenderer.ts
+	var _SkeletonDebugRenderer = class {
+		constructor(context) {
+			this.boneLineColor = new Color(1, 0, 0, 1);
+			this.boneOriginColor = new Color(0, 1, 0, 1);
+			this.attachmentLineColor = new Color(0, 0, 1, 0.5);
+			this.triangleLineColor = new Color(1, 0.64, 0, 0.5);
+			this.pathColor = new Color().setFromString("FF7F00");
+			this.clipColor = new Color(0.8, 0, 0, 2);
+			this.aabbColor = new Color(0, 1, 0, 0.5);
+			this.drawBones = true;
+			this.drawRegionAttachments = true;
+			this.drawBoundingBoxes = true;
+			this.drawMeshHull = true;
+			this.drawMeshTriangles = true;
+			this.drawPaths = true;
+			this.drawSkeletonXY = false;
+			this.drawClipping = true;
+			this.premultipliedAlpha = false;
+			this.scale = 1;
+			this.boneWidth = 2;
+			this.bounds = new SkeletonBounds();
+			this.temp = new Array();
+			this.vertices = Utils.newFloatArray(2 * 1024);
+			this.context = context instanceof ManagedWebGLRenderingContext ? context : new ManagedWebGLRenderingContext(context);
+		}
+		draw(shapes, skeleton, ignoredBones) {
+			let skeletonX = skeleton.x;
+			let skeletonY = skeleton.y;
+			let gl = this.context.gl;
+			let srcFunc = this.premultipliedAlpha ? gl.ONE : gl.SRC_ALPHA;
+			shapes.setBlendMode(srcFunc, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+			let bones = skeleton.bones;
+			if (this.drawBones) {
+				shapes.setColor(this.boneLineColor);
+				for (let i = 0, n = bones.length; i < n; i++) {
+					let bone = bones[i];
+					if (ignoredBones && ignoredBones.indexOf(bone.data.name) > -1)
+						continue;
+					if (!bone.parent)
+						continue;
+					let x = bone.data.length * bone.a + bone.worldX;
+					let y = bone.data.length * bone.c + bone.worldY;
+					shapes.rectLine(true, bone.worldX, bone.worldY, x, y, this.boneWidth * this.scale);
+				}
+				if (this.drawSkeletonXY)
+					shapes.x(skeletonX, skeletonY, 4 * this.scale);
+			}
+			if (this.drawRegionAttachments) {
+				shapes.setColor(this.attachmentLineColor);
+				let slots = skeleton.slots;
+				for (let i = 0, n = slots.length; i < n; i++) {
+					let slot = slots[i];
+					let attachment = slot.getAttachment();
+					if (attachment instanceof RegionAttachment) {
+						let regionAttachment = attachment;
+						let vertices = this.vertices;
+						regionAttachment.computeWorldVertices(slot, vertices, 0, 2);
+						shapes.line(vertices[0], vertices[1], vertices[2], vertices[3]);
+						shapes.line(vertices[2], vertices[3], vertices[4], vertices[5]);
+						shapes.line(vertices[4], vertices[5], vertices[6], vertices[7]);
+						shapes.line(vertices[6], vertices[7], vertices[0], vertices[1]);
+					}
+				}
+			}
+			if (this.drawMeshHull || this.drawMeshTriangles) {
+				let slots = skeleton.slots;
+				for (let i = 0, n = slots.length; i < n; i++) {
+					let slot = slots[i];
+					if (!slot.bone.active)
+						continue;
+					let attachment = slot.getAttachment();
+					if (!(attachment instanceof MeshAttachment))
+						continue;
+					let mesh = attachment;
+					let vertices = this.vertices;
+					mesh.computeWorldVertices(slot, 0, mesh.worldVerticesLength, vertices, 0, 2);
+					let triangles = mesh.triangles;
+					let hullLength = mesh.hullLength;
+					if (this.drawMeshTriangles) {
+						shapes.setColor(this.triangleLineColor);
+						for (let ii = 0, nn = triangles.length; ii < nn; ii += 3) {
+							let v1 = triangles[ii] * 2, v2 = triangles[ii + 1] * 2, v3 = triangles[ii + 2] * 2;
+							shapes.triangle(
+								false,
+								vertices[v1],
+								vertices[v1 + 1],
+								//
+								vertices[v2],
+								vertices[v2 + 1],
+								//
+								vertices[v3],
+								vertices[v3 + 1]
+								//
+							);
+						}
+					}
+					if (this.drawMeshHull && hullLength > 0) {
+						shapes.setColor(this.attachmentLineColor);
+						hullLength = (hullLength >> 1) * 2;
+						let lastX = vertices[hullLength - 2], lastY = vertices[hullLength - 1];
+						for (let ii = 0, nn = hullLength; ii < nn; ii += 2) {
+							let x = vertices[ii], y = vertices[ii + 1];
+							shapes.line(x, y, lastX, lastY);
+							lastX = x;
+							lastY = y;
+						}
+					}
+				}
+			}
+			if (this.drawBoundingBoxes) {
+				let bounds = this.bounds;
+				bounds.update(skeleton, true);
+				shapes.setColor(this.aabbColor);
+				shapes.rect(false, bounds.minX, bounds.minY, bounds.getWidth(), bounds.getHeight());
+				let polygons = bounds.polygons;
+				let boxes = bounds.boundingBoxes;
+				for (let i = 0, n = polygons.length; i < n; i++) {
+					let polygon = polygons[i];
+					shapes.setColor(boxes[i].color);
+					shapes.polygon(polygon, 0, polygon.length);
+				}
+			}
+			if (this.drawPaths) {
+				let slots = skeleton.slots;
+				for (let i = 0, n = slots.length; i < n; i++) {
+					let slot = slots[i];
+					if (!slot.bone.active)
+						continue;
+					let attachment = slot.getAttachment();
+					if (!(attachment instanceof PathAttachment))
+						continue;
+					let path = attachment;
+					let nn = path.worldVerticesLength;
+					let world = this.temp = Utils.setArraySize(this.temp, nn, 0);
+					path.computeWorldVertices(slot, 0, nn, world, 0, 2);
+					let color = this.pathColor;
+					let x1 = world[2], y1 = world[3], x2 = 0, y2 = 0;
+					if (path.closed) {
+						shapes.setColor(color);
+						let cx1 = world[0], cy1 = world[1], cx2 = world[nn - 2], cy2 = world[nn - 1];
+						x2 = world[nn - 4];
+						y2 = world[nn - 3];
+						shapes.curve(x1, y1, cx1, cy1, cx2, cy2, x2, y2, 32);
+						shapes.setColor(_SkeletonDebugRenderer.LIGHT_GRAY);
+						shapes.line(x1, y1, cx1, cy1);
+						shapes.line(x2, y2, cx2, cy2);
+					}
+					nn -= 4;
+					for (let ii = 4; ii < nn; ii += 6) {
+						let cx1 = world[ii], cy1 = world[ii + 1], cx2 = world[ii + 2], cy2 = world[ii + 3];
+						x2 = world[ii + 4];
+						y2 = world[ii + 5];
+						shapes.setColor(color);
+						shapes.curve(x1, y1, cx1, cy1, cx2, cy2, x2, y2, 32);
+						shapes.setColor(_SkeletonDebugRenderer.LIGHT_GRAY);
+						shapes.line(x1, y1, cx1, cy1);
+						shapes.line(x2, y2, cx2, cy2);
+						x1 = x2;
+						y1 = y2;
+					}
+				}
+			}
+			if (this.drawBones) {
+				shapes.setColor(this.boneOriginColor);
+				for (let i = 0, n = bones.length; i < n; i++) {
+					let bone = bones[i];
+					if (ignoredBones && ignoredBones.indexOf(bone.data.name) > -1)
+						continue;
+					shapes.circle(true, bone.worldX, bone.worldY, 3 * this.scale, this.boneOriginColor, 8);
+				}
+			}
+			if (this.drawClipping) {
+				let slots = skeleton.slots;
+				shapes.setColor(this.clipColor);
+				for (let i = 0, n = slots.length; i < n; i++) {
+					let slot = slots[i];
+					if (!slot.bone.active)
+						continue;
+					let attachment = slot.getAttachment();
+					if (!(attachment instanceof ClippingAttachment))
+						continue;
+					let clip = attachment;
+					let nn = clip.worldVerticesLength;
+					let world = this.temp = Utils.setArraySize(this.temp, nn, 0);
+					clip.computeWorldVertices(slot, 0, nn, world, 0, 2);
+					for (let i2 = 0, n2 = world.length; i2 < n2; i2 += 2) {
+						let x = world[i2];
+						let y = world[i2 + 1];
+						let x2 = world[(i2 + 2) % world.length];
+						let y2 = world[(i2 + 3) % world.length];
+						shapes.line(x, y, x2, y2);
+					}
+				}
+			}
+		}
+		dispose() {
+		}
+	};
+	var SkeletonDebugRenderer = _SkeletonDebugRenderer;
+	SkeletonDebugRenderer.LIGHT_GRAY = new Color(192 / 255, 192 / 255, 192 / 255, 1);
+	SkeletonDebugRenderer.GREEN = new Color(0, 1, 0, 1);
+
+	// spine-webgl/src/SkeletonRenderer.ts
+	var Renderable = class {
+		constructor(vertices, numVertices, numFloats) {
+			this.vertices = vertices;
+			this.numVertices = numVertices;
+			this.numFloats = numFloats;
+		}
+	};
+	var _SkeletonRenderer = class {
+		constructor(context, twoColorTint = true) {
+			this.premultipliedAlpha = false;
+			this.tempColor = new Color();
+			this.tempColor2 = new Color();
+			this.vertexSize = 2 + 2 + 4;
+			this.twoColorTint = false;
+			this.renderable = new Renderable([], 0, 0);
+			this.clipper = new SkeletonClipping();
+			this.temp = new Vector2();
+			this.temp2 = new Vector2();
+			this.temp3 = new Color();
+			this.temp4 = new Color();
+			this.twoColorTint = twoColorTint;
+			if (twoColorTint)
+				this.vertexSize += 4;
+			this.vertices = Utils.newFloatArray(this.vertexSize * 1024);
+		}
+		draw(batcher, skeleton, slotRangeStart = -1, slotRangeEnd = -1, transformer = null) {
+			let clipper = this.clipper;
+			let premultipliedAlpha = this.premultipliedAlpha;
+			let twoColorTint = this.twoColorTint;
+			let blendMode = null;
+			let tempPos = this.temp;
+			let tempUv = this.temp2;
+			let tempLight = this.temp3;
+			let tempDark = this.temp4;
+			let renderable = this.renderable;
+			let uvs;
+			let triangles;
+			let drawOrder = skeleton.drawOrder;
+			let attachmentColor;
+			let skeletonColor = skeleton.color;
+			let vertexSize = twoColorTint ? 12 : 8;
+			let inRange = false;
+			if (slotRangeStart == -1)
+				inRange = true;
+			for (let i = 0, n = drawOrder.length; i < n; i++) {
+				let clippedVertexSize = clipper.isClipping() ? 2 : vertexSize;
+				let slot = drawOrder[i];
+				if (!slot.bone.active) {
+					clipper.clipEndWithSlot(slot);
+					continue;
+				}
+				if (slotRangeStart >= 0 && slotRangeStart == slot.data.index) {
+					inRange = true;
+				}
+				if (!inRange) {
+					clipper.clipEndWithSlot(slot);
+					continue;
+				}
+				if (slotRangeEnd >= 0 && slotRangeEnd == slot.data.index) {
+					inRange = false;
+				}
+				let attachment = slot.getAttachment();
+				let texture;
+				if (attachment instanceof RegionAttachment) {
+					let region = attachment;
+					renderable.vertices = this.vertices;
+					renderable.numVertices = 4;
+					renderable.numFloats = clippedVertexSize << 2;
+					region.computeWorldVertices(slot, renderable.vertices, 0, clippedVertexSize);
+					triangles = _SkeletonRenderer.QUAD_TRIANGLES;
+					uvs = region.uvs;
+					texture = region.region.texture;
+					attachmentColor = region.color;
+				} else if (attachment instanceof MeshAttachment) {
+					let mesh = attachment;
+					renderable.vertices = this.vertices;
+					renderable.numVertices = mesh.worldVerticesLength >> 1;
+					renderable.numFloats = renderable.numVertices * clippedVertexSize;
+					if (renderable.numFloats > renderable.vertices.length) {
+						renderable.vertices = this.vertices = Utils.newFloatArray(renderable.numFloats);
+					}
+					mesh.computeWorldVertices(slot, 0, mesh.worldVerticesLength, renderable.vertices, 0, clippedVertexSize);
+					triangles = mesh.triangles;
+					texture = mesh.region.texture;
+					uvs = mesh.uvs;
+					attachmentColor = mesh.color;
+				} else if (attachment instanceof ClippingAttachment) {
+					let clip = attachment;
+					clipper.clipStart(slot, clip);
+					continue;
+				} else {
+					clipper.clipEndWithSlot(slot);
+					continue;
+				}
+				if (texture) {
+					let slotColor = slot.color;
+					let finalColor = this.tempColor;
+					finalColor.r = skeletonColor.r * slotColor.r * attachmentColor.r;
+					finalColor.g = skeletonColor.g * slotColor.g * attachmentColor.g;
+					finalColor.b = skeletonColor.b * slotColor.b * attachmentColor.b;
+					finalColor.a = skeletonColor.a * slotColor.a * attachmentColor.a;
+					if (premultipliedAlpha) {
+						finalColor.r *= finalColor.a;
+						finalColor.g *= finalColor.a;
+						finalColor.b *= finalColor.a;
+					}
+					let darkColor = this.tempColor2;
+					if (!slot.darkColor)
+						darkColor.set(0, 0, 0, 1);
+					else {
+						if (premultipliedAlpha) {
+							darkColor.r = slot.darkColor.r * finalColor.a;
+							darkColor.g = slot.darkColor.g * finalColor.a;
+							darkColor.b = slot.darkColor.b * finalColor.a;
+						} else {
+							darkColor.setFromColor(slot.darkColor);
+						}
+						darkColor.a = premultipliedAlpha ? 1 : 0;
+					}
+					let slotBlendMode = slot.data.blendMode;
+					if (slotBlendMode != blendMode) {
+						blendMode = slotBlendMode;
+						batcher.setBlendMode(
+							WebGLBlendModeConverter.getSourceColorGLBlendMode(blendMode, premultipliedAlpha),
+							WebGLBlendModeConverter.getSourceAlphaGLBlendMode(blendMode),
+							WebGLBlendModeConverter.getDestGLBlendMode(blendMode)
+						);
+					}
+					if (clipper.isClipping()) {
+						clipper.clipTriangles(renderable.vertices, renderable.numFloats, triangles, triangles.length, uvs, finalColor, darkColor, twoColorTint);
+						let clippedVertices = new Float32Array(clipper.clippedVertices);
+						let clippedTriangles = clipper.clippedTriangles;
+						if (transformer)
+							transformer(clippedVertices, clippedVertices.length, vertexSize);
+						batcher.draw(texture, clippedVertices, clippedTriangles);
+					} else {
+						let verts = renderable.vertices;
+						if (!twoColorTint) {
+							for (let v = 2, u = 0, n2 = renderable.numFloats; v < n2; v += vertexSize, u += 2) {
+								verts[v] = finalColor.r;
+								verts[v + 1] = finalColor.g;
+								verts[v + 2] = finalColor.b;
+								verts[v + 3] = finalColor.a;
+								verts[v + 4] = uvs[u];
+								verts[v + 5] = uvs[u + 1];
+							}
+						} else {
+							for (let v = 2, u = 0, n2 = renderable.numFloats; v < n2; v += vertexSize, u += 2) {
+								verts[v] = finalColor.r;
+								verts[v + 1] = finalColor.g;
+								verts[v + 2] = finalColor.b;
+								verts[v + 3] = finalColor.a;
+								verts[v + 4] = uvs[u];
+								verts[v + 5] = uvs[u + 1];
+								verts[v + 6] = darkColor.r;
+								verts[v + 7] = darkColor.g;
+								verts[v + 8] = darkColor.b;
+								verts[v + 9] = darkColor.a;
+							}
+						}
+						let view = renderable.vertices.subarray(0, renderable.numFloats);
+						if (transformer)
+							transformer(renderable.vertices, renderable.numFloats, vertexSize);
+						batcher.draw(texture, view, triangles);
+					}
+				}
+				clipper.clipEndWithSlot(slot);
+			}
+			clipper.clipEnd();
+		}
+	};
+	var SkeletonRenderer = _SkeletonRenderer;
+	SkeletonRenderer.QUAD_TRIANGLES = [0, 1, 2, 2, 3, 0];
+
+	// spine-webgl/src/SceneRenderer.ts
+	var quad = [
+		0,
+		0,
+		1,
+		1,
+		1,
+		1,
+		0,
+		0,
+		0,
+		0,
+		1,
+		1,
+		1,
+		1,
+		0,
+		0,
+		0,
+		0,
+		1,
+		1,
+		1,
+		1,
+		0,
+		0,
+		0,
+		0,
+		1,
+		1,
+		1,
+		1,
+		0,
+		0
+	];
+	var QUAD_TRIANGLES = [0, 1, 2, 2, 3, 0];
+	var WHITE = new Color(1, 1, 1, 1);
+	var SceneRenderer = class {
+		constructor(canvas, context, twoColorTint = true) {
+			this.twoColorTint = false;
+			this.activeRenderer = null;
+			this.canvas = canvas;
+			this.context = context instanceof ManagedWebGLRenderingContext ? context : new ManagedWebGLRenderingContext(context);
+			this.twoColorTint = twoColorTint;
+			this.camera = new OrthoCamera(canvas.width, canvas.height);
+			this.batcherShader = twoColorTint ? Shader.newTwoColoredTextured(this.context) : Shader.newColoredTextured(this.context);
+			this.batcher = new PolygonBatcher(this.context, twoColorTint);
+			this.shapesShader = Shader.newColored(this.context);
+			this.shapes = new ShapeRenderer(this.context);
+			this.skeletonRenderer = new SkeletonRenderer(this.context, twoColorTint);
+			this.skeletonDebugRenderer = new SkeletonDebugRenderer(this.context);
+		}
+		dispose() {
+			this.batcher.dispose();
+			this.batcherShader.dispose();
+			this.shapes.dispose();
+			this.shapesShader.dispose();
+			this.skeletonDebugRenderer.dispose();
+		}
+		begin() {
+			this.camera.update();
+			this.enableRenderer(this.batcher);
+		}
+		drawSkeleton(skeleton, premultipliedAlpha = false, slotRangeStart = -1, slotRangeEnd = -1, transform = null) {
+			this.enableRenderer(this.batcher);
+			this.skeletonRenderer.premultipliedAlpha = premultipliedAlpha;
+			this.skeletonRenderer.draw(this.batcher, skeleton, slotRangeStart, slotRangeEnd, transform);
+		}
+		drawSkeletonDebug(skeleton, premultipliedAlpha = false, ignoredBones) {
+			this.enableRenderer(this.shapes);
+			this.skeletonDebugRenderer.premultipliedAlpha = premultipliedAlpha;
+			this.skeletonDebugRenderer.draw(this.shapes, skeleton, ignoredBones);
+		}
+		drawTexture(texture, x, y, width, height, color) {
+			this.enableRenderer(this.batcher);
+			if (!color)
+				color = WHITE;
+			var i = 0;
+			quad[i++] = x;
+			quad[i++] = y;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = 0;
+			quad[i++] = 1;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x + width;
+			quad[i++] = y;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = 1;
+			quad[i++] = 1;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x + width;
+			quad[i++] = y + height;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = 1;
+			quad[i++] = 0;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x;
+			quad[i++] = y + height;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = 0;
+			quad[i++] = 0;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i] = 0;
+			}
+			this.batcher.draw(texture, quad, QUAD_TRIANGLES);
+		}
+		drawTextureUV(texture, x, y, width, height, u, v, u2, v2, color) {
+			this.enableRenderer(this.batcher);
+			if (!color)
+				color = WHITE;
+			var i = 0;
+			quad[i++] = x;
+			quad[i++] = y;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = u;
+			quad[i++] = v;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x + width;
+			quad[i++] = y;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = u2;
+			quad[i++] = v;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x + width;
+			quad[i++] = y + height;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = u2;
+			quad[i++] = v2;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x;
+			quad[i++] = y + height;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = u;
+			quad[i++] = v2;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i] = 0;
+			}
+			this.batcher.draw(texture, quad, QUAD_TRIANGLES);
+		}
+		drawTextureRotated(texture, x, y, width, height, pivotX, pivotY, angle, color) {
+			this.enableRenderer(this.batcher);
+			if (!color)
+				color = WHITE;
+			let worldOriginX = x + pivotX;
+			let worldOriginY = y + pivotY;
+			let fx = -pivotX;
+			let fy = -pivotY;
+			let fx2 = width - pivotX;
+			let fy2 = height - pivotY;
+			let p1x = fx;
+			let p1y = fy;
+			let p2x = fx;
+			let p2y = fy2;
+			let p3x = fx2;
+			let p3y = fy2;
+			let p4x = fx2;
+			let p4y = fy;
+			let x1 = 0;
+			let y1 = 0;
+			let x2 = 0;
+			let y2 = 0;
+			let x3 = 0;
+			let y3 = 0;
+			let x4 = 0;
+			let y4 = 0;
+			if (angle != 0) {
+				let cos = MathUtils.cosDeg(angle);
+				let sin = MathUtils.sinDeg(angle);
+				x1 = cos * p1x - sin * p1y;
+				y1 = sin * p1x + cos * p1y;
+				x4 = cos * p2x - sin * p2y;
+				y4 = sin * p2x + cos * p2y;
+				x3 = cos * p3x - sin * p3y;
+				y3 = sin * p3x + cos * p3y;
+				x2 = x3 + (x1 - x4);
+				y2 = y3 + (y1 - y4);
+			} else {
+				x1 = p1x;
+				y1 = p1y;
+				x4 = p2x;
+				y4 = p2y;
+				x3 = p3x;
+				y3 = p3y;
+				x2 = p4x;
+				y2 = p4y;
+			}
+			x1 += worldOriginX;
+			y1 += worldOriginY;
+			x2 += worldOriginX;
+			y2 += worldOriginY;
+			x3 += worldOriginX;
+			y3 += worldOriginY;
+			x4 += worldOriginX;
+			y4 += worldOriginY;
+			var i = 0;
+			quad[i++] = x1;
+			quad[i++] = y1;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = 0;
+			quad[i++] = 1;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x2;
+			quad[i++] = y2;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = 1;
+			quad[i++] = 1;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x3;
+			quad[i++] = y3;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = 1;
+			quad[i++] = 0;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x4;
+			quad[i++] = y4;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = 0;
+			quad[i++] = 0;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i] = 0;
+			}
+			this.batcher.draw(texture, quad, QUAD_TRIANGLES);
+		}
+		drawRegion(region, x, y, width, height, color) {
+			this.enableRenderer(this.batcher);
+			if (!color)
+				color = WHITE;
+			var i = 0;
+			quad[i++] = x;
+			quad[i++] = y;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = region.u;
+			quad[i++] = region.v2;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x + width;
+			quad[i++] = y;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = region.u2;
+			quad[i++] = region.v2;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x + width;
+			quad[i++] = y + height;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = region.u2;
+			quad[i++] = region.v;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+			}
+			quad[i++] = x;
+			quad[i++] = y + height;
+			quad[i++] = color.r;
+			quad[i++] = color.g;
+			quad[i++] = color.b;
+			quad[i++] = color.a;
+			quad[i++] = region.u;
+			quad[i++] = region.v;
+			if (this.twoColorTint) {
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i++] = 0;
+				quad[i] = 0;
+			}
+			this.batcher.draw(region.page.texture, quad, QUAD_TRIANGLES);
+		}
+		line(x, y, x2, y2, color, color2) {
+			this.enableRenderer(this.shapes);
+			this.shapes.line(x, y, x2, y2, color);
+		}
+		triangle(filled, x, y, x2, y2, x3, y3, color, color2, color3) {
+			this.enableRenderer(this.shapes);
+			this.shapes.triangle(filled, x, y, x2, y2, x3, y3, color, color2, color3);
+		}
+		quad(filled, x, y, x2, y2, x3, y3, x4, y4, color, color2, color3, color4) {
+			this.enableRenderer(this.shapes);
+			this.shapes.quad(filled, x, y, x2, y2, x3, y3, x4, y4, color, color2, color3, color4);
+		}
+		rect(filled, x, y, width, height, color) {
+			this.enableRenderer(this.shapes);
+			this.shapes.rect(filled, x, y, width, height, color);
+		}
+		rectLine(filled, x1, y1, x2, y2, width, color) {
+			this.enableRenderer(this.shapes);
+			this.shapes.rectLine(filled, x1, y1, x2, y2, width, color);
+		}
+		polygon(polygonVertices, offset, count, color) {
+			this.enableRenderer(this.shapes);
+			this.shapes.polygon(polygonVertices, offset, count, color);
+		}
+		circle(filled, x, y, radius, color, segments = 0) {
+			this.enableRenderer(this.shapes);
+			this.shapes.circle(filled, x, y, radius, color, segments);
+		}
+		curve(x1, y1, cx1, cy1, cx2, cy2, x2, y2, segments, color) {
+			this.enableRenderer(this.shapes);
+			this.shapes.curve(x1, y1, cx1, cy1, cx2, cy2, x2, y2, segments, color);
+		}
+		end() {
+			if (this.activeRenderer === this.batcher)
+				this.batcher.end();
+			else if (this.activeRenderer === this.shapes)
+				this.shapes.end();
+			this.activeRenderer = null;
+		}
+		resize(resizeMode) {
+			let canvas = this.canvas;
+			var dpr = window.devicePixelRatio || 1;
+			var w = Math.round(canvas.clientWidth * dpr);
+			var h = Math.round(canvas.clientHeight * dpr);
+			if (canvas.width != w || canvas.height != h) {
+				canvas.width = w;
+				canvas.height = h;
+			}
+			this.context.gl.viewport(0, 0, canvas.width, canvas.height);
+			if (resizeMode === ResizeMode.Expand)
+				this.camera.setViewport(w, h);
+			else if (resizeMode === ResizeMode.Fit) {
+				let sourceWidth = canvas.width, sourceHeight = canvas.height;
+				let targetWidth = this.camera.viewportWidth, targetHeight = this.camera.viewportHeight;
+				let targetRatio = targetHeight / targetWidth;
+				let sourceRatio = sourceHeight / sourceWidth;
+				let scale = targetRatio < sourceRatio ? targetWidth / sourceWidth : targetHeight / sourceHeight;
+				this.camera.setViewport(sourceWidth * scale, sourceHeight * scale);
+			}
+			this.camera.update();
+		}
+		enableRenderer(renderer) {
+			if (this.activeRenderer === renderer)
+				return;
+			this.end();
+			if (renderer instanceof PolygonBatcher) {
+				this.batcherShader.bind();
+				this.batcherShader.setUniform4x4f(Shader.MVP_MATRIX, this.camera.projectionView.values);
+				this.batcherShader.setUniformi("u_texture", 0);
+				this.batcher.begin(this.batcherShader);
+				this.activeRenderer = this.batcher;
+			} else if (renderer instanceof ShapeRenderer) {
+				this.shapesShader.bind();
+				this.shapesShader.setUniform4x4f(Shader.MVP_MATRIX, this.camera.projectionView.values);
+				this.shapes.begin(this.shapesShader);
+				this.activeRenderer = this.shapes;
+			} else
+				this.activeRenderer = this.skeletonDebugRenderer;
+		}
+	};
+	var ResizeMode = /* @__PURE__ */ ((ResizeMode2) => {
+		ResizeMode2[ResizeMode2["Stretch"] = 0] = "Stretch";
+		ResizeMode2[ResizeMode2["Expand"] = 1] = "Expand";
+		ResizeMode2[ResizeMode2["Fit"] = 2] = "Fit";
+		return ResizeMode2;
+	})(ResizeMode || {});
+
+	// spine-webgl/src/LoadingScreen.ts
+	var spinnerImage;
+	var logoImage;
+	var loaded = 0;
+	var FADE_IN = 1;
+	var FADE_OUT = 1;
+	var logoWidth = 165;
+	var logoHeight = 108;
+	var spinnerSize = 163;
+	var LoadingScreen = class {
+		constructor(renderer) {
+			this.logo = null;
+			this.spinner = null;
+			this.angle = 0;
+			this.fadeOut = 0;
+			this.fadeIn = 0;
+			this.timeKeeper = new TimeKeeper();
+			this.backgroundColor = new Color(0.135, 0.135, 0.135, 1);
+			this.tempColor = new Color();
+			this.renderer = renderer;
+			this.timeKeeper.maxDelta = 9;
+			if (!logoImage) {
+				let isSafari = navigator.userAgent.indexOf("Safari") > -1;
+				let onload = () => loaded++;
+				logoImage = new Image();
+				logoImage.src = SPINE_LOGO_DATA;
+				if (!isSafari)
+					logoImage.crossOrigin = "anonymous";
+				logoImage.onload = onload;
+				spinnerImage = new Image();
+				spinnerImage.src = SPINNER_DATA;
+				if (!isSafari)
+					spinnerImage.crossOrigin = "anonymous";
+				spinnerImage.onload = onload;
+			}
+		}
+		dispose() {
+			var _a, _b;
+			(_a = this.logo) == null ? void 0 : _a.dispose();
+			(_b = this.spinner) == null ? void 0 : _b.dispose();
+		}
+		draw(complete = false) {
+			if (loaded < 2 || complete && this.fadeOut > FADE_OUT)
+				return;
+			this.timeKeeper.update();
+			let a = Math.abs(Math.sin(this.timeKeeper.totalTime + 0.25));
+			this.angle -= this.timeKeeper.delta * 200 * (1 + 1.5 * Math.pow(a, 5));
+			let tempColor = this.tempColor;
+			let renderer = this.renderer;
+			let canvas = renderer.canvas;
+			let gl = renderer.context.gl;
+			renderer.resize(1 /* Expand */);
+			renderer.camera.position.set(canvas.width / 2, canvas.height / 2, 0);
+			renderer.batcher.setBlendMode(gl.ONE, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+			if (complete) {
+				this.fadeOut += this.timeKeeper.delta * (this.timeKeeper.totalTime < 1 ? 2 : 1);
+				if (this.fadeOut > FADE_OUT)
+					return;
+				tempColor.setFromColor(this.backgroundColor);
+				a = 1 - this.fadeOut / FADE_OUT;
+				a = 1 - (a - 1) * (a - 1);
+				tempColor.a *= a;
+				if (tempColor.a > 0) {
+					renderer.camera.zoom = 1;
+					renderer.begin();
+					renderer.quad(
+						true,
+						0,
+						0,
+						canvas.width,
+						0,
+						canvas.width,
+						canvas.height,
+						0,
+						canvas.height,
+						tempColor,
+						tempColor,
+						tempColor,
+						tempColor
+					);
+					renderer.end();
+				}
+			} else {
+				this.fadeIn += this.timeKeeper.delta;
+				if (this.backgroundColor.a > 0) {
+					gl.clearColor(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b, this.backgroundColor.a);
+					gl.clear(gl.COLOR_BUFFER_BIT);
+				}
+				a = 1;
+			}
+			a *= Math.min(this.fadeIn / FADE_IN, 1);
+			tempColor.set(a, a, a, a);
+			if (!this.logo) {
+				this.logo = new GLTexture(renderer.context, logoImage);
+				this.spinner = new GLTexture(renderer.context, spinnerImage);
+			}
+			renderer.camera.zoom = Math.max(1, spinnerSize / canvas.height);
+			renderer.begin();
+			renderer.drawTexture(this.logo, (canvas.width - logoWidth) / 2, (canvas.height - logoHeight) / 2, logoWidth, logoHeight, tempColor);
+			if (this.spinner)
+				renderer.drawTextureRotated(this.spinner, (canvas.width - spinnerSize) / 2, (canvas.height - spinnerSize) / 2, spinnerSize, spinnerSize, spinnerSize / 2, spinnerSize / 2, this.angle, tempColor);
+			renderer.end();
+		}
+	};
+	var SPINNER_DATA = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKMAAACjCAYAAADmbK6AAAALKElEQVR42u2de2iW5R/GPzuqcwfnnKfNmafl5tTNHWzqNi3DEMQykcAoJSsySkspjSIk0iD/07Kf4R+FnVBDUTshZGpWUEJaaiWFgZlUFmXmIe3HNXthyebeZ77P9H13ffBG8Y8H7ut7vff93N/7fu4vGGPiFZiez/Qtw9lytJajfzfw9z/j+efPOv7cV8W+lUNY2a8T/ayTCRsWFLJA5rtUO1LLkV5p9LJeJizQiHeqnlOtmVFtdTGrrZkJCxYXsTgaI6r9MY4/UpNItW4mFDaXsTlaM6qVZlBq3UwofFrJp0HMWJ9DvXUzobCznJ1BzFjWlTLrZkJh/TDWBzFjTgo51s2EgnKI0Rrx+FiOWzNzVaym91Syx5qZsGBWb2ZFa0ZN6dbMhAWTcpkUrRmXD2K5NTNhgVbH0Zpxbl/mWjMTFvRIo0e0ZpzcncnWzISKtvmiMWNRJ4qslwmVXRXsas2Ix8ZwzFqZsGFREYtaM+Oaa1ljrUzYkJ9G/ok6TlzKjJWZVFor0y7c1Zu7WjLiqiGsskamXdHopyT4vALmzS9k/t19uHtKHlOSIMn6xAtARjIZ1sFcUSZ0Y4La+G6M18hS2IlCn4a+WoC0JNL0d/dUupdnUj40g6EJ2VEdMnhrOG/p5f/jUXz8SgmvaGU6KpNRNsLVQV0OdXf24s63h/P2gWoOrBjMCr2GJFQnnxnIM3q5P1PPmaYv+4ev4/C6UtbpV2gzXCkgL5W8Bwt48OIc6ul6Tp+s4+SyASxLiI4+PYCn1bHzDZxvaQW6vZzto7MYnQIpNkf7kp5EuozYUroqEjcNKHHd0Tl9mBPN1pk+hFeieGBnBtog7UXjsj9pWg+m6duecw2cay1OC/uxMC47KmP9OIYfoz1YoC20J/rzRG4quTZK2EAyJGs20qwUbYw0aNRmUxtvfUW/uEtNzc1NB1/X8LVyd15hh82F43AvD+VlXcsSJEZa1CQ3ejleAO7oxR3RDP0XN91X4+NXYb8nkv7UNTwV7e0YTdu7I3g33t7tuaEbNwSZpps2fSyvs4M2Tjhot+jb0Xzbltj8r5j/xVt/6Z1Ob93U1ZYO691EhhzchcHeXosVjcNZysyezLw4xRZt05R+fTeuj8vOj+zKyG0j2aZcVVs6v+QalnjrMFZASQYl2nBoSyz06e3j/Xk8rgWYmMvEICu2pm1HOTuc7okV8FgRj0XukwzanhvCc/F+72TjoQjdObN1OFuDLmh0xP+WHtxiI10ukJlCprb4guiv1fP+avZrS1C7NAkliHZjDtZwMMgqbukAltpMlwuMy2FcEBPqvfLLar5Uqi0hBdEwryy+Mv5n6zkbjTBa+dlMlwvUZFETZKGiFM7tvbhdJ3gSVRO0wzIjnxmvl/J6a6JsGMYGrahtpssFeqbR841S3mhN80OjOaSDEdqd6SjaMKgzgzRK7q1ib3PT9sYyNo7JZoyNFNvRcVMZmy7WOvIuryv/Zvdmdt90+nY0bRp3AvROohFwdwW7dTG7RFlbwlqdrbOBYg005NAQmZU0HWt1rXMBH1Xw0dQ8pmqzoaPmdhun7bHZjNVe9qP9eFQfO1VkUmHjhAVUZ1GtnKFSbjrkrPfy4i4UW5t/6ZxM54J0CqxFe81KpGsQyE4h23oYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjLna+bdOy+IiFquIpGq16Pb79cNYv3IIK/X/ugx+Ui6TVKvYVU9Nc8gX8od8Ir/IN/KPfCQ/yVfyl/6/pfJvLChkQdD6wyqntquCXYuKWJSfRr6D0dEAxV3xlw/khyD+kd/ku/88cHo+09tS3LBpO1HHCVUqcIA6CqB4K+6X6x35L/JM2loXurlWmUmlA5XogOIcK8/If5HncrSWo7F6cKIWPjT/RXGOlWfkv8hzaWsN4uaaysE6WIkOKM6x8oz8F3kusXqo2vxC5jtYiQ4ozrH0TeS5qIZcrB7qkrwdA8U5Vp6R/yLPZV8V+2L14Cl5THGwEh1QnGPlGfkv8lyUlIzFQ1cNYVVHrcjZ0VCcFe9Y+Eb+izy3ceclUl43aFN52DXXssYpnY6a4qFS8ZcP2uIf+e7inRh6pdFrdTGrm8uiHx/L8T2V7NGWzvJBLJ/bl7mTuzO5qBNFDoiJID/IF/KHfCK/yDfyT3O7d/KbfNfS80hNIrU0g9L6HOq1x5iTQo6FNpeLfCQ/yVfyl3xmXYwxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHNk9z4JwJ0SqKTdQkbyEwhU393T6V7zzR6pieR3tE1ITeVXImhe6BXDGZFdRbVeank2TBhcaEMr0rwbixj49IBLL2/L/ffmMuNHfqO9tFZjJYBd1ewO3Lx+IcVfKhqna5nHZYR6XFPH+5R3eeI5t9fx/fvjeC9Jdew5OKZKqFR/RDVKL6vL/f9PJafmyvHsL+a/ff24V6NmjZQbGchVbY6UM2BluqHv1rCqzVZ1KQlkZboepCdQvacPsz5bjTfXao+yMEaDt7Wk9tSIMVGig3TejCtJSM2bSpkPjWPqd1S6Zao+lORSYWmgkOjORRNwZqd5ezMSiHLRooNr5XwWjS6/1XHX9vL2T67N7M1iyXa9JCrYjVrS1gbpJyw6hBfsmiNCYT0P9/A+Wj1/6qGr5YNYFlJBiWJogEzezLz/ZG8/9s4fgtSyuvNYbyp1IONFBtu7sHNv4/j9yAxUHWrdaWsG9+N8XHd+YxkMpSy+aySz841cC5oXbmHCnnI74yxAgZ3YbDeB4PEQCOpBpFNZWwa2ZWRcdnxLsl00crtRB0n2lLg8JNRfDKoM4NsolgBSmw/UMADba1+qpmqfyf6x1u/0a/og3I+aEunP6/i86osqmygcGarF4p54dex/Bo0LqfqOfVwIQ/HW5/RSkwV1oN2WLlHTc82TljAwM4M1O5LWwYKZTjibYXNS0N5KcjKTe10PadfLObFuJwK4ozp+UzXDBTUjL+M5ZcBnRkQV53dMIwNQTu6bSTbVEzbi5awuVByd2E/FgaN0Tc1fKOzBHHV2aAdVSdv6s5NNkp7cSH/++xAng2yyHx+CM/H21YhfdPp+0U1X0TbSZnXx8faG9Aop0MS0cToh1p+iLcpOkLj9t/JOk5eqoPHxnDsyf486an5yqCDK7XZ1O4oZ4dWyy3FSXHUAYq47uyYbMZoGmhpG3DlEFb6uNiVBhpyaHhnBO8oJmfqOROJjzIiP43hJ8UxITqqX56S2Hur2KsOnq3nrE6PPNKPRwrSKbAZrjTQNZmuE7oxYXMZmxWbw9dxWFu4W4ezVedOE6qzI7oyYkY+M7TPeWsPbk2UX1qioSN+E3OZqOR2cReKE+qQRFN0Pi7y73g/UawU1KzezJpXwLz5hczX1ueUPKYkNb6GJQZ+j7/aAfRZREsv+quGsMoamXZBW2Gt5eU0alorEzYsKmJRa/m4NdeyxlqZsCGa84DKnVorEzboC7podis69DfIJmwufHMc7famvvmxZiYsKOtKWbRm1OcW1syEBboSJFozLh/EcmtmwgIluaM14/phrLdmJixYXMTiaM24p5I91syEBTphFOR7Y2tmwgJNvUFOr+tov3UzoaAv44KYUatv62ZCoemdhtG0+hzqrZsJBR08DWLG0gxKrZu50qvpxos3U5NItW4mFPp1ot+lPlpq2lYXs9qamVBZUMiC1ox4pJYjvlfStAu6GmTLcLboMtPIV4/6im5fFfuUi9QIap2MiWP+D96R1vPmsD/fAAAAAElFTkSuQmCC";
+	var SPINE_LOGO_DATA = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKUAAABsCAYAAAALzHKmAAAQ7klEQVR42u3da4xdVRUA4D0zd2Y6nZY59DVtZ1puS9+lzC0YAi2UQ8AAQczFpPgA9VIeIQbirRqJ0cBUBVGjDr/QCKSNRSMmpuODxAdxqhgwxkhFjf6Sxh/+UUNVNGJCzR7uTvas7LXX2q9zzp3em6y0gTN3Zu75utZe5+yztxC9V+/Ve5X9En1Vjd7J6SFbLNF7naPw+l2jh7YHMBWssqMHtlsRdim4qsLtIawaPiHEQOLoNrA9iIkQDnRrVA1qD2LZ8ISoxYqKo13sQAtBWBayQWZUAXGRQM9JjCngDVY0UqJNDbQrMcaGmArdUKpIjbYiQLsCZCyIMQBy8QwnilR4Q5AuCpxFYvRFmBLbEiwKwpsSaWycVQGZBKMrwBjA9BhxDe57u2L2hOoKNCbOrgAZitEVYUxoKSMErQvSxYIzCkguRg5EF4AUhqUlhy/YUKSxcRaKsioYOQhD4I0yYxkR3PcJBcuFysmgsXAWBTMJyBCMIQh9kGGxXIXvexCQXbHGAMrBWTbM2CCpMSMLIxehC77lSJwXGth7M0FzoVJIXXDWQnGmhOkL0ic7YhhtWdGGkAuPAjUWGoF4faCmwBkbZmyUqUCyMqMLRA4+E6IsdTjidUHKBYrh9CnpRcH0ypKxsyOGEYNIIeTCOz91OIJ1QYoB5eAMyZo+MFNnyVTZ0YiRC9EGEMOyAgshxErHsL2XK1gOUgwohtM1a5YNM7Rsu4K0ZkcbRm4mpPBRwFZ5hg9eCqkrUB+csWGGogzNkqEgrdnRhpGLkINudaLgwvVB6oqzCjCTZElb2Y4B0gUjBtEG0ARnDRLjjoG9DwcshtQGlIPTljVjwUySLWNkyRCQVHa0ZUUTRAwgF91a33BEy0VKAcVwwqwZC2bqbOlUurllOxQkJzNyINoAYqjWhYYjWg5SCiiG05Q1U8FMjTIoS8YE6YORi1BHtJ4KIcQEEtTXUWAxpK44YVlPBdO1jCdFWTZIE8bVGEYMIRPcZGBw4HKQcoBiOE1ZMzbMgVQwU6JMAdKEEcuIJogUvg1YCCE2gsCO42DlIIVAKZwpYJaSLVNnSU6XjYHUmxhTmXaFaMO3EYkLqMC+FsLlIoVAKZzMrEnBhJeLfLNlKMrYWRIDCbOkFSSVHbHM6AKRC6/ODUewNqQ+OLlZkxpjUmV8MBbMUJSxyzY3Q1IgTRgxiBRCHdem0KDAUkBh9sRwwjEnAXMMgTnKhFlUtiwkS5rGka4g9SaGgxFmRC7AzTCEEBcyA36dDSsXqAtOLkysjGMwY5XxVChjZ0kuSCo7YlkRQsQQYtDEFsegsLoCxUp7Kpgps2UslFGzJGccSYHUmxhOZqwzEZqAbfUMCisHKIZzgsCpl3MTzMwTpi1bYp2477gyFKUxS7qWbdjY2EBS2dGE0QQRA7gNCyHEdhjE8RhUDlBT9tzgmjWZMFNlSy+Urk1OzCyJlW0XkK4YOQh1cDtcgwBrQmoDWkdgboBZE8mYsJSHlnFbJ+5bwmOPJ7lZkirbC8aRsMvmgtTHjBhGE0QbwJ2egUE1ITVlUC5OmDVdYNrKuN70xM6WoShjlW4464dbtiFIWK6x7GjESEHUUe0iYncnbMdQSE0Z1ITTNOb0hRmjjLtmS9dmJ2rp1jtuKktyyrb6YLEMCUHq2dGG0QQRQ7f72kzc+cJecerne8Wvv7JNPHPvenEkz8Sh3UtFc92QyGt9Yko/HgOLAIUZlItTz5ouMF3KuE+2jFLCQ1D6lm6fLMkBacuOJowYRBUXyfjuHjF3NhdnsfjvAfH6E9vFt9XxKgikEKgJZyyYalzOLeMu2bLbULI6bh+QGwmQ+rgRlumdGEQAao+K56bEL2woVUwOiev0r8OAUjiJrMmFCbvykGxZRAmPitK1dHM7bohyMsuyi/I8f0+e57fJYIKEZXpXo9E4mOf5XTKyLLvCBLETF8uY2SKepkC+dpX4T02Ivepr4HvZcOZ5fmee54fyPL+DmTUhzAs6n4n8bN5dr9f3YdkSg8nsxG0lPBVKVpNjG0/aGhzfLDmRZdnumZmZp8+c+cdZPV555fSr7Xb7s0jJ3i5Pcue4MxKkPPkvvXTqz/B92u32l0wYOzG1fkhcd/py8Rcbyq/vFM/KY1WA95h/3zzP71bfU6JsNpsfgj+P/FlbrdaDGExYyuXvLz8H+DudODH700ajcSM3W6Yu4alQ1spCOTd38jcKocTZbh9+9NixY99XJ8AEUkcpo9W64yH197m5k7+bnZ19QT+J09NHntQhwji/Jg58qi6++ofLxJ8gSFneVw2Ka4QQDfh1Ok4dZavVmtZ/nrm5k7/Vf55O1tRhboUw5+ZOvqyOl5+R/FyOHj32PYVU/tloNG5IXcKrhJIzngwp3fNjomazea/64BuNxts646f50lWv169utw9/DmtqdJQyZFaSJVuV6nq9fqMEof5/vV6/CYBqgJDlee+yAbF/+4i4ZWqZeNfaIfHWzn+Hx0KcEuU9+s8jv3ej0bhVlXOZydX/k0iRMeb8P0D5e6tj8zy/Xb9UJIc56h/yqVOnXul8lmuZ2bJslKmbHG7XrbpCmCXFRLvdfqQD6jTS3Jiy5I4OykM6ADV+1Eu1DmV6evopBORexzDi1L+X/HnGxsb2w3Hm9PSRJ9QxWPOTZdmlKht2hi+w6dkox5bqffI8fye3hDteGqKaHVsHXihKl0tB+h0cY+lute54AGRKDCW89LNTRynHb7ChUWVVjetOnJh9EYBUyPZeNCoOtsbFQwdXi4/esELcd+tq8cCHJ8UXp+viy9efLz7AgamjlKXc1AA1m83DoIRDlFubzeb96hhZLVTlgJ24gttutx+ONa50bHZKRenaeTs1OfpAfnr6yOOdE7EZdNwmlKocntXLNkA5JTGq47Ds+Lf94lWsyfnXleLfnIwJUN4DOnNYwuUxh2A3Ln9XULrfK8t3J27Tu3BVwiOjXJqoAy8UZej1yclGo3GTLN+gu3w+z/P3YaWbQqk3Ne12e4ZC+c8rxWsYytcPiP9RpZxCqWDKnxOiBNlyAUpOnGsoh4tA2Rm8X9xqtT6md5wyZmYe+0YRKL+1S/wYQ3n8zctBl5SBUv5djivfjMOPduIzcizeiYfr9foVvUwZG+XCuzibZKnSceZ5/v4QlKp8y7ElhnJlTeTP7BI/kllRYfzrfvHqFy4UX1vaL/aVlSmROzwbwdS29T2UcEwZF+V8ozM2lu1VY812u/15akypGh3TmFJesJbHHD167IdUxz3YJy5bNySuX1mbvy55CbMLtzU6tjGlsdFptVqfUMc0Go23F4wy1l2dSnbfvpMwVPe9WWVLDsrOJaF9MFu2Wq1PqmNkGce67xiXhTjdNwdlvV6/BgxfbPfBfVCetxi6b9/rlCup65QzM48dl2OjLMv26CibzeZ96sTIzEFdpwQXz9U1yrtVlpR/Zll2Fec65Y6l4pbbx8XHH9kknvzJlPjlHy8Tp29eKT5ou0aJoIT3w3dBlLDzVpfAJEZ1XOdaJZxnOSlvPMjPzxFljIvng914RwebsjYO7uhMyHu46sOfnf3Oz2TXDW6vvYxdFoIXz3Wc8J5zs9n8iOn2IrxTc2BM3Glqdp7dI553uaOjxrhwcob+MyuUpjs6WZZdon8OcigjPx8V+u+GTWFTSWEx3WYcdJ225jNDSE4q0GHCzlueHOyujn6bUWYgeb9ZZUaQPe+GzQ+Gc8+oOGhC+c1d4gfI16n3XDAhQ7+9qE9l01E2Go132GYKyXE1NiFDTcpoNpv3LOYJGWXNErJNW9sEp63p2RKiVPMn1bS1DgxsyhoGdGpmizj+xtXiDYnx7/vFmce3iWdW1cTVGEY4hQ2ZW0nNq8Qm/M6XbXm3S100lwGedFybuvNOibLI+ZS2ceU4eAxiEuvCkfmU8ycToDxETe6FgCBQHeqyAbFvfEhcO7BwDuXFCEbTZF840XeHK0jYcbs2OIGle0mVJ/mmnClEPQqxyTY5I8/zFhif7fSZee4bnrPOU4AssnRXHaVTCTd14dRDY3UbTIiSeFhsN/aMjgnqthFx880rxX3yATL5p3y4LPXzOaBkUyBjZMlYpbtQlIOBD475ZEusjMNSvkXe6VEoJVDkeZ2dzIfIFsRzU+JF2OyM9M9fTC/6SUYOyFQPjQ2nWiUjxnPfw5EeHqMWIqAeIFsAU847lJM2JM6xsewt1OIDLs99P7ZFHNdB/upS8XtPiD7PfLuCXJNolYyyFiNI/Zit65ItrOVafFbHcFohY7hPTN21Tjz4uc3iqfsnxKdX1MTl1OoYRFaMsToGB6Trw2JFP/OdZC2hJZ7ZkrMoAbbSGmelDJ91hFKuJeS7jlBMkJnrAqqJlgMUZS/dArPlGHNdSg5M3xXXtvquuEatvIYtDRhpxbUJuIgqsU5lGWtUploK0KuEU9mSW8YpmFQ556xNuYW7NiW13B+FkMiKHIy+C6eGgBxJvMR0oSv5hi6+z4HJyZoU0M2RVvDlrOQbcxVfX5AhZbuqy0v7ZstYMLHlAVlLTF9ALLbvu9Y5Zylpn/XOsd0ibIvxr2KCLHpp6SCUIdnSZSF+WzfOhem6GD+1KwR3Z4jNjrtDpNoZwmWd8yrupZN6Hx3fbMmFSe0Swdq2ZIPjxk1112Duo8OBGLrBkw/IoncdK2XHsdC9dHz204m50xh3tzFq1zFqtzHXrfCw7OgDsqyNnZLszVijsmXgrmNcmGtS78lIoMX2aJz03fKO2sDJddPQSCDPiQ1DfWBycY6XtXstc2PQKuxgG2McmXTPb9/9vmuJYXKyJrWjbeg+3xPM4O73nWqvbyw7xgZZSJbEUBa157cNJjdr2vb+5iA1YV3HxYscj30PDCEHIgcjtfm8K8hSsmRotkwFk5s1TTghUAopB6xrjHMBBkI0YYTZ0dZlxwLpkiWDULpmy5gwqayZgZNkA7oKQQCxctByYg0XIIEQQuRitGVHblMTA2ShKGPDpC6wu+DEgJqg2rDGDBtAF4Q6RAojp1xXGmSMbImVcR+YWNY04eQCtUG1ofUJ2/uvcETIgUhhdAE5GAlkKShjwHTNmhhODKgJqQ2sC14uOgyfD0IbRF+MlQaZAiZWyn2yJsTJATqGnHQO2Jhh+xlsACFCG0QbRtdyzQFZCZSxYPpmTS7Q5cjJHYNBYIkZpu99HoUQ/o4QIYSIZUZfjJ4ZMjZI32wZBDMU5yhy8pZTULl4XYP5fagMyEVoy4oupTpGduwnkloSlKEwY+AcQU4MhRTD6ovXBRwFzwWgCSEF0QVjJUGmgEllTS5OLlCIlIN1mS9mx/cZ5eLDALpCTI2RAhkTZQqYoTgpoCPECbaBHQ2ETL3PUl98ECAXYijG0OyYAmQoTG7W5ODkAF1CnVgm2JQx4okPA+gCMTbGskBGgRmaOblAh5GTORIrfKFx4VH4EIAxIXIxlg2SBbMvECY3e7oApbDaIgQu5/2HmeEKEINYiwSRi7EQkLFgumZOCuggctKGI4ULZN/vMeSLj0AYMytWEqMLzFg4fYDaoKaC6wvOFR4FkIPQFaILxrJAOsHsc/zlfYDWXE8qF22s8Pz5KHxcgEVALBtjJXBSSEOwFhk1Zgy4hitCT4hVw+gFs8/zwxqIBbUgyK7fcyA0PD9XX4iVxhiC0xdof6STWCsoBmKF7+cVCWFXQYyBMxRpf+STX1b0x45AhN0OMSrOGEirhrY/dfQAdjvS7oy+WCF6r1RIFxXWvlTRg1YVqFWBmxZbD99ig9pt0YPQw9rD1nstVri9V+/Ve3XrS/wfim4P5fIFxLoAAAAASUVORK5CYII=";
+
+	// spine-webgl/src/SpineCanvas.ts
+	var SpineCanvas = class {
+		/** Constructs a new spine canvas, rendering to the provided HTML canvas. */
+		constructor(canvas, config) {
+			/** Tracks the current time, delta, and other time related statistics. */
+			this.time = new TimeKeeper();
+			if (!config.pathPrefix)
+				config.pathPrefix = "";
+			if (!config.app)
+				config.app = {
+					loadAssets: () => {
+					},
+					initialize: () => {
+					},
+					update: () => {
+					},
+					render: () => {
+					},
+					error: () => {
+					}
+				};
+			if (config.webglConfig)
+				config.webglConfig = { alpha: true };
+			this.htmlCanvas = canvas;
+			this.context = new ManagedWebGLRenderingContext(canvas, config.webglConfig);
+			this.renderer = new SceneRenderer(canvas, this.context);
+			this.gl = this.context.gl;
+			this.assetManager = new AssetManager(this.context, config.pathPrefix);
+			this.input = new Input(canvas);
+			if (config.app.loadAssets)
+				config.app.loadAssets(this);
+			let loop = () => {
+				requestAnimationFrame(loop);
+				this.time.update();
+				if (config.app.update)
+					config.app.update(this, this.time.delta);
+				if (config.app.render)
+					config.app.render(this);
+			};
+			let waitForAssets = () => {
+				if (this.assetManager.isLoadingComplete()) {
+					if (this.assetManager.hasErrors()) {
+						if (config.app.error)
+							config.app.error(this, this.assetManager.getErrors());
+					} else {
+						if (config.app.initialize)
+							config.app.initialize(this);
+						loop();
+					}
+					return;
+				}
+				requestAnimationFrame(waitForAssets);
+			};
+			requestAnimationFrame(waitForAssets);
+		}
+		/** Clears the canvas with the given color. The color values are given in the range [0,1]. */
+		clear(r, g, b, a) {
+			this.gl.clearColor(r, g, b, a);
+			this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+		}
+	};
+
+	// spine-player/src/Player.ts
+	var SpinePlayer = class {
+		constructor(parent, config) {
+			this.config = config;
+			this.canvas = null;
+			this.context = null;
+			this.sceneRenderer = null;
+			this.loadingScreen = null;
+			this.assetManager = null;
+			this.bg = new Color();
+			this.bgFullscreen = new Color();
+			this.playerControls = null;
+			this.timelineSlider = null;
+			this.playButton = null;
+			this.skinButton = null;
+			this.animationButton = null;
+			this.playTime = 0;
+			this.selectedBones = [];
+			this.cancelId = 0;
+			this.popup = null;
+			/* True if the player is unable to load or render the skeleton. */
+			this.error = false;
+			/* The player's skeleton. Null until loading is complete (access after config.success). */
+			this.skeleton = null;
+			/* The animation state controlling the skeleton. Null until loading is complete (access after config.success). */
+			this.animationState = null;
+			this.paused = true;
+			this.speed = 1;
+			this.time = new TimeKeeper();
+			this.stopRequestAnimationFrame = false;
+			this.disposed = false;
+			this.viewport = {};
+			this.currentViewport = {};
+			this.previousViewport = {};
+			this.viewportTransitionStart = 0;
+			this.eventListeners = [];
+			let parentDom = typeof parent === "string" ? document.getElementById(parent) : parent;
+			if (parentDom == null)
+				throw new Error("SpinePlayer parent not found: " + parent);
+			this.parent = parentDom;
+			if (config.showControls === void 0)
+				config.showControls = true;
+			let controls = config.showControls ? (
+				/*html*/
+				`
 <div class="spine-player-controls spine-player-popup-parent spine-player-controls-hidden">
 <div class="spine-player-timeline"></div>
 <div class="spine-player-buttons">
@@ -108,30 +13513,663 @@ var spine = (() => {
 <button class="spine-player-button spine-player-button-icon-settings"></button>
 <button class="spine-player-button spine-player-button-icon-fullscreen"></button>
 <img class="spine-player-button-icon-spine-logo" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20104%2031.16%22%3E%3Cpath%20d%3D%22M104%2012.68a1.31%201.31%200%200%201-.37%201%201.28%201.28%200%200%201-.85.31H91.57a10.51%2010.51%200%200%200%20.29%202.55%204.92%204.92%200%200%200%201%202%204.27%204.27%200%200%200%201.64%201.26%206.89%206.89%200%200%200%202.6.44%2010.66%2010.66%200%200%200%202.17-.2%2012.81%2012.81%200%200%200%201.64-.44q.69-.25%201.14-.44a1.87%201.87%200%200%201%20.68-.2.44.44%200%200%201%20.27.04.43.43%200%200%201%20.16.2%201.38%201.38%200%200%201%20.09.37%204.89%204.89%200%200%201%200%20.58%204.14%204.14%200%200%201%200%20.43v.32a.83.83%200%200%201-.09.26%201.1%201.1%200%200%201-.17.22%202.77%202.77%200%200%201-.61.34%208.94%208.94%200%200%201-1.32.46%2018.54%2018.54%200%200%201-1.88.41%2013.78%2013.78%200%200%201-2.28.18%2010.55%2010.55%200%200%201-3.68-.59%206.82%206.82%200%200%201-2.66-1.74%207.44%207.44%200%200%201-1.63-2.89%2013.48%2013.48%200%200%201-.55-4%2012.76%2012.76%200%200%201%20.57-3.94%208.35%208.35%200%200%201%201.64-3%207.15%207.15%200%200%201%202.58-1.87%208.47%208.47%200%200%201%203.39-.65%208.19%208.19%200%200%201%203.41.64%206.46%206.46%200%200%201%202.32%201.73%207%207%200%200%201%201.3%202.54%2011.17%2011.17%200%200%201%20.43%203.13zm-3.14-.93a5.69%205.69%200%200%200-1.09-3.86%204.17%204.17%200%200%200-3.42-1.4%204.52%204.52%200%200%200-2%20.44%204.41%204.41%200%200%200-1.47%201.15A5.29%205.29%200%200%200%2092%209.75a7%207%200%200%200-.36%202zM80.68%2021.94a.42.42%200%200%201-.08.26.59.59%200%200%201-.25.18%201.74%201.74%200%200%201-.47.11%206.31%206.31%200%200%201-.76%200%206.5%206.5%200%200%201-.78%200%201.74%201.74%200%200%201-.47-.11.59.59%200%200%201-.25-.18.42.42%200%200%201-.08-.26V12a9.8%209.8%200%200%200-.23-2.35%204.86%204.86%200%200%200-.66-1.53%202.88%202.88%200%200%200-1.13-1%203.57%203.57%200%200%200-1.6-.34%204%204%200%200%200-2.35.83A12.71%2012.71%200%200%200%2069.11%2010v11.9a.42.42%200%200%201-.08.26.59.59%200%200%201-.25.18%201.74%201.74%200%200%201-.47.11%206.51%206.51%200%200%201-.78%200%206.31%206.31%200%200%201-.76%200%201.88%201.88%200%200%201-.48-.11.52.52%200%200%201-.25-.18.46.46%200%200%201-.07-.26v-17a.53.53%200%200%201%20.03-.21.5.5%200%200%201%20.23-.19%201.28%201.28%200%200%201%20.44-.11%208.53%208.53%200%200%201%201.39%200%201.12%201.12%200%200%201%20.43.11.6.6%200%200%201%20.22.19.47.47%200%200%201%20.07.26V7.2a10.46%2010.46%200%200%201%202.87-2.36%206.17%206.17%200%200%201%202.88-.75%206.41%206.41%200%200%201%202.87.58%205.16%205.16%200%200%201%201.88%201.54%206.15%206.15%200%200%201%201%202.26%2013.46%2013.46%200%200%201%20.31%203.11z%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M43.35%202.86c.09%202.6%201.89%204%205.48%204.61%203%20.48%205.79.24%206.69-2.37%201.75-5.09-2.4-3.82-6-4.39s-6.31-2.03-6.17%202.15zm1.08%2010.69c.33%201.94%202.14%203.06%204.91%203s4.84-1.16%205.13-3.25c.53-3.88-2.53-2.38-5.3-2.3s-5.4-1.26-4.74%202.55zM48%2022.44c.55%201.45%202.06%202.06%204.1%201.63s3.45-1.11%203.33-2.76c-.21-3.06-2.22-2.1-4.26-1.66S47%2019.6%2048%2022.44zm1.78%206.78c.16%201.22%201.22%202%202.88%201.93s2.92-.67%203.13-2c.4-2.43-1.46-1.53-3.12-1.51s-3.17-.82-2.89%201.58z%22%20fill%3D%22%23ff4000%22%2F%3E%3Cpath%20d%3D%22M35.28%2013.16a15.33%2015.33%200%200%201-.48%204%208.75%208.75%200%200%201-1.42%203%206.35%206.35%200%200%201-2.32%201.91%207.14%207.14%200%200%201-3.16.67%206.1%206.1%200%200%201-1.4-.15%205.34%205.34%200%200%201-1.26-.47%207.29%207.29%200%200%201-1.24-.81q-.61-.49-1.29-1.15v8.51a.47.47%200%200%201-.08.26.56.56%200%200%201-.25.19%201.74%201.74%200%200%201-.47.11%206.47%206.47%200%200%201-.78%200%206.26%206.26%200%200%201-.76%200%201.89%201.89%200%200%201-.48-.11.49.49%200%200%201-.25-.19.51.51%200%200%201-.07-.26V4.91a.57.57%200%200%201%20.06-.27.46.46%200%200%201%20.23-.18%201.47%201.47%200%200%201%20.44-.1%207.41%207.41%200%200%201%201.3%200%201.45%201.45%200%200%201%20.43.1.52.52%200%200%201%20.24.18.51.51%200%200%201%20.07.27V7.2a18.06%2018.06%200%200%201%201.49-1.38%209%209%200%200%201%201.45-1%206.82%206.82%200%200%201%201.49-.59%207.09%207.09%200%200%201%204.78.52%206%206%200%200%201%202.13%202%208.79%208.79%200%200%201%201.2%202.9%2015.72%2015.72%200%200%201%20.4%203.51zm-3.28.36a15.64%2015.64%200%200%200-.2-2.53%207.32%207.32%200%200%200-.69-2.17%204.06%204.06%200%200%200-1.3-1.51%203.49%203.49%200%200%200-2-.57%204.1%204.1%200%200%200-1.2.18%204.92%204.92%200%200%200-1.2.57%208.54%208.54%200%200%200-1.28%201A15.77%2015.77%200%200%200%2022.76%2010v6.77a13.53%2013.53%200%200%200%202.46%202.4%204.12%204.12%200%200%200%202.44.83%203.56%203.56%200%200%200%202-.57A4.28%204.28%200%200%200%2031%2018a7.58%207.58%200%200%200%20.77-2.12%2011.43%2011.43%200%200%200%20.23-2.36zM12%2017.3a5.39%205.39%200%200%201-.48%202.33%204.73%204.73%200%200%201-1.37%201.72%206.19%206.19%200%200%201-2.12%201.06%209.62%209.62%200%200%201-2.71.36%2010.38%2010.38%200%200%201-3.21-.5A7.63%207.63%200%200%201%201%2021.82a3.25%203.25%200%200%201-.66-.43%201.09%201.09%200%200%201-.3-.53%203.59%203.59%200%200%201-.04-.93%204.06%204.06%200%200%201%200-.61%202%202%200%200%201%20.09-.4.42.42%200%200%201%20.16-.22.43.43%200%200%201%20.24-.07%201.35%201.35%200%200%201%20.61.26q.41.26%201%20.56a9.22%209.22%200%200%200%201.41.55%206.25%206.25%200%200%200%201.87.26%205.62%205.62%200%200%200%201.44-.17%203.48%203.48%200%200%200%201.12-.5%202.23%202.23%200%200%200%20.73-.84%202.68%202.68%200%200%200%20.26-1.21%202%202%200%200%200-.37-1.21%203.55%203.55%200%200%200-1-.87%208.09%208.09%200%200%200-1.36-.66l-1.56-.61a16%2016%200%200%201-1.57-.73%206%206%200%200%201-1.37-1%204.52%204.52%200%200%201-1-1.4%204.69%204.69%200%200%201-.37-2%204.88%204.88%200%200%201%20.39-1.87%204.46%204.46%200%200%201%201.16-1.61%205.83%205.83%200%200%201%201.94-1.11A8.06%208.06%200%200%201%206.53%204a8.28%208.28%200%200%201%201.36.11%209.36%209.36%200%200%201%201.23.28%205.92%205.92%200%200%201%20.94.37%204.09%204.09%200%200%201%20.59.35%201%201%200%200%201%20.26.26.83.83%200%200%201%20.09.26%201.32%201.32%200%200%200%20.06.35%203.87%203.87%200%200%201%200%20.51%204.76%204.76%200%200%201%200%20.56%201.39%201.39%200%200%201-.09.39.5.5%200%200%201-.16.22.35.35%200%200%201-.21.07%201%201%200%200%201-.49-.21%207%207%200%200%200-.83-.44%209.26%209.26%200%200%200-1.2-.44%205.49%205.49%200%200%200-1.58-.16%204.93%204.93%200%200%200-1.4.18%202.69%202.69%200%200%200-1%20.51%202.16%202.16%200%200%200-.59.83%202.43%202.43%200%200%200-.2%201%202%202%200%200%200%20.38%201.24%203.6%203.6%200%200%200%201%20.88%208.25%208.25%200%200%200%201.38.68l1.58.62q.8.32%201.59.72a6%206%200%200%201%201.39%201%204.37%204.37%200%200%201%201%201.36%204.46%204.46%200%200%201%20.37%201.8z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
-</div></div>`: ""; this.parent.appendChild(this.dom = Gt(`<div class="spine-player" style="position:relative;height:100%"><canvas class="spine-player-canvas" style="display:block;width:100%;height:100%"></canvas>${i}</div>`)); try { this.validateConfig(e) } catch (s) { this.showError(s.message, s) } this.initialize(), this.addEventListener(window, "resize", () => this.drawFrame(!1)), requestAnimationFrame(() => this.drawFrame())
-    } dispose() { this.sceneRenderer.dispose(), this.loadingScreen && this.loadingScreen.dispose(), this.assetManager.dispose(); for (var t = 0; t < this.eventListeners.length; t++) { var e = this.eventListeners[t]; e.target.removeEventListener(e.event, e.func) } this.parent.removeChild(this.dom), this.disposed = !0 } addEventListener(t, e, i) { this.eventListeners.push({ target: t, event: e, func: i }), t.addEventListener(e, i) } validateConfig(t) { if (!t) throw new Error("A configuration object must be passed to to new SpinePlayer()."); if (t.skelUrl && (t.binaryUrl = t.skelUrl), !t.jsonUrl && !t.binaryUrl) throw new Error("A URL must be specified for the skeleton JSON or binary file."); if (!t.atlasUrl) throw new Error("A URL must be specified for the atlas file."); if (t.backgroundColor || (t.backgroundColor = t.alpha ? "00000000" : "000000"), t.fullScreenBackgroundColor || (t.fullScreenBackgroundColor = t.backgroundColor), t.backgroundImage && !t.backgroundImage.url && (t.backgroundImage = null), t.premultipliedAlpha === void 0 && (t.premultipliedAlpha = !0), t.preserveDrawingBuffer === void 0 && (t.preserveDrawingBuffer = !1), t.mipmaps === void 0 && (t.mipmaps = !0), t.debug || (t.debug = {}), t.animations && t.animation && t.animations.indexOf(t.animation) < 0) throw new Error("Animation '" + t.animation + "' is not in the config animation list: " + Di(t.animations)); if (t.skins && t.skin && t.skins.indexOf(t.skin) < 0) throw new Error("Default skin '" + t.skin + "' is not in the config skins list: " + Di(t.skins)); t.viewport || (t.viewport = {}), t.viewport.animations || (t.viewport.animations = {}), t.viewport.debugRender === void 0 && (t.viewport.debugRender = !1), t.viewport.transitionTime === void 0 && (t.viewport.transitionTime = .25), t.controlBones || (t.controlBones = []), t.showLoading === void 0 && (t.showLoading = !0), t.defaultMix === void 0 && (t.defaultMix = .25) } initialize() {
-      let t = this.config, e = this.dom; if (!t.alpha) { let i = t.backgroundColor; this.dom.style.backgroundColor = (i.charAt(0) == "#" ? i : "#" + i).substr(0, 7) } try { this.canvas = qt(e, "spine-player-canvas"), this.context = new wt(this.canvas, { alpha: t.alpha, preserveDrawingBuffer: t.preserveDrawingBuffer }), this.sceneRenderer = new Pi(this.canvas, this.context, !0), t.showLoading && (this.loadingScreen = new Cs(this.sceneRenderer)) } catch (i) {
-        this.showError(`Sorry, your browser does not support 
-Please use the latest version of Firefox, Chrome, Edge, or Safari.`, i)
-      } if (this.assetManager = new Yi(this.context, "", t.downloader), t.rawDataURIs) for (let i in t.rawDataURIs) this.assetManager.setRawDataURI(i, t.rawDataURIs[i]); if (t.jsonUrl ? this.assetManager.loadJson(t.jsonUrl) : this.assetManager.loadBinary(t.binaryUrl), this.assetManager.loadTextureAtlas(t.atlasUrl), t.backgroundImage && this.assetManager.loadTexture(t.backgroundImage.url), this.bg.setFromString(t.backgroundColor), this.bgFullscreen.setFromString(t.fullScreenBackgroundColor), t.showControls) { this.playerControls = e.children[1]; let i = this.playerControls.children, s = i[0], a = i[1].children; this.playButton = a[0]; let d = a[2]; this.animationButton = a[3], this.skinButton = a[4]; let n = a[5], r = a[6], h = a[7]; this.timelineSlider = new Ts, s.appendChild(this.timelineSlider.create()), this.timelineSlider.change = f => { this.pause(); let x = this.animationState.getCurrent(0).animation.duration * f; this.animationState.update(x - this.playTime), this.animationState.apply(this.skeleton), this.skeleton.updateWorldTransform(), this.playTime = x }, this.playButton.onclick = () => this.paused ? this.play() : this.pause(), d.onclick = () => this.showSpeedDialog(d), this.animationButton.onclick = () => this.showAnimationsDialog(this.animationButton), this.skinButton.onclick = () => this.showSkinsDialog(this.skinButton), n.onclick = () => this.showSettingsDialog(n); let o = this.canvas.clientWidth, l = this.canvas.clientHeight, c = this.canvas.style.width, u = this.canvas.style.height, m = !1; r.onclick = () => { let f = () => { m = !m, m || (this.canvas.style.width = o + "px", this.canvas.style.height = l + "px", this.drawFrame(!1), requestAnimationFrame(() => { this.canvas.style.width = c, this.canvas.style.height = u })) }, g = e; g.onfullscreenchange = f, g.onwebkitfullscreenchange = f; let x = document; x.fullscreenElement || x.webkitFullscreenElement || x.mozFullScreenElement || x.msFullscreenElement ? x.exitFullscreen ? x.exitFullscreen() : x.mozCancelFullScreen ? x.mozCancelFullScreen() : x.webkitExitFullscreen ? x.webkitExitFullscreen() : x.msExitFullscreen && x.msExitFullscreen() : (o = this.canvas.clientWidth, l = this.canvas.clientHeight, c = this.canvas.style.width, u = this.canvas.style.height, g.requestFullscreen ? g.requestFullscreen() : g.webkitRequestFullScreen ? g.webkitRequestFullScreen() : g.mozRequestFullScreen ? g.mozRequestFullScreen() : g.msRequestFullscreen && g.msRequestFullscreen()) }, h.onclick = () => window.open("http://esotericsoftware.com") } return e
-    } loadSkeleton() {
-      if (this.error) return; this.assetManager.hasErrors() && this.showError(`Error: Assets could not be loaded.
-`+ Di(this.assetManager.getErrors())); let t = this.config, e = this.assetManager.require(t.atlasUrl), i = this.context.gl, s = i.getExtension("EXT_texture_filter_anisotropic"), a = i.getParameter(i.VERSION).indexOf("WebGL 1.0") != -1; for (let l of e.pages) { let c = l.minFilter; var d = t.mipmaps, n = F.isPowerOfTwo(l.width) && F.isPowerOfTwo(l.height); a && !n && (d = !1), d && (s ? (i.texParameterf(i.TEXTURE_2D, s.TEXTURE_MAX_ANISOTROPY_EXT, 8), c = pt.MipMapLinearLinear) : c = pt.Linear, l.texture.setFilters(c, pt.Nearest)), c != pt.Nearest && c != pt.Linear && l.texture.update(!0) } let r; if (t.jsonUrl) try { let l = this.assetManager.remove(t.jsonUrl); if (!l) throw new Error("Empty JSON data."); if (t.jsonField && (l = l[t.jsonField], !l)) throw new Error("JSON field does not exist: " + t.jsonField); r = new fs(new pi(e)).readSkeletonData(l) } catch (l) {
-        this.showError(`Error: Could not load skeleton JSON.
-${l.message}`, l)
-      } else {
-        let l = this.assetManager.remove(t.binaryUrl), c = new ds(new pi(e)); try { r = c.readSkeletonData(l) } catch (u) {
-          this.showError(`Error: Could not load skeleton binary.
-${u.message}`, u)
-        }
-      } this.skeleton = new hs(r); let h = new $i(r); h.defaultMix = t.defaultMix, this.animationState = new Se(h), t.controlBones.forEach(l => { r.findBone(l) || this.showError(`Error: Control bone does not exist in skeleton: ${l}`) }), !t.skin && r.skins.length && (t.skin = r.skins[0].name), t.skins && t.skin.length && t.skins.forEach(l => { this.skeleton.data.findSkin(l) || this.showError(`Error: Skin in config list does not exist in skeleton: ${l}`) }), t.skin && (this.skeleton.data.findSkin(t.skin) || this.showError(`Error: Skin does not exist in skeleton: ${t.skin}`), this.skeleton.setSkinByName(t.skin), this.skeleton.setSlotsToSetupPose()), Object.getOwnPropertyNames(t.viewport.animations).forEach(l => { r.findAnimation(l) || this.showError(`Error: Animation for which a viewport was specified does not exist in skeleton: ${l}`) }), t.animations && t.animations.length && (t.animations.forEach(l => { this.skeleton.data.findAnimation(l) || this.showError(`Error: Animation in config list does not exist in skeleton: ${l}`) }), t.animation || (t.animation = t.animations[0])), t.animation && !r.findAnimation(t.animation) && this.showError(`Error: Animation does not exist in skeleton: ${t.animation}`), this.setupInput(), t.showControls && ((r.skins.length == 1 || t.skins && t.skins.length == 1) && this.skinButton.classList.add("spine-player-hidden"), (r.animations.length == 1 || t.animations && t.animations.length == 1) && this.animationButton.classList.add("spine-player-hidden")), t.success && t.success(this); let o = this.animationState.getCurrent(0); o ? this.currentViewport || (this.setViewport(o.animation), this.play()) : t.animation ? (o = this.setAnimation(t.animation), this.play()) : (o = this.animationState.setEmptyAnimation(0), o.trackEnd = 1e8, this.setViewport(o.animation), this.pause())
-    } setupInput() { let t = this.config, e = t.controlBones; if (!e.length && !t.showControls) return; let i = this.selectedBones = new Array(e.length), s = this.canvas, a = null, d = new Yt, n = new Mt, r = new Mt, h = new Yt, o = this.skeleton, l = this.sceneRenderer, c = function (u, m) { r.set(u, s.clientHeight - m, 0), d.x = d.y = 0; let f = 24, g = 0, x; for (let v = 0; v < e.length; v++) { i[v] = null; let p = o.findBone(e[v]), b = l.camera.worldToScreen(n.set(p.worldX, p.worldY, 0), s.clientWidth, s.clientHeight).distance(r); b < f && (f = b, x = p, g = v, d.x = n.x - r.x, d.y = n.y - r.y) } return x && (i[g] = x), x }; if (new xe(s).addListener({ down: (u, m) => { a = c(u, m) }, up: () => { a ? a = null : t.showControls && (this.paused ? this.play() : this.pause()) }, dragged: (u, m) => { a && (u = F.clamp(u + d.x, 0, s.clientWidth), m = F.clamp(m - d.y, 0, s.clientHeight), l.camera.screenToWorld(n.set(u, m, 0), s.clientWidth, s.clientHeight), a.parent ? (a.parent.worldToLocal(h.set(n.x - o.x, n.y - o.y)), a.x = h.x, a.y = h.y) : (a.x = n.x - o.x, a.y = n.y - o.y)) }, moved: (u, m) => c(u, m) }), t.showControls) { this.addEventListener(document, "mousemove", x => { x instanceof MouseEvent && g(x.clientX, x.clientY) }), this.addEventListener(document, "touchmove", x => { if (x instanceof TouchEvent) { let v = x.changedTouches; if (v.length) { let p = v[0]; g(p.clientX, p.clientY) } } }); let u = (x, v, p) => { let b = x - p.left, w = v - p.top; return b >= 0 && b <= p.width && w >= 0 && w <= p.height }, m = !0, f = !1, g = (x, v) => { let p = qt(this.dom, "spine-player-popup"); m = u(x, v, this.playerControls.getBoundingClientRect()), f = u(x, v, s.getBoundingClientRect()), clearTimeout(this.cancelId), !p && !m && !f && !this.paused ? this.playerControls.classList.add("spine-player-controls-hidden") : this.playerControls.classList.remove("spine-player-controls-hidden"), !m && !p && !this.paused && (this.cancelId = setTimeout(() => { this.paused || this.playerControls.classList.add("spine-player-controls-hidden") }, 1e3)) } } } play() { this.paused = !1; let t = this.config; t.showControls && (this.cancelId = setTimeout(() => { this.paused || this.playerControls.classList.add("spine-player-controls-hidden") }, 1e3), this.playButton.classList.remove("spine-player-button-icon-play"), this.playButton.classList.add("spine-player-button-icon-pause"), t.animation || (t.animations && t.animations.length ? t.animation = t.animations[0] : this.skeleton.data.animations.length && (t.animation = this.skeleton.data.animations[0].name), t.animation && this.setAnimation(t.animation))) } pause() { this.paused = !0, this.config.showControls && (this.playerControls.classList.remove("spine-player-controls-hidden"), clearTimeout(this.cancelId), this.playButton.classList.remove("spine-player-button-icon-pause"), this.playButton.classList.add("spine-player-button-icon-play")) } setAnimation(t, e = !0) { return t = this.setViewport(t), this.animationState.setAnimationWith(0, t, e) } addAnimation(t, e = !0, i = 0) { return t = this.setViewport(t), this.animationState.addAnimationWith(0, t, e, i) } setViewport(t) { typeof t == "string" && (t = this.skeleton.data.findAnimation(t)), this.previousViewport = this.currentViewport; let e = this.config.viewport, i = this.currentViewport = { padLeft: e.padLeft !== void 0 ? e.padLeft : "10%", padRight: e.padRight !== void 0 ? e.padRight : "10%", padTop: e.padTop !== void 0 ? e.padTop : "10%", padBottom: e.padBottom !== void 0 ? e.padBottom : "10%" }; e.x !== void 0 && e.y !== void 0 && e.width && e.height ? (i.x = e.x, i.y = e.y, i.width = e.width, i.height = e.height) : this.calculateAnimationViewport(t, i); let s = this.config.viewport.animations[t.name]; return s && (s.x !== void 0 && s.y !== void 0 && s.width && s.height && (i.x = s.x, i.y = s.y, i.width = s.width, i.height = s.height), s.padLeft !== void 0 && (i.padLeft = s.padLeft), s.padRight !== void 0 && (i.padRight = s.padRight), s.padTop !== void 0 && (i.padTop = s.padTop), s.padBottom !== void 0 && (i.padBottom = s.padBottom)), i.padLeft = this.percentageToWorldUnit(i.width, i.padLeft), i.padRight = this.percentageToWorldUnit(i.width, i.padRight), i.padBottom = this.percentageToWorldUnit(i.height, i.padBottom), i.padTop = this.percentageToWorldUnit(i.height, i.padTop), this.viewportTransitionStart = performance.now(), t } percentageToWorldUnit(t, e) { return typeof e == "string" ? t * parseFloat(e.substr(0, e.length - 1)) / 100 : e } calculateAnimationViewport(t, e) { this.skeleton.setToSetupPose(); let i = 100, s = t.duration ? t.duration / i : 0, a = 0, d = 1e8, n = -1e8, r = 1e8, h = -1e8, o = new Yt, l = new Yt; for (let c = 0; c < i; c++, a += s)t.apply(this.skeleton, a, a, !1, null, 1, ft.setup, Vt.mixIn), this.skeleton.updateWorldTransform(), this.skeleton.getBounds(o, l), !isNaN(o.x) && !isNaN(o.y) && !isNaN(l.x) && !isNaN(l.y) ? (d = Math.min(o.x, d), n = Math.max(o.x + l.x, n), r = Math.min(o.y, r), h = Math.max(o.y + l.y, h)) : this.showError("Animation bounds are invalid: " + t.name); e.x = d, e.y = r, e.width = n - d, e.height = h - r } drawFrame(t = !0) {
-      try { if (this.error || this.disposed) return; t && !this.stopRequestAnimationFrame && requestAnimationFrame(() => this.drawFrame()); let e = document, s = e.fullscreenElement || e.webkitFullscreenElement || e.mozFullScreenElement || e.msFullscreenElement ? this.bgFullscreen : this.bg; this.time.update(); let a = this.time.delta, d = this.assetManager.isLoadingComplete(); !this.skeleton && d && this.loadSkeleton(); let n = this.skeleton, r = this.config; if (n) { let h = this.sceneRenderer; h.resize(ie.Expand); let o = this.paused ? 0 : a * this.speed; if (r.frame && r.frame(this, o), !this.paused && (this.animationState.update(o), this.animationState.apply(n), n.updateWorldTransform(), r.showControls)) { this.playTime += o; let f = this.animationState.getCurrent(0); if (f) { let g = f.animation.duration; for (; this.playTime >= g && g != 0;)this.playTime -= g; this.playTime = Math.max(0, Math.min(this.playTime, g)), this.timelineSlider.setValue(this.playTime / g) } } let l = this.viewport; if (l.x = this.currentViewport.x - this.currentViewport.padLeft, l.y = this.currentViewport.y - this.currentViewport.padBottom, l.width = this.currentViewport.width + this.currentViewport.padLeft + this.currentViewport.padRight, l.height = this.currentViewport.height + this.currentViewport.padBottom + this.currentViewport.padTop, this.previousViewport) { let f = (performance.now() - this.viewportTransitionStart) / 1e3 / r.viewport.transitionTime; if (f < 1) { let g = this.previousViewport.x - this.previousViewport.padLeft, x = this.previousViewport.y - this.previousViewport.padBottom, v = this.previousViewport.width + this.previousViewport.padLeft + this.previousViewport.padRight, p = this.previousViewport.height + this.previousViewport.padBottom + this.previousViewport.padTop; l.x = g + (l.x - g) * f, l.y = x + (l.y - x) * f, l.width = v + (l.width - v) * f, l.height = p + (l.height - p) * f } } h.camera.zoom = this.canvas.height / this.canvas.width > l.height / l.width ? l.width / this.canvas.width : l.height / this.canvas.height, h.camera.position.x = l.x + l.width / 2, h.camera.position.y = l.y + l.height / 2; let c = this.context.gl; c.clearColor(s.r, s.g, s.b, s.a), c.clear(c.COLOR_BUFFER_BIT), r.update && r.update(this, o), h.begin(); let u = r.backgroundImage; if (u) { let f = this.assetManager.require(u.url); u.x !== void 0 && u.y !== void 0 && u.width && u.height ? h.drawTexture(f, u.x, u.y, u.width, u.height) : h.drawTexture(f, l.x, l.y, l.width, l.height) } h.drawSkeleton(n, r.premultipliedAlpha), ((h.skeletonDebugRenderer.drawBones = r.debug.bones) || (h.skeletonDebugRenderer.drawBoundingBoxes = r.debug.bounds) || (h.skeletonDebugRenderer.drawClipping = r.debug.clipping) || (h.skeletonDebugRenderer.drawMeshHull = r.debug.hulls) || (h.skeletonDebugRenderer.drawPaths = r.debug.paths) || (h.skeletonDebugRenderer.drawRegionAttachments = r.debug.regions) || (h.skeletonDebugRenderer.drawMeshTriangles = r.debug.meshes)) && h.drawSkeletonDebug(n, r.premultipliedAlpha); let m = r.controlBones; if (m.length) { let f = this.selectedBones; c.lineWidth(2); for (let g = 0; g < m.length; g++) { let x = n.findBone(m[g]); if (!x) continue; let v = f[g] ? Ar : Cr, p = f[g] ? Sr : Tr; h.circle(!0, n.x + x.worldX, n.y + x.worldY, 20, v), h.circle(!1, n.x + x.worldX, n.y + x.worldY, 20, p) } } r.viewport.debugRender && (c.lineWidth(1), h.rect(!1, this.currentViewport.x, this.currentViewport.y, this.currentViewport.width, this.currentViewport.height, O.GREEN), h.rect(!1, l.x, l.y, l.width, l.height, O.RED)), h.end(), r.draw && r.draw(this, o) } r.showLoading && (this.loadingScreen.backgroundColor.setFromColor(s), this.loadingScreen.draw(d)), d && r.loading && r.loading(this, a) } catch (e) {
-        this.showError(`Error: Unable to render skeleton.
-${e.message}`, e)
-      }
-    } stopRendering() { this.stopRequestAnimationFrame = !0 } hidePopup(t) { return this.popup && this.popup.hide(t) } showSpeedDialog(t) {
-      let e = "speed"; if (this.hidePopup(e)) return; let i = new De(e, t, this, this.playerControls, `
+</div></div>`
+			) : "";
+			this.parent.appendChild(this.dom = createElement(
+				/*html*/
+				`<div class="spine-player" style="position:relative;height:100%"><canvas class="spine-player-canvas" style="display:block;width:100%;height:100%"></canvas>${controls}</div>`
+			));
+			try {
+				this.validateConfig(config);
+			} catch (e) {
+				this.showError(e.message, e);
+			}
+			this.initialize();
+			this.addEventListener(window, "resize", () => this.drawFrame(false));
+			requestAnimationFrame(() => this.drawFrame());
+		}
+		dispose() {
+			var _a, _b, _c;
+			(_a = this.sceneRenderer) == null ? void 0 : _a.dispose();
+			(_b = this.loadingScreen) == null ? void 0 : _b.dispose();
+			(_c = this.assetManager) == null ? void 0 : _c.dispose();
+			for (var i = 0; i < this.eventListeners.length; i++) {
+				var eventListener = this.eventListeners[i];
+				eventListener.target.removeEventListener(eventListener.event, eventListener.func);
+			}
+			this.parent.removeChild(this.dom);
+			this.disposed = true;
+		}
+		addEventListener(target, event, func) {
+			this.eventListeners.push({ target, event, func });
+			target.addEventListener(event, func);
+		}
+		validateConfig(config) {
+			if (!config)
+				throw new Error("A configuration object must be passed to to new SpinePlayer().");
+			if (config.skelUrl)
+				config.binaryUrl = config.skelUrl;
+			if (!config.jsonUrl && !config.binaryUrl)
+				throw new Error("A URL must be specified for the skeleton JSON or binary file.");
+			if (!config.atlasUrl)
+				throw new Error("A URL must be specified for the atlas file.");
+			if (!config.backgroundColor)
+				config.backgroundColor = config.alpha ? "00000000" : "000000";
+			if (!config.fullScreenBackgroundColor)
+				config.fullScreenBackgroundColor = config.backgroundColor;
+			if (config.backgroundImage && !config.backgroundImage.url)
+				config.backgroundImage = void 0;
+			if (config.premultipliedAlpha === void 0)
+				config.premultipliedAlpha = true;
+			if (config.preserveDrawingBuffer === void 0)
+				config.preserveDrawingBuffer = false;
+			if (config.mipmaps === void 0)
+				config.mipmaps = true;
+			if (!config.debug)
+				config.debug = {
+					bones: false,
+					clipping: false,
+					bounds: false,
+					hulls: false,
+					meshes: false,
+					paths: false,
+					points: false,
+					regions: false
+				};
+			if (config.animations && config.animation && config.animations.indexOf(config.animation) < 0)
+				throw new Error("Animation '" + config.animation + "' is not in the config animation list: " + toString(config.animations));
+			if (config.skins && config.skin && config.skins.indexOf(config.skin) < 0)
+				throw new Error("Default skin '" + config.skin + "' is not in the config skins list: " + toString(config.skins));
+			if (!config.viewport)
+				config.viewport = {};
+			if (!config.viewport.animations)
+				config.viewport.animations = {};
+			if (config.viewport.debugRender === void 0)
+				config.viewport.debugRender = false;
+			if (config.viewport.transitionTime === void 0)
+				config.viewport.transitionTime = 0.25;
+			if (!config.controlBones)
+				config.controlBones = [];
+			if (config.showLoading === void 0)
+				config.showLoading = true;
+			if (config.defaultMix === void 0)
+				config.defaultMix = 0.25;
+		}
+		initialize() {
+			let config = this.config;
+			let dom = this.dom;
+			if (!config.alpha) {
+				let hex = config.backgroundColor;
+				this.dom.style.backgroundColor = (hex.charAt(0) == "#" ? hex : "#" + hex).substr(0, 7);
+			}
+			try {
+				this.canvas = findWithClass(dom, "spine-player-canvas");
+				this.context = new ManagedWebGLRenderingContext(this.canvas, { alpha: config.alpha, preserveDrawingBuffer: config.preserveDrawingBuffer });
+				this.sceneRenderer = new SceneRenderer(this.canvas, this.context, true);
+				if (config.showLoading)
+					this.loadingScreen = new LoadingScreen(this.sceneRenderer);
+			} catch (e) {
+				this.showError("Sorry, your browser does not support \nPlease use the latest version of Firefox, Chrome, Edge, or Safari.", e);
+				return null;
+			}
+			this.assetManager = new AssetManager(this.context, "", config.downloader);
+			if (config.rawDataURIs) {
+				for (let path in config.rawDataURIs)
+					this.assetManager.setRawDataURI(path, config.rawDataURIs[path]);
+			}
+			if (config.jsonUrl)
+				this.assetManager.loadJson(config.jsonUrl);
+			else
+				this.assetManager.loadBinary(config.binaryUrl);
+			this.assetManager.loadTextureAtlas(config.atlasUrl);
+			if (config.backgroundImage)
+				this.assetManager.loadTexture(config.backgroundImage.url);
+			this.bg.setFromString(config.backgroundColor);
+			this.bgFullscreen.setFromString(config.fullScreenBackgroundColor);
+			if (config.showControls) {
+				this.playerControls = dom.children[1];
+				let controls = this.playerControls.children;
+				let timeline = controls[0];
+				let buttons = controls[1].children;
+				this.playButton = buttons[0];
+				let speedButton = buttons[2];
+				this.animationButton = buttons[3];
+				this.skinButton = buttons[4];
+				let settingsButton = buttons[5];
+				let fullscreenButton = buttons[6];
+				let logoButton = buttons[7];
+				this.timelineSlider = new Slider();
+				timeline.appendChild(this.timelineSlider.create());
+				this.timelineSlider.change = (percentage) => {
+					this.pause();
+					let animationDuration = this.animationState.getCurrent(0).animation.duration;
+					let time = animationDuration * percentage;
+					this.animationState.update(time - this.playTime);
+					this.animationState.apply(this.skeleton);
+					this.skeleton.updateWorldTransform();
+					this.playTime = time;
+				};
+				this.playButton.onclick = () => this.paused ? this.play() : this.pause();
+				speedButton.onclick = () => this.showSpeedDialog(speedButton);
+				this.animationButton.onclick = () => this.showAnimationsDialog(this.animationButton);
+				this.skinButton.onclick = () => this.showSkinsDialog(this.skinButton);
+				settingsButton.onclick = () => this.showSettingsDialog(settingsButton);
+				let oldWidth = this.canvas.clientWidth, oldHeight = this.canvas.clientHeight;
+				let oldStyleWidth = this.canvas.style.width, oldStyleHeight = this.canvas.style.height;
+				let isFullscreen = false;
+				fullscreenButton.onclick = () => {
+					let fullscreenChanged = () => {
+						isFullscreen = !isFullscreen;
+						if (!isFullscreen) {
+							this.canvas.style.width = oldWidth + "px";
+							this.canvas.style.height = oldHeight + "px";
+							this.drawFrame(false);
+							requestAnimationFrame(() => {
+								this.canvas.style.width = oldStyleWidth;
+								this.canvas.style.height = oldStyleHeight;
+							});
+						}
+					};
+					let player = dom;
+					player.onfullscreenchange = fullscreenChanged;
+					player.onwebkitfullscreenchange = fullscreenChanged;
+					let doc = document;
+					if (doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement) {
+						if (doc.exitFullscreen)
+							doc.exitFullscreen();
+						else if (doc.mozCancelFullScreen)
+							doc.mozCancelFullScreen();
+						else if (doc.webkitExitFullscreen)
+							doc.webkitExitFullscreen();
+						else if (doc.msExitFullscreen)
+							doc.msExitFullscreen();
+					} else {
+						oldWidth = this.canvas.clientWidth;
+						oldHeight = this.canvas.clientHeight;
+						oldStyleWidth = this.canvas.style.width;
+						oldStyleHeight = this.canvas.style.height;
+						if (player.requestFullscreen)
+							player.requestFullscreen();
+						else if (player.webkitRequestFullScreen)
+							player.webkitRequestFullScreen();
+						else if (player.mozRequestFullScreen)
+							player.mozRequestFullScreen();
+						else if (player.msRequestFullscreen)
+							player.msRequestFullscreen();
+					}
+				};
+				logoButton.onclick = () => window.open("http://esotericsoftware.com");
+			}
+			return dom;
+		}
+		loadSkeleton() {
+			if (this.error)
+				return;
+			if (this.assetManager.hasErrors())
+				this.showError("Error: Assets could not be loaded.\n" + toString(this.assetManager.getErrors()));
+			let config = this.config;
+			let atlas = this.assetManager.require(config.atlasUrl);
+			let gl = this.context.gl, anisotropic = gl.getExtension("EXT_texture_filter_anisotropic");
+			let isWebGL1 = gl.getParameter(gl.VERSION).indexOf("WebGL 1.0") != -1;
+			for (let page of atlas.pages) {
+				let minFilter = page.minFilter;
+				var useMipMaps = config.mipmaps;
+				var isPOT = MathUtils.isPowerOfTwo(page.width) && MathUtils.isPowerOfTwo(page.height);
+				if (isWebGL1 && !isPOT)
+					useMipMaps = false;
+				if (useMipMaps) {
+					if (anisotropic) {
+						gl.texParameterf(gl.TEXTURE_2D, anisotropic.TEXTURE_MAX_ANISOTROPY_EXT, 8);
+						minFilter = 9987 /* MipMapLinearLinear */;
+					} else
+						minFilter = 9729 /* Linear */;
+					page.texture.setFilters(minFilter, 9728 /* Nearest */);
+				}
+				if (minFilter != 9728 /* Nearest */ && minFilter != 9729 /* Linear */)
+					page.texture.update(true);
+			}
+			let skeletonData;
+			if (config.jsonUrl) {
+				try {
+					let jsonData = this.assetManager.remove(config.jsonUrl);
+					if (!jsonData)
+						throw new Error("Empty JSON data.");
+					if (config.jsonField) {
+						jsonData = jsonData[config.jsonField];
+						if (!jsonData)
+							throw new Error("JSON field does not exist: " + config.jsonField);
+					}
+					let json = new SkeletonJson(new AtlasAttachmentLoader(atlas));
+					skeletonData = json.readSkeletonData(jsonData);
+				} catch (e) {
+					this.showError(`Error: Could not load skeleton JSON.
+${e.message}`, e);
+					return;
+				}
+			} else {
+				let binaryData = this.assetManager.remove(config.binaryUrl);
+				let binary = new SkeletonBinary(new AtlasAttachmentLoader(atlas));
+				try {
+					skeletonData = binary.readSkeletonData(binaryData);
+				} catch (e) {
+					this.showError(`Error: Could not load skeleton binary.
+${e.message}`, e);
+					return;
+				}
+			}
+			this.skeleton = new Skeleton(skeletonData);
+			let stateData = new AnimationStateData(skeletonData);
+			stateData.defaultMix = config.defaultMix;
+			this.animationState = new AnimationState(stateData);
+			config.controlBones.forEach((bone) => {
+				if (!skeletonData.findBone(bone))
+					this.showError(`Error: Control bone does not exist in skeleton: ${bone}`);
+			});
+			if (!config.skin && skeletonData.skins.length)
+				config.skin = skeletonData.skins[0].name;
+			if (config.skins && config.skin.length) {
+				config.skins.forEach((skin) => {
+					if (!this.skeleton.data.findSkin(skin))
+						this.showError(`Error: Skin in config list does not exist in skeleton: ${skin}`);
+				});
+			}
+			if (config.skin) {
+				if (!this.skeleton.data.findSkin(config.skin))
+					this.showError(`Error: Skin does not exist in skeleton: ${config.skin}`);
+				this.skeleton.setSkinByName(config.skin);
+				this.skeleton.setSlotsToSetupPose();
+			}
+			Object.getOwnPropertyNames(config.viewport.animations).forEach((animation) => {
+				if (!skeletonData.findAnimation(animation))
+					this.showError(`Error: Animation for which a viewport was specified does not exist in skeleton: ${animation}`);
+			});
+			if (config.animations && config.animations.length) {
+				config.animations.forEach((animation) => {
+					if (!this.skeleton.data.findAnimation(animation))
+						this.showError(`Error: Animation in config list does not exist in skeleton: ${animation}`);
+				});
+				if (!config.animation)
+					config.animation = config.animations[0];
+			}
+			if (config.animation && !skeletonData.findAnimation(config.animation))
+				this.showError(`Error: Animation does not exist in skeleton: ${config.animation}`);
+			this.setupInput();
+			if (config.showControls) {
+				if (skeletonData.skins.length == 1 || config.skins && config.skins.length == 1)
+					this.skinButton.classList.add("spine-player-hidden");
+				if (skeletonData.animations.length == 1 || config.animations && config.animations.length == 1)
+					this.animationButton.classList.add("spine-player-hidden");
+			}
+			if (config.success)
+				config.success(this);
+			let entry = this.animationState.getCurrent(0);
+			if (!entry) {
+				if (config.animation) {
+					entry = this.setAnimation(config.animation);
+					this.play();
+				} else {
+					entry = this.animationState.setEmptyAnimation(0);
+					entry.trackEnd = 1e8;
+					this.setViewport(entry.animation);
+					this.pause();
+				}
+			} else if (!this.currentViewport) {
+				this.setViewport(entry.animation);
+				this.play();
+			}
+		}
+		setupInput() {
+			let config = this.config;
+			let controlBones = config.controlBones;
+			if (!controlBones.length && !config.showControls)
+				return;
+			let selectedBones = this.selectedBones = new Array(controlBones.length);
+			let canvas = this.canvas;
+			let target = null;
+			let offset = new Vector2();
+			let coords = new Vector3();
+			let mouse = new Vector3();
+			let position = new Vector2();
+			let skeleton = this.skeleton;
+			let renderer = this.sceneRenderer;
+			let closest = function (x, y) {
+				mouse.set(x, canvas.clientHeight - y, 0);
+				offset.x = offset.y = 0;
+				let bestDistance = 24, index = 0;
+				let best = null;
+				for (let i = 0; i < controlBones.length; i++) {
+					selectedBones[i] = null;
+					let bone = skeleton.findBone(controlBones[i]);
+					if (!bone)
+						continue;
+					let distance = renderer.camera.worldToScreen(
+						coords.set(bone.worldX, bone.worldY, 0),
+						canvas.clientWidth,
+						canvas.clientHeight
+					).distance(mouse);
+					if (distance < bestDistance) {
+						bestDistance = distance;
+						best = bone;
+						index = i;
+						offset.x = coords.x - mouse.x;
+						offset.y = coords.y - mouse.y;
+					}
+				}
+				if (best)
+					selectedBones[index] = best;
+				return best;
+			};
+			new Input(canvas).addListener({
+				down: (x, y) => {
+					target = closest(x, y);
+				},
+				up: () => {
+					if (target)
+						target = null;
+					else if (config.showControls)
+						this.paused ? this.play() : this.pause();
+				},
+				dragged: (x, y) => {
+					if (target) {
+						x = MathUtils.clamp(x + offset.x, 0, canvas.clientWidth);
+						y = MathUtils.clamp(y - offset.y, 0, canvas.clientHeight);
+						renderer.camera.screenToWorld(coords.set(x, y, 0), canvas.clientWidth, canvas.clientHeight);
+						if (target.parent) {
+							target.parent.worldToLocal(position.set(coords.x - skeleton.x, coords.y - skeleton.y));
+							target.x = position.x;
+							target.y = position.y;
+						} else {
+							target.x = coords.x - skeleton.x;
+							target.y = coords.y - skeleton.y;
+						}
+					}
+				},
+				moved: (x, y) => closest(x, y)
+			});
+			if (config.showControls) {
+				this.addEventListener(document, "mousemove", (ev) => {
+					if (ev instanceof MouseEvent)
+						handleHover(ev.clientX, ev.clientY);
+				});
+				this.addEventListener(document, "touchmove", (ev) => {
+					if (ev instanceof TouchEvent) {
+						let touches = ev.changedTouches;
+						if (touches.length) {
+							let touch = touches[0];
+							handleHover(touch.clientX, touch.clientY);
+						}
+					}
+				});
+				let overlap = (mouseX, mouseY, rect) => {
+					let x = mouseX - rect.left, y = mouseY - rect.top;
+					return x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
+				};
+				let mouseOverControls = true, mouseOverCanvas = false;
+				let handleHover = (mouseX, mouseY) => {
+					let popup = findWithClass(this.dom, "spine-player-popup");
+					mouseOverControls = overlap(mouseX, mouseY, this.playerControls.getBoundingClientRect());
+					mouseOverCanvas = overlap(mouseX, mouseY, canvas.getBoundingClientRect());
+					clearTimeout(this.cancelId);
+					let hide = !popup && !mouseOverControls && !mouseOverCanvas && !this.paused;
+					if (hide)
+						this.playerControls.classList.add("spine-player-controls-hidden");
+					else
+						this.playerControls.classList.remove("spine-player-controls-hidden");
+					if (!mouseOverControls && !popup && !this.paused) {
+						this.cancelId = setTimeout(() => {
+							if (!this.paused)
+								this.playerControls.classList.add("spine-player-controls-hidden");
+						}, 1e3);
+					}
+				};
+			}
+		}
+		play() {
+			this.paused = false;
+			let config = this.config;
+			if (config.showControls) {
+				this.cancelId = setTimeout(() => {
+					if (!this.paused)
+						this.playerControls.classList.add("spine-player-controls-hidden");
+				}, 1e3);
+				this.playButton.classList.remove("spine-player-button-icon-play");
+				this.playButton.classList.add("spine-player-button-icon-pause");
+				if (!config.animation) {
+					if (config.animations && config.animations.length)
+						config.animation = config.animations[0];
+					else if (this.skeleton.data.animations.length)
+						config.animation = this.skeleton.data.animations[0].name;
+					if (config.animation)
+						this.setAnimation(config.animation);
+				}
+			}
+		}
+		pause() {
+			this.paused = true;
+			if (this.config.showControls) {
+				this.playerControls.classList.remove("spine-player-controls-hidden");
+				clearTimeout(this.cancelId);
+				this.playButton.classList.remove("spine-player-button-icon-pause");
+				this.playButton.classList.add("spine-player-button-icon-play");
+			}
+		}
+		/* Sets a new animation and viewport on track 0. */
+		setAnimation(animation, loop = true) {
+			animation = this.setViewport(animation);
+			return this.animationState.setAnimationWith(0, animation, loop);
+		}
+		/* Adds a new animation and viewport on track 0. */
+		addAnimation(animation, loop = true, delay = 0) {
+			animation = this.setViewport(animation);
+			return this.animationState.addAnimationWith(0, animation, loop, delay);
+		}
+		/* Sets the viewport for the specified animation. */
+		setViewport(animation) {
+			if (typeof animation == "string") {
+				let foundAnimation = this.skeleton.data.findAnimation(animation);
+				if (!foundAnimation)
+					throw new Error("Animation not found: " + animation);
+				animation = foundAnimation;
+			}
+			this.previousViewport = this.currentViewport;
+			let globalViewport = this.config.viewport;
+			let viewport = this.currentViewport = {
+				padLeft: globalViewport.padLeft !== void 0 ? globalViewport.padLeft : "10%",
+				padRight: globalViewport.padRight !== void 0 ? globalViewport.padRight : "10%",
+				padTop: globalViewport.padTop !== void 0 ? globalViewport.padTop : "10%",
+				padBottom: globalViewport.padBottom !== void 0 ? globalViewport.padBottom : "10%"
+			};
+			if (globalViewport.x !== void 0 && globalViewport.y !== void 0 && globalViewport.width && globalViewport.height) {
+				viewport.x = globalViewport.x;
+				viewport.y = globalViewport.y;
+				viewport.width = globalViewport.width;
+				viewport.height = globalViewport.height;
+			} else
+				this.calculateAnimationViewport(animation, viewport);
+			let userAnimViewport = this.config.viewport.animations[animation.name];
+			if (userAnimViewport) {
+				if (userAnimViewport.x !== void 0 && userAnimViewport.y !== void 0 && userAnimViewport.width && userAnimViewport.height) {
+					viewport.x = userAnimViewport.x;
+					viewport.y = userAnimViewport.y;
+					viewport.width = userAnimViewport.width;
+					viewport.height = userAnimViewport.height;
+				}
+				if (userAnimViewport.padLeft !== void 0)
+					viewport.padLeft = userAnimViewport.padLeft;
+				if (userAnimViewport.padRight !== void 0)
+					viewport.padRight = userAnimViewport.padRight;
+				if (userAnimViewport.padTop !== void 0)
+					viewport.padTop = userAnimViewport.padTop;
+				if (userAnimViewport.padBottom !== void 0)
+					viewport.padBottom = userAnimViewport.padBottom;
+			}
+			viewport.padLeft = this.percentageToWorldUnit(viewport.width, viewport.padLeft);
+			viewport.padRight = this.percentageToWorldUnit(viewport.width, viewport.padRight);
+			viewport.padBottom = this.percentageToWorldUnit(viewport.height, viewport.padBottom);
+			viewport.padTop = this.percentageToWorldUnit(viewport.height, viewport.padTop);
+			this.viewportTransitionStart = performance.now();
+			return animation;
+		}
+		percentageToWorldUnit(size, percentageOrAbsolute) {
+			if (typeof percentageOrAbsolute === "string")
+				return size * parseFloat(percentageOrAbsolute.substr(0, percentageOrAbsolute.length - 1)) / 100;
+			return percentageOrAbsolute;
+		}
+		calculateAnimationViewport(animation, viewport) {
+			this.skeleton.setToSetupPose();
+			let steps = 100, stepTime = animation.duration ? animation.duration / steps : 0, time = 0;
+			let minX = 1e8, maxX = -1e8, minY = 1e8, maxY = -1e8;
+			let offset = new Vector2(), size = new Vector2();
+			for (let i = 0; i < steps; i++, time += stepTime) {
+				animation.apply(this.skeleton, time, time, false, [], 1, 0 /* setup */, 0 /* mixIn */);
+				this.skeleton.updateWorldTransform();
+				this.skeleton.getBounds(offset, size);
+				if (!isNaN(offset.x) && !isNaN(offset.y) && !isNaN(size.x) && !isNaN(size.y)) {
+					minX = Math.min(offset.x, minX);
+					maxX = Math.max(offset.x + size.x, maxX);
+					minY = Math.min(offset.y, minY);
+					maxY = Math.max(offset.y + size.y, maxY);
+				} else
+					this.showError("Animation bounds are invalid: " + animation.name);
+			}
+			viewport.x = minX;
+			viewport.y = minY;
+			viewport.width = maxX - minX;
+			viewport.height = maxY - minY;
+		}
+		drawFrame(requestNextFrame = true) {
+			try {
+				if (this.error){
+					return;
+				}
+				if (this.disposed)
+					return;
+				if (requestNextFrame && !this.stopRequestAnimationFrame)
+					requestAnimationFrame(() => this.drawFrame());
+				let doc = document;
+				let isFullscreen = doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement;
+				let bg = isFullscreen ? this.bgFullscreen : this.bg;
+				this.time.update();
+				let delta = this.time.delta;
+				let loading = this.assetManager.isLoadingComplete();
+				if (!this.skeleton && loading)
+					this.loadSkeleton();
+				let skeleton = this.skeleton;
+				let config = this.config;
+				if (skeleton) {
+				
+					let renderer = this.sceneRenderer;
+					renderer.resize(1 /* Expand */);
+					let playDelta = this.paused ? 0 : delta * this.speed;
+					if (config.frame)
+						config.frame(this, playDelta);
+					if (!this.paused) {
+						this.animationState.update(playDelta);
+						this.animationState.apply(skeleton);
+						skeleton.updateWorldTransform();
+						if (config.showControls) {
+							this.playTime += playDelta;
+							let entry = this.animationState.getCurrent(0);
+							if (entry) {
+								let duration = entry.animation.duration;
+								while (this.playTime >= duration && duration != 0)
+									this.playTime -= duration;
+								this.playTime = Math.max(0, Math.min(this.playTime, duration));
+								this.timelineSlider.setValue(this.playTime / duration);
+							}
+						}
+					}
+					let viewport = this.viewport;
+					viewport.x = this.currentViewport.x - this.currentViewport.padLeft, viewport.y = this.currentViewport.y - this.currentViewport.padBottom, viewport.width = this.currentViewport.width + this.currentViewport.padLeft + this.currentViewport.padRight, viewport.height = this.currentViewport.height + this.currentViewport.padBottom + this.currentViewport.padTop;
+					if (this.previousViewport) {
+						let transitionAlpha = (performance.now() - this.viewportTransitionStart) / 1e3 / config.viewport.transitionTime;
+						if (transitionAlpha < 1) {
+							let x = this.previousViewport.x - this.previousViewport.padLeft;
+							let y = this.previousViewport.y - this.previousViewport.padBottom;
+							let width = this.previousViewport.width + this.previousViewport.padLeft + this.previousViewport.padRight;
+							let height = this.previousViewport.height + this.previousViewport.padBottom + this.previousViewport.padTop;
+							viewport.x = x + (viewport.x - x) * transitionAlpha;
+							viewport.y = y + (viewport.y - y) * transitionAlpha;
+							viewport.width = width + (viewport.width - width) * transitionAlpha;
+							viewport.height = height + (viewport.height - height) * transitionAlpha;
+						}
+					}
+					renderer.camera.zoom = this.canvas.height / this.canvas.width > viewport.height / viewport.width ? viewport.width / this.canvas.width : viewport.height / this.canvas.height;
+					renderer.camera.position.x = viewport.x + viewport.width / 2;
+					renderer.camera.position.y = viewport.y + viewport.height / 2;
+					let gl = this.context.gl;
+					gl.clearColor(bg.r, bg.g, bg.b, bg.a);
+					gl.clear(gl.COLOR_BUFFER_BIT);
+					if (config.update)
+						config.update(this, playDelta);
+					renderer.begin();
+					let bgImage = config.backgroundImage;
+					if (bgImage) {
+						let texture = this.assetManager.require(bgImage.url);
+						if (bgImage.x !== void 0 && bgImage.y !== void 0 && bgImage.width && bgImage.height){
+							
+							renderer.drawTexture(texture, bgImage.x, bgImage.y, bgImage.width, bgImage.height);
+						}
+						else{
+							renderer.drawTexture(texture, viewport.x, viewport.y, viewport.width, viewport.height);
+						}
+							
+					}
+					renderer.drawSkeleton(skeleton, config.premultipliedAlpha);
+					if ((renderer.skeletonDebugRenderer.drawBones = config.debug.bones) || (renderer.skeletonDebugRenderer.drawBoundingBoxes = config.debug.bounds) || (renderer.skeletonDebugRenderer.drawClipping = config.debug.clipping) || (renderer.skeletonDebugRenderer.drawMeshHull = config.debug.hulls) || (renderer.skeletonDebugRenderer.drawPaths = config.debug.paths) || (renderer.skeletonDebugRenderer.drawRegionAttachments = config.debug.regions) || (renderer.skeletonDebugRenderer.drawMeshTriangles = config.debug.meshes)) {
+						renderer.drawSkeletonDebug(skeleton, config.premultipliedAlpha);
+					}
+					let controlBones = config.controlBones;
+					if (controlBones.length) {
+						let selectedBones = this.selectedBones;
+						gl.lineWidth(2);
+						for (let i = 0; i < controlBones.length; i++) {
+							let bone = skeleton.findBone(controlBones[i]);
+							if (!bone)
+								continue;
+							let colorInner = selectedBones[i] ? BONE_INNER_OVER : BONE_INNER;
+							let colorOuter = selectedBones[i] ? BONE_OUTER_OVER : BONE_OUTER;
+							renderer.circle(true, skeleton.x + bone.worldX, skeleton.y + bone.worldY, 20, colorInner);
+							renderer.circle(false, skeleton.x + bone.worldX, skeleton.y + bone.worldY, 20, colorOuter);
+						}
+					}
+					if (config.viewport.debugRender) {
+						gl.lineWidth(1);
+						renderer.rect(false, this.currentViewport.x, this.currentViewport.y, this.currentViewport.width, this.currentViewport.height, Color.GREEN);
+						renderer.rect(false, viewport.x, viewport.y, viewport.width, viewport.height, Color.RED);
+					}
+					renderer.end();
+					if (config.draw)
+						config.draw(this, playDelta);
+				}
+				if (config.showLoading) {
+					this.loadingScreen.backgroundColor.setFromColor(bg);
+					this.loadingScreen.draw(loading);
+				}
+				if (loading && config.loading)
+					config.loading(this, delta);
+			} catch (e) {
+				this.showError(`Error: Unable to render skeleton.
+${e.message}`, e);
+			}
+		}
+		stopRendering() {
+			this.stopRequestAnimationFrame = true;
+		}
+		hidePopup(id) {
+			return this.popup != null && this.popup.hide(id);
+		}
+		showSpeedDialog(speedButton) {
+			let id = "speed";
+			if (this.hidePopup(id))
+				return;
+			let popup = new Popup(
+				id,
+				speedButton,
+				this,
+				this.playerControls,
+				/*html*/
+				`
 <div class="spine-player-popup-title">Speed</div>
 <hr>
 <div class="spine-player-row" style="align-items:center;padding:8px">
@@ -139,57 +14177,314 @@ ${e.message}`, e)
 	<div class="spine-player-speed-slider" style="margin-bottom:4px"></div>
 	<div class="spine-player-row" style="justify-content:space-between"><div>0.1x</div><div>1x</div><div>2x</div></div>
 </div>
-</div>`), s = new Ts(2, .1, !0); qt(i.dom, "spine-player-speed-slider").appendChild(s.create()), s.setValue(this.speed / 2), s.change = a => this.speed = a * 2, i.show()
-    } showAnimationsDialog(t) { let e = "animations"; if (this.hidePopup(e) || !this.skeleton || !this.skeleton.data.animations.length) return; let i = new De(e, t, this, this.playerControls, '<div class="spine-player-popup-title">Animations</div><hr><ul class="spine-player-list"></ul>'), s = qt(i.dom, "spine-player-list"); this.skeleton.data.animations.forEach(a => { if (this.config.animations && this.config.animations.indexOf(a.name) < 0) return; let d = Gt('<li class="spine-player-list-item selectable"><div class="selectable-circle"></div><div class="selectable-text"></div></li>'); a.name == this.config.animation && d.classList.add("selected"), qt(d, "selectable-text").innerText = a.name, s.appendChild(d), d.onclick = () => { ks(s.children, "selected"), d.classList.add("selected"), this.config.animation = a.name, this.playTime = 0, this.setAnimation(a.name), this.play() } }), i.show() } showSkinsDialog(t) { let e = "skins"; if (this.hidePopup(e) || !this.skeleton || !this.skeleton.data.animations.length) return; let i = new De(e, t, this, this.playerControls, '<div class="spine-player-popup-title">Skins</div><hr><ul class="spine-player-list"></ul>'), s = qt(i.dom, "spine-player-list"); this.skeleton.data.skins.forEach(a => { if (this.config.skins && this.config.skins.indexOf(a.name) < 0) return; let d = Gt('<li class="spine-player-list-item selectable"><div class="selectable-circle"></div><div class="selectable-text"></div></li>'); a.name == this.config.skin && d.classList.add("selected"), qt(d, "selectable-text").innerText = a.name, s.appendChild(d), d.onclick = () => { ks(s.children, "selected"), d.classList.add("selected"), this.config.skin = a.name, this.skeleton.setSkinByName(this.config.skin), this.skeleton.setSlotsToSetupPose() } }), i.show() } showSettingsDialog(t) { let e = "settings"; if (this.hidePopup(e) || !this.skeleton || !this.skeleton.data.animations.length) return; let i = new De(e, t, this, this.playerControls, '<div class="spine-player-popup-title">Debug</div><hr><ul class="spine-player-list"></li>'), s = qt(i.dom, "spine-player-list"), a = (d, n) => { let r = Gt('<li class="spine-player-list-item"></li>'), h = new yr(d); r.appendChild(h.create()); let o = this.config.debug; h.setEnabled(o[n]), h.change = l => o[n] = l, s.appendChild(r) }; a("Bones", "bones"), a("Regions", "regions"), a("Meshes", "meshes"), a("Bounds", "bounds"), a("Paths", "paths"), a("Clipping", "clipping"), a("Points", "points"), a("Hulls", "hulls"), i.show() } showError(t, e = null) {
-      if (this.error) { if (e) throw e } else throw this.error = !0, this.dom.appendChild(Gt('<div class="spine-player-error" style="background:#000;color:#fff;position:absolute;top:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;overflow:auto;z-index:999">' + t.replace(`
-`, "<br><br>") + "</div>")), this.config.error && this.config.error(this, t), e || new Error(t)
-    }
-  }, De = class { constructor(t, e, i, s, a) { this.id = t, this.button = e, this.player = i, this.dom = Gt('<div class="spine-player-popup spine-player-hidden"></div>'), this.dom.innerHTML = a, s.appendChild(this.dom), this.className = "spine-player-button-icon-" + t + "-selected" } dispose() { } hide(t) { if (this.dom.remove(), this.button.classList.remove(this.className), this.id == t) return this.player.popup = null, !0 } show() { this.player.popup = this, this.button.classList.add(this.className), this.dom.classList.remove("spine-player-hidden"); let t = !1, e = () => { t || requestAnimationFrame(e); let a = this.player.dom, d = Math.abs(a.getBoundingClientRect().bottom - a.getBoundingClientRect().bottom), n = Math.abs(a.getBoundingClientRect().right - a.getBoundingClientRect().right); this.dom.style.maxHeight = a.clientHeight - d - n + "px" }; requestAnimationFrame(e); let i = !0, s = a => { if (i || this.player.popup != this) { i = !1; return } this.dom.contains(a.target) || (this.dom.remove(), window.removeEventListener("click", s), this.button.classList.remove(this.className), this.player.popup = null, t = !0) }; this.player.addEventListener(window, "click", s) } }, yr = class {
-    constructor(t) { this.text = t, this.enabled = !1 } create() {
-      return this.switch = Gt(`
+</div>`
+			);
+			let slider = new Slider(2, 0.1, true);
+			findWithClass(popup.dom, "spine-player-speed-slider").appendChild(slider.create());
+			slider.setValue(this.speed / 2);
+			slider.change = (percentage) => this.speed = percentage * 2;
+			popup.show();
+		}
+		showAnimationsDialog(animationsButton) {
+			let id = "animations";
+			if (this.hidePopup(id))
+				return;
+			if (!this.skeleton || !this.skeleton.data.animations.length)
+				return;
+			let popup = new Popup(
+				id,
+				animationsButton,
+				this,
+				this.playerControls,
+				/*html*/
+				`<div class="spine-player-popup-title">Animations</div><hr><ul class="spine-player-list"></ul>`
+			);
+			let rows = findWithClass(popup.dom, "spine-player-list");
+			this.skeleton.data.animations.forEach((animation) => {
+				if (this.config.animations && this.config.animations.indexOf(animation.name) < 0)
+					return;
+				let row = createElement(
+					/*html*/
+					`<li class="spine-player-list-item selectable"><div class="selectable-circle"></div><div class="selectable-text"></div></li>`
+				);
+				if (animation.name == this.config.animation)
+					row.classList.add("selected");
+				findWithClass(row, "selectable-text").innerText = animation.name;
+				rows.appendChild(row);
+				row.onclick = () => {
+					removeClass(rows.children, "selected");
+					row.classList.add("selected");
+					this.config.animation = animation.name;
+					this.playTime = 0;
+					this.setAnimation(animation.name);
+					this.play();
+				};
+			});
+			popup.show();
+		}
+		showSkinsDialog(skinButton) {
+			let id = "skins";
+			if (this.hidePopup(id))
+				return;
+			if (!this.skeleton || !this.skeleton.data.animations.length)
+				return;
+			let popup = new Popup(
+				id,
+				skinButton,
+				this,
+				this.playerControls,
+				/*html*/
+				`<div class="spine-player-popup-title">Skins</div><hr><ul class="spine-player-list"></ul>`
+			);
+			let rows = findWithClass(popup.dom, "spine-player-list");
+			this.skeleton.data.skins.forEach((skin) => {
+				if (this.config.skins && this.config.skins.indexOf(skin.name) < 0)
+					return;
+				let row = createElement(
+					/*html*/
+					`<li class="spine-player-list-item selectable"><div class="selectable-circle"></div><div class="selectable-text"></div></li>`
+				);
+				if (skin.name == this.config.skin)
+					row.classList.add("selected");
+				findWithClass(row, "selectable-text").innerText = skin.name;
+				rows.appendChild(row);
+				row.onclick = () => {
+					removeClass(rows.children, "selected");
+					row.classList.add("selected");
+					this.config.skin = skin.name;
+					this.skeleton.setSkinByName(this.config.skin);
+					this.skeleton.setSlotsToSetupPose();
+				};
+			});
+			popup.show();
+		}
+		showSettingsDialog(settingsButton) {
+			let id = "settings";
+			if (this.hidePopup(id))
+				return;
+			if (!this.skeleton || !this.skeleton.data.animations.length)
+				return;
+			let popup = new Popup(
+				id,
+				settingsButton,
+				this,
+				this.playerControls,
+				/*html*/
+				`<div class="spine-player-popup-title">Debug</div><hr><ul class="spine-player-list"></li>`
+			);
+			let rows = findWithClass(popup.dom, "spine-player-list");
+			let makeItem = (label, name) => {
+				let row = createElement(
+					/*html*/
+					`<li class="spine-player-list-item"></li>`
+				);
+				let s = new Switch(label);
+				row.appendChild(s.create());
+				let debug = this.config.debug;
+				s.setEnabled(debug[name]);
+				s.change = (value) => debug[name] = value;
+				rows.appendChild(row);
+			};
+			makeItem("Bones", "bones");
+			makeItem("Regions", "regions");
+			makeItem("Meshes", "meshes");
+			makeItem("Bounds", "bounds");
+			makeItem("Paths", "paths");
+			makeItem("Clipping", "clipping");
+			makeItem("Points", "points");
+			makeItem("Hulls", "hulls");
+			popup.show();
+		}
+		showError(message, error) {
+			if (this.error) {
+				if (error)
+					throw error;
+			} else {
+				this.error = true;
+				this.dom.appendChild(createElement(
+					/*html*/
+					`<div class="spine-player-error" style="background:#000;color:#fff;position:absolute;top:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;overflow:auto;z-index:999">` + message.replace("\n", "<br><br>") + `</div>`
+				));
+				if (this.config.error)
+					this.config.error(this, message);
+				throw error ? error : new Error(message);
+			}
+		}
+	};
+	var Popup = class {
+		constructor(id, button, player, parent, htmlContent) {
+			this.id = id;
+			this.button = button;
+			this.player = player;
+			this.dom = createElement(
+				/*html*/
+				`<div class="spine-player-popup spine-player-hidden"></div>`
+			);
+			this.dom.innerHTML = htmlContent;
+			parent.appendChild(this.dom);
+			this.className = "spine-player-button-icon-" + id + "-selected";
+		}
+		dispose() {
+		}
+		hide(id) {
+			this.dom.remove();
+			this.button.classList.remove(this.className);
+			if (this.id == id) {
+				this.player.popup = null;
+				return true;
+			}
+			return false;
+		}
+		show() {
+			this.player.popup = this;
+			this.button.classList.add(this.className);
+			this.dom.classList.remove("spine-player-hidden");
+			let dismissed = false;
+			let resize = () => {
+				if (!dismissed)
+					requestAnimationFrame(resize);
+				let playerDom = this.player.dom;
+				let bottomOffset = Math.abs(playerDom.getBoundingClientRect().bottom - playerDom.getBoundingClientRect().bottom);
+				let rightOffset = Math.abs(playerDom.getBoundingClientRect().right - playerDom.getBoundingClientRect().right);
+				this.dom.style.maxHeight = playerDom.clientHeight - bottomOffset - rightOffset + "px";
+			};
+			requestAnimationFrame(resize);
+			let justClicked = true;
+			let windowClickListener = (event) => {
+				if (justClicked || this.player.popup != this) {
+					justClicked = false;
+					return;
+				}
+				if (!this.dom.contains(event.target)) {
+					this.dom.remove();
+					window.removeEventListener("click", windowClickListener);
+					this.button.classList.remove(this.className);
+					this.player.popup = null;
+					dismissed = true;
+				}
+			};
+			this.player.addEventListener(window, "click", windowClickListener);
+		}
+	};
+	var Switch = class {
+		constructor(text) {
+			this.text = text;
+			this.switch = null;
+			this.enabled = false;
+			this.change = () => {
+			};
+		}
+		create() {
+			this.switch = createElement(
+				/*html*/
+				`
 <div class="spine-player-switch">
 	<span class="spine-player-switch-text">${this.text}</span>
 	<div class="spine-player-switch-knob-area">
 		<div class="spine-player-switch-knob"></div>
 	</div>
-</div>`), this.switch.addEventListener("click", () => { this.setEnabled(!this.enabled), this.change && this.change(this.enabled) }), this.switch
-    } setEnabled(t) { t ? this.switch.classList.add("active") : this.switch.classList.remove("active"), this.enabled = t } isEnabled() { return this.enabled }
-  }, Ts = class {
-    constructor(t = 0, e = .1, i = !1) { this.snaps = t, this.snapPercentage = e, this.big = i } create() {
-      this.slider = Gt(`
+</div>`
+			);
+			this.switch.addEventListener("click", () => {
+				this.setEnabled(!this.enabled);
+				if (this.change)
+					this.change(this.enabled);
+			});
+			return this.switch;
+		}
+		setEnabled(enabled) {
+			var _a, _b;
+			if (enabled)
+				(_a = this.switch) == null ? void 0 : _a.classList.add("active");
+			else
+				(_b = this.switch) == null ? void 0 : _b.classList.remove("active");
+			this.enabled = enabled;
+		}
+		isEnabled() {
+			return this.enabled;
+		}
+	};
+	var Slider = class {
+		constructor(snaps = 0, snapPercentage = 0.1, big = false) {
+			this.snaps = snaps;
+			this.snapPercentage = snapPercentage;
+			this.big = big;
+			this.slider = null;
+			this.value = null;
+			this.knob = null;
+			this.change = () => {
+			};
+		}
+		create() {
+			this.slider = createElement(
+				/*html*/
+				`
 <div class="spine-player-slider ${this.big ? "big" : ""}">
 	<div class="spine-player-slider-value"></div>
 	<!--<div class="spine-player-slider-knob"></div>-->
-</div>`), this.value = qt(this.slider, "spine-player-slider-value"), this.setValue(0); let t = !1; return new xe(this.slider).addListener({ down: (e, i) => { t = !0, this.value.classList.add("hovering") }, up: (e, i) => { t = !1, this.change && this.change(this.setValue(e / this.slider.clientWidth)), this.value.classList.remove("hovering") }, moved: (e, i) => { t && this.change && this.change(this.setValue(e / this.slider.clientWidth)) }, dragged: (e, i) => { this.change && this.change(this.setValue(e / this.slider.clientWidth)) } }), this.slider
-    } setValue(t) { if (t = Math.max(0, Math.min(1, t)), this.snaps) { let e = 1 / this.snaps, i = t % e; i < e * this.snapPercentage ? t = t - i : i > e - e * this.snapPercentage && (t = t - i + e), t = Math.max(0, Math.min(1, t)) } return this.value.style.width = "" + t * 100 + "%", t }
-  }; function qt(t, e) { return t.getElementsByClassName(e)[0] } function Gt(t) { let e = document.createElement("div"); return e.innerHTML = t, e.children[0] } function ks(t, e) { for (let i = 0; i < t.length; i++)t[i].classList.remove(e) } function Di(t) { return JSON.stringify(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&#34;").replace(/'/g, "&#39;") } var Ar = new O(.478, 0, 0, .25), Sr = new O(1, 1, 1, 1), Cr = new O(.478, 0, 0, .5), Tr = new O(1, 0, 0, .8), Ms = class {
-    constructor(t) {
-      this.prefix = `<html>
-<head>
-<style>
-body { margin: 0px; }
-</style>
-</head>
-<body>`.trim(), this.postfix = "</body>", this.timerId = 0, this.render(t)
-    } render(t) {
-      let e = `
-				<div class="spine-player-editor-container">
-					<div class="spine-player-editor-code"></div>
-					<iframe class="spine-player-editor-player"></iframe>
-				</div>
-			`; t.innerHTML = e; let i = t.getElementsByClassName("spine-player-editor-code")[0]; this.player = t.getElementsByClassName("spine-player-editor-player")[0], requestAnimationFrame(() => { this.code = CodeMirror(i, { lineNumbers: !0, tabSize: 3, indentUnit: 3, indentWithTabs: !0, scrollBarStyle: "native", mode: "htmlmixed", theme: "monokai" }), this.code.on("change", () => { this.startPlayer() }), this.setCode(Ms.DEFAULT_CODE) })
-    } setPreAndPostfix(t, e) { this.prefix = t, this.postfix = e, this.startPlayer() } setCode(t) { this.code.setValue(t), this.startPlayer() } startPlayer() { clearTimeout(this.timerId), this.timerId = setTimeout(() => { let t = this.code.getDoc().getValue(); t = this.prefix + t + this.postfix, t = window.btoa(t), this.player.src = "", this.player.src = "data:text/html;base64," + t }, 500) }
-  }, Es = Ms; return Es.DEFAULT_CODE = `
-<script src="https://esotericsoftware.com/files/spine-player/4.0/spine-player.js"><\/script>
-<link rel="stylesheet" href="https://esotericsoftware.com/files/spine-player/4.0/spine-player.css">
-
-<div id="player-container" style="width: 100%; height: 100vh;"></div>
-
-<script>
-new spine.SpinePlayer("player-container", {
-	jsonUrl: "https://esotericsoftware.com/files/examples/4.0/spineboy/export/spineboy-pro.json",
-	atlasUrl: "https://esotericsoftware.com/files/examples/4.0/spineboy/export/spineboy-pma.atlas"
-});
-<\/script>
-		`.trim(), zi
+</div>`
+			);
+			this.value = findWithClass(this.slider, "spine-player-slider-value");
+			this.setValue(0);
+			let dragging = false;
+			new Input(this.slider).addListener({
+				down: (x, y) => {
+					var _a;
+					dragging = true;
+					(_a = this.value) == null ? void 0 : _a.classList.add("hovering");
+				},
+				up: (x, y) => {
+					var _a;
+					dragging = false;
+					if (this.change)
+						this.change(this.setValue(x / this.slider.clientWidth));
+					(_a = this.value) == null ? void 0 : _a.classList.remove("hovering");
+				},
+				moved: (x, y) => {
+					if (dragging && this.change)
+						this.change(this.setValue(x / this.slider.clientWidth));
+				},
+				dragged: (x, y) => {
+					if (this.change)
+						this.change(this.setValue(x / this.slider.clientWidth));
+				}
+			});
+			return this.slider;
+		}
+		setValue(percentage) {
+			percentage = Math.max(0, Math.min(1, percentage));
+			if (this.snaps) {
+				let snap = 1 / this.snaps;
+				let modulo = percentage % snap;
+				if (modulo < snap * this.snapPercentage)
+					percentage = percentage - modulo;
+				else if (modulo > snap - snap * this.snapPercentage)
+					percentage = percentage - modulo + snap;
+				percentage = Math.max(0, Math.min(1, percentage));
+			}
+			this.value.style.width = "" + percentage * 100 + "%";
+			return percentage;
+		}
+	};
+	function findWithClass(element, className) {
+		return element.getElementsByClassName(className)[0];
+	}
+	function createElement(html) {
+		let div = document.createElement("div");
+		div.innerHTML = html;
+		return div.children[0];
+	}
+	function removeClass(elements, clazz) {
+		for (let i = 0; i < elements.length; i++)
+			elements[i].classList.remove(clazz);
+	}
+	function toString(object) {
+		return JSON.stringify(object).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&#34;").replace(/'/g, "&#39;");
+	}
+	var BONE_INNER_OVER = new Color(0.478, 0, 0, 0.25);
+	var BONE_OUTER_OVER = new Color(1, 1, 1, 1);
+	var BONE_INNER = new Color(0.478, 0, 0, 0.5);
+	var BONE_OUTER = new Color(1, 0, 0, 0.8);
+	return __toCommonJS(src_exports);
 })();
+//# sourceMappingURL=spine-player.js.map
