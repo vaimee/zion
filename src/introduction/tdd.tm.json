@@ -1,7 +1,7 @@
 {
     "@context": [
-        "http://www.w3.org/ns/td",
-        "https://w3c.github.io/wot-discovery/context/discovery-context.jsonld"
+        "https://www.w3.org/2022/wot/td/v1.1",
+        "https://www.w3.org/2022/wot/discovery"
     ],
     "@type": [
         "tm:ThingModel",
@@ -10,6 +10,20 @@
     "title": "Zion",
     "description": "A scalable Thing Description Directory",
     "base": "{{DIRECTORY_BASE_URL}}",
+    "tm:optional": [
+        "/actions/createThing",
+        "/actions/createAnonymousThing",
+        "/actions/retrieveThing",
+        "/actions/updateThing",
+        "/actions/partiallyUpdateThing",
+        "/actions/deleteThing",
+        "/actions/searchJSONPath",
+        "/actions/searchXPath",
+        "/actions/searchSPARQL",
+        "/events/thingCreated",
+        "/events/thingUpdated",
+        "/events/thingDeleted"
+    ],
     "properties": {
         "things": {
             "description": "Retrieve all Thing Descriptions",
@@ -272,7 +286,7 @@
             ]
         },
         "searchJSONPath": {
-            "description": "JSONPath syntactic search",
+            "description": "JSONPath syntactic search.",
             "uriVariables": {
                 "query": {
                     "title": "A valid JSONPath expression",
@@ -305,7 +319,7 @@
             ]
         },
         "searchXPath": {
-            "description": "XPath syntactic search",
+            "description": "XPath syntactic search.",
             "uriVariables": {
                 "query": {
                     "title": "A valid XPath expression",
