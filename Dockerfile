@@ -20,4 +20,4 @@ COPY --from=build /home/node/app/migrations ./migrations
 COPY --from=build /home/node/app/static ./static
 
 EXPOSE 3000
-ENTRYPOINT ["node", "dist/src/main.js" ]
+ENTRYPOINT ["npm", "run", "start:prod" ]

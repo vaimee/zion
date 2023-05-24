@@ -96,7 +96,7 @@ services:
     image: vaimee/zion:latest
     depends_on:
       - database
-    entrypoint: ['sh', '-c','npm run db:migrate:latest && node dist/src/main.js']
+    entrypoint: ['sh', '-c','npm run db:migrate:latest && npm run start:prod']
     ports: 
       - ${ZION_SERVER_PORT}:${ZION_SERVER_PORT}
     container_name: zion
