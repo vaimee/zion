@@ -99,7 +99,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
-    "@nestjs/cli": "^8.2.8",
+    "@nestjs/cli": "^9.3.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^9.3.9",
     "@release-it/conventional-changelog": "^5.1.1",
