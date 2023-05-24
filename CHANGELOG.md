@@ -1,5 +1,12 @@
 
 
+# [1.0.0-alpha.3](https://github.com/vaimee/desmo-ld/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2023-05-24)
+
+
+### Bug Fixes
+
+* **Dockerfile:** use npm for starting the application ([9503bdf](https://github.com/vaimee/desmo-ld/commit/9503bdf3a709fd310cfba267b4cca378d2139ffe))
+
 # [1.0.0-alpha.1](https://github.com/vaimee/desmo-ld/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2022-10-28)
 
 
