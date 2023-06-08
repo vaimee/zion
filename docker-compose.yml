@@ -5,7 +5,7 @@ services:
     environment:
       - POSTGRES_USER=${ZION_DB_USER}
       - POSTGRES_PASSWORD=${ZION_DB_PASSWORD}
-      - POSTGRES_DB=${ZION_DB_TYPE}
+      - POSTGRES_DB=${ZION_DB_DATABASE}
     container_name: 'zion-postgres-dev'
     ports:
       - '${ZION_DB_PORT}:5432'
@@ -24,6 +24,6 @@ services:
       - ZION_DB_PORT
       - ZION_DB_USER
       - ZION_DB_PASSWORD
-      - ZION_DB_TYPE
+      - ZION_DB_DATABASE
       - ZION_JWT_SECRET
       - ZION_JWT_EXPIRES_IN

@@ -60,13 +60,22 @@ docker compose up
 If you want to manually set up your database, you can edit the example [.env](.env) file:
 ```bash
 ZION_NODE_ENV=development
+# ZION_SERVER_PORT specifies the port number on which the Zion server will listen for incoming requests.
 ZION_SERVER_PORT=3000
+# ZION_DB_HOST specifies the host address where the Zion target database is located.
 ZION_DB_HOST=localhost
-ZION_DB_PORT=5432
+# ZION_DB_PORT specifies the port number on which the Zion target database server is listening.
+ZION_DB_PORT=54310
+# ZION_DB_USER specifies the username to connect to the Zion target database.
 ZION_DB_USER=postgres
+# ZION_DB_PASSWORD specifies the password for the Zion target database user.
 ZION_DB_PASSWORD=postgres
-ZION_DB_DATABASE=postgres
+# ZION_DB_DATABASE specifies the name of the Zion target database.
+ZION_DB_DATABASE=zion
+# ZION_JWT_SECRET specifies the secret key used for JSON Web Token (JWT) encryption and decryption.
 ZION_JWT_SECRET=abc123
+# ZION_JWT_EXPIRES_IN specifies the duration for which a JWT token remains valid.
+# Examples: "15m" (15 minutes), "1h" (1 hour), "7d" (7 days), etc.
 ZION_JWT_EXPIRES_IN=15m
 ```
 ### Clone and npm 

@@ -12,9 +12,9 @@ export class ConfigService {
     const databaseConfig: DatabaseConfig = {
       host: this.nestConfigService.get('ZION_DB_HOST', Default.db.host),
       port: this.nestConfigService.get('ZION_DB_PORT', Default.db.port),
-      type: this.nestConfigService.get('ZION_DB_TYPE', Default.db.type),
       user: this.nestConfigService.get('ZION_DB_USER', Default.db.user),
       password: this.nestConfigService.get('ZION_DB_PASSWORD', Default.db.password),
+      database: this.nestConfigService.get('ZION_DB_DATABASE', Default.db.database),
     };
     return databaseConfig;
   }

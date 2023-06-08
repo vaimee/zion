@@ -19,11 +19,11 @@ const ZionDefault: Default = {
     },
   },
   db: {
-    type: 'postgres',
     host: 'localhost',
     port: 5432,
     user: 'postgres',
     password: 'postgres',
+    database: 'zion',
   },
   thingDescriptionEvents: {
     maxEvents: 100,

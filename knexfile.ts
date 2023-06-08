@@ -17,7 +17,7 @@ const config: Knex.Config = {
     port: Number(process.env.ZION_DB_PORT),
     user: process.env.ZION_DB_USER,
     password: process.env.ZION_DB_PASSWORD,
-    database: process.env.ZION_DB_TYPE,
+    database: process.env.ZION_DB_DATABASE,
   },
   migrations: {
     directory: `${rootPath}/migrations`,
