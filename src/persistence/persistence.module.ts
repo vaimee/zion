@@ -20,7 +20,7 @@ import { UserRepository } from './user.repository';
             port: config.database.port,
             user: config.database.user,
             password: config.database.password,
-            database: config.database.type,
+            database: config.database.database,
             pool: { min: 0, max: 10, idleTimeoutMillis: 300000 },
           },
         },

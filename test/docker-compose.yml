@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_USER=${ZION_DB_USER}
       - POSTGRES_PASSWORD=${ZION_DB_PASSWORD}
-      - POSTGRES_DB=${ZION_DB_TYPE}
+      - POSTGRES_DB=${ZION_DB_DATABASE}
     container_name: 'zion-postgres-testing'
     ports:
       - '${ZION_DB_PORT}:5432'

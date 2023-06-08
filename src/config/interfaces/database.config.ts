@@ -4,4 +4,5 @@ export interface DatabaseConfig {
   type: string;
   user: string;
   password: string;
+  database: string;
 }

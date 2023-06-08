@@ -15,6 +15,7 @@ export class ConfigService {
       type: this.nestConfigService.get('ZION_DB_TYPE', Default.db.type),
       user: this.nestConfigService.get('ZION_DB_USER', Default.db.user),
       password: this.nestConfigService.get('ZION_DB_PASSWORD', Default.db.password),
+      database: this.nestConfigService.get('ZION_DB_DATABASE', Default.db.database),
     };
     return databaseConfig;
   }

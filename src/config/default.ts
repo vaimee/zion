@@ -24,6 +24,7 @@ const ZionDefault: Default = {
     port: 5432,
     user: 'postgres',
     password: 'postgres',
+    database: 'zion',
   },
   thingDescriptionEvents: {
     maxEvents: 100,
