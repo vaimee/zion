@@ -65,11 +65,11 @@ ZION_SERVER_PORT=3000
 # ZION_DB_HOST specifies the host address where the Zion target database is located.
 ZION_DB_HOST=localhost
 # ZION_DB_PORT specifies the port number on which the Zion target database server is listening.
-ZION_DB_PORT=54310
+ZION_DB_PORT=5432
 # ZION_DB_USER specifies the username to connect to the Zion target database.
-ZION_DB_USER=postgres
+ZION_DB_USER=zion
 # ZION_DB_PASSWORD specifies the password for the Zion target database user.
-ZION_DB_PASSWORD=postgres
+ZION_DB_PASSWORD=zion
 # ZION_DB_DATABASE specifies the name of the Zion target database.
 ZION_DB_DATABASE=zion
 # ZION_JWT_SECRET specifies the secret key used for JSON Web Token (JWT) encryption and decryption.
@@ -79,6 +79,8 @@ ZION_JWT_SECRET=abc123
 ZION_JWT_EXPIRES_IN=15m
 ```
 ### Clone and npm 
+> **Requirements** Node.js v16+
+
 If you want to start Zion in a development mode, you can clone the repository and run the following command:
 ```bash
 npm ci
@@ -95,31 +97,29 @@ services:
   database:
     image: postgres:14.3-alpine
     environment:
-      - POSTGRES_USER=${ZION_DB_USER}
-      - POSTGRES_PASSWORD=${ZION_DB_PASSWORD}
-      - POSTGRES_DB=${ZION_DB_DATABASE}
-    container_name: 'zion-postgres-testing'
-    ports:
-      - '54310:5432'
+      - POSTGRES_USER=zion
+      - POSTGRES_PASSWORD=zion
+      - POSTGRES_DB=zion
+    container_name: 'zion-postgres'
   zion:
     image: vaimee/zion:latest
     depends_on:
       - database
     entrypoint: ['sh', '-c','npm run db:migrate:latest && npm run start:prod']
     ports: 
-      - ${ZION_SERVER_PORT}:${ZION_SERVER_PORT}
-    container_name: zion
+      - 3000:3000
     environment:
-      - ZION_NODE_ENV
-      - ZION_SERVER_PORT
+      - ZION_NODE_ENV=production
+      - ZION_SERVER_PORT=3000
       # Using task name as explained in https://github.com/vaimee/zion/issues/11#issuecomment-1434457337
       - ZION_DB_HOST=tasks.database
-      - ZION_DB_PORT
-      - ZION_DB_USER
-      - ZION_DB_PASSWORD
-      - ZION_DB_DATABASE
-      - ZION_JWT_SECRET
-      - ZION_JWT_EXPIRES_IN
+      - ZION_DB_PORT=5432
+      - ZION_DB_USER=zion
+      - ZION_DB_PASSWORD=zion
+      - ZION_DB_DATABASE=zion
+      - ZION_JWT_SECRET=change-me
+      - ZION_JWT_EXPIRES_IN=7d
+    container_name: zion
 ```
 
 
