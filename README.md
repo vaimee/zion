@@ -14,7 +14,7 @@
 # Zion - A scalable Thing Description Directory
 **Overview** 
 
-> In the context of the [W3C Web of Things](https://www.w3.org/WoT/), Thing Description Directories (TDDs) are services that store a set of Thing Descriptions. A TDD offers a set of APIs with CRUD operations on the collection of TDs that it stores. Zion implements the [standard](https://w3c.github.io/wot-discovery/) TDD APIs with a set of extentions to cover the use cases of [VAIMEE](https://vaimee.com/). 
+> In the context of the [W3C Web of Things](https://www.w3.org/WoT/), Thing Description Directories (TDDs) are services that store a set of Thing Descriptions. A TDD offers a set of APIs with CRUD operations on the collection of TDs that it stores. Zion implements the [standard](https://w3c.github.io/wot-discovery/) TDD APIs with a set of extensions to cover the use cases of [VAIMEE](https://vaimee.com/). 
 
 <!-- TABLE OF CONTENTS -->
 
@@ -36,7 +36,7 @@
 </details>
 
 ## Features
-Zion employes the best open source technologies to provide a scalable TDD service. Zion wants to be [fast](https://github.com/vaimee/tdd-workload-generator), ease to use
+Zion employs the best open-source technologies to provide a scalable TDD service. Zion wants to be [fast](https://github.com/vaimee/tdd-workload-generator), ease to use
 and flexible. Currently, Zion supports the following features:
 - [Introduction methods](https://w3c.github.io/wot-discovery/#introduction-mech) :
   - DNS-SD
@@ -49,11 +49,14 @@ and flexible. Currently, Zion supports the following features:
 - Basic support for authentication and authorization
 ## Getting started
 
-Thank you for considering using Zion in your Web of Things project! 🥳. Zion is still in his early stages and is still in the process of being tested and developed.
+Thank you for considering using Zion in your Web of Things project! 🥳. Zion is still in its early stages and it is still in the process of being tested and developed.
 However, if you already want to deploy on your own you have three options:
+- [#clone-and-docker-compose](Use docker-compose locally)
+- [#clone-and-npm](Clone and npm)
+- [#docker-compose](Use it in your deployment)
 
 ### Clone and docker compose
-You can clone the repository and start zion using the following command:
+You can clone the repository and start Zion using the following command:
 ```bash
 docker compose up
 ```
@@ -81,7 +84,7 @@ ZION_JWT_EXPIRES_IN=15m
 ### Clone and npm 
 > **Requirements** Node.js v16+
 
-If you want to start Zion in a development mode, you can clone the repository and run the following command:
+If you want to start Zion in development mode, you can clone the repository and run the following command:
 ```bash
 npm ci
 npm start
@@ -90,7 +93,7 @@ npm start
 
 
 ### Docker compose
-You can start zion right away using this simple docker compose file together with your local [.env](./evn) file :
+You can start Zion right away using this simple docker compose file together with your local [.env](./evn) file :
 ```docker-compose.yml
 version: '3.6'
 services:
@@ -140,7 +143,7 @@ services:
 
 Other minor features are listed in the Issue tracker with the label `feature`.
 ## Contributing
-Thank you for considering to contribute to Zion. Please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+Thank you for considering contributing to Zion. Please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## Contact
 Lorenzo Gigli - [@hyperloris](https://twitter.com/hyperloris) - [lorenzo.gigli@vaimee.com](mailto://lorenzo.gigli@vaimee.com)
@@ -151,5 +154,5 @@ Lorenzo Gigli - [@hyperloris](https://twitter.com/hyperloris) - [lorenzo.gigli@v
 ## Acknowledgments
 ![DESMO-LD](https://github.com/vaimee/desmo/blob/c763cec12f6c9060a9f1a3335ff4cff60ece3df2/imgs/desmo-logo.png)
 
-Zion is founded by the [DESMO-LD project](https://ontochain.ngi.eu/content/desmo-ld) inside the [ONTOCHAIN](https://ontochain.ngi.eu/) european organization part of the [Next Generation Internet](https://www.ngi.eu/) fund.
+Zion is founded by the [DESMO-LD project](https://ontochain.ngi.eu/content/desmo-ld) inside the [ONTOCHAIN](https://ontochain.ngi.eu/) European organization part of the [Next Generation Internet](https://www.ngi.eu/) fund.
 
