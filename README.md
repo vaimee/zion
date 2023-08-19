@@ -51,9 +51,9 @@ and flexible. Currently, Zion supports the following features:
 
 Thank you for considering using Zion in your Web of Things project! 🥳. Zion is still in its early stages and it is still in the process of being tested and developed.
 However, if you already want to deploy on your own you have three options:
-- [#clone-and-docker-compose](Use docker-compose locally)
-- [#clone-and-npm](Clone and npm)
-- [#docker-compose](Use it in your deployment)
+- [Use docker-compose locally](#clone-and-docker-compose)
+- [Clone and npm](#clone-and-npm)
+- [Use it in your deployment](#docker-compose)
 
 ### Clone and docker compose
 You can clone the repository and start Zion using the following command:
