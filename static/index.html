@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/spine-player.css">
 
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" sizes="any">
-  <script src="js/spine-player.js"></script>
+  <script src="https://unpkg.com/@esotericsoftware/spine-player@4.0.28/dist/iife/spine-player.js"></script>
   <style>
     .icon {
       width: 2.5em;
@@ -33,6 +33,13 @@
   </script>
   <script defer>
     document.addEventListener('DOMContentLoaded', function (event) {
+      if(typeof spine === "undefined"){
+        document.getElementById('logo').remove();
+        document.getElementById('placeholder').style.display = 'block'
+        return;
+      }
+
+      document.getElementById('placeholder').style.display = 'none'
       new spine.SpinePlayer("logo", {
         // Relative URLs
         jsonUrl: "./assets/skeleton.json",
@@ -67,7 +74,8 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="eight offset-by-two columns " id="logo" style="margin-top: 15%; aspect-ratio: 16 / 9;"></div>
+      <div class="eight offset-by-two columns" id="logo" style="margin-top: 15%; aspect-ratio: 16 / 9;"></div>
+      <img class="eight offset-by-two columns" id="placeholder"  style="margin-top: 15%;" src="./assets/zionLogo.gif" hidden loading="lazy"/>
     </div>
     <div class="row">
       <div class="four offset-by-four columns " style="text-align: center;">
