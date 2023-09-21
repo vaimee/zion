@@ -23,7 +23,7 @@ export class ConfigService {
     const appConfig: AppConfig = {
       host: this.nestConfigService.get('ZION_APP_HOST', Default.app.host),
       port: this.nestConfigService.get('ZION_APP_PORT', Default.app.port),
-      apiBase: this.nestConfigService.get('ZION_API_BASE', Default.app.apiBase),
+      apiBase: this.nestConfigService.get('ZION_APP_API_BASE', Default.app.apiBase),
       version: process.env.npm_package_version || '',
     };
     return appConfig;

@@ -13,11 +13,11 @@ services:
       - database
     entrypoint: ['sh', '-c','npm run db:migrate:latest && npm run start:prod']
     ports: 
-      - ${ZION_SERVER_PORT}:${ZION_SERVER_PORT}
+      - ${ZION_APP_PORT}:${ZION_APP_PORT}
     container_name: zion
     environment:
       - ZION_NODE_ENV
-      - ZION_SERVER_PORT
+      - ZION_APP_PORT
       - ZION_DB_HOST=database
       - ZION_DB_PORT
       - ZION_DB_USER

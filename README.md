@@ -63,8 +63,8 @@ docker compose up
 If you want to manually set up your database, you can edit the example [.env](.env) file:
 ```bash
 ZION_NODE_ENV=development
-# ZION_SERVER_PORT specifies the port number on which the Zion server will listen for incoming requests.
-ZION_SERVER_PORT=3000
+# ZION_APP_PORT specifies the port number on which the Zion server will listen for incoming requests.
+ZION_APP_PORT=3000
 # ZION_DB_HOST specifies the host address where the Zion target database is located.
 ZION_DB_HOST=localhost
 # ZION_DB_PORT specifies the port number on which the Zion target database server is listening.
@@ -113,7 +113,7 @@ services:
       - 3000:3000
     environment:
       - ZION_NODE_ENV=production
-      - ZION_SERVER_PORT=3000
+      - ZION_APP_PORT=3000
       # Using task name as explained in https://github.com/vaimee/zion/issues/11#issuecomment-1434457337
       - ZION_DB_HOST=tasks.database
       - ZION_DB_PORT=5432
