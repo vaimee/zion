@@ -1,5 +1,5 @@
-import { Default } from './interfaces';
-const ZionDefault: Default = {
+import { Configuration } from './interfaces';
+const ZionDefault: Configuration = {
   auth: {
     jwt: {
       expiresIn: '15m',

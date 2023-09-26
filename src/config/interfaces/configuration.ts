@@ -1,6 +1,6 @@
 import { AppConfig, AuthConfig, DatabaseConfig, IntroductionConfig, ThingDescriptionEventsConfig } from '.';
 
-export interface Default {
+export interface Configuration {
   auth: AuthConfig;
   app: AppConfig;
   introduction: IntroductionConfig;
