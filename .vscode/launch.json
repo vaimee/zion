@@ -50,6 +50,12 @@
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
+        },
+        {
+            "command": "npm run start:debug",
+            "name": "Zion start",
+            "request": "launch",
+            "type": "node-terminal"
         }
     ]
 }

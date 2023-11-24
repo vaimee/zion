@@ -1,0 +1,7 @@
+{
+  "app": {
+    "port": 3333,
+    "host": "0.0.0.0",
+    "apiBase": "https://api.example.com:3000"
+  }
+}

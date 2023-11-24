@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import getApp from './app-factory';
@@ -22,6 +23,11 @@ async function bootstrap() {
   SwaggerModule.setup('explorer', app, document);
 
   await app.listen(config.app.port, '0.0.0.0'); //config.app.host ???
+  Logger.debug(`Configuration app: ${JSON.stringify(config.app)}`, 'main');
+  Logger.debug(`Configuration db: ${JSON.stringify(config.database)}`, 'main');
+  Logger.debug(`Configuration introduction: ${JSON.stringify(config.introduction)}`, 'main');
+  Logger.debug(`Configuration events: ${JSON.stringify(config.thingDescriptionEvents)}`, 'main');
+
   printWelcomeMessage(config);
 }
 
@@ -40,4 +46,5 @@ function printWelcomeMessage(config: ConfigService) {
   console.log(`Thing Description Directory is active on ${config.app.apiBase}`);
 }
 
+console.log('process.argv', process.argv);
 bootstrap();
