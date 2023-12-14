@@ -6,7 +6,7 @@ import { getE2ETestResources } from './../utils/resources';
 
 describe('/well-known', () => {
   /**
-   * @see https://w3c.github.io/wot-discovery/#introduction-well-known
+   * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#introduction-well-known
    */
   const SPECIFICATION_PATH = 'wot';
   /**
@@ -43,8 +43,8 @@ describe('/well-known', () => {
       });
 
       /**
-       * @see https://w3c.github.io/wot-discovery/#introduction-well-known
-       * @see https://w3c.github.io/wot-discovery/#exploration-self
+       * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#introduction-well-known
+       * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#exploration-server
        */
       it('should follow the specification', async () => {
         const { status, headers, data } = await axios.get(`/.well-known/${SPECIFICATION_PATH}`);
@@ -59,8 +59,8 @@ describe('/well-known', () => {
 
     describe('HEAD', () => {
       /**
-       * @see https://w3c.github.io/wot-discovery/#introduction-well-known
-       * @see https://w3c.github.io/wot-discovery/#exploration-self
+       * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#introduction-well-known
+       * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#exploration-server
        */
       it('should answer to HEAD according to specification', async () => {
         const { status, headers } = await axios.head(`/.well-known/${SPECIFICATION_PATH}`);
@@ -80,7 +80,7 @@ describe('/well-known', () => {
       });
 
       /**
-       * @see https://w3c.github.io/wot-discovery/#introduction-core-rd-sec
+       * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#introduction-core-rd-sec
        */
       it('should follow the specification', async () => {
         const { status, headers, data } = await axios.get(`/.well-known/${WELL_KNOWN_CORE_PATH}`);

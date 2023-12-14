@@ -42,8 +42,7 @@ export class ThingDescriptionBuilderService {
    * validation by including a <code>contentType</code> that is missing from the TM
    * describing the directory's API.
    *
-   * TODO: Update URL once the change has been included in the published specification.
-   * @see https://w3c.github.io/wot-discovery/#directory-api-spec
+   * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#directory-api-spec
    */
   private insertResponseContentType(): void {
     const actions = this.built?.actions;
