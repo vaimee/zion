@@ -10,8 +10,8 @@ import { WellKnownService } from './well-known.service';
  * It exposes the Thing Description document via `/.well-known/wot` and
  * implements the CoRE Link Format introduction method via `/.well-known/core`.
  *
- * @see https://w3c.github.io/wot-discovery/#introduction-well-known
- * @see https://w3c.github.io/wot-discovery/#introduction-core-rd-sec
+ * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#introduction-well-known
+ * @see https://www.w3.org/TR/2023/REC-wot-discovery-20231205/#introduction-core-rd-sec
  */
 @ApiTags('Introduction')
 @Controller('.well-known')
