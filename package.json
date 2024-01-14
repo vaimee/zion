@@ -55,6 +55,9 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
