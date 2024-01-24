@@ -9,7 +9,9 @@ export async function getE2ETestResources() {
 
   await app.init();
   await app.listen(0);
-  const url = await app.getUrl();
+  // Workaround for axios not being able to handle [::1] IPv6 addresses
+  // in CI. See https://github.com/axios/axios/issues/5333
+  const url = (await app.getUrl()).replace('[::1]', 'localhost');
 
   process.env.ZION_API_BASE = url;
 
