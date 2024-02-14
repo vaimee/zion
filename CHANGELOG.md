@@ -1,5 +1,14 @@
 
 
+# [1.0.0-alpha.4](https://github.com/vaimee/zion/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2024-02-14)
+
+
+### Bug Fixes
+
+* **knexfile:** don't panic if there is no .env file ([5940b35](https://github.com/vaimee/zion/commit/5940b35e7f68f40ff815087ae477cb7d9496a080))
+* **static:** use CDN for spine-player.js ([95ba575](https://github.com/vaimee/zion/commit/95ba575cc65e0ccecf639194b297aa260aa98483))
+* use correct naming for .env variable db name ([b5ad291](https://github.com/vaimee/zion/commit/b5ad291653b8193716458ac58776f933ffdc38de)), closes [#59](https://github.com/vaimee/zion/issues/59)
+
 # [1.0.0-alpha.3](https://github.com/vaimee/desmo-ld/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2023-05-24)
 
 
