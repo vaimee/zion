@@ -27,6 +27,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
     </li>
+    <li><a href="#publication">Publication</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -123,7 +124,26 @@ services:
       - ZION_JWT_EXPIRES_IN=7d
     container_name: zion
 ```
+## Publication
 
+The full paper, available [here](https://ieeexplore.ieee.org/document/10454685), should be cited if this repository is utilized for research, thesis, or industrial activities involving publications.
+
+```
+C. Aguzzi, L. Gigli, I. Zyrianoff and L. Roffia, "ZION: A Scalable W3C Web of Things Directory," 2024 IEEE 21st Consumer Communications & Networking Conference (CCNC), Las Vegas, NV, USA, 2024, pp. 1-6, doi: 10.1109/CCNC51664.2024.10454685.
+```
+
+```
+@INPROCEEDINGS{10454685,
+  author={Aguzzi, Cristiano and Gigli, Lorenzo and Zyrianoff, Ivan and Roffia, Luca},
+  booktitle={2024 IEEE 21st Consumer Communications & Networking Conference (CCNC)}, 
+  title={ZION: A Scalable W3C Web of Things Directory}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-6},
+  doi={10.1109/CCNC51664.2024.10454685}
+}
+```
 
 ## Roadmap
 
