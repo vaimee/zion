@@ -80,6 +80,8 @@ ZION_JWT_SECRET=abc123
 # ZION_JWT_EXPIRES_IN specifies the duration for which a JWT token remains valid.
 # Examples: "15m" (15 minutes), "1h" (1 hour), "7d" (7 days), etc.
 ZION_JWT_EXPIRES_IN=15m
+#ZION_API_BASE specifies the base URL of the Zion API.
+ZION_API_BASE=http://localhost:3000
 ```
 ### Clone and npm 
 > **Requirements** Node.js v16+
